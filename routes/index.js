@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+const {isLoggedIn} = require('./auth')
 const userModel = require("./users")
 const passport = require('passport')
 const localStrategy = require("passport-local");
@@ -17,6 +18,8 @@ router.get('/register', function(req, res, next) {
 router.get('/home', isLoggedIn,function(req, res){
   res.render('home')
 })
+
+
 
 
 
@@ -49,12 +52,6 @@ router.get("/logout", (req, res, next)=>{
   })
 })
 
-function isLoggedIn(req, res, next){
-  if(req.isAuthenticated()){
-    return next();
 
-  }
-  res.redirect("/")
-}
 
 module.exports = router;

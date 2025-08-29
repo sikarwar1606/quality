@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>COA</title>
+  <style>
+  
+    /* ///////////////////////////////////////////////////////////////////////////////////// */
+  body{
+    border: 2px solid black;
+  }
+
+  .spec-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 10pt;
+    background-color: #fff;
+  }
+
+  .spec-table th,
+  .spec-table td {
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: left;
+    word-wrap: break-word;
+  }
+
+  .spec-table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+
+  @media print {
+    @page {
+      size: A4;
+      margin: 20mm;
+    }
+
+    .spec-table {
+      font-size: 9pt;
+    }
+
+    .spec-table th,
+    .spec-table td {
+      padding: 6px;
+      border: 1px solid #000;
+    }
+  }
+
+
+    /* ///////////////////////////////////////////////////////////////////////////////////// */
+    .coa-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed; /* Ensures equal column widths */
+  margin-top: 20px;
+  background-color: #fff;
+  font-size: 10pt;
+}
+
+.coa-table th,
+.coa-table td {
+  border: 1px solid #333;
+  padding: 8px;
+  text-align: left;
+  word-wrap: break-word; /* Prevents overflow */
+}
+
+.coa-table th {
+  background-color: #e6e6e6;
+  font-weight: bold;
+}
+
+/* Print-specific styling */
+@media print {
+  @page {
+    size: A4;
+    margin: 20mm;
+  }
+
+  .coa-table {
+    font-size: 9pt;
+    page-break-inside: avoid;
+  }
+
+  .coa-table th,
+  .coa-table td {
+    padding: 6px;
+    border: 1px solid #000;
+  }
+}
+
+/* ///////////////////////////////////////////////////////////////////////////// */
+.footer-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 10pt;
+    margin-top: 20px;
+    background-color: #fff;
+  }
+
+  .footer-table th,
+  .footer-table td {
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: left;
+    word-wrap: break-word;
+  }
+
+  .footer-table th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+
+  @media print {
+    @page {
+      size: A4;
+      margin: 20mm;
+    }
+
+    .footer-table {
+      font-size: 9pt;
+    }
+
+    .footer-table th,
+    .footer-table td {
+      padding: 6px;
+      border: 1px solid #000;
+    }
+  }
+
+  /* ////////////////////////////////////////////////////////////////////////////// */
+  .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: black;
+  background-color: #fff;
+  padding: 10px 20px;
+  height: auto;
+  flex-wrap: wrap;
+  font-family: Arial, sans-serif;
+  border: 2px solid black;
+}
+
+.doc_no, .rev_date {
+  width: 20%;
+  background-color: #fff;
+  padding: 10px;
+  font-weight: bold;
+  font-size: 0.95em;
+  box-sizing: border-box;
+}
+
+.supplier {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  /* border: 2px solid black; */
+  width: 55%;
+  font-size: 2rem;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.supp_name {
+  font-weight: bold;
+  font-size: 1em;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.supp_add {
+  font-size: 0.9em;
+  margin-top: 4px;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  text-align: center;
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-top: 15px;
+  font-family: Arial, sans-serif;
+}
+
+/* Print optimization */
+@media print {
+  @page {
+    size: A4;
+    margin: 20mm;
+  }
+
+  .header {
+    background-color: #fff;
+  }
+
+  .doc_no, .rev_date, .supplier {
+    border: none;
+  }
+
+  .title {
+    font-size: 1em;
+    margin-top: 10px;
+  }
+}
+.coa_desc{
+  border: 2px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+  </style>
+</head>
+<body>
+<div class="header">
+    <div class="doc_no">Document no. SIPL/QA/R/001</div>
+    <div class="supplier">
+        <div class="supp_name">RELIANCE</div>
+        <div class="supp_add">Sy. no. </div>
+    </div>
+    <div class="rev_date">Rev. Date 01/07/2024</div>
+</div>
+<div class="coa_desc">
+  <p>Certificate of analysis of Plastic closure:CSD</p>
+</div>
+      
+
+    <table class="spec-table">
+  <tr>
+    <th>Name of Supplier</th>
+    <td></td>
+    <th>Supplier Plant</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Closure Type</th>
+    <td></td>
+    <th>Resin Grade/Supplier</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Closure Weight</th>
+    <td></td>
+    <th>Colorant Detail and Dosage</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Closure Drawing No</th>
+    <td></td>
+    <th>Invoice No.</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Closure Finish Type</th>
+    <td></td>
+    <th>Invoice Quantity</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Batch/Lot No</th>
+    <td></td>
+    <th>Date of Invoice</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Customer</th>
+    <td></td>
+    <th>Color</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Closure Size & Type</th>
+    <td></td>
+    <th>Debossed</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Liner Material (if applicable)</th>
+    <td>NO</td>
+    <th>MFD</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Internal Print (if applicable)</th>
+    <td>No</td>
+    <th>Date of Expiry</th>
+    <td>One year from date of manufacturing</td>
+  </tr>
+</table>
+
+   
+    <div class="dimension">
+       <table class="coa-table">
+  <thead>
+    <tr>
+      <th>Characteristic</th>
+      <th>Specs</th>
+      <th>Minimum (mm)</th>
+      <th>Maximum (mm)</th>
+      <th>Average (Min. 25 Closures)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Visual</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Knurling</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Liner Weight (if applicable)</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Closure Height</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Closure Weight</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+<table class="footer-table">
+  <tr>
+    <th>Inspected by (QAE)</th>
+    <td></td>
+    <th>Approved by (QAM)</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Issue Date</th>
+    <td>16th April, 2003</td>
+    <th>Document No.</th>
+    <td>IND-BU-RQ-140-SP-03 - Closure-Rev 11</td>
+  </tr>
+  <tr>
+    <th>Revision Date</th>
+    <td>15 January, 2022</td>
+    <th>Page</th>
+    <td>17 of 17</td>
+  </tr>
+</table>
+
+    </div>
+</body>
+
+
+</html>

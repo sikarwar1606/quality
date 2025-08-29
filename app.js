@@ -43,7 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/customer', customerRouter);
+app.use('/home', customerRouter);
 app.use('/customerSC', customerSchema);
 
 // catch 404 and forward to error handler
