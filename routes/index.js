@@ -6,7 +6,6 @@ const localStrategy = require("passport-local");
 
 passport.use(new localStrategy(userModel.authenticate()))
 
-// userModel.authentication()rrrrrrrrrrrrrrrrr
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('login');
@@ -25,8 +24,8 @@ router.get('/home', isLoggedIn,function(req, res){
 router.post('/register', function(req, res){
   var userdata = new userModel({
     username: req.body.username,
-    // password: req.body.password,
-    // secret: req.body.secret
+    user_designation: req.body.user_designation,
+    user_id: req.body.user_id
 
   });
   userModel.register(userdata, req.body.password).then(function(registereduser){

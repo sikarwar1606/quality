@@ -3,9 +3,9 @@ const router = express.Router();
 const Customer_gst = require('./customerSC')
 
 router.post('/redirect', async (req, res)=>{
-    const Customer_gst = req.body.Customer_gst;
+    const Customer_gst = req.body.gst_number;
     try{
-    const customer = await Customer_gst.findOne({Customer_gst:gst_number})
+    const customer = await Customer_gst.findOne({gst_number:gst_number})
     if(customer){
         res.render('Customer name', {customer})
 

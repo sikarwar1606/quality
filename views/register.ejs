@@ -86,11 +86,27 @@
           <h3>Enter your Details</h3>
 
           <form action="/register" method="post">
-            <label for="first"> Username: </label>
+            <label for="username"> Username: </label>
             <input
               type="text"
-              id="first"
+              id="username"
               name="username"
+              placeholder="Enter your Username"
+              required
+            />
+            <label for="user_designation"> User Designation: </label>
+            <input
+              type="text"
+              id="user_designation"
+              name="user_designation"
+              placeholder="Enter your User Designation"
+              required
+            />
+            <label for="user_id"> User id: </label>
+            <input
+              type="text"
+              id="user_id"
+              name="user_id"
               placeholder="Enter your Username"
               required
             />
