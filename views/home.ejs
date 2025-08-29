@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -19,91 +19,170 @@
     </nav>
     <div class="contrainer">
       
-      <form class="d-flex" action="/redirect"></form>
-      <label for="exampleDataList" class="form-label">Customer</label>
-      <input
-        class="form-control"
-        list="datalistOptions"
-        id="exampleDataList"
-        placeholder="Type to search..."
-      />
-      <datalist id="datalistOptions">
-        <option value="Hindustan Coca Cola Beverages Ltd."></option>
-        <option value="Bisleri International"></option>
-        <option value="Reliance Retail Ltd."></option>
-        <option value="Parle Agro"></option>
-        <option value="Dailee Fresh Fruits"></option>
-      </datalist>
+      <form class="d-flex" action="/home/redirect" method="post">
+        <label for="exampleDataList" class="form-label">Plant Code</label>
+        <input
+          class="form-control"
+          list="datalistOptions"
+          id="exampleDataList"
+          placeholder="Type to search..."
+          name="plantCode"
+        />
+        <datalist id="datalistOptions">
+          <option value="A">A</option>
+          <option value="B">B</option>
+          <option value="C">C</option>
+          <option value="D">D</option>
+          <option value="E">E</option>
+        </datalist>
 
-
-      <!-- <label for="exampleDataList" class="form-label">Customer Location</label>
-      <input
-        class="form-control"
-        list="datalistOptions2"
-        id="exampleDataList"
-        placeholder="Type to search..."
-      />
-      <datalist id="datalistOptions2">
-        <option value="Bangluru"></option>
-        <option value="Hyderabad"></option>
-        <option value="Goa"></option>
-        <option value="Los Angeles"></option>
-        <option value="Chicago"></option>
-      </datalist> -->
-
-
-      <label for="exampleDataList" class="form-label">Supplier</label>
-      <input
-        class="form-control"
-        list="datalistOptions3"
-        id="exampleDataList"
-        placeholder="Type to search..."
-      />
-      <datalist id="datalistOptions3">
-        <option value="Secure Industries Pvt. Ltd."></option>
-        <option value="Vform Tecnopacks"></option>
-      </datalist>
-
-
-      <!-- <label for="exampleDataList" class="form-label">Supplier Location</label>
-      <input
-        class="form-control"
-        list="datalistOptions4"
-        id="exampleDataList"
-        placeholder="Type to search..."
-      />
-      <datalist id="datalistOptions4">
-        <option value="Hyderabad"></option>
-        <option value="Sanand"></option>
-        <option value="Rohtak"></option>
-      </datalist>
-
-
-      <label for="exampleDataList" class="form-label">Batch No.</label>
-      <input
-        class="form-control"
-        list="datalistOptions5"
-        id="exampleDataList"
-        placeholder="Type to search..."
-      />
-      <datalist id="datalistOptions5">
-        <option value="2501001"></option>
-        <option value="2501002"></option>
-        <option value="2501003"></option>
-        <option value="2501004"></option>
-        <option value="2501005"></option>
-      </datalist>
-      <label for="exampleDataList" class="form-label">Invoice No.</label>
-      <input
-        class="form-control"
-        id="exampleDataList"
-        placeholder="Invoice No."
-      /> -->
-      
+        <label for="exampleDataList" class="form-label">Customer GST</label>
+        <input
+          class="form-control"
+          list="datalistOptions3"
+          id="exampleDataList"
+          placeholder="Type to search..."
+          name="customer_gst"
+        />
+        <label for="exampleDataList" class="form-label">BATCH NUMBER</label>
+        <input
+          class="form-control"
+          list="datalistOptions3"
+          id="exampleDataList"
+          placeholder="Type to search..."
+          name="batch_number"
+        />
 
       
         <button class="btn btn-outline-success" type="submit">Submit</button>
       </form>
     </div>
+  </body>
+</html> -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <style>
+      /*style.css*/
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: sans-serif;
+        line-height: 1.5;
+        min-height: 100vh;
+        background: #f3f3f3;
+        flex-direction: column;
+        margin: 0;
+      }
+
+      .main {
+        background-color: #fff;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        padding: 10px 20px;
+        transition: transform 0.2s;
+        width: 500px;
+        text-align: center;
+      }
+
+      h1 {
+        color: #4caf50;
+      }
+
+      label {
+        display: block;
+        width: 100%;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        text-align: left;
+        color: #555;
+        font-weight: bold;
+      }
+
+      input {
+        display: block;
+        width: 100%;
+        margin-bottom: 15px;
+        padding: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+
+      button {
+        padding: 15px;
+        border-radius: 10px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        border: none;
+        color: white;
+        cursor: pointer;
+        background-color: #4caf50;
+        width: 100%;
+        font-size: 16px;
+      }
+
+      .wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Home</title>
+        <!-- <link rel="stylesheet" href="style.css" /> -->
+      </head>
+
+      <body>
+        <div class="main">
+          <h1>Corporate</h1>
+          <h3>Enter Below Details</h3>
+
+          <form action="/redirect" method="post">
+            <label for="plant_code"> Enter Plant Code: </label>
+            <input
+              type="text"
+              id="plant_code"
+              name="plant_code"
+              placeholder="A"
+              required
+            />
+
+            <label for="customer_gst"> Customer GST: </label>
+            <input
+              type="text"
+              id="customer_gst"
+              name="customer_gst"
+              required
+            />
+            <label for="batch_number"> Batch Number: </label>
+            <input
+              type="number"
+              id="batch_number"
+              name="batch_number"
+              required
+            />
+
+            <div class="wrap">
+              <button type="submit">Next</button>
+            </div>
+          </form>
+
+          
+        </div>
+      </body>
+    </html>
   </body>
 </html>

@@ -11,6 +11,8 @@ const flash = require('flash')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const customerRouter = require('./routes/customer');
+const customerSchema = require('./routes/customerSC');
 const passport = require('passport');
 
 var app = express();
@@ -41,6 +43,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/customer', customerRouter);
+app.use('/customerSC', customerSchema);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
