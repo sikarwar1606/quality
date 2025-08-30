@@ -8,6 +8,11 @@ const batchSchema = new mongoose.Schema({
   machine_number: { type: String, required: true},
   master_batch: { type: String, required: true},
   raw_material: { type: String, required: true },
+  mb_supp: String,
+  mb_code:String,
+  mb_dosage: String,
+  mb_colour:String,
+  product:String
 });
 
 module.exports = mongoose.model('batch_details', batchSchema);

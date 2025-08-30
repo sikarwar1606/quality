@@ -14,6 +14,8 @@ var usersRouter = require('./routes/users');
 const customerRouter = require('./routes/customer');
 const customerSchema = require('./routes/customerSC');
 const batchSchema = require('./routes/batchSC');
+const plantSchema = require('./routes/plantSC');
+const designSchema = require('./routes/designDetailsSC');
 const passport = require('passport');
 
 var app = express();
@@ -47,6 +49,8 @@ app.use('/users', usersRouter);
 app.use('/home', customerRouter);
 app.use('/customerSC', customerSchema);
 app.use('/batchSC', batchSchema);
+app.use('/designDetailsSC', designSchema);
+app.use('/plantSC', plantSchema);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
