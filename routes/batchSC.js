@@ -12,7 +12,8 @@ const batchSchema = new mongoose.Schema({
   mb_code:String,
   mb_dosage: String,
   mb_colour:String,
-  product:String
+  product:String,
+  packing_qty:Number
 });
 
 module.exports = mongoose.model('batch_details', batchSchema);

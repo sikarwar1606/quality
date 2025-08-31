@@ -175,7 +175,7 @@
 }
 
 .supp_add {
-  font-size: 0.5em;
+  font-size: 0.35em;
   margin-top: 4px;
   justify-content: center;
   align-items: center;
@@ -215,6 +215,11 @@
   align-items: center;
   justify-content: center;
   font-size: 1.25rem;
+}
+@media print {
+  @page {
+    size: landscape;
+  }
 }
 
   </style>
@@ -256,19 +261,19 @@
     <th>Closure Drawing No</th>
     <td><%=design_data.cl_drw%></td>
     <th>Invoice No.</th>
-    <td></td>
+    <td><%=more_info.inv_no%></td>
   </tr>
   <tr>
     <th>Closure Finish Type</th>
     <td><%=design_data.cl_fn_ty%></td>
     <th>Invoice Quantity</th>
-    <td></td>
+    <td><%=more_info.inv_qty * batch_data.packing_qty %> nos. (<%=more_info.inv_qty%> boxes)</td>
   </tr>
   <tr>
     <th>Batch/Lot No</th>
     <td><%=batch_data.batch_number%></td>
     <th>Date of Invoice</th>
-    <td></td>
+    <td><%=more_info.inv_dt%></td>
   </tr>
   <tr>
     <th>Customer</th>
@@ -286,7 +291,7 @@
     <th>Liner Material (if applicable)</th>
     <td>NO</td>
     <th>MFD</th>
-    <td></td>
+    <td><%=more_info.mfd%></td>
   </tr>
   <tr>
     <th>Internal Print (if applicable)</th>
@@ -319,31 +324,30 @@
     <tr>
       <td>Knurling</td>
       <td><%=design_data.cl_kn_spec + "+/-" + design_data.cl_kn_spec_tol%></td>
-      <td></td>
-
-      <td></td>
-      <td></td>
+      <td><%= avgData.minkn.toFixed(2)%></td>
+      <td><%= avgData.maxkn.toFixed(2)%></td>
+      <td><%= avgData.avgkn.toFixed(2)%></td>
     </tr>
     <tr>
       <td>Liner Weight (if applicable)</td>
       <td><%=design_data.cl_liner_wt_spec%></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td><%=design_data.cl_liner_wt_spec%></td>
+      <td><%=design_data.cl_liner_wt_spec%></td>
+      <td><%=design_data.cl_liner_wt_spec%></td>
     </tr>
     <tr>
       <td>Closure Height</td>
       <td><%=design_data.cl_ht_spec + "+/-" + design_data.cl_ht_spec_tol%></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td><%= avgData.minht.toFixed(2)%></td>
+      <td><%= avgData.maxht.toFixed(2)%></td>
+      <td><%= avgData.avght.toFixed(2)%></td>
     </tr>
     <tr>
       <td>Closure Weight</td>
       <td><%=design_data.cl_wt_spec + "+/-" + design_data.cl_wt_spec_tol%></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td><%= avgData.minwt.toFixed(2)%></td>
+      <td><%= avgData.maxwt.toFixed(2)%></td>
+      <td><%= avgData.avgwt.toFixed(2)%></td>
     </tr>
   </tbody>
 </table>
@@ -370,6 +374,7 @@
 </table>
 
     </div>
+    
 </body>
 
 

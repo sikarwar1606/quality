@@ -1,16 +1,46 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Product Samples Entry</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 20px; }
-    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-    th, td { border: 1px solid #ccc; padding: 6px; text-align: center; }
-    th { background: #f4f4f4; }
-    input { width: 80px; padding: 4px; }
-    .submit-btn { padding: 10px 15px; background: green; color: white; border: none; cursor: pointer; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+    th,
+    td {
+      border: 1px solid #ccc;
+      padding: 6px;
+      text-align: center;
+    }
+
+    th {
+      background: #f4f4f4;
+    }
+
+    input {
+      width: 80px;
+      padding: 4px;
+    }
+
+    .submit-btn {
+      padding: 10px 15px;
+      background: green;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
   </style>
 </head>
+
 <body>
 
   <h2>Enter Product Samples (48 Samples)</h2>
@@ -21,6 +51,9 @@
   <br><br>
   <label>Production Date: </label>
   <input type="text" name="production_date" id="production_date" placeholder="16/06/2002" required>
+  <br><br>
+  <label>Shift: </label>
+  <input type="text" name="shift" id="shift" placeholder="A" required>
   <br><br>
 
   <!-- Samples Table -->
@@ -40,10 +73,11 @@
         <!-- Row 1 -->
         <tr>
           <td>1</td>
-          <td><input type="number" name="height" ></td>
-          <td><input type="number" name="weight" ></td>
-          <td><input type="number" name="diameter" ></td>
-          <td><input type="number" name="thickness" ></td>
+          <td><input type="number" id="height-1" name="height-1"></td>
+
+          <td><input type="number" id="weight-1" name="weight-1"></td>
+          <td><input type="number" id="diameter-1" name="diameter-1"></td>
+          <td><input type="number" id="thickness-1" name="thickness-1"></td>
         </tr>
 
         <!-- Repeat 47 more rows -->
@@ -51,15 +85,16 @@
         <script>
           for (let i = 2; i <= 48; i++) {
             document.write(`
-              <tr>
-                <td>${i}</td>
-                <td><input type="number" name="height" required></td>
-                <td><input type="number" name="weight" required></td>
-                <td><input type="number" name="diameter" required></td>
-                <td><input type="number" name="thickness" required></td>
-              </tr>
-            `);
+    <tr>
+      <td>${i}</td>
+      <td><input type="number" id="height-${i}" name="height-${i}" required></td>
+      <td><input type="number" id="weight-${i}" name="weight-${i}" required></td>
+      <td><input type="number" id="diameter-${i}" name="diameter-${i}" required></td>
+      <td><input type="number" id="thickness-${i}" name="thickness-${i}" required></td>
+    </tr>
+  `);
           }
+
         </script>
       </tbody>
     </table>
@@ -97,4 +132,5 @@
   </script>
 
 </body>
+
 </html>

@@ -16,6 +16,8 @@ const customerSchema = require('./routes/customerSC');
 const batchSchema = require('./routes/batchSC');
 const plantSchema = require('./routes/plantSC');
 const designSchema = require('./routes/designDetailsSC');
+const dimensionSchema = require('./routes/dimension');
+// const genrateDimension = require('./routes/genrateDimension');
 const passport = require('passport');
 
 var app = express();
@@ -51,6 +53,8 @@ app.use('/customerSC', customerSchema);
 app.use('/batchSC', batchSchema);
 app.use('/designDetailsSC', designSchema);
 app.use('/plantSC', plantSchema);
+app.use('/dimensionSC', dimensionSchema);
+// app.use('/genrateDimensionSC', genrateDimension);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
