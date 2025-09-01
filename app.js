@@ -48,7 +48,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/home', customerRouter);
+app.use('/redirect', customerRouter);
 app.use('/customerSC', customerSchema);
 app.use('/batchSC', batchSchema);
 app.use('/designDetailsSC', designSchema);

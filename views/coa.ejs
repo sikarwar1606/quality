@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+
+    <title>COA</title>
     <style>
       /*style.css*/
       body {
@@ -76,43 +79,75 @@
     <!DOCTYPE html>
     <html>
       <head>
-        <title>Login page</title>
+        <title>Home</title>
         <!-- <link rel="stylesheet" href="style.css" /> -->
       </head>
 
       <body>
+        <%- include("partials/qualityNav") %>
         <div class="main">
           <h1>Corporate</h1>
-          <h3>Enter your login credentials</h3>
+          <h3>Enter Below Details</h3>
 
-          <form action="/login" method="post">
-            <label for="username"> Username: </label>
+          <form action="/redirect" method="post">
+            <label for="plant_code"> Enter Plant Code: </label>
             <input
               type="text"
-              id="username"
-              name="username"
-              placeholder="Enter your Username"
+              id="plant_code"
+              name="plant_code"
+              placeholder="A"
               required
             />
 
-            <label for="password"> Password: </label>
+            <label for="customer_gst"> Customer GST: </label>
             <input
-              type="password"
-              id="password"
-              name="password"
-              placeholder="Enter your Password"
+              type="text"
+              id="customer_gst"
+              name="customer_gst"
+              required
+            />
+            <label for="batch_number"> Batch Number: </label>
+            <input
+              type="number"
+              id="batch_number"
+              name="batch_number"
+              required
+            />
+            <label for="invoice_no"> Invoice Number: </label>
+            <input
+              type="text"
+              id="invoice_no"
+              name="invoice_no"
+              required
+            />
+            <label for="invoice_dt"> Invoice Date: </label>
+            <input
+              type="date"
+              id="invoice_dt"
+              name="invoice_dt"
+              required
+            />
+            <label for="mfd">Date of Production: </label>
+            <input
+              type="text"
+              id="mfd"
+              name="mfd"
+              required
+            />
+            <label for="qty">Total Boxes: </label>
+            <input
+              type="number"
+              id="qty"
+              name="qty"
               required
             />
 
             <div class="wrap">
-              <button type="submit">Submit</button>
+              <button type="submit">Next</button>
             </div>
           </form>
 
-          <p>
-            Not registered?
-            <a href="/register" style="text-decoration: none"> Create an account </a>
-          </p>
+          
         </div>
       </body>
     </html>

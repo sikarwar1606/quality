@@ -8,15 +8,19 @@ const localStrategy = require("passport-local");
 passport.use(new localStrategy(userModel.authenticate()))
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', isLoggedIn, function(req, res, next) {
+  res.render('home');
+});
+
+router.get('/login', function(req, res, next) {
   res.render('login');
 });
 router.get('/register', function(req, res, next) {
   res.render('register');
 });
 
-router.get('/home', isLoggedIn,function(req, res){
-  res.render('home')
+router.get('/coa',isLoggedIn,  function(req, res){
+  res.render('coa')
 })
 
 
@@ -33,14 +37,14 @@ router.post('/register', function(req, res){
   });
   userModel.register(userdata, req.body.password).then(function(registereduser){
     passport.authenticate("local")(req, res, function(){
-      res.redirect('/home')
+      res.redirect('/login')
     })
   })
 });
 
-router.post('/home', passport.authenticate("local", {
-  successRedirect: "/home",
-  failureRedirect: "/"
+router.post('/login', passport.authenticate("local", {
+  successRedirect: "/",
+  failureRedirect: "/login"
 }) ,(req, res)=>{})
 
 
@@ -48,7 +52,7 @@ router.post('/home', passport.authenticate("local", {
 router.get("/logout", (req, res, next)=>{
   req.logout(function(err){
     if(err) return next(err);
-    res.redirect("/")
+    res.redirect("/login")
   })
 })
 

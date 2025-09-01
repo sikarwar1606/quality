@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>COA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
   <style>
   
     /* ///////////////////////////////////////////////////////////////////////////////////// */
@@ -221,10 +223,15 @@
     size: landscape;
   }
 }
-
+ @media print {
+    nav {
+      display: none !important;
+    }
+  }
   </style>
 </head>
 <body>
+<%- include("partials/qualityNav") %>
 <div class="header">
     <div class="doc_no">Document no. SIPL/QA/R/001</div>
     <div class="supplier">
@@ -374,6 +381,7 @@
 </table>
 
     </div>
+    
     
 </body>
 
