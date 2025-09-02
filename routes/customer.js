@@ -7,7 +7,7 @@ const plant_details = require("./plantSC");
 const design_details = require("./designDetailsSC");
 const dimension_data = require("./dimension");
 
-router.post("/", isLoggedIn, async function (req, res) {
+router.post("/",  async function (req, res) {
   const batch_number = req.body.batch_number;
   const customer_gst = req.body.customer_gst;
   const plant_code = req.body.plant_code;
@@ -108,7 +108,7 @@ res.status(500).send('Error while fetching average values')
   };
 
   if (customer.customer_template === "C") {
-    res.render("coke", { customer_data, batch_data, plant_data, design_data, avgData, more_info });
+    res.render("coa/coke", { customer_data, batch_data, plant_data, design_data, avgData, more_info });
   } else if (customer.customer_template === "B") {
     res.render("bisleri");
   } else if (customer.customer_template === "R") {

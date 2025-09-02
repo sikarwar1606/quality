@@ -231,7 +231,7 @@
   </style>
 </head>
 <body>
-<%- include("partials/qualityNav") %>
+<%- include("../partials/qualityNav") %>
 <div class="header">
     <div class="doc_no">Document no. SIPL/QA/R/001</div>
     <div class="supplier">
@@ -256,7 +256,7 @@
     <th>Closure Type</th>
     <td><%=design_data.cl_type%></td>
     <th>Resin Grade/Supplier</th>
-    <td><%=batch_data.raw_material%></td>
+    <td><%=batch_data.raw_material + "/" +batch_data.raw_material_supp %></td>
   </tr>
   <tr>
     <th>Closure Weight</th>

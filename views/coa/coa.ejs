@@ -9,7 +9,7 @@
     <title>COA</title>
     <style>
       /*style.css*/
-      body {
+      .details {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -80,16 +80,17 @@
     <html>
       <head>
         <title>Home</title>
-        <!-- <link rel="stylesheet" href="style.css" /> -->
+       
       </head>
 
       <body>
-        <%- include("partials/qualityNav") %>
+        <%- include("../partials/qualityNav") %>
+        <div class="details">
         <div class="main">
           <h1>Corporate</h1>
           <h3>Enter Below Details</h3>
 
-          <form action="/redirect" method="post">
+          <form action="/coa/redirect" method="post">
             <label for="plant_code"> Enter Plant Code: </label>
             <input
               type="text"
@@ -148,6 +149,7 @@
           </form>
 
           
+        </div>
         </div>
       </body>
     </html>
