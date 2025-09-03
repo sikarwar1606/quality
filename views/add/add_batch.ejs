@@ -90,61 +90,116 @@
           <h1>Corporate</h1>
           <h3>Enter Batch Details</h3>
 
-          <form action="/batchDetils" method="post">
-            <label for="batch_number"> Enter Plant Code: </label>
-            <input
-              type="number"
-              id="batch_number"
-              name="batch_number"
-              placeholder="2501001"
-              required
-            />
-
-            <label for="customer_gst"> Customer GST: </label>
-            <input
-              type="text"
-              id="customer_gst"
-              name="customer_gst"
-              required
-            />
-            <label for="batch_number"> Batch Number: </label>
-            <input
-              type="number"
-              id="batch_number"
-              name="batch_number"
-              required
-            />
-            <label for="invoice_no"> Invoice Number: </label>
-            <input
-              type="text"
-              id="invoice_no"
-              name="invoice_no"
-              required
-            />
-            <label for="invoice_dt"> Invoice Date: </label>
+          <form action="/batch/new" method="post">
+            
+            <label for="date"> Date: </label>
             <input
               type="date"
-              id="invoice_dt"
-              name="invoice_dt"
+              id="date"
+              name="date"
               required
             />
-            <label for="mfd">Date of Production: </label>
+            <label for="shift">Shift: </label>
             <input
               type="text"
-              id="mfd"
-              name="mfd"
+              id="shift"
+              name="shift"
               required
             />
-            <label for="qty">Total Boxes: </label>
+            <label for="design"> Design: </label>
             <input
-              type="number"
-              id="qty"
-              name="qty"
+              type="text"
+              id="design"
+              name="design"
+              required
+            />
+            <label for="debossed">Debossed: </label>
+            <input
+              type="text"
+              id="debossed"
+              name="debossed"
+              required
+            />
+            <label for="product"> Product: </label>
+            <input
+              type="text"
+              id="product"
+              name="product"
+              required
+            />
+            <label for="mc_no"> Machine No.: </label>
+            <input
+              type="text"
+              id="mc_no"
+              name="mc_no"
+              required
+            />
+            <label for="rm">Raw Material: </label>
+            <input
+              type="text"
+              id="rm"
+              name="rm"
+              required
+            />
+            <label for="rm_sup">Raw Material Supplier: </label>
+            <input
+              type="text"
+              id="rm_sup"
+              name="rm_sup"
+              required
+            />
+            <label for="mb_code">Master Batch Code: </label>
+            <input
+              type="text"
+              id="mb_code"
+              name="mb_code"
+              required
+            />
+            <label for="mb_sup">Master Batch Supplier: </label>
+            <input
+              type="text"
+              id="mb_sup"
+              name="mb_sup"
+              required
+            />
+            <label for="mb_colour">Mater Batch Colour: </label>
+            <input
+              type="text"
+              id="mb_colour"
+              name="mb_colour"
+              required
+            />
+            <label for="mb_dosage">Master Batch Dosage: </label>
+            <input
+              type="text"
+              id="mb_dosage"
+              name="mb_dosage"
+              required
+            />
+            <label for="packing_qty">Quantity Per Box: </label>
+            <input
+              type="text"
+              id="packing_qty"
+              name="packing_qty"
+              required
+            />
+            <label for="mc_speed">Machine Speed: </label>
+            <input
+              type="text"
+              id="mc_speed"
+              name="mc_speed"
+              required
+            />
+            <label for="issued_by">Issued By: </label>
+            <input
+              type="text"
+              id="issued_by"
+              name="issued_by"
               required
             />
 
             <div class="wrap">
-              <button type="submit">Next</button>
+              <button type="submit">Submit</button>
             </div>
           </form>
 

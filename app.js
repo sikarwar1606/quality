@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const expressSession = require('express-session')
 const flash = require('flash')
+const mongoose = require('mongoose')
 
 
 
@@ -17,10 +18,15 @@ const batchSchema = require('./routes/batchSC');
 const plantSchema = require('./routes/plantSC');
 const designSchema = require('./routes/designDetailsSC');
 const dimensionSchema = require('./routes/dimension');
+const newBatch = require('./routes/newBatch');
 // const genrateDimension = require('./routes/genrateDimension');
 const passport = require('passport');
 
 var app = express();
+
+//Database connection
+mongoose.connect("mongodb+srv://sikarwar1606:Bu5F9ylZFLFL9ob6@cluster0.epjwokb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -54,6 +60,8 @@ app.use('/batchSC', batchSchema);
 app.use('/designDetailsSC', designSchema);
 app.use('/plantSC', plantSchema);
 app.use('/dimensionSC', dimensionSchema);
+app.use('/batch', newBatch);
+
 // app.use('/genrateDimensionSC', genrateDimension);
 
 // catch 404 and forward to error handler
