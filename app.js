@@ -19,6 +19,8 @@ const plantSchema = require('./routes/plantSC');
 const designSchema = require('./routes/designDetailsSC');
 const dimensionSchema = require('./routes/dimension');
 const newBatch = require('./routes/newBatch');
+const newDesign = require('./routes/newDesign');
+const newCustomer = require('./routes/newCustomer');
 // const genrateDimension = require('./routes/genrateDimension');
 const passport = require('passport');
 
@@ -52,6 +54,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(express.static("public"));
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/coa/redirect', customerRouter);
@@ -61,6 +65,8 @@ app.use('/designDetailsSC', designSchema);
 app.use('/plantSC', plantSchema);
 app.use('/dimensionSC', dimensionSchema);
 app.use('/batch', newBatch);
+app.use('/design', newDesign);
+app.use('/customer', newCustomer);
 
 // app.use('/genrateDimensionSC', genrateDimension);
 

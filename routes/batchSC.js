@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 
 const batchSchema = new mongoose.Schema({
-  batch_number: { type: Number, required: true, unique: true },
+  batch_number: { type: Number, required: true},
   date: Date,
   shift:String,
-  design: { type: String, required: true, unique: true },
-  debossed: { type: String, required: true },
-  mc_no: { type: String, required: true},
-  rm: { type: String, required: true },
-  rm_sup: { type: String, required: true },
+  design: String,
+  debossed: String,
+  mc_no:String,
+  rm: String,
+  rm_sup: String,
   product:String,
   mb_supp: String,
   mb_code:String,

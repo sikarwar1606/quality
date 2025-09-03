@@ -54,11 +54,12 @@ const getNewBatchNo = async () => {
 router.get("/new", (req, res) => {
   res.render("add/add_batch");
 });
-
+let showBatch;
 // ✅ POST route: save batch
 router.post("/new", async (req, res) => {
   try {
     const batch_number = await getNewBatchNo();
+    // showBatch = batch_number
 
     const newBatchData = new batch_details({
       ...req.body,
@@ -66,7 +67,7 @@ router.post("/new", async (req, res) => {
     });
 
     await newBatchData.save();
-    res.redirect("/batch/new");
+    res.render("addBatchSuccess",{batch_number});
   } catch (err) {
     console.error("Error creating batch:", err);
     res.status(500).send("Server Error");

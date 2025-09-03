@@ -3,210 +3,79 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <script src="https://cdn.tailwindcss.com"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-
-    <title>COA</title>
-    <style>
-      /*style.css*/
-      .details {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-family: sans-serif;
-        line-height: 1.5;
-        min-height: 100vh;
-        background: #f3f3f3;
-        flex-direction: column;
-        margin: 0;
-      }
-
-      .main {
-        background-color: #fff;
-        border-radius: 15px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-        padding: 10px 20px;
-        transition: transform 0.2s;
-        width: 500px;
-        text-align: center;
-      }
-
-      h1 {
-        color: #4caf50;
-      }
-
-      label {
-        display: block;
-        width: 100%;
-        margin-top: 10px;
-        margin-bottom: 5px;
-        text-align: left;
-        color: #555;
-        font-weight: bold;
-      }
-
-      input {
-        display: block;
-        width: 100%;
-        margin-bottom: 15px;
-        padding: 10px;
-        box-sizing: border-box;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-      }
-
-      button {
-        padding: 15px;
-        border-radius: 10px;
-        margin-top: 15px;
-        margin-bottom: 15px;
-        border: none;
-        color: white;
-        cursor: pointer;
-        background-color: #4caf50;
-        width: 100%;
-        font-size: 16px;
-      }
-
-      .wrap {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <title>New Batch</title>
+    <link rel="stylesheet" href="/stylesheets/add_batch.css">
   </head>
   <body>
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>Batch Details</title>
-       
-      </head>
+    <%- include("../partials/qualityNav") %>
 
-      <body>
-        <%- include("../partials/qualityNav") %>
-        <div class="details">
-        <div class="main">
-          <h1>Corporate</h1>
-          <h3>Enter Batch Details</h3>
+    <div class="details">
+      <div class="main">
+        <h1>Corporate</h1>
+        <h3>Enter Batch Details</h3>
 
-          <form action="/batch/new" method="post">
-            
-            <label for="date"> Date: </label>
-            <input
-              type="date"
-              id="date"
-              name="date"
-              required
-            />
-            <label for="shift">Shift: </label>
-            <input
-              type="text"
-              id="shift"
-              name="shift"
-              required
-            />
-            <label for="design"> Design: </label>
-            <input
-              type="text"
-              id="design"
-              name="design"
-              required
-            />
-            <label for="debossed">Debossed: </label>
-            <input
-              type="text"
-              id="debossed"
-              name="debossed"
-              required
-            />
-            <label for="product"> Product: </label>
-            <input
-              type="text"
-              id="product"
-              name="product"
-              required
-            />
-            <label for="mc_no"> Machine No.: </label>
-            <input
-              type="text"
-              id="mc_no"
-              name="mc_no"
-              required
-            />
-            <label for="rm">Raw Material: </label>
-            <input
-              type="text"
-              id="rm"
-              name="rm"
-              required
-            />
-            <label for="rm_sup">Raw Material Supplier: </label>
-            <input
-              type="text"
-              id="rm_sup"
-              name="rm_sup"
-              required
-            />
-            <label for="mb_code">Master Batch Code: </label>
-            <input
-              type="text"
-              id="mb_code"
-              name="mb_code"
-              required
-            />
-            <label for="mb_sup">Master Batch Supplier: </label>
-            <input
-              type="text"
-              id="mb_sup"
-              name="mb_sup"
-              required
-            />
-            <label for="mb_colour">Mater Batch Colour: </label>
-            <input
-              type="text"
-              id="mb_colour"
-              name="mb_colour"
-              required
-            />
-            <label for="mb_dosage">Master Batch Dosage: </label>
-            <input
-              type="text"
-              id="mb_dosage"
-              name="mb_dosage"
-              required
-            />
-            <label for="packing_qty">Quantity Per Box: </label>
-            <input
-              type="text"
-              id="packing_qty"
-              name="packing_qty"
-              required
-            />
-            <label for="mc_speed">Machine Speed: </label>
-            <input
-              type="text"
-              id="mc_speed"
-              name="mc_speed"
-              required
-            />
-            <label for="issued_by">Issued By: </label>
-            <input
-              type="text"
-              id="issued_by"
-              name="issued_by"
-              required
-            />
+        <form action="/batch/new" method="post">
+          <label for="date"> Date: </label>
+          <input type="date" id="date" name="date" required />
 
-            <div class="wrap">
-              <button type="submit">Submit</button>
-            </div>
-          </form>
+          <label for="shift">Shift: </label>
+          <input type="text" id="shift" name="shift" class="uppercase" required />
 
-          
-        </div>
-        </div>
-      </body>
-    </html>
+          <label for="design"> Design: </label>
+          <input type="text" id="design" name="design" class="uppercase" required />
+
+          <label for="debossed">Debossed: </label>
+          <input type="text" id="debossed" name="debossed" class="uppercase" required />
+
+          <label for="product"> Product: </label>
+          <input type="text" id="product" name="product" class="uppercase" required />
+
+          <label for="mc_no"> Machine No.: </label>
+          <input type="text" id="mc_no" name="mc_no" class="uppercase" required />
+
+          <label for="rm">Raw Material: </label>
+          <input type="text" id="rm" name="rm" class="uppercase" required />
+
+          <label for="rm_sup">Raw Material Supplier: </label>
+          <input type="text" id="rm_sup" name="rm_sup" class="uppercase" required />
+
+          <label for="mb_code">Master Batch Code: </label>
+          <input type="text" id="mb_code" name="mb_code" class="uppercase" required />
+
+          <label for="mb_sup">Master Batch Supplier: </label>
+          <input type="text" id="mb_sup" name="mb_sup" class="uppercase" required />
+
+          <label for="mb_colour">Master Batch Colour: </label>
+          <input type="text" id="mb_colour" name="mb_colour" class="uppercase" required />
+
+          <label for="mb_dosage">Master Batch Dosage: </label>
+          <input type="text" id="mb_dosage" name="mb_dosage" required />
+
+          <label for="packing_qty">Quantity Per Box: </label>
+          <input type="text" id="packing_qty" name="packing_qty" required />
+
+          <label for="mc_speed">Machine Speed: </label>
+          <input type="text" id="mc_speed" name="mc_speed" required />
+
+          <label for="issued_by">Issued By: </label>
+          <input type="text" id="issued_by" name="issued_by" class="uppercase" required />
+
+          <div class="wrap">
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // Force uppercase for all inputs with class="uppercase"
+      document.querySelectorAll("input.uppercase").forEach(input => {
+        input.addEventListener("input", function () {
+          this.value = this.value.toUpperCase();
+        });
+      });
+    </script>
   </body>
 </html>
