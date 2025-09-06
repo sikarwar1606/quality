@@ -74,13 +74,13 @@ res.status(500).send('Error while fetching average values')
     debossed: batch.debossed,
     machine_number: batch.machine_number,
     rm: batch.rm,
-    rm_sup: batch.rm_sup,
+    // rm_sup: batch.rm_sup,
     mb_code: batch.mb_code,
     mb_colour: batch.mb_colour,
-    mb_dosage: batch.mb_dosage,
-    mb_supp: batch.mb_supp,
-    product: batch.product,
-    packing_qty:batch.packing_qty
+    // mb_dosage: batch.mb_dosage,
+    // mb_supp: batch.mb_supp,
+    // product: batch.product,
+    // packing_qty:batch.packing_qty
   };
   const plant_data = {
     plant_name: plant.plant_name,

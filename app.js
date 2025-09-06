@@ -21,6 +21,7 @@ const dimensionSchema = require('./routes/dimension');
 const newBatch = require('./routes/newBatch');
 const newDesign = require('./routes/newDesign');
 const newCustomer = require('./routes/newCustomer');
+const specs = require('./routes/specs');
 // const genrateDimension = require('./routes/genrateDimension');
 const passport = require('passport');
 
@@ -67,6 +68,8 @@ app.use('/dimensionSC', dimensionSchema);
 app.use('/batch', newBatch);
 app.use('/design', newDesign);
 app.use('/customer', newCustomer);
+app.use('/specs', specs);
+
 
 // app.use('/genrateDimensionSC', genrateDimension);
 
