@@ -241,7 +241,7 @@
     <div class="rev_date">Rev. Date 01/07/2024</div>
 </div>
 <div class="coa_desc">
-  <p>Certificate of analysis of Plastic closure:<%=batch_data.product%></p>
+  <p>Certificate of analysis of Plastic closure:<%=spec.product%></p>
 </div>
       
 
@@ -254,25 +254,25 @@
   </tr>
   <tr>
     <th>Closure Type</th>
-    <td><%=design_data.cl_type%></td>
+    <td><%=cokeCoaDetailsData.cl_type%></td>
     <th>Resin Grade/Supplier</th>
     <td><%=batch_data.rm + "/" +batch_data.rm_sup %></td>
   </tr>
   <tr>
     <th>Closure Weight</th>
-    <td><%=design_data.cl_wt_spec%>gm</td>
+    <td><%=cokeCoaDetailsData.cl_wt%>gm</td>
     <th>Colorant Detail and Dosage</th>
     <td><%=batch_data.mb_code + "("+ batch_data.mb_colour + ")" + batch_data.mb_dosage%></td>
   </tr>
   <tr>
     <th>Closure Drawing No</th>
-    <td><%=design_data.cl_drw%></td>
+    <td><%=cokeCoaDetailsData.cl_drw%></td>
     <th>Invoice No.</th>
     <td><%=more_info.inv_no%></td>
   </tr>
   <tr>
     <th>Closure Finish Type</th>
-    <td><%=design_data.cl_fn_ty%></td>
+    <td><%=cokeCoaDetailsData.cl_fn_ty%></td>
     <th>Invoice Quantity</th>
     <td><%=more_info.inv_qty * batch_data.packing_qty %> nos. (<%=more_info.inv_qty%> boxes)</td>
   </tr>
@@ -290,7 +290,7 @@
   </tr>
   <tr>
     <th>Closure Size & Type</th>
-    <td><%=design_data.cl_size_ty%></td>
+    <td><%=cokeCoaDetailsData.cl_size_ty%></td>
     <th>Debossed</th>
     <td><%=batch_data.debossed%></td>
   </tr>
@@ -330,28 +330,28 @@
     </tr>
     <tr>
       <td>Knurling</td>
-      <td><%=design_data.cl_kn_spec + "+/-" + design_data.cl_kn_spec_tol%></td>
+      <td><%=cokeCoaDetailsData.cl_kn + "+/-" + cokeCoaDetailsData.cl_kn_tol%></td>
       <td><%= avgData.minkn.toFixed(2)%></td>
       <td><%= avgData.maxkn.toFixed(2)%></td>
       <td><%= avgData.avgkn.toFixed(2)%></td>
     </tr>
     <tr>
       <td>Liner Weight (if applicable)</td>
-      <td><%=design_data.cl_liner_wt_spec%></td>
-      <td><%=design_data.cl_liner_wt_spec%></td>
-      <td><%=design_data.cl_liner_wt_spec%></td>
-      <td><%=design_data.cl_liner_wt_spec%></td>
+      <td><%=cokeCoaDetailsData.cl_liner_wt%></td>
+      <td><%=cokeCoaDetailsData.cl_liner_wt%></td>
+      <td><%=cokeCoaDetailsData.cl_liner_wt%></td>
+      <td><%=cokeCoaDetailsData.cl_liner_wt%></td>
     </tr>
     <tr>
       <td>Closure Height</td>
-      <td><%=design_data.cl_ht_spec + "+/-" + design_data.cl_ht_spec_tol%></td>
+      <td><%=cokeCoaDetailsData.cl_ht + "+/-" + cokeCoaDetailsData.cl_ht_tol%></td>
       <td><%= avgData.minht.toFixed(2)%></td>
       <td><%= avgData.maxht.toFixed(2)%></td>
       <td><%= avgData.avght.toFixed(2)%></td>
     </tr>
     <tr>
       <td>Closure Weight</td>
-      <td><%=design_data.cl_wt_spec + "+/-" + design_data.cl_wt_spec_tol%></td>
+      <td><%=cokeCoaDetailsData.cl_wt + "+/-" + cokeCoaDetailsData.cl_wt_tol%></td>
       <td><%= avgData.minwt.toFixed(2)%></td>
       <td><%= avgData.maxwt.toFixed(2)%></td>
       <td><%= avgData.avgwt.toFixed(2)%></td>
@@ -359,7 +359,7 @@
   </tbody>
 </table>
 <table class="footer-table">
-  <p><%=design_data.cl_sst_spec%></p>
+  <p><%=cokeCoaDetailsData.cl_sst%></p>
   <tr>
     <th>Inspected by (QAE)</th>
     <td></td>
@@ -379,11 +379,3 @@
     <td>17 of 17</td>
   </tr>
 </table>
-
-    </div>
-    
-    
-</body>
-
-
-</html>

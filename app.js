@@ -12,14 +12,15 @@ const mongoose = require('mongoose')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const customerRouter = require('./routes/customer');
+const customerRouter = require('./routes/prepareCoa');
 const customerSchema = require('./routes/customerSC');
 const batchSchema = require('./routes/batchSC');
 const plantSchema = require('./routes/plantSC');
-const designSchema = require('./routes/designDetailsSC');
+const designSchema = require('./routes/cokeCoaDetailsSC');
 const dimensionSchema = require('./routes/dimension');
 const newBatch = require('./routes/newBatch');
-const newDesign = require('./routes/newDesign');
+const findBatch = require('./routes/findBatch');
+const newCokeCoaDetails = require('./routes/newCokeCoaDetails');
 const newCustomer = require('./routes/newCustomer');
 const specs = require('./routes/specs');
 // const genrateDimension = require('./routes/genrateDimension');
@@ -62,11 +63,12 @@ app.use('/users', usersRouter);
 app.use('/coa/redirect', customerRouter);
 app.use('/customerSC', customerSchema);
 app.use('/batchSC', batchSchema);
-app.use('/designDetailsSC', designSchema);
+app.use('/cokeCoaDetailsSC', designSchema);
 app.use('/plantSC', plantSchema);
 app.use('/dimensionSC', dimensionSchema);
 app.use('/batch', newBatch);
-app.use('/design', newDesign);
+app.use('/batch', findBatch);
+app.use('/cokecoadetails', newCokeCoaDetails);
 app.use('/customer', newCustomer);
 app.use('/specs', specs);
 

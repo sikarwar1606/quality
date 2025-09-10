@@ -4,8 +4,9 @@ const { isLoggedIn } = require("./auth");
 const Customer_gst = require("./customerSC");
 const batch_details = require("./batchSC");
 const plant_details = require("./plantSC");
-const design_details = require("./designDetailsSC");
+const cokeCoaDetailsSC = require("./cokeCoaDetailsSC");
 const dimension_data = require("./dimension");
+const specSC = require("./specs")
 
 router.post("/",  async function (req, res) {
   const batch_number = req.body.batch_number;
@@ -67,6 +68,25 @@ res.status(500).send('Error while fetching average values')
     customer_name: customer.customer_name,
     customer_location: customer.customer_location,
   };
+
+  const cokeCoaDetailsData = {
+    cl_type: cokeCoaDetailsSC.cl_type,
+    cl_drw: cokeCoaDetailsSC.cl_drw,
+    cl_fn_ty: cokeCoaDetailsSC.cl_fn_ty,
+    cl_size_ty: cokeCoaDetailsSC.cl_size_ty,
+    cl_wt: cokeCoaDetailsSC.cl_wt,
+    cl_wt_tol: cokeCoaDetailsSC.cl_wt_tol,
+    cl_ht: cokeCoaDetailsSC.cl_ht,
+    cl_ht_tol: cokeCoaDetailsSC.cl_ht_tol,
+    cl_kn: cokeCoaDetailsSC.cl_kn,
+    cl_kn_tol: cokeCoaDetailsSC.cl_kn_tol,
+    cl_liner_wt: cokeCoaDetailsSC.cl_liner_wt,
+    cl_liner_wt_tol: cokeCoaDetailsSC.cl_liner_wt_tol,
+    cl_sst: cokeCoaDetailsSC.cl_sst,
+    cl_product: cokeCoaDetailsSC.cl_product,
+
+  }
+
   const batch_data = {
     batch_number: batch.batch_number,
     design: batch.design,
@@ -74,13 +94,8 @@ res.status(500).send('Error while fetching average values')
     debossed: batch.debossed,
     machine_number: batch.machine_number,
     rm: batch.rm,
-    // rm_sup: batch.rm_sup,
     mb_code: batch.mb_code,
-    mb_colour: batch.mb_colour,
-    // mb_dosage: batch.mb_dosage,
-    // mb_supp: batch.mb_supp,
-    // product: batch.product,
-    // packing_qty:batch.packing_qty
+   
   };
   const plant_data = {
     plant_name: plant.plant_name,
@@ -89,26 +104,26 @@ res.status(500).send('Error while fetching average values')
   };
 
   const design = batch_data.design;
-  const designData = await design_details.findOne({ design: design });
+  const designData = await cokeCoaDetailsSC.findOne({ design: design });
 
-  const design_data = {
-    cl_type: designData.cl_type,
-    cl_drw: designData.cl_drw,
-    cl_fn_ty: designData.cl_fn_ty,
-    cl_size_ty: designData.cl_size_ty,
-    cl_kn_spec: designData.cl_kn_spec,
-    cl_kn_spec_tol: designData.cl_kn_spec_tol,
-    cl_liner_wt_spec: designData.cl_liner_wt_spec,
-    cl_liner_wt_spec_tol: designData.cl_liner_spec_tol,
-    cl_wt_spec: designData.cl_wt_spec,
-    cl_wt_spec_tol: designData.cl_wt_spec_tol,
-    cl_ht_spec: designData.cl_ht_spec,
-    cl_ht_spec_tol: designData.cl_ht_spec_tol,
-    cl_sst: designData.cl_sst,
-  };
+//   const cokeCoaDetails = {
+//     cl_type: designData.cl_type,
+//     cl_drw: designData.cl_drw,
+//     cl_fn_ty: designData.cl_fn_ty,
+//     cl_size_ty: designData.cl_size_ty,
+//     cl_kn_spec: designData.cl_kn_spec,
+//     cl_kn_spec_tol: designData.cl_kn_spec_tol,
+//     cl_liner_wt_spec: designData.cl_liner_wt_spec,
+//     cl_liner_wt_spec_tol: designData.cl_liner_spec_tol,
+//     cl_wt_spec: designData.cl_wt_spec,
+//     cl_wt_spec_tol: designData.cl_wt_spec_tol,
+//     cl_ht_spec: designData.cl_ht_spec,
+//     cl_ht_spec_tol: designData.cl_ht_spec_tol,
+//     cl_sst: designData.cl_sst,
+//   };
 
   if (customer.customer_template === "C") {
-    res.render("coa/coke", { customer_data, batch_data, plant_data, design_data, avgData, more_info });
+    res.render("coa/coke", { customer_data, batch_data, plant_data, cokeCoaDetailsData, avgData, more_info });
   } else if (customer.customer_template === "B") {
     res.render("bisleri");
   } else if (customer.customer_template === "R") {

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <title>Show Batch</title>
+    <link rel="stylesheet" href="/stylesheets/add_batch.css">
+  </head>
+  <body>
+    <%- include("../partials/qualityNav") %>
+
+    <div class="details">
+      <div class="main">
+        <h1>Corporate</h1>
+        <h3> Batch Details</h3>
+
+        <form action="/batch/update" method="post">
+          
+          <label for="date"> Date: </label>
+          <input type="text" id="date" name="date"  value="<%=bDate%>" readonly/>
+
+          <label for="shift">Shift: </label>
+          <input type="text" id="shift" name="shift" class="uppercase" value="<%=shift%>" />
+
+          <label for="design"> Design: </label>
+          <input type="text" id="design" name="design" class="uppercase" value="<%=design%>" />
+
+          <label for="debossed">Debossed: </label>
+          <input type="text" id="debossed" name="debossed" class="uppercase" value="<%=debossed%>" />
+
+
+          <label for="mc_no"> Machine No.: </label>
+          <input type="text" id="mc_no" name="mc_no" class="uppercase" value="<%=mc_no%>" />
+
+          <label for="rm">Raw Material: </label>
+          <input type="text" id="rm" name="rm" class="uppercase"  value="<%=rm%>"/>
+
+          <label for="mb_code">Master Batch Code: </label>
+          <input type="text" id="mb_code" name="mb_code" class="uppercase" value="<%=mb_code%>" />
+
+          <label for="mc_speed">Machine Speed: </label>
+          <input type="text" id="mc_speed" name="mc_speed" value="<%=mc_speed%>" />
+
+          <input type="hidden" name="batch_number" value="<%= batch_number %>" />
+
+          <label for="issued_by">Issued By: </label>
+          <input type="text" id="issued_by" name="issued_by" class="uppercase" value="<%=issued_by%>" />
+
+         <div class="wrap">
+            <button type="submit">Update</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    
+  </body>
+</html>
