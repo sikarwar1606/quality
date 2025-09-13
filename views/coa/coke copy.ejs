@@ -231,7 +231,7 @@
   </style>
 </head>
 <body>
-<%- include("../partials/qualityNav") %>
+
 <div class="header">
     <div class="doc_no">Document no. SIPL/QA/R/001</div>
     <div class="supplier">
@@ -256,13 +256,13 @@
     <th>Closure Type</th>
     <td><%=cokeCoaDetailsData.cl_type%></td>
     <th>Resin Grade/Supplier</th>
-    <td><%=rmData.rm + "/" +rmData.rm_sup %></td>
+    <td><%=batch_data.rm + "/" +batch_data.rm_sup %></td>
   </tr>
   <tr>
     <th>Closure Weight</th>
     <td><%=cokeCoaDetailsData.cl_wt%>gm</td>
     <th>Colorant Detail and Dosage</th>
-    <td><%=batch_data.mb_code + "("+ mbData.mb_colour + ")" +mbData.mb_dosage + "%"%></td>
+    <td><%=batch_data.mb_code + "("+ batch_data.mb_colour + ")" + batch_data.mb_dosage%></td>
   </tr>
   <tr>
     <th>Closure Drawing No</th>
@@ -286,7 +286,7 @@
     <th>Customer</th>
     <td><%=customer_data.customer_name + " " + customer_data.customer_location%> </td>
     <th>Color</th>
-    <td><%=mbData.mb_colour%></td>
+    <td><%=batch_data.mb_colour%></td>
   </tr>
   <tr>
     <th>Closure Size & Type</th>
@@ -309,78 +309,79 @@
 </table>
 
    
-   <div class="dimension">
-  <table class="coa-table">
-    <thead>
-      <tr>
-        <th>Characteristic</th>
-        <th>Specs</th>
-        <th>Minimum (mm)</th>
-        <th>Maximum (mm)</th>
-        <th>Average (Min. 25 Closures)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Visual</td>
-        <td>Ok</td>
-        <td>Ok</td>
-        <td>Ok</td>
-        <td>Ok</td>
-      </tr>
-      <tr>
-        <td>Knurling</td>
-        <td><%= cokeCoaDetailsData.cl_kn + "±" + cokeCoaDetailsData.cl_kn_tol %></td>
-        <td><input type="text" value="<%= avgData && avgData.minkn ? avgData.minkn.toFixed(2) : ''%>"></td>
-        <td><input type="text" value="<%= avgData && avgData.maxkn ? avgData.maxkn.toFixed(2) : ''%>"></td>
-        <td><input type="text" value="<%= avgData && avgData.avgkn ? avgData.avgkn.toFixed(2) : ''%>"></td>
-      </tr>
-      <tr>
-        <td>Liner Weight (if applicable)</td>
-        <td><%= cokeCoaDetailsData.cl_liner_wt %></td>
-        <td><%= cokeCoaDetailsData.cl_liner_wt %></td>
-        <td><%= cokeCoaDetailsData.cl_liner_wt %></td>
-        <td><%= cokeCoaDetailsData.cl_liner_wt %></td>
-      </tr>
-      <tr>
-        <td>Closure Height</td>
-        <td><%= cokeCoaDetailsData.cl_ht + "±" + cokeCoaDetailsData.cl_ht_tol %></td>
-        <td><input type="text" value="<%= avgData && avgData.minht ? avgData.minht.toFixed(2) : '' %>"></td>
-        <td><input type="text" value="<%= avgData && avgData.maxht ? avgData.maxht.toFixed(2) : '' %>"></td>
-        <td><input type="text" name="" id="" value="<%= avgData && avgData.avght ? avgData.avght.toFixed(2) : '' %>"></td>
-      </tr>
-      <tr>
-        <td>Closure Weight</td>
-        <td><%= cokeCoaDetailsData.cl_wt + "±" + cokeCoaDetailsData.cl_wt_tol %></td>
-        <td><input type="text" value="<%= avgData && avgData.minwt ? avgData.minwt.toFixed(2) : '' %>"></td>
-        <td><input type="text" value="<%= avgData && avgData.maxwt ? avgData.maxwt.toFixed(2) : '' %>"></td>
-        <td><input type="text" value="<%= avgData && avgData.avgwt ? avgData.avgwt.toFixed(2) : '' %>"></td>
-      </tr>
-      <tr>
-        <td>SST</td>
-        <td colspan="4"><%= cokeCoaDetailsData.cl_sst %></td>
-      </tr>
-    </tbody>
-  </table>
-
-  <table class="footer-table">
+    <div class="dimension">
+       <table class="coa-table">
+  <thead>
     <tr>
-      <th>Inspected by (QAE)</th>
-      <td></td>
-      <th>Approved by (QAM)</th>
-      <td></td>
+      <th>Characteristic</th>
+      <th>Specs</th>
+      <th>Minimum (mm)</th>
+      <th>Maximum (mm)</th>
+      <th>Average (Min. 25 Closures)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Visual</td>
+      <td>Ok</td>
+      <td>Ok</td>
+      <td>Ok</td>
+      <td>Ok</td>
     </tr>
     <tr>
-      <th>Issue Date</th>
-      <td><%= more_info.mfd %></td>
-      <th>Document No.</th>
-      <td>IND-BU-RQ-140-SP-03 - Closure-Rev 11</td>
+      <td>Knurling</td>
+      <td><%=cokeCoaDetailsData.cl_kn + "+/-" + cokeCoaDetailsData.cl_kn_tol%></td>
+      <td><%= avgData.minkn.toFixed(2)%></td>
+      <td><%= avgData.maxkn.toFixed(2)%></td>
+      <td><%= avgData.avgkn.toFixed(2)%></td>
     </tr>
     <tr>
-      <th>Revision Date</th>
-      <td>15 January, 2022</td>
-      <th>Page</th>
-      <td>1 of 1</td>
+      <td>Liner Weight (if applicable)</td>
+      <td><%=cokeCoaDetailsData.cl_liner_wt%></td>
+      <td><%=cokeCoaDetailsData.cl_liner_wt%></td>
+      <td><%=cokeCoaDetailsData.cl_liner_wt%></td>
+      <td><%=cokeCoaDetailsData.cl_liner_wt%></td>
     </tr>
-  </table>
-</div>
+    <tr>
+      <td>Closure Height</td>
+      <td><%=cokeCoaDetailsData.cl_ht + "+/-" + cokeCoaDetailsData.cl_ht_tol%></td>
+      <td><%= avgData.minht.toFixed(2)%></td>
+      <td><%= avgData.maxht.toFixed(2)%></td>
+      <td><%= avgData.avght.toFixed(2)%></td>
+    </tr>
+    <tr>
+      <td>Closure Weight</td>
+      <td><%=cokeCoaDetailsData.cl_wt + "+/-" + cokeCoaDetailsData.cl_wt_tol%></td>
+      <td><%= avgData.minwt.toFixed(2)%></td>
+      <td><%= avgData.maxwt.toFixed(2)%></td>
+      <td><%= avgData.avgwt.toFixed(2)%></td>
+    </tr>
+    <tr>
+      <td>SST</td>
+      <td colspan="4"><%=cokeCoaDetailsData.cl_sst%></td>
+      
+      
+    </tr>
+  </tbody>
+</table>
+<table class="footer-table">
+  <!-- <p><%=cokeCoaDetailsData.cl_sst%></p> -->
+  <tr>
+    <th>Inspected by (QAE)</th>
+    <td></td>
+    <th>Approved by (QAM)</th>
+    <td></td>
+  </tr>
+  <tr>
+    <th>Issue Date</th>
+    <td>16th April, 2003</td>
+    <th>Document No.</th>
+    <td>IND-BU-RQ-140-SP-03 - Closure-Rev 11</td>
+  </tr>
+  <tr>
+    <th>Revision Date</th>
+    <td>15 January, 2022</td>
+    <th>Page</th>
+    <td>17 of 17</td>
+  </tr>
+</table>

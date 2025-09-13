@@ -1,134 +1,161 @@
 const express = require("express");
 const router = express.Router();
-const { isLoggedIn } = require("./auth");
-const Customer_gst = require("./customerSC");
-const batch_details = require("./batchSC");
-const plant_details = require("./plantSC");
-const cokeCoaDetailsSC = require("./cokeCoaDetailsSC");
+const Customer_gst = require("../models/customerSC");
+const batch_details = require("../models/batchSC");
+const plant_details = require("../models/plantSC");
+const cokeCoaDetailsSC = require("../models/cokeCoaDetailsSC");
+const mbDetailsSC = require("../models/mbDetailsSC");
+const rmDetailsSC = require("../models/rmDetailsSC");
 const dimension_data = require("./dimension");
-const specSC = require("./specs")
+const specSC = require("../models/specsSC");
 
-router.post("/",  async function (req, res) {
-  const batch_number = req.body.batch_number;
-  const customer_gst = req.body.customer_gst;
-  const plant_code = req.body.plant_code;
-  const inv_no = req.body.invoice_no;
-  const inv_dt = req.body.invoice_dt;
-  const inv_qty = req.body.qty
-  const mfd = req.body.mfd
-  const more_info = {inv_no, inv_dt, inv_qty, mfd}
-  //Getting average weight of weight, height and knurling
-  let avgData;
-  try{
+// ================= MAIN COA ROUTE =================
+router.post("/", async function (req, res) {
+  const { batch_number, customer_gst, plant_code, invoice_no, invoice_dt, qty, mfd } = req.body;
+  const more_info = { inv_no: invoice_no, inv_dt: invoice_dt, qty, mfd };
+
+  try {
+    // 1️⃣ Get dimension averages
     const result = await dimension_data.aggregate([
-      {$match:{batch_number:batch_number}},
-      {$unwind:"$data"},
+      { $match: { batch_number: batch_number } },
+      { $unwind: "$data" },
       {
-        $group:{
-          _id:"$batch_number",
-          minwt:{$min:"$data.wt"},
-          minht:{$min:"$data.ht"},
-          minkn:{$min:"$data.knurling"},
+        $group: {
+          _id: "$batch_number",
+          minwt: { $min: "$data.wt" },
+          minht: { $min: "$data.ht" },
+          minkn: { $min: "$data.knurling" },
 
-          maxwt:{$max:"$data.wt"},
-          maxht:{$max:"$data.ht"},
-          maxkn:{$max:"$data.knurling"},
+          maxwt: { $max: "$data.wt" },
+          maxht: { $max: "$data.ht" },
+          maxkn: { $max: "$data.knurling" },
 
-          avgwt:{$avg:"$data.wt"},
-          avght:{$avg:"$data.ht"},
-          avgkn:{$avg:"$data.knurling"},
-        }
-      }
+          avgwt: { $avg: "$data.wt" },
+          avght: { $avg: "$data.ht" },
+          avgkn: { $avg: "$data.knurling" },
+        },
+      },
     ]);
-    //Result is an array 
-     avgData = result.length>0 ? result[0]:null;
+
+    let avgData = result.length > 0 ? result[0] : {};
+
+    // 2️⃣ Detect missing values
+    // const missingFields = Object.entries(avgData)
+    //   .filter(([key, value]) => value === null || value === undefined)
+    //   .map(([key]) => key);
+
+    // if (missingFields.length > 0) {
+    //   return res.render("coa_missing_data", {
+    //     missingFields,
+    //     avgData,
+    //     batch_number,
+    //   });
+    // }
+
+    // 3️⃣ Load other related data
+    const batch = await batch_details.findOne({ batch_number });
+    if (!batch) {
+      return res.send("This batch number does not exist, Please check once");
+    }
+
+    const customer = await Customer_gst.findOne({ gst_number: customer_gst });
+    if (!customer) {
+      return res.send("This GST number is not registered, Please contact admin");
+    }
+
+    const cokeCoaDes = await cokeCoaDetailsSC.findOne({ design: batch.design });
+    const plant = await plant_details.findOne({ plant_code });
+    const specs = await specSC.findOne({ design: batch.design });
     
-    
 
-  }catch(err){
-console.error(err);
-res.status(500).send('Error while fetching average values')    
-  }
+    const customer_data = {
+      customer_name: customer.customer_name,
+      customer_location: customer.customer_location,
+    };
 
-  //Getting customer data, batch data and plant data on the basis of input of user
-  const customer = await Customer_gst.findOne({ gst_number: customer_gst });
-  const batch = await batch_details.findOne({ batch_number: batch_number });
-  const plant = await plant_details.findOne({ plant_code: plant_code });
-  const dimension = await dimension_data.findOne({
-    batch_number: batch_number,
-  });
-  //Checking if provided data (gst number) exist in database or not
-  if (!customer) {
-    return res.send(
-      "This GST number is not registered, Please contect to admin"
-    );
-  }
-
-  const customer_data = {
-    customer_name: customer.customer_name,
-    customer_location: customer.customer_location,
-  };
-
-  const cokeCoaDetailsData = {
-    cl_type: cokeCoaDetailsSC.cl_type,
-    cl_drw: cokeCoaDetailsSC.cl_drw,
-    cl_fn_ty: cokeCoaDetailsSC.cl_fn_ty,
-    cl_size_ty: cokeCoaDetailsSC.cl_size_ty,
-    cl_wt: cokeCoaDetailsSC.cl_wt,
-    cl_wt_tol: cokeCoaDetailsSC.cl_wt_tol,
-    cl_ht: cokeCoaDetailsSC.cl_ht,
-    cl_ht_tol: cokeCoaDetailsSC.cl_ht_tol,
-    cl_kn: cokeCoaDetailsSC.cl_kn,
-    cl_kn_tol: cokeCoaDetailsSC.cl_kn_tol,
-    cl_liner_wt: cokeCoaDetailsSC.cl_liner_wt,
-    cl_liner_wt_tol: cokeCoaDetailsSC.cl_liner_wt_tol,
-    cl_sst: cokeCoaDetailsSC.cl_sst,
-    cl_product: cokeCoaDetailsSC.cl_product,
-
-  }
-
-  const batch_data = {
-    batch_number: batch.batch_number,
-    design: batch.design,
-    colour: batch.colour,
-    debossed: batch.debossed,
-    machine_number: batch.machine_number,
-    rm: batch.rm,
-    mb_code: batch.mb_code,
    
-  };
-  const plant_data = {
-    plant_name: plant.plant_name,
-    plant_location: plant.plant_location,
-    plant_add: plant.plant_add,
-  };
 
-  const design = batch_data.design;
-  const designData = await cokeCoaDetailsSC.findOne({ design: design });
+    const cokeCoaDetailsData = {
+      cl_type: cokeCoaDes.cl_type,
+      cl_drw: cokeCoaDes.cl_drw,
+      cl_fn_ty: cokeCoaDes.cl_fn_ty,
+      cl_size_ty: cokeCoaDes.cl_size_ty,
+      cl_wt: cokeCoaDes.cl_wt,
+      cl_wt_tol: cokeCoaDes.cl_wt_tol,
+      cl_ht: cokeCoaDes.cl_ht,
+      cl_ht_tol: cokeCoaDes.cl_ht_tol,
+      cl_kn: cokeCoaDes.cl_kn,
+      cl_kn_tol: cokeCoaDes.cl_kn_tol,
+      cl_liner_wt: cokeCoaDes.cl_liner_wt,
+      cl_liner_wt_tol: cokeCoaDes.cl_liner_wt_tol,
+      cl_sst: cokeCoaDes.cl_sst,
+      product: cokeCoaDes.product,
+    };
 
-//   const cokeCoaDetails = {
-//     cl_type: designData.cl_type,
-//     cl_drw: designData.cl_drw,
-//     cl_fn_ty: designData.cl_fn_ty,
-//     cl_size_ty: designData.cl_size_ty,
-//     cl_kn_spec: designData.cl_kn_spec,
-//     cl_kn_spec_tol: designData.cl_kn_spec_tol,
-//     cl_liner_wt_spec: designData.cl_liner_wt_spec,
-//     cl_liner_wt_spec_tol: designData.cl_liner_spec_tol,
-//     cl_wt_spec: designData.cl_wt_spec,
-//     cl_wt_spec_tol: designData.cl_wt_spec_tol,
-//     cl_ht_spec: designData.cl_ht_spec,
-//     cl_ht_spec_tol: designData.cl_ht_spec_tol,
-//     cl_sst: designData.cl_sst,
-//   };
+    const batch_data = {
+      batch_number: batch.batch_number,
+      design: batch.design,
+      colour: batch.colour,
+      debossed: batch.debossed,
+      machine_number: batch.machine_number,
+      rm: batch.rm,
+      mb_code: batch.mb_code,
+    };
 
-  if (customer.customer_template === "C") {
-    res.render("coa/coke", { customer_data, batch_data, plant_data, cokeCoaDetailsData, avgData, more_info });
-  } else if (customer.customer_template === "B") {
-    res.render("bisleri");
-  } else if (customer.customer_template === "R") {
-    res.render("reliance");
+    const mb_code = batch_data.mb_code;
+    const rm = batch_data.rm;
+    
+    
+
+    const mbDetails = await mbDetailsSC.findOne({ mb_code: mb_code });
+     const mbData = {
+      mb_code: mbDetails.mb_code,
+      mb_sup: mbDetails.mb_sup,
+      mb_colour: mbDetails.mb_colour,
+      mb_dosage: mbDetails.mb_dosage,
+    }
+
+    const rmDetails = await rmDetailsSC.findOne({rm: rm});
+    const rmData = {
+      rm: rmDetails.rm,
+      rm_sup: rmDetails.rm_sup,
+      rm_type: rmDetails.rm_type,
+    }
+
+    const plant_data = {
+      plant_name: plant.plant_name,
+      plant_location: plant.plant_location,
+      plant_add: plant.plant_add,
+    };
+
+    const specData = {
+      packing_qty: specs.packing_qty,
+    };
+
+    // 4️⃣ Render template depending on customer type
+    if (customer.customer_template === "C") {
+      res.render("coa/coke", {
+        customer_data,
+        batch_data,
+        plant_data,
+        cokeCoaDetailsData,
+        avgData,
+        more_info,
+        specData,
+        mbData,
+        rmData
+      });
+    } else if (customer.customer_template === "B") {
+      res.render("bisleri");
+    } else if (customer.customer_template === "R") {
+      res.render("reliance");
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error while generating COA");
   }
 });
+
+
 
 module.exports = router;

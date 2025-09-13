@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const designDetailsSchema = new mongoose.Schema({
+const cokeCoaDetailsSchema = new mongoose.Schema({
   design:String,
   product: String,
   cl_type: String,
@@ -16,7 +16,9 @@ const designDetailsSchema = new mongoose.Schema({
   cl_ht: String,
    cl_ht_tol: String,
   cl_sst: String,
+  issued_by: String,
+  date: { type: Date, default: Date.now },
 });
 
-module.exports = mongoose.model('coke_coa_details', designDetailsSchema);
+module.exports = mongoose.model('coke_coa_details', cokeCoaDetailsSchema);
 

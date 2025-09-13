@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const batch_details = require("./batchSC");
+const batch_details = require("../models/batchSC");
 
 const router = express.Router();
 // let batch_number
