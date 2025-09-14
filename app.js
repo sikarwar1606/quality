@@ -51,7 +51,10 @@ app.set('view engine', 'ejs');
 app.use(expressSession({
   resave: false,
   saveUninitialized: false,
-  secret: "Hello"
+  secret: "Hello",
+  cookie: {
+    maxAge: 1000 * 60 * 60 // 1 hour in ms
+  }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
