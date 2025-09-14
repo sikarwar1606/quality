@@ -5,14 +5,14 @@ const batch_details = require("../models/batchSC");
 const router = express.Router();
 
 // ✅ Connect to MongoDB only if not already connected
-if (mongoose.connection.readyState === 0) {
-  mongoose.connect(
-    "mongodb+srv://sikarwar1606:Bu5F9ylZFLFL9ob6@cluster0.epjwokb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
-  .then(() => console.log("MongoDB connected"))
-  .catch(err => console.error("MongoDB connection error:", err));
-}
+// if (mongoose.connection.readyState === 0) {
+//   mongoose.connect(
+//     "mongodb+srv://sikarwar1606:Bu5F9ylZFLFL9ob6@cluster0.epjwokb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
+//     { useNewUrlParser: true, useUnifiedTopology: true }
+//   )
+//   .then(() => console.log("MongoDB connected"))
+//   .catch(err => console.error("MongoDB connection error:", err));
+// }
 
 const getNewBatchNo = async () => {
   const lastBatch = await batch_details

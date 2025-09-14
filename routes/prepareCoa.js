@@ -44,14 +44,6 @@ const result = await dimension_data.aggregate([
       {
         $group: {
           _id: "$batch_number",
-          minwt: { $min: "$data.wt" },
-          minht: { $min: "$data.ht" },
-          minkn: { $min: "$data.knurling" },
-
-          maxwt: { $max: "$data.wt" },
-          maxht: { $max: "$data.ht" },
-          maxkn: { $max: "$data.knurling" },
-
           avgwt: { $avg: "$data.wt" },
           avght: { $avg: "$data.ht" },
           avgkn: { $avg: "$data.knurling" },

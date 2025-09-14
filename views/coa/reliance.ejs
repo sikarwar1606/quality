@@ -43,6 +43,25 @@
     font-weight: bold;
   }
 
+  /* Input inside table cells */
+.coa-table input {
+  width: 95%;
+  border: none;
+  outline: none;
+  font-size: 12px;
+  text-align: center;
+  padding: 2px;
+  background: transparent;
+  box-sizing: border-box;
+}
+
+/* On focus add a subtle underline */
+.coa-table input:focus {
+  border-bottom: 1px solid #000;
+  background: #f9f9f9;
+}
+
+
   /* Header rows */
   .coa-table tbody tr:nth-child(1) td,
   .coa-table tbody tr:nth-child(2) td,
@@ -192,21 +211,21 @@
       <td>2</td>
       <td colspan="2">Shell Weight (g)</td>
       <td><%=relianceCoaDetailsData.cl_wt + " ± " + relianceCoaDetailsData.cl_wt_tol %></td>
-      <td><input type="text" value=""></td>
+      <td><input type="text" value="<%= avgData.avgwt.toFixed(2)%>"></td>
       <td><input type="text" value="Passed"></td>
     </tr>
     <tr>
       <td>3</td>
       <td colspan="2">Cap Height (mm)</td>
       <td><%=relianceCoaDetailsData.cl_ht + " ± " + relianceCoaDetailsData.cl_ht_tol %></td>
-      <td><input type="text" value=""></td>
+      <td><input type="text" value="<%= avgData.avght.toFixed(2)%>"></td>
       <td><input type="text" value="Passed"></td>
     </tr>
     <tr>
       <td>4</td>
       <td colspan="2">Outer Diameter (mm)</td>
       <td><%=relianceCoaDetailsData.cl_kn + " ± " + relianceCoaDetailsData.cl_kn_tol %></td>
-      <td><input type="text" value=""></td>
+      <td><input type="text" value="<%= avgData.avgkn.toFixed(2)%>"></td>
       <td><input type="text" value="Passed"></td>
     </tr>
     <tr>
