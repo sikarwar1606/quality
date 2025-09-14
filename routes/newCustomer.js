@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const customer_gst = require("../models/customerSC");
+const { isLoggedIn } = require("./auth");
 
 const router = express.Router();
 
@@ -16,12 +17,12 @@ const router = express.Router();
 // }
 
 // ✅ GET route: render design form
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn,(req, res) => {
   res.render("add/add_customer");
 });
 
 // ✅ POST route: save design
-router.post("/new", async (req, res) => {
+router.post("/new", isLoggedIn, async (req, res) => {
   try {
     const newCustomer = new customer_gst({
       ...req.body,

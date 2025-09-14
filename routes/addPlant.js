@@ -1,14 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const plantSC = require("../models/plantSC");
+const { isLoggedIn } = require("./auth");
 
 const router = express.Router();
 
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn,(req, res) => {
   res.render('add/addPlant');
 });
 
-router.post('/new', async (req, res)=>{
+router.post('/new', isLoggedIn, async (req, res)=>{
     try{
         const newPlant = new plantSC({
             ...req.body

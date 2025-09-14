@@ -1,21 +1,22 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const batch_details = require("../models/batchSC");
+const { isLoggedIn } = require("./auth");
 
 const router = express.Router();
 // let batch_number
 
-router.get('/find', (req, res)=>{
+router.get('/find', isLoggedIn, (req, res)=>{
   res.render('add/find_batch');
 })
 
-router.post('/find', (req, res)=>{
+router.post('/find', isLoggedIn, (req, res)=>{
   const batch_number = req.body.batch_number;
   res.redirect(`/batch/show?batch_number=${batch_number}`);
 })
 
 
-router.get("/show", async (req, res) => {
+router.get("/show", isLoggedIn, async (req, res) => {
 
   try {
     const batch_number = req.query.batch_number
@@ -39,7 +40,7 @@ router.get("/show", async (req, res) => {
   }
 });
 
-router.post('/update', async (req, res)=>{
+router.post('/update', isLoggedIn, async (req, res)=>{
   try{
     const batch_number = req.body.batch_number;
     if(!batch_number){

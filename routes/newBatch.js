@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const batch_details = require("../models/batchSC");
+const { isLoggedIn } = require("./auth");
 
 const router = express.Router();
 
@@ -51,12 +52,12 @@ const getNewBatchNo = async () => {
 };
 
 // ✅ GET route: render batch form
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
   res.render("add/add_batch");
 });
 let showBatch;
 // ✅ POST route: save batch
-router.post("/new", async (req, res) => {
+router.post("/new", isLoggedIn, async (req, res) => {
   try {
     const batch_number = await getNewBatchNo();
     // showBatch = batch_number

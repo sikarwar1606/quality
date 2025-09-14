@@ -2,12 +2,13 @@ const express = require("express")
 const mongoose = require("mongoose");
 const router = express.Router();
 const specs = require("../models/specsSC");
+const { isLoggedIn } = require("./auth");
 
 // const specs  = mongoose.model("specs", specsSchema);
-router.get('/new', (req, res)=>{
+router.get('/new', isLoggedIn,(req, res)=>{
   res.render('add/specs')
 })
-router.post('/new', async (req, res)=>{
+router.post('/new', isLoggedIn, async (req, res)=>{
   try {
       const newspec = new specs({
         ...req.body,

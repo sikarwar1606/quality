@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const relianceCoaDetails = require("../models/relianceCoaDetailsSC");
+const { isLoggedIn } = require("./auth");
 
 const router = express.Router();
 
@@ -16,12 +17,12 @@ const router = express.Router();
 
 
 // ✅ GET route: render design form
-router.get("/new", (req, res) => {
+router.get("/new",isLoggedIn, (req, res) => {
   res.render("add/addRelianceCoaData");
 });
 
 // ✅ POST route: save design
-router.post("/new", async (req, res) => {
+router.post("/new", isLoggedIn,async (req, res) => {
   try {
     
     const newRelianceCoaDetails = new relianceCoaDetails({

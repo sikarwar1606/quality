@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { isLoggedIn } = require("./auth");
 const Customer_gst = require("../models/customerSC");
 const batch_details = require("../models/batchSC");
 const plant_details = require("../models/plantSC");
@@ -13,7 +14,7 @@ const specSC = require("../models/specsSC");
 let templateCode;
 let inputs
 
-router.post('/', async (req, res)=>{
+router.post('/', isLoggedIn, async (req, res)=>{
  inputs = req.body;
 
   let gst_number = req.body.customer_gst
@@ -28,7 +29,7 @@ router.post('/', async (req, res)=>{
 })
 
 
-router.get('/relianceCoa', async (req, res)=>{
+router.get('/relianceCoa',isLoggedIn, async (req, res)=>{
    let inv_no= inputs.invoice_no
   let inv_dt= new Date(inputs.invoice_dt).toLocaleDateString('en-GB');
   let qty = inputs.qty
@@ -157,7 +158,7 @@ const result = await dimension_data.aggregate([
 })
 
 //This route is to handle the coa of coke 
-router.get('/cokeCoa', async (req, res)=>{
+router.get('/cokeCoa', isLoggedIn, async (req, res)=>{
   let inv_no= inputs.invoice_no
   let inv_dt= inputs.invoice_dt
   let qty = inputs.qty

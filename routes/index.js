@@ -1,25 +1,25 @@
 var express = require('express');
 var router = express.Router();
 const {isLoggedIn} = require('./auth')
-const userModel = require("./users")
+const userModel = require("../models/users")
 const passport = require('passport')
 const localStrategy = require("passport-local");
 
 passport.use(new localStrategy(userModel.authenticate()))
 
 /* GET home page. */
-router.get('/',  function(req, res, next) {
+router.get('/', isLoggedIn, function(req, res, next) {
   res.render('home');
 });
 
 router.get('/login', function(req, res, next) {
   res.render('login');
 });
-router.get('/register', function(req, res, next) {
+router.get('/register',  function(req, res, next) {
   res.render('register');
 });
 
-router.get('/coa/coa',  function(req, res) {
+router.get('/coa/coa', isLoggedIn,  function(req, res) {
   res.render('coa/coa');
 });
 

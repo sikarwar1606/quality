@@ -8,6 +8,8 @@ const flash = require('flash')
 const mongoose = require('mongoose')
 
 //Models
+
+var usersRouter = require('./models/users');
 const customerSchema = require('./models/customerSC');
 const mbDetailsSchema = require('./models/mbDetailsSC');
 const rmDetailsSchema = require('./models/rmDetailsSC');
@@ -19,7 +21,6 @@ const RelianceCoaSchema = require('./models/relianceCoaDetailsSC');
 
 //Routes
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 const customerRouter = require('./routes/prepareCoa');
 const addmbDetail = require('./routes/addMB');
 const addrmDetail = require('./routes/addRM');
