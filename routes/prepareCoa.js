@@ -9,14 +9,44 @@ const rmDetailsSC = require("../models/rmDetailsSC");
 const dimension_data = require("./dimension");
 const specSC = require("../models/specsSC");
 
-// ================= MAIN COA ROUTE =================
-router.post("/", async function (req, res) {
-  const { batch_number, customer_gst, plant_code, invoice_no, invoice_dt, qty, mfd } = req.body;
-  const more_info = { inv_no: invoice_no, inv_dt: invoice_dt, qty, mfd };
+let templateCode;
+let inputs
 
-  try {
-    // 1️⃣ Get dimension averages
-    const result = await dimension_data.aggregate([
+router.post('/', async (req, res)=>{
+ inputs = req.body;
+
+  let gst_number = req.body.customer_gst
+  gstDetails = await Customer_gst.findOne({gst_number:gst_number})
+  templateCode = gstDetails.customer_template
+  
+  if(templateCode=="R"){
+  res.redirect('/coa/redirect/relianceCoa')
+  }else if(templateCode=="C"){
+    res.redirect('/coa/redirect/cokeCoa')
+  }
+})
+
+
+router.get('/relianceCoa', (req, res)=>{
+  
+  
+  res.render('coa/reliance')
+})
+
+//This route is to handle the coa of coke 
+router.get('/cokeCoa', async (req, res)=>{
+  let inv_no= inputs.invoice_no
+  let inv_dt= inputs.invoice_dt
+  let qty = inputs.qty
+  let mfd = inputs.mfd
+  let batch_number = inputs.batch_number
+  let customer_gst = inputs.customer_gst
+  let plant_code = inputs.plant_code
+  
+const more_info = { inv_no, inv_dt, qty, mfd };
+
+
+  const result = await dimension_data.aggregate([
       { $match: { batch_number: batch_number } },
       { $unwind: "$data" },
       {
@@ -39,20 +69,7 @@ router.post("/", async function (req, res) {
 
     let avgData = result.length > 0 ? result[0] : {};
 
-    // 2️⃣ Detect missing values
-    // const missingFields = Object.entries(avgData)
-    //   .filter(([key, value]) => value === null || value === undefined)
-    //   .map(([key]) => key);
-
-    // if (missingFields.length > 0) {
-    //   return res.render("coa_missing_data", {
-    //     missingFields,
-    //     avgData,
-    //     batch_number,
-    //   });
-    // }
-
-    // 3️⃣ Load other related data
+   // 3️⃣ Load other related data
     const batch = await batch_details.findOne({ batch_number });
     if (!batch) {
       return res.send("This batch number does not exist, Please check once");
@@ -132,9 +149,9 @@ router.post("/", async function (req, res) {
       packing_qty: specs.packing_qty,
     };
 
-    // 4️⃣ Render template depending on customer type
-    if (customer.customer_template === "C") {
-      res.render("coa/coke", {
+
+
+  res.render("coa/coke", {
         customer_data,
         batch_data,
         plant_data,
@@ -145,17 +162,7 @@ router.post("/", async function (req, res) {
         mbData,
         rmData
       });
-    } else if (customer.customer_template === "B") {
-      res.render("bisleri");
-    } else if (customer.customer_template === "R") {
-      res.render("reliance");
-    }
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Error while generating COA");
-  }
-});
 
-
+})
 
 module.exports = router;
