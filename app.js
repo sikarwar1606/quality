@@ -7,21 +7,23 @@ const expressSession = require('express-session')
 const flash = require('flash')
 const mongoose = require('mongoose')
 
-
-
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-const customerRouter = require('./routes/prepareCoa');
+//Models
 const customerSchema = require('./models/customerSC');
 const mbDetailsSchema = require('./models/mbDetailsSC');
 const rmDetailsSchema = require('./models/rmDetailsSC');
-const addmbDetail = require('./routes/addMB');
-const addrmDetail = require('./routes/addRM');
-const batchSchema = require('./models/batchSC');
 const plantSchema = require('./models/plantSC');
+const batchSchema = require('./models/batchSC');
 const CokeCoaSchema = require('./models/cokeCoaDetailsSC');
 const RelianceCoaSchema = require('./models/relianceCoaDetailsSC');
+
+
+//Routes
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
+const customerRouter = require('./routes/prepareCoa');
+const addmbDetail = require('./routes/addMB');
+const addrmDetail = require('./routes/addRM');
+const newPlant = require('./routes/addPlant');
 const dimensionSchema = require('./routes/dimension');
 const newBatch = require('./routes/newBatch');
 const findBatch = require('./routes/findBatch');
@@ -30,8 +32,10 @@ const relianceCoaDetails = require('./routes/relianceCoaDetails');
 const newCustomer = require('./routes/newCustomer');
 const specs = require('./routes/specs');
 // const genrateDimension = require('./routes/genrateDimension');
-const passport = require('passport');
 
+
+
+const passport = require('passport');
 var app = express();
 
 //Database connection
@@ -64,27 +68,29 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.static("public"));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/coa/redirect', customerRouter);
+//Models
 app.use('/customerSC', customerSchema);
 app.use('/batchSC', batchSchema);
-// app.use('/cokeCoaDetails', CokeCoaSchema);
 app.use('/cokeCoaDetailsSC', CokeCoaSchema);
 app.use('/plantSC', plantSchema);
 app.use('/dimensionSC', dimensionSchema);
-app.use('/batch', newBatch);
-app.use('/batch', findBatch);
+app.use('/mbDetailsSC', mbDetailsSchema);
+
+//Routes
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+app.use('/coa/redirect', customerRouter);
 app.use('/cokecoadetails', cokeCoaDetails);
 app.use('/reliancecoadetails', relianceCoaDetails);
+app.use('/newplant', newPlant);
+app.use('/batch', newBatch);
+app.use('/batch', findBatch);
 app.use('/customer', newCustomer);
 app.use('/specs', specs);
-app.use('/mbDetailsSC', mbDetailsSchema);
 app.use('/addmbDetails', addmbDetail);
 app.use('/addrmDetails', addrmDetail);
 
 
-// app.use('/genrateDimensionSC', genrateDimension);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

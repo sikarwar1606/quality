@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <title>New Plant</title>
+    <link rel="stylesheet" href="/stylesheets/add_batch.css">
+  </head>
+  <body>
+    <%- include("../partials/qualityNav") %>
+
+    <div class="details">
+      <div class="main">
+        <h1>Corporate</h1>
+        <h3>Enter Plant Details</h3>
+
+        <form action="/newplant/new" method="post">
+          <label for="plant_code"> Plant Code: </label>
+          <input type="text" id="plant_code" name="plant_code" required />  
+          
+          <label for="plant_name">Plant Name: </label>
+          <input type="text" id="plant_name" name="plant_name" required />  
+
+          <label for="plant_location">Plant Location: </label>
+          <input type="text" id="plant_location" name="plant_location" required />  
+
+          <label for="plant_add">Plant Address: </label>
+          <input type="text" id="plant_add" name="plant_add" required />  
+
+
+          <div class="wrap">
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // Force uppercase for all inputs with class="uppercase"
+      document.querySelectorAll("input.uppercase").forEach(input => {
+        input.addEventListener("input", function () {
+          this.value = this.value.toUpperCase();
+        });
+      });
+    </script>
+  </body>
+</html>
