@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <title>Design Details</title>
+    <link rel="stylesheet" href="/stylesheets/add_batch.css" />
+  </head>
+  <body>
+    <%- include("../partials/qualityNav") %>
+
+    <div class="details">
+      <div class="main">
+        <h1>Corporate</h1>
+        <h3>Enter Design Details</h3>
+
+        <form action="/reliancecoadetails/new" method="post">
+          <label for="design"> Closure Design: </label>
+          <input type="text" id="design" name="design" required />
+
+          <label for="product"> Product : </label>
+          <input type="text" id="product" name="product" required />
+
+          <label for="rm"> Resin : </label>
+          <input type="text" id="rm" name="rm" required />
+
+          <label for="cl_wt">Closure Weight Nominal: </label>
+          <input type="text" id="shift" name="cl_wt" required />
+
+          <label for="cl_wt_tol"> Tolerance Of Weight: </label>
+          <input type="text" id="cl_wt_tol" name="cl_wt_tol" required />
+
+          <label for="cl_ht">Closure Height Nominal: </label>
+          <input type="text" id="cl_ht" name="cl_ht" required />
+
+          <label for="cl_ht_tol">Closure Height Tolerance: </label>
+          <input type="text" id="cl_ht_tol" name="cl_ht_tol" required />
+
+          <label for="cl_kn">Closure Knurling Nominal: </label>
+          <input type="text" id="cl_kn" name="cl_kn" required />
+
+          <label for="cl_kn_tol">Closure Knurling Tolerance: </label>
+          <input type="text" id="cl_kn_tol" name="cl_kn_tol" required />
+
+          <label for="cl_tDia">Closure TDia Nominal: </label>
+          <input type="text" id="cl_tDia" name="cl_tDia" required />
+
+          <label for="cl_tDia_tol">Closure TDia Tolerance: </label>
+          <input type="text" id="cl_tDia_tol" name="cl_tDia_tol" required />
+
+          <label for="cl_eDia">Closure EDia Nominal: </label>
+          <input type="text" id="cl_eDia" name="cl_eDia" required />
+
+          <label for="cl_eDia_tol">Closure EDia Tolerance: </label>
+          <input type="text" id="cl_eDia_tol" name="cl_eDia_tol" required />
+
+          <label for="cl_plugDia">Closure Plug Dia Nominal: </label>
+          <input type="text" id="cl_plugDia" name="cl_plugDia" required />
+
+          <label for="cl_plugDia_tol">Closure Plug Dia Tolerance: </label>
+          <input
+            type="text"
+            id="cl_plugDia_tol"
+            name="cl_plugDia_tol"
+            required
+          />
+
+          <label for="cl_maxDia">Closure Max Dia Nominal: </label>
+          <input type="text" id="cl_maxDia" name="cl_maxDia" required />
+
+          <label for="cl_maxDia_tol">Closure Max Dia Tolerance: </label>
+          <input type="text" id="cl_maxDia_tol" name="cl_maxDia_tol" required />
+
+          <label for="lubricationMig">Lubrication Migration: </label>
+          <input
+            type="text"
+            id="lubricationMig"
+            name="lubricationMig"
+            required
+          />
+
+          <label for="shelfLife">Shelf Life: </label>
+          <input type="text" id="shelfLife" name="shelfLife" required />
+
+          <label for="cl_sst">SST: </label>
+          <input type="text" id="cl_sst" name="cl_sst" required />
+
+          <label for="issued_by">Issued By: </label>
+          <input
+            type="text"
+            id="issued_by"
+            name="issued_by"
+            class="uppercase"
+            required
+          />
+
+          <div class="wrap">
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // Force uppercase for all inputs with class="uppercase"
+      document.querySelectorAll("input.uppercase").forEach((input) => {
+        input.addEventListener("input", function () {
+          this.value = this.value.toUpperCase();
+        });
+      });
+    </script>
+  </body>
+</html>
