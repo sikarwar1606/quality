@@ -233,12 +233,16 @@
 <body>
 <%- include("../partials/qualityNav") %>
 <div class="header">
-    <div class="doc_no">Document no. SIPL/QA/R/001</div>
+    <div class="doc_no">Document no. <%=docDetails.docNo%></div>
     <div class="supplier">
         <div class="supp_name"><%=plant_data.plant_name + "-" + plant_data.plant_location%></div>
         <div class="supp_add"><%=plant_data.plant_add%></div>
     </div>
-    <div class="rev_date">Rev. Date 01/07/2024</div>
+    <div class="rev_date">
+      <div class="revdt">Rev. Date <%=docDetails.revNo %></div>
+      <div class="revno">Rev. Date <%=docDetails.revDt%></div>
+    </div>
+    <!-- <div class="rev_date">Rev. Date <%=docDetails.revDt%></div> -->
 </div>
 <div class="coa_desc">
   <p>Certificate of analysis of Plastic closure:<%=cokeCoaDetailsData.product%></p>
@@ -362,7 +366,8 @@
       </tr>
     </tbody>
   </table>
-
+<p>Certified that the above consignment of closures meets the standards and specifications as per the INSWA BU Packaging Specifications. Certified that the above consignment of closure fulfill requirements Food Safety standard for Packaging regulations,provided by FSSAI.</p>
+<p>All packaging materials and Pallets used are clean and free from any of or obnoxious odors </p>
   <table class="footer-table">
     <tr>
       <th>Inspected by (QAE)</th>
@@ -372,7 +377,7 @@
     </tr>
     <tr>
       <th>Issue Date</th>
-      <td><%= more_info.mfd %></td>
+      <td>16th April, 2023</td>
       <th>Document No.</th>
       <td>IND-BU-RQ-140-SP-03 - Closure-Rev 11</td>
     </tr>
@@ -380,7 +385,7 @@
       <th>Revision Date</th>
       <td>15 January, 2022</td>
       <th>Page</th>
-      <td>1 of 1</td>
+      <td>17 of 17</td>
     </tr>
   </table>
 </div>

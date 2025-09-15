@@ -123,9 +123,10 @@
             />
             <label for="invoice_dt"> Invoice Date: </label>
             <input
-              type="date"
+              type="text"
               id="invoice_dt"
               name="invoice_dt"
+              value="<%= new Date().toLocaleDateString('en-GB') %>"       
               required
             />
             <label for="mfd">Date of Production: </label>

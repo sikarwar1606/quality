@@ -13,6 +13,7 @@ var usersRouter = require('./models/users');
 const customerSchema = require('./models/customerSC');
 const mbDetailsSchema = require('./models/mbDetailsSC');
 const rmDetailsSchema = require('./models/rmDetailsSC');
+const docNoDetailsSchema = require('./models/docNoDetailsSC');
 const plantSchema = require('./models/plantSC');
 const batchSchema = require('./models/batchSC');
 const CokeCoaSchema = require('./models/cokeCoaDetailsSC');
@@ -24,6 +25,7 @@ var indexRouter = require('./routes/index');
 const customerRouter = require('./routes/prepareCoa');
 const addmbDetail = require('./routes/addMB');
 const addrmDetail = require('./routes/addRM');
+const addnewDocDetail = require('./routes/docNoDetails');
 const newPlant = require('./routes/addPlant');
 const dimensionSchema = require('./routes/dimension');
 const newBatch = require('./routes/newBatch');
@@ -53,7 +55,7 @@ app.use(expressSession({
   saveUninitialized: false,
   secret: "Hello",
   cookie: {
-    maxAge: 1000 * 60 * 60 // 1 hour in ms
+    maxAge: 1000 * 60 * 480 // 8 hour in ms
   }
 }));
 app.use(passport.initialize());
@@ -79,6 +81,7 @@ app.use('/cokeCoaDetailsSC', CokeCoaSchema);
 app.use('/plantSC', plantSchema);
 app.use('/dimensionSC', dimensionSchema);
 app.use('/mbDetailsSC', mbDetailsSchema);
+app.use('/addnewDocDetailsSC', docNoDetailsSchema);
 
 //Routes
 app.use('/', indexRouter);
@@ -93,6 +96,7 @@ app.use('/customer', newCustomer);
 app.use('/specs', specs);
 app.use('/addmbDetails', addmbDetail);
 app.use('/addrmDetails', addrmDetail);
+app.use('/addnewdocDetails', addnewDocDetail);
 
 
 
