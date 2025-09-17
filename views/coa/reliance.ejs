@@ -22,9 +22,13 @@
     padding: 15mm;
     box-sizing: border-box;
     background: #fff;
-    border: 1px solid #000;
+    /* border: 1px solid #000; */
   }
-
+  #coa{
+    transform: scale(0.93);
+        border: 2px solid black;
+        transform-origin: top;
+  }
   .coa-table {
     width: 100%;
     border-collapse: collapse;
@@ -37,7 +41,7 @@
     padding: 4px 6px;
     text-align: center;
     vertical-align: middle;
-    line-height: 2.4;
+    line-height: 2.2;
   }
 
   .coa-table thead th {
@@ -47,12 +51,12 @@
 
   /* Input inside table cells */
 .coa-table input {
-  width: 95%;
+  width: 100%;
   border: none;
   outline: none;
-  font-size: 12px;
+  font-size: 10px;
   text-align: center;
-  padding: 2px;
+  padding: 0.5px;
   background: transparent;
   box-sizing: border-box;
 }
@@ -126,174 +130,212 @@
 </head>
 <body>
   <%- include("../partials/qualityNav") %>
-  <div class="container">
+  <div class="container" >
     <!-- Header -->
-   </table>
+     </table>
 
    
-    <div class="dimension">
+      <div class="dimension" id="coa">
        <table class="coa-table">
 
-  <thead>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-    <tr></tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td rowspan="2">Doc. No. VFTL-QA-R-31</td>
-      <td colspan="4"><%= plant_data.plant_name + "-" + plant_data.plant_location%></td>
-      <td>Rev. No. 00</td>
-      
-    </tr>
-    <tr>
-      <td colspan="4"><%=plant_data.plant_add%></td>
-      <td>Rev.Date: 01/07/2025</td>
-    </tr>
-    <tr>
-      
-      
-    </tr>
-    <tr>
-      <td colspan="6">CERTIFICATE OF ANALYSIS FOR PLASTIC CLOSURES</td>
-    </tr>
-    <tr>
-      <td>Customer</td>
-      <td colspan="2"><%=customer_data.customer_name + "-" + customer_data.customer_location%></td>
-      <td>Production Date</td>
-      <td colspan="2"><%=more_info.mfd%></td>
-    </tr>
-    <tr>
-      <td>Product</td>
-      <td colspan="2"><%=batch_data.design%></td>
-      <td>Batch No.</td>
-      <td colspan="2"><%=batch_data.batch_number%></td>
-    </tr>
-    <tr>
-      <td>Resin</td>
-      <td colspan="2"><%=relianceCoaDetailsData.rm%></td>
-      <td>Plain/Debossed</td>
-      <td colspan="2"><%=batch_data.debossed%></td>
-    </tr>
-    <tr>
-      <td>Colour</td>
-      <td colspan="2"><%=mbData.mb_colour%></td>
-      <td>Inv. Qty.</td>
-      <td colspan="2"><%=more_info.qty * specData.packing_qty %> nos. (<%=more_info.qty%> boxes)</td>
-    </tr>
-    <tr>
-      <td>Inv. Dt.</td>
-      <td colspan="2"><%=more_info.inv_dt%></td>
-      <td>Inv. No.</td>
-      <td colspan="2"><%=more_info.inv_no%></td>
-    </tr>
-    
-  </tbody>
-  <thead>
-    <tr>
-      <th>Sl No.</th>
-      <th colspan="2">Parameter</th>
-      <th>Specificatoin</th>
-      <th>Result</th>
-      <th>Remarks</th>
-    </tr>
-  </thead>
-  <tbody>
-    
-    <tr>
-      <td>1</td>
-      <td colspan="2">Visual (Shrinkage, Short Moulding, Cut/Crack in shell, De-formed shell, Shade variation, flashes/Thread flashes, Broken Temper band, Deformation Threads, Flow mark, Odour, Dirty Closures</td>
-      <td>Nill</td>
-      <td>Ok</td>
-      <td>Ok</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td colspan="2">Shell Weight (g)</td>
-      <td><%=relianceCoaDetailsData.cl_wt + " ± " + relianceCoaDetailsData.cl_wt_tol %></td>
-      <td><input type="text" value="<%= avgData.avgwt.toFixed(2)%>"></td>
-      <td><input type="text" value="Passed"></td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td colspan="2">Cap Height (mm)</td>
-      <td><%=relianceCoaDetailsData.cl_ht + " ± " + relianceCoaDetailsData.cl_ht_tol %></td>
-      <td><input type="text" value="<%= avgData.avght.toFixed(2)%>"></td>
-      <td><input type="text" value="Passed"></td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td colspan="2">Outer Diameter (mm)</td>
-      <td><%=relianceCoaDetailsData.cl_kn + " ± " + relianceCoaDetailsData.cl_kn_tol %></td>
-      <td><input type="text" value="<%= avgData.avgkn.toFixed(2)%>"></td>
-      <td><input type="text" value="Passed"></td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td colspan="2">Int. Diameter (mm)</td>
-      <td><%=relianceCoaDetailsData.cl_tDia + " ± " + relianceCoaDetailsData.cl_tDia_tol %></td>
-      <td><input type="text" value=""></td>
-      <td><input type="text" value="Passed"></td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td colspan="2">Thread Diameter (mm)</td>
-      <td><%=relianceCoaDetailsData.cl_eDia + " ± " + relianceCoaDetailsData.cl_eDia_tol %></td>
-      <td><input type="text" value=""></td>
-      <td><input type="text" value="Passed"></td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td colspan="2">Plug Diameter (mm)</td>
-      <td><%=relianceCoaDetailsData.cl_plugDia + " ± " + relianceCoaDetailsData.cl_plugDia_tol %></td>
-      <td><input type="text" value=""></td>
-      <td><input type="text" value="Passed"></td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td colspan="2">Safety Band (mm)</td>
-      <td><%=relianceCoaDetailsData.cl_maxDia + " ± " + relianceCoaDetailsData.cl_maxDia_tol %></td>
-      <td><input type="text" value=""></td>
-      <td><input type="text" value="Passed"></td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td colspan="2">Secure Seal Leakage Test</td>
-      <td><%=relianceCoaDetailsData.cl_sst%></td>
-      <td><input type="text" value="Not Leaked/Not Released"></td>
-      <td><input type="text" value="Passed"></td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td colspan="2">Lubricant Migration</td>
-      <td><%=relianceCoaDetailsData.lubricationMig %></td>
-      <td><input type="text" value="Nill"></td>
-      <td><input type="text" value="Passed"></td>
-    </tr>
-    <tr>
-      <td>11</td>
-      <td colspan="2">Odour/Off Smell</td>
-      <td>No off odour to be detected</td>
-      <td><input type="text" value="Nill"></td>
-      <td><input type="text" value="Passed"></td>
-    </tr>
-    <tr>
-      <td>12</td>
-      <td colspan="2">Closure Shelf Life</td>
-      <td><%=relianceCoaDetailsData.shelfLife%> %></td>
-      <td><input type="text" value="9 Months"></td>
-      <td><input type="text" value="Ok"></td>
-    </tr>
-    <tr>
-      <td colspan="3">Inspected By:-</td>
-      <td colspan="3">Approved By:-</td>      
-    </tr>
-    
-  </tbody>
-</table>
+         <thead>
+           <tr></tr>
+           <tr></tr>
+           <tr></tr>
+           <tr></tr>
+           <tr></tr>
+           <tr></tr>
+         </thead>
+         <tbody>
+           <tr>
+             <td rowspan="2">Doc. No. VFTL-QA-R-31</td>
+             <td colspan="4"><%= plant_data.plant_name + "-" + plant_data.plant_location%></td>
+             <td>Rev. No. 00</td>
+
+           </tr>
+           <tr>
+             <td colspan="4"><%=plant_data.plant_add%></td>
+             <td>Rev.Date: 01/07/2025</td>
+           </tr>
+           <tr>
+
+
+           </tr>
+           <tr>
+             <td colspan="6">CERTIFICATE OF ANALYSIS FOR PLASTIC CLOSURES</td>
+           </tr>
+           <tr>
+             <td>Customer</td>
+             <td colspan="2"><%=customer_data.customer_name + "-" + customer_data.customer_location%></td>
+             <td>Production Date</td>
+             <td colspan="2"><%=more_info.mfd%></td>
+           </tr>
+           <tr>
+             <td>Product</td>
+             <td colspan="2"><%=batch_data.design%></td>
+             <td>Batch No.</td>
+             <td colspan="2"><%=batch_data.batch_number%></td>
+           </tr>
+           <tr>
+             <td>Resin</td>
+             <td colspan="2"><%=relianceCoaDetailsData.rm%></td>
+             <td>Plain/Debossed</td>
+             <td colspan="2"><%=batch_data.debossed%></td>
+           </tr>
+           <tr>
+             <td>Colour</td>
+             <td colspan="2"><%=mbData.mb_colour%></td>
+             <td>Inv. Qty.</td>
+             <td colspan="2"><%=more_info.qty * specData.packing_qty %> nos. (<%=more_info.qty%> boxes)</td>
+           </tr>
+           <tr>
+             <td>Inv. Dt.</td>
+             <td colspan="2"><%=more_info.inv_dt%></td>
+             <td>Inv. No.</td>
+             <td colspan="2"><%=more_info.inv_no%></td>
+           </tr>
+
+         </tbody>
+         <thead>
+           <tr>
+             <th>Sl No.</th>
+             <th colspan="2">Parameter</th>
+             <th>Specificatoin</th>
+             <th>Result</th>
+             <th>Remarks</th>
+           </tr>
+         </thead>
+         <tbody>
+
+           <tr>
+             <td>1</td>
+             <td colspan="2">Visual (Shrinkage, Short Moulding, Cut/Crack in shell, De-formed shell, Shade variation, flashes/Thread flashes, Broken Temper band, Deformation Threads, Flow mark, Odour, Dirty Closures</td>
+             <td>Nill</td>
+             <td>Ok</td>
+             <td>Ok</td>
+           </tr>
+           <tr>
+             <td>2</td>
+             <td colspan="2">Shell Weight (g)</td>
+             <td><%=relianceCoaDetailsData.cl_wt + " ± " + relianceCoaDetailsData.cl_wt_tol %></td>
+             <td><input type="text" value="<%= avgData && avgData.avgwt ? avgData.avgwt.toFixed(2) : '' %>"></td>
+
+             <td><input type="text" value="Passed"></td>
+           </tr>
+           <tr>
+             <td>3</td>
+             <td colspan="2">Cap Height (mm)</td>
+             <td><%=relianceCoaDetailsData.cl_ht + " ± " + relianceCoaDetailsData.cl_ht_tol %></td>
+             <td><input type="text" value="<%= avgData && avgData.avght ? avgData.avght.toFixed(2) : '' %>"></td>
+
+             <td><input type="text" value="Passed"></td>
+           </tr>
+           <tr>
+             <td>4</td>
+             <td colspan="2">Outer Diameter (mm)</td>
+             <td><%=relianceCoaDetailsData.cl_kn + " ± " + relianceCoaDetailsData.cl_kn_tol %></td>
+             <td><input type="text" value="<%= avgData && avgData.avgkn ? avgData.avgkn.toFixed(2) : '' %>"></td>
+
+             <td><input type="text" value="Passed"></td>
+           </tr>
+           <tr>
+             <td>5</td>
+             <td colspan="2">Int. Diameter (mm)</td>
+             <td><%=relianceCoaDetailsData.cl_tDia + " ± " + relianceCoaDetailsData.cl_tDia_tol %></td>
+             <td><input type="text" value=""></td>
+             <td><input type="text" value="Passed"></td>
+           </tr>
+           <tr>
+             <td>6</td>
+             <td colspan="2">Thread Diameter (mm)</td>
+             <td><%=relianceCoaDetailsData.cl_eDia + " ± " + relianceCoaDetailsData.cl_eDia_tol %></td>
+             <td><input type="text" value=""></td>
+             <td><input type="text" value="Passed"></td>
+           </tr>
+           <tr>
+             <td>7</td>
+             <td colspan="2">Plug Diameter (mm)</td>
+             <td><%=relianceCoaDetailsData.cl_plugDia + " ± " + relianceCoaDetailsData.cl_plugDia_tol %></td>
+             <td><input type="text" value=""></td>
+             <td><input type="text" value="Passed"></td>
+           </tr>
+           <tr>
+             <td>8</td>
+             <td colspan="2">Safety Band (mm)</td>
+             <td><%=relianceCoaDetailsData.cl_maxDia + " ± " + relianceCoaDetailsData.cl_maxDia_tol %></td>
+             <td><input type="text" value=""></td>
+             <td><input type="text" value="Passed"></td>
+           </tr>
+           <tr>
+             <td>9</td>
+             <td colspan="2">Secure Seal Leakage Test</td>
+             <td><%=relianceCoaDetailsData.cl_sst%></td>
+             <td><input  type="text" value="Not leaked/Not released"></td>
+             <td><input type="text" value="Passed"></td>
+           </tr>
+           <tr>
+             <td>10</td>
+             <td colspan="2">Lubricant Migration</td>
+             <td><%=relianceCoaDetailsData.lubricationMig %></td>
+             <td><input type="text" value="Nill"></td>
+             <td><input type="text" value="Passed"></td>
+           </tr>
+           <tr>
+             <td>11</td>
+             <td colspan="2">Odour/Off Smell</td>
+             <td>No off odour to be detected</td>
+             <td><input type="text" value="Nill"></td>
+             <td><input type="text" value="Passed"></td>
+           </tr>
+           <tr>
+             <td>12</td>
+             <td colspan="2">Closure Shelf Life</td>
+             <td><%=relianceCoaDetailsData.shelfLife%> %></td>
+             <td><input type="text" value="9 Months"></td>
+             <td><input type="text" value="Ok"></td>
+           </tr>
+           <tr>
+             <td colspan="3">Inspected By:-</td>
+             <td colspan="3">Approved By:-</td>      
+           </tr>
+
+         </tbody>
+        </table>
   </div>
+  <button
+      id="downloadPDF"
+      class="bg-blue-500 text-white px-4 py-2 rounded shadow-lg fixed bottom-4 right-4 z-50"
+    >
+      Download PDF
+    </button>
+
+    <!-- html2pdf.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+      document.getElementById("downloadPDF").addEventListener("click", () => {
+        // Dynamic filename
+        const inv_no = "<%= more_info.inv_no %>";
+        const batch_no = "<%= batch_data.batch_number %>";
+        const design = "<%= batch_data.design %>";
+        const colour = "<%= mbData.mb_colour %>";
+        const debossed = "<%= batch_data.debossed %>";
+
+        const filename = `${inv_no}_${batch_no}_${design}_${colour}_${debossed}.pdf`;
+
+        const element = document.getElementById("coa");
+
+        const opt = {
+          margin: [0.2, 0.2, 0.2, 0.2], // mm
+          filename: filename,
+          image: { type: "jpeg", quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true },
+          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+        };
+
+        // Generate and save in landscape (fits automatically)
+        html2pdf().set(opt).from(element).save();
+      });
+    </script>
 </body>
 </html>

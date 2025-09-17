@@ -14,21 +14,40 @@ const docNoDetailsSC = require("../models/docNoDetailsSC");
 
 const puppeteer = require("puppeteer"); // 📌 add puppeteer for PDF export
 
-
 let templateCode;
 let inputs;
 
 router.post("/", isLoggedIn, async (req, res) => {
   inputs = req.body;
+  try {
+    let gst_number = req.body.customer_gst;
 
-  let gst_number = req.body.customer_gst;
-  gstDetails = await Customer_gst.findOne({ gst_number: gst_number });
-  templateCode = gstDetails.customer_template;
-  //Condition to redirect on releated coa template
-  if (templateCode == "R") {
-    res.redirect("/coa/redirect/relianceCoa");
-  } else if (templateCode == "C") {
-    res.redirect("/coa/redirect/cokeCoa");
+    if (!gst_number) {
+      return res.send(`GST number is required`)
+    }
+
+    let gstDetails = await Customer_gst.findOne({ gst_number: gst_number });
+
+    if (!gstDetails) {
+      // return res.status(404).json({ error:  `GST Number${gst_number} not found in database, Please contact to Admin`});
+      return res.send(`GST Number ${gst_number} not found in database, Please contact to Admin`)
+    }
+
+    let templateCode = gstDetails.customer_template;
+
+    if (templateCode === "R") {
+      return res.redirect("/coa/redirect/relianceCoa");
+    } else if (templateCode === "C"){
+      return res.redirect("/coa/redirect/cokeCoa")
+    }
+
+    // If no matching condition
+    return res
+      .status(200)
+      .json({ message: "Template code not matched", templateCode });
+  } catch (error) {
+    console.error("Error fetching GST details:", error);
+    return res.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -69,11 +88,13 @@ router.get("/relianceCoa", isLoggedIn, async (req, res) => {
     return res.send("This GST number is not registered, Please contact admin");
   }
 
+  
   const relianceCoaDes = await relianceCoaDetailsSC.findOne({
     design: batch.design,
   });
   const plant = await plant_details.findOne({ plant_code });
   const specs = await specSC.findOne({ design: batch.design });
+  
 
   const customer_data = {
     customer_name: customer.customer_name,
@@ -103,8 +124,9 @@ router.get("/relianceCoa", isLoggedIn, async (req, res) => {
     cl_sst: relianceCoaDes.cl_sst,
   };
   //Taking document details like doc no and rev no from docDetailsSC
-  const docDetails = await docNoDetailsSC.findOne({docName:cokeCoaDes.product})
-  
+  const docDetails = await docNoDetailsSC.findOne({
+    docName: relianceCoaDes.product,
+  });
 
   const batch_data = {
     batch_number: batch.batch_number,
@@ -157,7 +179,7 @@ router.get("/relianceCoa", isLoggedIn, async (req, res) => {
 });
 
 //This route is to handle the coa of coke
-router.get("/cokeCoa",  async (req, res) => {
+router.get("/cokeCoa", async (req, res) => {
   let inv_no = inputs.invoice_no;
   let inv_dt = inputs.invoice_dt;
   let qty = inputs.qty;
@@ -165,6 +187,7 @@ router.get("/cokeCoa",  async (req, res) => {
   let batch_number = inputs.batch_number;
   let customer_gst = inputs.customer_gst;
   let plant_code = inputs.plant_code;
+
 
   const more_info = { inv_no, inv_dt, qty, mfd };
 
@@ -229,21 +252,19 @@ router.get("/cokeCoa",  async (req, res) => {
   };
 
   //Taking document details like doc no and rev no from docDetailsSC
-    const rawdocDetails = await docNoDetailsSC.findOne({docName:cokeCoaDes.product})
-    let docDetails;
-    if(plant_code==="A" || plant_code==="D"){
-      docDetails = rawdocDetails
-    }else{
-      docDetails = {
-        docNo: rawdocDetails.docNo.replace("SIPL", "VFT"),
-        revNo: rawdocDetails.revNo,
-        revDt: rawdocDetails.revDt
-      }
-    }
-
-  
-    
-    
+  const rawdocDetails = await docNoDetailsSC.findOne({
+    docName: cokeCoaDes.product,
+  });
+  let docDetails;
+  if (plant_code === "A" || plant_code === "D") {
+    docDetails = rawdocDetails;
+  } else {
+    docDetails = {
+      docNo: rawdocDetails.docNo.replace("SIPL", "VFT"),
+      revNo: rawdocDetails.revNo,
+      revDt: rawdocDetails.revDt,
+    };
+  }
 
   const batch_data = {
     batch_number: batch.batch_number,
@@ -293,9 +314,8 @@ router.get("/cokeCoa",  async (req, res) => {
     specData,
     mbData,
     rmData,
-    docDetails
+    docDetails,
   });
 });
-
 
 module.exports = router;
