@@ -1,391 +1,497 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>COA</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-  <style>
-  
-    /* ///////////////////////////////////////////////////////////////////////////////////// */
-  body{
-    border: 2px solid black;
-  }
+  <head>
+    <meta charset="UTF-8" />
+    <title>COA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <style>
+      /* ///////////////////////////////////////////////////////////////////////////////////// */
+      #coa {
+        /* width: 98%; */
+        transform: scale(0.79);
+        border: 2px solid black;
+        transform-origin: top;
+      }
 
-  .spec-table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
-    font-size: 10pt;
-    background-color: #fff;
-  }
+      .spec-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        font-size: 8pt;
+        background-color: #fff;
+      }
 
-  .spec-table th,
-  .spec-table td {
-    border: 1px solid #333;
-    padding: 8px;
-    text-align: left;
-    word-wrap: break-word;
-  }
+      .spec-table th,
+      .spec-table td {
+        border: 1px solid #333;
+        padding: 8px;
+        text-align: left;
+        word-wrap: break-word;
+      }
 
-  .spec-table th {
-    background-color: #f0f0f0;
-    font-weight: bold;
-  }
+      .spec-table th {
+        background-color: #f0f0f0;
+        font-weight: bold;
+      }
 
-  @media print {
-    @page {
-      size: A4;
-      margin: 20mm;
-    }
+      /* ///////////////////////////////////////////////////////////////////////////////////// */
+      .coa-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed; /* Ensures equal column widths */
+        margin-top: 10px;
+        background-color: #fff;
+        font-size: 10pt;
+      }
 
-    .spec-table {
-      font-size: 9pt;
-    }
+      .coa-table th,
+      .coa-table td {
+        border: 1px solid #333;
+        padding: 8px;
+        text-align: left;
+        word-wrap: break-word; /* Prevents overflow */
+      }
 
-    .spec-table th,
-    .spec-table td {
-      padding: 6px;
-      border: 1px solid #000;
-    }
-  }
+      .coa-table th {
+        background-color: #e6e6e6;
+        font-weight: bold;
+      }
 
+      /* ///////////////////////////////////////////////////////////////////////////// */
+      .footer-table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        font-size: 10pt;
+        margin-top: 10px;
+        background-color: #fff;
+      }
 
-    /* ///////////////////////////////////////////////////////////////////////////////////// */
-    .coa-table {
-  width: 100%;
-  border-collapse: collapse;
-  table-layout: fixed; /* Ensures equal column widths */
-  margin-top: 20px;
-  background-color: #fff;
-  font-size: 10pt;
-}
+      .footer-table th,
+      .footer-table td {
+        border: 1px solid #333;
+        padding: 8px;
+        text-align: left;
+        word-wrap: break-word;
+      }
 
-.coa-table th,
-.coa-table td {
-  border: 1px solid #333;
-  padding: 8px;
-  text-align: left;
-  word-wrap: break-word; /* Prevents overflow */
-}
+      .footer-table th {
+        background-color: #f0f0f0;
+        font-weight: bold;
+      }
 
-.coa-table th {
-  background-color: #e6e6e6;
-  font-weight: bold;
-}
+      /* ////////////////////////////////////////////////////////////////////////////// */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: black;
+        background-color: #fff;
+        /* padding: 2px 5px; */
+        /* height: auto; */
+        flex-wrap: wrap;
+        font-family: Arial, sans-serif;
+        border: 2px solid black;
+      }
 
-/* Print-specific styling */
-@media print {
-  @page {
-    size: A4;
-    margin: 20mm;
-  }
+      .doc_no,
+      .rev_date {
+        width: 15%;
+        background-color: #fff;
+        padding: 10px;
+        font-weight: bold;
+        font-size: 0.95em;
+        box-sizing: border-box;
+      }
 
-  .coa-table {
-    font-size: 9pt;
-    page-break-inside: avoid;
-  }
+      .supplier {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 65%;
+        font-size: 2rem;
+        padding: 10px;
+        box-sizing: border-box;
+      }
 
-  .coa-table th,
-  .coa-table td {
-    padding: 6px;
-    border: 1px solid #000;
-  }
-}
+      .supp_name {
+        font-weight: bold;
+        font-size: 1em;
+        align-items: center;
+        justify-content: center;
+      }
 
-/* ///////////////////////////////////////////////////////////////////////////// */
-.footer-table {
-    width: 100%;
-    border-collapse: collapse;
-    table-layout: fixed;
-    font-size: 10pt;
-    margin-top: 20px;
-    background-color: #fff;
-  }
+      .supp_add {
+        font-size: 0.35em;
+        margin-top: 4px;
+        justify-content: center;
+        align-items: center;
+      }
 
-  .footer-table th,
-  .footer-table td {
-    border: 1px solid #333;
-    padding: 8px;
-    text-align: left;
-    word-wrap: break-word;
-  }
+      .title {
+        text-align: center;
+        font-size: 1.1em;
+        font-weight: bold;
+        margin-top: 15px;
+        font-family: Arial, sans-serif;
+      }
 
-  .footer-table th {
-    background-color: #f0f0f0;
-    font-weight: bold;
-  }
+      .coa_desc {
+        border: 2px solid black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+      }
 
-  @media print {
-    @page {
-      size: A4;
-      margin: 20mm;
-    }
+      /* ////////////////////// PRINT STYLES ////////////////////// */
+      @media print {
+        @page {
+          size: A4 landscape;
+          margin: 10mm;
+        }
 
-    .footer-table {
-      font-size: 9pt;
-    }
+        body {
+          margin: 0;
+          padding: 0;
+        }
 
-    .footer-table th,
-    .footer-table td {
-      padding: 6px;
-      border: 1px solid #000;
-    }
-  }
+        .spec-table {
+          font-size: 8pt;
+        }
 
-  /* ////////////////////////////////////////////////////////////////////////////// */
-  .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: black;
-  background-color: #fff;
-  padding: 10px 20px;
-  height: auto;
-  flex-wrap: wrap;
-  font-family: Arial, sans-serif;
-  border: 2px solid black;
-}
+        .spec-table th,
+        .spec-table td {
+          padding: 6px;
+          border: 1px solid #000;
+        }
 
-.doc_no, .rev_date {
-  width: 15%;
-  background-color: #fff;
-  padding: 10px;
-  font-weight: bold;
-  font-size: 0.95em;
-  box-sizing: border-box;
-}
+        .coa-table {
+          font-size: 9pt;
+          page-break-inside: avoid;
+        }
 
-.supplier {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  /* border: 2px solid black; */
-  width: 65%;
-  font-size: 2rem;
-  padding: 10px;
-  box-sizing: border-box;
-}
+        .coa-table th,
+        .coa-table td {
+          padding: 6px;
+          border: 1px solid #000;
+        }
 
-.supp_name {
-  font-weight: bold;
-  font-size: 1em;
-  align-items: center;
-  justify-content: center;
+        .footer-table {
+          font-size: 9pt;
+        }
 
-}
+        .footer-table th,
+        .footer-table td {
+          padding: 6px;
+          border: 1px solid #000;
+        }
 
-.supp_add {
-  font-size: 0.35em;
-  margin-top: 4px;
-  justify-content: center;
-  align-items: center;
-}
+        .header {
+          background-color: #fff;
+        }
 
-.title {
-  text-align: center;
-  font-size: 1.1em;
-  font-weight: bold;
-  margin-top: 15px;
-  font-family: Arial, sans-serif;
-}
+        .doc_no,
+        .rev_date,
+        .supplier {
+          border: none;
+        }
 
-/* Print optimization */
-@media print {
-  @page {
-    size: A4;
-    margin: 20mm;
-  }
+        .title {
+          font-size: 1em;
+          margin-top: 10px;
+        }
 
-  .header {
-    background-color: #fff;
-  }
+        /* Force COA container to one page */
+        #coa {
+          width: 297mm;
+          height: 210mm;
+          transform: scale(0.8);
+          transform-origin: top left;
+          overflow: hidden;
+          page-break-inside: avoid;
+        }
 
-  .doc_no, .rev_date, .supplier {
-    border: none;
-  }
+        nav {
+          display: none !important;
+          margin: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <%- include("../partials/qualityNav") %>
+    <div id="coa">
+      <div class="header">
+        <div class="doc_no">Document no. <%=docDetails.docNo%></div>
+        <div class="supplier">
+          <div class="supp_name">
+            <%=plant_data.plant_name + "-" + plant_data.plant_location%>
+          </div>
+          <div class="supp_add"><%=plant_data.plant_add%></div>
+        </div>
+        <div class="rev_date">
+          <div class="revdt">Rev. Date <%=docDetails.revNo %></div>
+          <div class="revno">Rev. Date <%=docDetails.revDt%></div>
+        </div>
+        <!-- <div class="rev_date">Rev. Date <%=docDetails.revDt%></div> -->
+      </div>
+      <div class="coa_desc">
+        <p>
+          Certificate of analysis of Plastic
+          closure:<%=cokeCoaDetailsData.product%>
+        </p>
+      </div>
 
-  .title {
-    font-size: 1em;
-    margin-top: 10px;
-  }
-}
-.coa_desc{
-  border: 2px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-}
-@media print {
-  @page {
-    size: landscape;
-  }
-}
- @media print {
-    nav {
-      display: none !important;
-    }
-  }
-  </style>
-</head>
-<body>
-<%- include("../partials/qualityNav") %>
-<div class="header">
-    <div class="doc_no">Document no. <%=docDetails.docNo%></div>
-    <div class="supplier">
-        <div class="supp_name"><%=plant_data.plant_name + "-" + plant_data.plant_location%></div>
-        <div class="supp_add"><%=plant_data.plant_add%></div>
+      <table class="spec-table">
+        <tr>
+          <th>Name of Supplier</th>
+          <td><%=plant_data.plant_name%></td>
+          <th>Supplier Plant</th>
+          <td><%=plant_data.plant_location%></td>
+        </tr>
+        <tr>
+          <th>Closure Type</th>
+          <td><%=cokeCoaDetailsData.cl_type%></td>
+          <th>Resin Grade/Supplier</th>
+          <td><%=rmData.rm + "/" + rmData.rm_type + " " +rmData.rm_sup %></td>
+        </tr>
+        <tr>
+          <th>Closure Weight</th>
+          <td><%=cokeCoaDetailsData.cl_wt%>gm</td>
+          <th>Colorant Detail and Dosage</th>
+          <td>
+            <%=batch_data.mb_code + "("+ mbData.mb_colour + ")"
+            +mbData.mb_dosage + "%"%>
+          </td>
+        </tr>
+        <tr>
+          <th>Closure Drawing No</th>
+          <td><%=cokeCoaDetailsData.cl_drw%></td>
+          <th>Invoice No.</th>
+          <td><%=more_info.inv_no%></td>
+        </tr>
+        <tr>
+          <th>Closure Finish Type</th>
+          <td><%=cokeCoaDetailsData.cl_fn_ty%></td>
+          <th>Invoice Quantity</th>
+          <td>
+            <%=more_info.qty * specData.packing_qty %> nos. (<%=more_info.qty%>
+            boxes)
+          </td>
+        </tr>
+        <tr>
+          <th>Batch/Lot No</th>
+          <td><%=batch_data.batch_number%></td>
+          <th>Date of Invoice</th>
+          <td><%=more_info.inv_dt%></td>
+        </tr>
+        <tr>
+          <th>Customer</th>
+          <td>
+            <%=customer_data.customer_name + " " +
+            customer_data.customer_location%>
+          </td>
+          <th>Color</th>
+          <td><%=mbData.mb_colour%></td>
+        </tr>
+        <tr>
+          <th>Closure Size & Type</th>
+          <td><%=cokeCoaDetailsData.cl_size_ty%></td>
+          <th>Debossed</th>
+          <td><%=batch_data.debossed%></td>
+        </tr>
+        <tr>
+          <th>Liner Material (if applicable)</th>
+          <td>NO</td>
+          <th>MFD</th>
+          <td><%=more_info.mfd%></td>
+        </tr>
+        <tr>
+          <th>Internal Print (if applicable)</th>
+          <td>No</td>
+          <th>Date of Expiry</th>
+          <td>One year from date of manufacturing</td>
+        </tr>
+      </table>
+
+      <div class="dimension">
+        <table class="coa-table">
+          <thead>
+            <tr>
+              <th>Characteristic</th>
+              <th>Specs</th>
+              <th>Minimum (mm)</th>
+              <th>Maximum (mm)</th>
+              <th>Average (Min. 25 Closures)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Visual</td>
+              <td>Ok</td>
+              <td>Ok</td>
+              <td>Ok</td>
+              <td>Ok</td>
+            </tr>
+            <tr>
+              <td>Knurling</td>
+              <td>
+                <%= cokeCoaDetailsData.cl_kn + "±" +
+                cokeCoaDetailsData.cl_kn_tol %>
+              </td>
+              <td>
+                <input
+                  type="text"
+                  value="<%= avgData && avgData.minkn ? avgData.minkn.toFixed(2) : ''%>"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  value="<%= avgData && avgData.maxkn ? avgData.maxkn.toFixed(2) : ''%>"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  value="<%= avgData && avgData.avgkn ? avgData.avgkn.toFixed(2) : ''%>"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Liner Weight (if applicable)</td>
+              <td><%= cokeCoaDetailsData.cl_liner_wt %></td>
+              <td><%= cokeCoaDetailsData.cl_liner_wt %></td>
+              <td><%= cokeCoaDetailsData.cl_liner_wt %></td>
+              <td><%= cokeCoaDetailsData.cl_liner_wt %></td>
+            </tr>
+            <tr>
+              <td>Closure Height</td>
+              <td>
+                <%= cokeCoaDetailsData.cl_ht + "±" +
+                cokeCoaDetailsData.cl_ht_tol %>
+              </td>
+              <td>
+                <input
+                  type="text"
+                  value="<%= avgData && avgData.minht ? avgData.minht.toFixed(2) : '' %>"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  value="<%= avgData && avgData.maxht ? avgData.maxht.toFixed(2) : '' %>"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  name=""
+                  id=""
+                  value="<%= avgData && avgData.avght ? avgData.avght.toFixed(2) : '' %>"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>Closure Weight</td>
+              <td>
+                <%= cokeCoaDetailsData.cl_wt + "±" +
+                cokeCoaDetailsData.cl_wt_tol %>
+              </td>
+              <td>
+                <input
+                  type="text"
+                  value="<%= avgData && avgData.minwt ? avgData.minwt.toFixed(2) : '' %>"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  value="<%= avgData && avgData.maxwt ? avgData.maxwt.toFixed(2) : '' %>"
+                />
+              </td>
+              <td>
+                <input
+                  type="text"
+                  value="<%= avgData && avgData.avgwt ? avgData.avgwt.toFixed(2) : '' %>"
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>SST</td>
+              <td colspan="4"><%= cokeCoaDetailsData.cl_sst %></td>
+            </tr>
+          </tbody>
+        </table>
+        <p>
+          Certified that the above consignment of closures meets the standards
+          and specifications as per the INSWA BU Packaging Specifications.
+          Certified that the above consignment of closure fulfill requirements
+          Food Safety standard for Packaging regulations,provided by FSSAI.
+        </p>
+        <p>
+          All packaging materials and Pallets used are clean and free from any
+          of or obnoxious odors
+        </p>
+        <table class="footer-table">
+          <tr>
+            <th>Inspected by (QAE)</th>
+            <td></td>
+            <th>Approved by (QAM)</th>
+            <td></td>
+          </tr>
+          <tr>
+            <th>Issue Date</th>
+            <td>16th April, 2023</td>
+            <th>Document No.</th>
+            <td>IND-BU-RQ-140-SP-03 - Closure-Rev 11</td>
+          </tr>
+          <tr>
+            <th>Revision Date</th>
+            <td>15 January, 2022</td>
+            <th>Page</th>
+            <td>17 of 17</td>
+          </tr>
+        </table>
+      </div>
     </div>
-    <div class="rev_date">
-      <div class="revdt">Rev. Date <%=docDetails.revNo %></div>
-      <div class="revno">Rev. Date <%=docDetails.revDt%></div>
-    </div>
-    <!-- <div class="rev_date">Rev. Date <%=docDetails.revDt%></div> -->
-</div>
-<div class="coa_desc">
-  <p>Certificate of analysis of Plastic closure:<%=cokeCoaDetailsData.product%></p>
-</div>
-      
+    <button
+      id="downloadPDF"
+      class="bg-blue-500 text-white px-4 py-2 rounded shadow-lg fixed bottom-4 right-4 z-50"
+    >
+      Download PDF
+    </button>
 
-    <table class="spec-table">
-  <tr>
-    <th>Name of Supplier</th>
-    <td><%=plant_data.plant_name%></td>
-    <th>Supplier Plant</th>
-    <td><%=plant_data.plant_location%></td>
-  </tr>
-  <tr>
-    <th>Closure Type</th>
-    <td><%=cokeCoaDetailsData.cl_type%></td>
-    <th>Resin Grade/Supplier</th>
-    <td><%=rmData.rm + "/" +rmData.rm_sup %></td>
-  </tr>
-  <tr>
-    <th>Closure Weight</th>
-    <td><%=cokeCoaDetailsData.cl_wt%>gm</td>
-    <th>Colorant Detail and Dosage</th>
-    <td><%=batch_data.mb_code + "("+ mbData.mb_colour + ")" +mbData.mb_dosage + "%"%></td>
-  </tr>
-  <tr>
-    <th>Closure Drawing No</th>
-    <td><%=cokeCoaDetailsData.cl_drw%></td>
-    <th>Invoice No.</th>
-    <td><%=more_info.inv_no%></td>
-  </tr>
-  <tr>
-    <th>Closure Finish Type</th>
-    <td><%=cokeCoaDetailsData.cl_fn_ty%></td>
-    <th>Invoice Quantity</th>
-    <td><%=more_info.qty * specData.packing_qty %> nos. (<%=more_info.qty%> boxes)</td>
-  </tr>
-  <tr>
-    <th>Batch/Lot No</th>
-    <td><%=batch_data.batch_number%></td>
-    <th>Date of Invoice</th>
-    <td><%=more_info.inv_dt%></td>
-  </tr>
-  <tr>
-    <th>Customer</th>
-    <td><%=customer_data.customer_name + " " + customer_data.customer_location%> </td>
-    <th>Color</th>
-    <td><%=mbData.mb_colour%></td>
-  </tr>
-  <tr>
-    <th>Closure Size & Type</th>
-    <td><%=cokeCoaDetailsData.cl_size_ty%></td>
-    <th>Debossed</th>
-    <td><%=batch_data.debossed%></td>
-  </tr>
-  <tr>
-    <th>Liner Material (if applicable)</th>
-    <td>NO</td>
-    <th>MFD</th>
-    <td><%=more_info.mfd%></td>
-  </tr>
-  <tr>
-    <th>Internal Print (if applicable)</th>
-    <td>No</td>
-    <th>Date of Expiry</th>
-    <td>One year from date of manufacturing</td>
-  </tr>
-</table>
+    <!-- html2pdf.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-   
-   <div class="dimension">
-  <table class="coa-table">
-    <thead>
-      <tr>
-        <th>Characteristic</th>
-        <th>Specs</th>
-        <th>Minimum (mm)</th>
-        <th>Maximum (mm)</th>
-        <th>Average (Min. 25 Closures)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Visual</td>
-        <td>Ok</td>
-        <td>Ok</td>
-        <td>Ok</td>
-        <td>Ok</td>
-      </tr>
-      <tr>
-        <td>Knurling</td>
-        <td><%= cokeCoaDetailsData.cl_kn + "±" + cokeCoaDetailsData.cl_kn_tol %></td>
-        <td><input type="text" value="<%= avgData && avgData.minkn ? avgData.minkn.toFixed(2) : ''%>"></td>
-        <td><input type="text" value="<%= avgData && avgData.maxkn ? avgData.maxkn.toFixed(2) : ''%>"></td>
-        <td><input type="text" value="<%= avgData && avgData.avgkn ? avgData.avgkn.toFixed(2) : ''%>"></td>
-      </tr>
-      <tr>
-        <td>Liner Weight (if applicable)</td>
-        <td><%= cokeCoaDetailsData.cl_liner_wt %></td>
-        <td><%= cokeCoaDetailsData.cl_liner_wt %></td>
-        <td><%= cokeCoaDetailsData.cl_liner_wt %></td>
-        <td><%= cokeCoaDetailsData.cl_liner_wt %></td>
-      </tr>
-      <tr>
-        <td>Closure Height</td>
-        <td><%= cokeCoaDetailsData.cl_ht + "±" + cokeCoaDetailsData.cl_ht_tol %></td>
-        <td><input type="text" value="<%= avgData && avgData.minht ? avgData.minht.toFixed(2) : '' %>"></td>
-        <td><input type="text" value="<%= avgData && avgData.maxht ? avgData.maxht.toFixed(2) : '' %>"></td>
-        <td><input type="text" name="" id="" value="<%= avgData && avgData.avght ? avgData.avght.toFixed(2) : '' %>"></td>
-      </tr>
-      <tr>
-        <td>Closure Weight</td>
-        <td><%= cokeCoaDetailsData.cl_wt + "±" + cokeCoaDetailsData.cl_wt_tol %></td>
-        <td><input type="text" value="<%= avgData && avgData.minwt ? avgData.minwt.toFixed(2) : '' %>"></td>
-        <td><input type="text" value="<%= avgData && avgData.maxwt ? avgData.maxwt.toFixed(2) : '' %>"></td>
-        <td><input type="text" value="<%= avgData && avgData.avgwt ? avgData.avgwt.toFixed(2) : '' %>"></td>
-      </tr>
-      <tr>
-        <td>SST</td>
-        <td colspan="4"><%= cokeCoaDetailsData.cl_sst %></td>
-      </tr>
-    </tbody>
-  </table>
-<p>Certified that the above consignment of closures meets the standards and specifications as per the INSWA BU Packaging Specifications. Certified that the above consignment of closure fulfill requirements Food Safety standard for Packaging regulations,provided by FSSAI.</p>
-<p>All packaging materials and Pallets used are clean and free from any of or obnoxious odors </p>
-  <table class="footer-table">
-    <tr>
-      <th>Inspected by (QAE)</th>
-      <td></td>
-      <th>Approved by (QAM)</th>
-      <td></td>
-    </tr>
-    <tr>
-      <th>Issue Date</th>
-      <td>16th April, 2023</td>
-      <th>Document No.</th>
-      <td>IND-BU-RQ-140-SP-03 - Closure-Rev 11</td>
-    </tr>
-    <tr>
-      <th>Revision Date</th>
-      <td>15 January, 2022</td>
-      <th>Page</th>
-      <td>17 of 17</td>
-    </tr>
-  </table>
-</div>
+    <script>
+      document.getElementById("downloadPDF").addEventListener("click", () => {
+        // Dynamic filename
+        const inv_no = "<%= more_info.inv_no %>";
+        const batch_no = "<%= batch_data.batch_number %>";
+        const design = "<%= cokeCoaDetailsData.design %>";
+        const colour = "<%= mbData.mb_colour %>";
+        const debossed = "<%= batch_data.debossed %>";
+
+        const filename = `${inv_no}_${batch_no}_${design}_${colour}_${debossed}.pdf`;
+
+        const element = document.getElementById("coa");
+
+        const opt = {
+          margin: [0.2, 0.2, 0.2, 0.2], // mm
+          filename: filename,
+          image: { type: "jpeg", quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true },
+          jsPDF: { unit: "mm", format: "a4", orientation: "landscape" },
+        };
+
+        // Generate and save in landscape (fits automatically)
+        html2pdf().set(opt).from(element).save();
+      });
+    </script>
+  </body>
+</html>

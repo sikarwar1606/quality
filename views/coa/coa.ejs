@@ -107,13 +107,6 @@
               name="customer_gst"
               required
             />
-            <label for="batch_number"> Batch Number: </label>
-            <input
-              type="number"
-              id="batch_number"
-              name="batch_number"
-              required
-            />
             <label for="invoice_no"> Invoice Number: </label>
             <input
               type="text"
@@ -129,6 +122,15 @@
               value="<%= new Date().toLocaleDateString('en-GB') %>"       
               required
             />
+            <label for="batch_number"> Batch Number: </label>
+            <input
+              type="number"
+              id="batch_number"
+              name="batch_number"
+              required
+            />
+            
+            
             <label for="mfd">Date of Production: </label>
             <input
               type="text"

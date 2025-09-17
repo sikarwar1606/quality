@@ -12,6 +12,9 @@ const dimension_data = require("./dimension");
 const specSC = require("../models/specsSC");
 const docNoDetailsSC = require("../models/docNoDetailsSC");
 
+const puppeteer = require("puppeteer"); // 📌 add puppeteer for PDF export
+
+
 let templateCode;
 let inputs;
 
@@ -293,5 +296,6 @@ router.get("/cokeCoa",  async (req, res) => {
     docDetails
   });
 });
+
 
 module.exports = router;
