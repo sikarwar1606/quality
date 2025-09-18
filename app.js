@@ -39,6 +39,7 @@ const findBatch = require('./routes/find/findBatch');
 const findCustomer = require('./routes/find/findCustomer');
 const findMB = require('./routes/find/findMB');
 const findRM = require('./routes/find/findRM');
+const findrelcoa = require('./routes/find/findRelCoaDe');
 const findDesign = require('./routes/find/findDesign');
 
 
@@ -104,6 +105,7 @@ app.use('/addmbDetails', addmbDetail);
 app.use('/addmbDetails', addmbDetail);
 app.use('/mb', findMB);
 app.use('/rm', findRM);
+app.use('/relcoade', findrelcoa);
 app.use('/design', findDesign);
 app.use('/addnewdocDetails', addnewDocDetail);
 
