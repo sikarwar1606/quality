@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-    <title>New Resin</title>
-    <link rel="stylesheet" href="/stylesheets/add_batch.css">
+    <title>Find & Update Resin</title>
+    <link rel="stylesheet" href="/stylesheets/add_batch.css" />
   </head>
   <body>
     <%- include("../partials/qualityNav") %>
@@ -14,18 +14,29 @@
     <div class="details">
       <div class="main">
         <h1>Corporate</h1>
-        <h3>Enter Resin Details</h3>
+        <h3>Resin Details</h3>
 
-        <form action="/addrmDetails/new" method="post">
+        <form action="/rm/update" method="post">
           <label for="rm"> Resin Code: </label>
-          <input type="text" id="rm" name="rm" required />  
-          
+          <input type="text" id="rm" name="rm" value="<%=rm%>" required />
+
           <label for="rm_sup">Resin Supplier: </label>
-          <input type="text" id="rm_sup" name="rm_sup" required />  
+          <input
+            type="text"
+            id="rm_sup"
+            name="rm_sup"
+            value="<%=rm_sup%>"
+            required
+          />
 
           <label for="rm_type">Resin Type: </label>
-          <input type="text" id="rm_type" name="rm_type" required />  
-
+          <input
+            type="text"
+            id="rm_type"
+            name="rm_type"
+            value="<%=rm_type%>"
+            required
+          />
 
           <div class="wrap">
             <button type="submit">Submit</button>
@@ -35,8 +46,7 @@
     </div>
 
     <script>
-      // Force uppercase for all inputs with class="uppercase"
-      document.querySelectorAll("input.uppercase").forEach(input => {
+      document.querySelectorAll("input[type='text']").forEach((input) => {
         input.addEventListener("input", function () {
           this.value = this.value.toUpperCase();
         });

@@ -38,6 +38,7 @@ const specs = require('./routes/specs');
 const findBatch = require('./routes/find/findBatch');
 const findCustomer = require('./routes/find/findCustomer');
 const findMB = require('./routes/find/findMB');
+const findRM = require('./routes/find/findRM');
 
 
 
@@ -101,6 +102,7 @@ app.use('/specs', specs);
 app.use('/addmbDetails', addmbDetail);
 app.use('/addmbDetails', addmbDetail);
 app.use('/mb', findMB);
+app.use('/rm', findRM);
 app.use('/addnewdocDetails', addnewDocDetail);
 
 

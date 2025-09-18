@@ -38,8 +38,7 @@
     </div>
 
     <script>
-      // Force uppercase for all inputs with class="uppercase"
-      document.querySelectorAll("input.uppercase").forEach(input => {
+      document.querySelectorAll("input[type='text']").forEach((input) => {
         input.addEventListener("input", function () {
           this.value = this.value.toUpperCase();
         });
