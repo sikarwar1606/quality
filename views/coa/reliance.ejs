@@ -148,14 +148,14 @@
          </thead>
          <tbody>
            <tr>
-             <td rowspan="2">Doc. No. VFTL-QA-R-31</td>
+             <td rowspan="2">Doc. No. <%=docDetails.docNo%></td>
              <td colspan="4"><%= plant_data.plant_name + "-" + plant_data.plant_location%></td>
-             <td>Rev. No. 00</td>
+             <td>Rev. No.<%=docDetails.revNo%></td>
 
            </tr>
            <tr>
              <td colspan="4"><%=plant_data.plant_add%></td>
-             <td>Rev.Date: 01/07/2025</td>
+             <td>Rev.Date: <%=docDetails.revDt%></td>
            </tr>
            <tr>
 
@@ -172,13 +172,13 @@
            </tr>
            <tr>
              <td>Product</td>
-             <td colspan="2"><%=batch_data.design%></td>
+             <td colspan="2"><%=coa_design%></td>
              <td>Batch No.</td>
              <td colspan="2"><%=batch_data.batch_number%></td>
            </tr>
            <tr>
              <td>Resin</td>
-             <td colspan="2"><%=relianceCoaDetailsData.rm%></td>
+             <td colspan="2"><%=rmData.rm_type+" "+ rmData.rm_sup  +" "+ relianceCoaDetailsData.rm%></td>
              <td>Plain/Debossed</td>
              <td colspan="2"><%=batch_data.debossed%></td>
            </tr>
@@ -189,8 +189,14 @@
              <td colspan="2"><%=more_info.qty * specData.packing_qty %> nos. (<%=more_info.qty%> boxes)</td>
            </tr>
            <tr>
+             <td>M.B Dosage</td>
+             <td colspan="2"><%=mbData.mb_dosage%></td>
              <td>Inv. Dt.</td>
              <td colspan="2"><%=more_info.inv_dt%></td>
+           </tr>
+           <tr>
+             <td>M.B Code</td>
+             <td colspan="2"><%=mbData.mb_sup + " "+ mbData.mb_code%></td>
              <td>Inv. No.</td>
              <td colspan="2"><%=more_info.inv_no%></td>
            </tr>

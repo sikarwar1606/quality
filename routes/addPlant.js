@@ -16,7 +16,7 @@ router.post('/new', isLoggedIn, async (req, res)=>{
         });
         await newPlant.save();
         let plant_code = newPlant.plant_code;        
-        res.render('addPlantSuccess', {plant_code});
+        res.render('success/addPlantSuccess', {plant_code});
     }catch(err){
         console.error("Error creating MB details:", err);
         

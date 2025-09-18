@@ -1,175 +1,136 @@
-<nav class="bg-white border-gray-200 dark:bg-gray-900">
-  <div
-    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
-  >
-    
-    
-      <span
-        class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"
-        >Company</span
-      >
-    </a>
-    <button
-      data-collapse-toggle="navbar-default"
-      type="button"
-      class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-      aria-controls="navbar-default"
-      aria-expanded="false"
-    >
-      <span class="sr-only">Open main menu</span>
-      <svg
-        class="w-5 h-5"
-        aria-hidden="true"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 17 14"
-      >
-        <path
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M1 1h15M1 7h15M1 13h15"
-        />
-      </svg>
-    </button>
-    <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-      <ul
-        class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700"
-      >
-        <li>
-          <a
-            href="/"
-            class="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
-            aria-current="page"
-            >Home</a
-          >
-        </li>
-        <li>
-          <a
-            href="/batch/find"
-            class="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
-            aria-current="page"
-            >Find Batch</a
-          >
-        </li>
-        <li>
-          <a
-            href="/coa/coa"
-            class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-            >COA</a
-          >
-        </li>
-        
+<!DOCTYPE html>
+<html lang="en">
 
-        <li>
-          <button
-            id="dropdownNavbarLink"
-            data-dropdown-toggle="dropdownNavbar"
-            class="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
-          >
-            Add Data
-            <svg
-              class="w-2.5 h-2.5 ms-2.5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 10 6"
-            >
-              <path
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="m1 1 4 4 4-4"
-              />
-            </svg>
-          </button>
-          <!-- Dropdown menu -->
-          <div
-            id="dropdownNavbar"
-            class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600"
-          >
-            <ul
-              class="py-2 text-sm text-gray-700 dark:text-gray-400"
-              aria-labelledby="dropdownLargeButton"
-            >
-              <li>
-                <a
-                  href="/batch/new"
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >New Batch Number</a
-                >
-              </li>
-              <li>
-                <a
-                  href="/specs/new"
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >New Design</a
-                >
-              </li>
-              <li>
-                <a
-                  href="/customer/new"
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >New Customer </a
-                >
-              </li>
-              <li>
-                <a
-                  href="/addmbDetails/new"
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >New Master Batch </a
-                >
-              </li>
-              <li>
-                <a
-                  href="/addrmDetails/new"
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >New Resin </a
-                >
-              </li>
-              <li>
-                <a
-                  href="/cokecoadetails/new"
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >Coke Coa Details </a
-                >
-              </li>
-              <li>
-                <a
-                  href="/reliancecoadetails/new"
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >Reliance Coa Details </a
-                >
-              </li>
-              <li>
-                <a
-                  href="/newplant/new"
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >Add New Plant</a
-                >
-              </li>
-              <li>
-                <a
-                  href="/addnewdocDetails/new"
-                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                  >Add Doc. Details</a
-                >
-              </li>
-            </ul>
-            
-          </div>
-        </li>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Navbar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+</head>
 
-        <li>
-          <a
-            href="/logout"
-            class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-            >LogOut</a
-          >
-        </li>
-      </ul>
+<body class="bg-gray-100">
+
+  <nav class="bg-white border-gray-200 dark:bg-gray-900">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Company</span>
+
+      <!-- Mobile menu button -->
+      <button data-collapse-toggle="navbar-default" type="button"
+        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        aria-controls="navbar-default" aria-expanded="false">
+        <span class="sr-only">Open main menu</span>
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+          viewBox="0 0 17 14">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M1 1h15M1 7h15M1 13h15" />
+        </svg>
+      </button>
+
+      <!-- Navbar links -->
+      <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+        <ul
+          class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 
+                 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white 
+                 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+
+          <!-- Home -->
+          <li>
+            <a href="/"
+              class="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent 
+                     md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
+              aria-current="page">Home</a>
+          </li>
+
+          <!-- COA -->
+          <li>
+            <a href="/coa/coa"
+              class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent 
+                     md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white 
+                     md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white 
+                     md:dark:hover:bg-transparent">COA</a>
+          </li>
+
+          <!-- 🔹 Add Data Dropdown -->
+          <li>
+            <button id="dropdownAddBtn" data-dropdown-toggle="dropdownAdd"
+              class="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded-sm 
+                     hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 
+                     md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 
+                     dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 
+                     md:dark:hover:bg-transparent">
+              Add Data
+              <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 1 4 4 4-4" />
+              </svg>
+            </button>
+
+            <!-- Add Data Menu -->
+            <div id="dropdownAdd"
+              class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 
+                     dark:bg-gray-700 dark:divide-gray-600">
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownAddBtn">
+                <li><a href="/batch/new" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">New Batch</a></li>
+                <li><a href="/specs/new" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">New Design</a></li>
+                <li><a href="/customer/new" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">New Customer</a></li>
+                <li><a href="/addmbDetails/new" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">New Master Batch</a></li>
+                <li><a href="/addrmDetails/new" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">New Resin</a></li>
+                <li><a href="/cokecoadetails/new" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Coke Coa</a></li>
+                <li><a href="/reliancecoadetails/new" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Reliance Coa</a></li>
+                <li><a href="/newplant/new" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Add Plant</a></li>
+                <li><a href="/addnewdocDetails/new" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Add Docs</a></li>
+              </ul>
+            </div>
+          </li>
+
+          <!-- 🔹 Find Data Dropdown -->
+          <li>
+            <button id="dropdownFindBtn" data-dropdown-toggle="dropdownFind"
+              class="flex items-center justify-between w-full py-2 px-3 text-gray-900 rounded-sm 
+                     hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 
+                     md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 
+                     dark:focus:text-white dark:border-gray-700 dark:hover:bg-gray-700 
+                     md:dark:hover:bg-transparent">
+              Find & Update
+              <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 1 4 4 4-4" />
+              </svg>
+            </button>
+
+            <!-- Find Data Menu -->
+            <div id="dropdownFind"
+              class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 
+                     dark:bg-gray-700 dark:divide-gray-600">
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownFindBtn">
+                <li><a href="/batch/find" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Batch Details</a></li>
+                <li><a href="/specs/list" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Design List</a></li>
+                <li><a href="/customer/find" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Customer Details</a></li>
+                <li><a href="/mbdetails/list" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Master Batch List</a></li>
+                <li><a href="/rmdetails/list" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Resin List</a></li>
+                <li><a href="/cokecoa/list" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Coke Coa List</a></li>
+                <li><a href="/reliancecoa/list" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Reliance Coa List</a></li>
+                <li><a href="/plant/list" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Plant List</a></li>
+                <li><a href="/docdetails/list" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Docs List</a></li>
+              </ul>
+            </div>
+          </li>
+
+          <!-- Logout -->
+          <li>
+            <a href="/logout"
+              class="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent 
+                     md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white 
+                     md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white 
+                     md:dark:hover:bg-transparent">Logout</a>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
+
+</body>
+</html>

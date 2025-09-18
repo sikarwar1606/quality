@@ -16,7 +16,7 @@ router.post('/new', isLoggedIn, async (req, res)=>{
         });
         let docName = newaddDocNoDetails.docName;
         await newaddDocNoDetails.save();
-        res.render('addDocNoDetailsSuccess', {docName});
+        res.render('success/addDocNoDetailsSuccess', {docName});
     }catch(err){
         console.error("Error creating MB details:", err);
         res.render('error')

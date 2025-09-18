@@ -53,7 +53,7 @@ router.post("/", isLoggedIn, async (req, res) => {
 
 router.get("/relianceCoa", isLoggedIn, async (req, res) => {
   let inv_no = inputs.invoice_no;
-  let inv_dt = new Date(inputs.invoice_dt).toLocaleDateString("en-GB");
+  let inv_dt = inputs.invoice_dt;
   let qty = inputs.qty;
   let mfd = inputs.mfd;
   let batch_number = inputs.batch_number;
@@ -61,6 +61,8 @@ router.get("/relianceCoa", isLoggedIn, async (req, res) => {
   let plant_code = inputs.plant_code;
 
   const more_info = { inv_no, inv_dt, qty, mfd };
+ 
+  
 
   const result = await dimension_data.aggregate([
     { $match: { batch_number: batch_number } },
@@ -124,9 +126,17 @@ router.get("/relianceCoa", isLoggedIn, async (req, res) => {
     cl_sst: relianceCoaDes.cl_sst,
   };
   //Taking document details like doc no and rev no from docDetailsSC
-  const docDetails = await docNoDetailsSC.findOne({
+  let rawdocDetails = await docNoDetailsSC.findOne({
     docName: relianceCoaDes.product,
   });
+ 
+    let docDetails = {
+      docNo: rawdocDetails.docNo.replace("SIPL", "VFT"),
+      revNo: rawdocDetails.revNo,
+      revDt: rawdocDetails.revDt,
+    };
+  
+  
 
   const batch_data = {
     batch_number: batch.batch_number,
@@ -138,16 +148,23 @@ router.get("/relianceCoa", isLoggedIn, async (req, res) => {
     mb_code: batch.mb_code,
   };
 
+   let coa_design = batch_data.design
+  if(batch_data.design === "AB26CSD12 30.41"){
+    coa_design = "AB26CSD12 (GME-30.41)"
+  }
+
   let mb_code = batch_data.mb_code;
   let rm = relianceCoaDetailsData.rm;
 
-  const mbDetails = await mbDetailsSC.findOne({ mb_code: mb_code });
-  const mbData = {
-    mb_code: mbDetails.mb_code,
-    mb_sup: mbDetails.mb_sup,
-    mb_colour: mbDetails.mb_colour,
-    mb_dosage: mbDetails.mb_dosage,
-  };
+ const mbDetails = await mbDetailsSC.findOne({ mb_code });
+
+const mbData = {
+  mb_code: mbDetails?.mb_code || "N/A",
+  mb_sup: mbDetails?.mb_sup || "",
+  mb_colour: mbDetails?.mb_colour || "Translucent",
+  mb_dosage: mbDetails?.mb_dosage || "N/A",
+};
+
 
   const rmDetails = await rmDetailsSC.findOne({ rm: rm });
   const rmData = {
@@ -175,6 +192,8 @@ router.get("/relianceCoa", isLoggedIn, async (req, res) => {
     specData,
     mbData,
     rmData,
+    coa_design,
+    docDetails
   });
 });
 

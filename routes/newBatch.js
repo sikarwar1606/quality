@@ -59,7 +59,7 @@ router.post("/new", isLoggedIn, async (req, res) => {
     });
 
     await newBatchData.save();
-    res.render("addBatchSuccess",{batch_number});
+    res.render("success/addBatchSuccess",{batch_number});
   } catch (err) {
     console.error("Error creating batch:", err);
     res.status(500).send("Server Error");

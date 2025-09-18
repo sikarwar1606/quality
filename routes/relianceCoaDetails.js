@@ -31,7 +31,7 @@ router.post("/new", isLoggedIn,async (req, res) => {
     });
 let design_name = newRelianceCoaDetails.design
     await newRelianceCoaDetails.save();
-    res.render("addRelianceCoaDataSuccess", {design_name});
+    res.render("success/addRelianceCoaDataSuccess", {design_name});
   } catch (err) {
     console.error("Error creating batch:", err);
     res.status(500).send("Server Error");

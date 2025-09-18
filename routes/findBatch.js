@@ -7,7 +7,7 @@ const router = express.Router();
 // let batch_number
 
 router.get('/find', isLoggedIn, (req, res)=>{
-  res.render('add/find_batch');
+  res.render('find/find_batch');
 })
 
 router.post('/find', isLoggedIn, (req, res)=>{

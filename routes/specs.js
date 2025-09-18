@@ -15,7 +15,7 @@ router.post('/new', isLoggedIn, async (req, res)=>{
       });
       let design = newspec.design;
       await newspec.save();
-      res.render("addSpecsSuccess", { design });
+      res.render("success/addSpecsSuccess", { design });
     } catch (err) {
       console.error("Error creating spec:", err);
       res.status(500).send("Server Error");

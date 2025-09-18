@@ -16,7 +16,7 @@ router.post('/new', isLoggedIn, async (req, res)=>{
         });
         let mb_code = newMBDetails.mb_code;
         await newMBDetails.save();
-        res.render('addMBSuccess', {mb_code});
+        res.render('success/addMBSuccess', {mb_code});
     }catch(err){
         console.error("Error creating MB details:", err);
         res.render('error')

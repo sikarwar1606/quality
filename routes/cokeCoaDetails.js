@@ -28,7 +28,7 @@ router.post("/new", isLoggedIn, async (req, res) => {
     });
     let design_name = newCokeCoaDetails.design;
     await newCokeCoaDetails.save();
-    res.render("addCokeCoaDataSuccess", { design_name });
+    res.render("success/addCokeCoaDataSuccess", { design_name });
   } catch (err) {
     console.error("Error creating batch:", err);
     res.status(500).send("Server Error");
