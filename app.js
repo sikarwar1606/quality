@@ -29,13 +29,15 @@ const addnewDocDetail = require('./routes/docNoDetails');
 const newPlant = require('./routes/addPlant');
 const dimensionSchema = require('./routes/dimension');
 const newBatch = require('./routes/newBatch');
-const findBatch = require('./routes/findBatch');
-const findCustomer = require('./routes/findCustomer');
 const cokeCoaDetails = require('./routes/cokeCoaDetails');
 const relianceCoaDetails = require('./routes/relianceCoaDetails');
 const newCustomer = require('./routes/newCustomer');
 const specs = require('./routes/specs');
-// const genrateDimension = require('./routes/genrateDimension');
+
+//Find routes
+const findBatch = require('./routes/find/findBatch');
+const findCustomer = require('./routes/find/findCustomer');
+const findMB = require('./routes/find/findMB');
 
 
 
@@ -97,7 +99,8 @@ app.use('/customer', newCustomer);
 app.use('/customer', findCustomer);
 app.use('/specs', specs);
 app.use('/addmbDetails', addmbDetail);
-app.use('/addrmDetails', addrmDetail);
+app.use('/addmbDetails', addmbDetail);
+app.use('/mb', findMB);
 app.use('/addnewdocDetails', addnewDocDetail);
 
 

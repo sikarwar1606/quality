@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const batch_details = require("../models/batchSC");
-const { isLoggedIn } = require("./auth");
+const batch_details = require("../../models/batchSC");
+const { isLoggedIn } = require("../auth");
 
 const router = express.Router();
 // let batch_number
@@ -34,7 +34,7 @@ router.get("/show", isLoggedIn, async (req, res) => {
 
     const {date,shift,design,debossed,mc_no,rm,mb_code,mc_speed,issued_by,} = batchData;
     const bDate = date.toLocaleDateString("en-GB");
-    res.render('add/show_batch', {bDate,shift,design,debossed,mc_no,rm,mb_code,mc_speed,issued_by,batch_number});
+    res.render('show/show_batch', {bDate,shift,design,debossed,mc_no,rm,mb_code,mc_speed,issued_by,batch_number});
   } catch (err) {
     res.status(500).send("Server Error");
   }

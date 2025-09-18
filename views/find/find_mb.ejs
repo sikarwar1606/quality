@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-    <title>Find Batch</title>
+    <title>Find MB</title>
     <link rel="stylesheet" href="/stylesheets/add_batch.css">
   </head>
   <body>
@@ -14,13 +14,13 @@
     <div class="details">
       <div class="main">
         <h1>Corporate</h1>
-        <h3> GST No.</h3>
+        <h3> Master Batch Code</h3>
 
-        <form action="/customer/find" method="post">
+        <form action="/mb/find" method="post">
           <!-- Take input of batch number of find the details and after that show those details in the below fields -->
           
-          <label for="gst_number"> GST Number: </label>
-          <input type="text" id="gst_number" name="gst_number" />
+          <label for="mb_code"> Master Batch Code: </label>
+          <input type="text" id="mb_code" name="mb_code" />
 
           <button type="submit">Search</button>
         </form>

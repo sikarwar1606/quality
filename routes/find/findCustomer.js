@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const customerSC = require("../models/customerSC");
-const { isLoggedIn } = require("./auth");
+const customerSC = require("../../models/customerSC");
+const { isLoggedIn } = require("../auth");
 
 const router = express.Router();
 // let batch_number
@@ -40,7 +40,7 @@ router.get("/show", isLoggedIn, async (req, res) => {
 
     const {customer_location, customer_name, customer_template, issued_by} = gstData;
     
-    res.render('add/show_customer', {gst_number,customer_location, customer_name, customer_template, issued_by});
+    res.render('show/show_customer', {gst_number,customer_location, customer_name, customer_template, issued_by});
   } catch (err) {
     res.status(500).send("Server Error");
   }
