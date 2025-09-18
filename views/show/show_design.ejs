@@ -14,18 +14,25 @@
     <div class="details">
       <div class="main">
         <h1>Corporate</h1>
-        <h3>Enter Specs Details</h3>
+        <h3>Specs Details</h3>
 
-        <form action="/specs/new" method="post">
+        <form action="/design/update" method="post">
           <label for="design"> Design: </label>
-          <input type="text" id="design" name="design" required />
+          <input
+            type="text"
+            id="design"
+            name="design"
+            value="<%=design%>"
+            required
+          />
 
-          <label for="product">Product: </label>
+          <label for="product">Product</label>
           <input
             type="text"
             id="product"
             name="product"
             class="uppercase"
+            value="<%=product%>"
             required
           />
 
@@ -35,6 +42,7 @@
             id="cl_type"
             name="cl_type"
             class="uppercase"
+            value="<%=cl_type%>"
             required
           />
 
@@ -44,6 +52,7 @@
             id="cl_drw"
             name="cl_drw"
             class="uppercase"
+            value="<%=cl_drw%>"
             required
           />
 
@@ -52,7 +61,7 @@
             type="text"
             id="cl_wt_spec"
             name="cl_wt_spec"
-            class="uppercase"
+            value="<%=cl_wt_spec%>"
             required
           />
 
@@ -61,7 +70,7 @@
             type="text"
             id="cl_wt_spec_tol"
             name="cl_wt_spec_tol"
-            class="uppercase"
+            value="<%= cl_wt_spec_tol%>"
             required
           />
 
@@ -70,7 +79,7 @@
             type="text"
             id="cl_ht"
             name="cl_ht_spec"
-            class="uppercase"
+            value="<%=cl_ht_spec%>"
             required
           />
 
@@ -79,7 +88,7 @@
             type="text"
             id="cl_ht_tol"
             name="cl_ht_spec_tol"
-            class="uppercase"
+            value="<%=cl_ht_spec_tol%>"
             required
           />
 
@@ -88,7 +97,7 @@
             type="text"
             id="cl_kn_spec"
             name="cl_kn_spec"
-            class="uppercase"
+            value="<%=cl_kn_spec%>"
             required
           />
 
@@ -97,7 +106,7 @@
             type="text"
             id="cl_kn_tol"
             name="cl_kn_spec_tol"
-            class="uppercase"
+            value="<%=cl_kn_spec_tol%>"
             required
           />
 
@@ -106,57 +115,153 @@
             type="text"
             id="thickness"
             name="thickness"
-            class="uppercase"
+            value="<%=thickness%>"
             required
           />
 
           <label for="thickness_tol">Top Thickness Tolerance: </label>
-          <input type="text" id="thickness_tol" name="thickness_tol" required />
+          <input
+            type="text"
+            id="thickness_tol"
+            name="thickness_tol"
+            value="<%=thickness_tol%>"
+            required
+          />
 
           <label for="t_dia">T Dia. Nominal: </label>
-          <input type="text" id="t_dia" name="t_dia" required />
+          <input
+            type="text"
+            id="t_dia"
+            name="t_dia"
+            value="<%=t_dia%>"
+            required
+          />
 
           <label for="t_dia_tol">T Dia. Tolerance: </label>
-          <input type="text" id="t_dia_tol" name="t_dia_tol" required />
+          <input
+            type="text"
+            id="t_dia_tol"
+            name="t_dia_tol"
+            value="<%=t_dia_tol%>"
+            required
+          />
 
           <label for="e_dia">E Dia. Nominal: </label>
-          <input type="text" id="e_dia" name="e_dia" required />
+          <input
+            type="text"
+            id="e_dia"
+            name="e_dia"
+            value="<%=e_dia%>"
+            required
+          />
 
           <label for="e_dia_tol">E Dia. Tolerance: </label>
-          <input type="text" id="e_dia_tol" name="e_dia_tol" required />
+          <input
+            type="text"
+            id="e_dia_tol"
+            name="e_dia_tol"
+            value="<%=e_dia_tol%>"
+            required
+          />
 
           <label for="plug_dia">Plug Dia. Nominal: </label>
-          <input type="text" id="plug_dia" name="plug_dia" required />
+          <input
+            type="text"
+            id="plug_dia"
+            name="plug_dia"
+            value="<%=plug_dia%>"
+            required
+          />
 
           <label for="plug_dia_tol">Plug Dia. Tolerance: </label>
-          <input type="text" id="plug_dia_tol" name="plug_dia_tol" required />
+          <input
+            type="text"
+            id="plug_dia_tol"
+            name="plug_dia_tol"
+            value="<%=plug_dia_tol%>"
+            required
+          />
 
           <label for="plug_ht">Plug Height Nominal: </label>
-          <input type="text" id="plug_ht" name="plug_ht" required />
+          <input
+            type="text"
+            id="plug_ht"
+            name="plug_ht"
+            value="<%=plug_ht%>"
+            required
+          />
 
           <label for="plug_ht_tol">Plug Height Tolerance: </label>
-          <input type="text" id="plug_ht_tol" name="plug_ht_tol" required />
+          <input
+            type="text"
+            id="plug_ht_tol"
+            name="plug_ht_tol"
+            value="<%=plug_ht_tol%>"
+            required
+          />
 
           <label for="top_flatness">Top Flatness Nominal: </label>
-          <input type="text" id="top_flatness" name="top_flatness" required />
+          <input
+            type="text"
+            id="top_flatness"
+            name="top_flatness"
+            value="<%=top_flatness%>"
+            required
+          />
 
           <label for="top_flatness_tol">Top Flatness Tolerance: </label>
-          <input type="text" id="top_flatness_tol" name="top_flatness_tol" required />
+          <input
+            type="text"
+            id="top_flatness_tol"
+            name="top_flatness_tol"
+            value="<%=top_flatness_tol%>"
+            required
+          />
 
           <label for="max_dia">Max Dia. Nominal: </label>
-          <input type="text" id="max_dia" name="max_dia" required />
+          <input
+            type="text"
+            id="max_dia"
+            name="max_dia"
+            value="<%=max_dia%>"
+            required
+          />
 
           <label for="max_dia_tol">Max Dia. Tolerance: </label>
-          <input type="text" id="max_dia_tol" name="max_dia_tol" required />
+          <input
+            type="text"
+            id="max_dia_tol"
+            name="max_dia_tol"
+            value="<%=max_dia_tol%>"
+            required
+          />
 
           <label for="slitting_ht">Slitting Height Nominal: </label>
-          <input type="text" id="slitting_ht" name="slitting_ht" required />
+          <input
+            type="text"
+            id="slitting_ht"
+            name="slitting_ht"
+            value="<%=slitting_ht%>"
+            required
+          />
 
           <label for="slitting_ht_tol">Slitting Height Tolerance: </label>
-          <input type="text" id="slitting_ht_tol" name="slitting_ht_tol" required />
+          <input
+            type="text"
+            id="slitting_ht_tol"
+            name="slitting_ht_tol"
+            value="<%=slitting_ht_tol%>"
+            required
+          />
 
-           <label for="packing_qty">Quantity Per Box: </label>
-          <input type="text" id="packing_qty" name="packing_qty" required />
+          <label for="packing_qty">Quantity Per Box: </label>
+          <input
+            type="text"
+            id="packing_qty"
+            name="packing_qty"
+            value="<%=packing_qty%>"
+            required
+          />
 
           <div class="wrap">
             <button type="submit">Submit</button>

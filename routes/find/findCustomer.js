@@ -12,7 +12,6 @@ router.get('/find', isLoggedIn, (req, res)=>{
 
 router.post('/find', isLoggedIn, (req, res)=>{
   const gst_number = req.body.gst_number;
-  console.log(`This is the gst number from body${gst_number}`);
   res.redirect(`/customer/show?gst_number=${gst_number}`);
 })
 
@@ -25,14 +24,12 @@ router.get("/show", isLoggedIn, async (req, res) => {
       return res.status(400).send("GST number is required");
     }
 
-    console.log(`This is the gst number from query${gst_number}`);
     
     //Awaiting the batch details from the database
     const gstData = await customerSC.findOne({
       gst_number:gst_number
     });
 
-    console.log(`This is the gst date from database ${gstData}`);
     
     if (!gstData) {
       return res.status(404).send("This GST number does not exist");
