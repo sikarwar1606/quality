@@ -8,30 +8,35 @@
     <style>
       /* ///////////////////////////////////////////////////////////////////////////////////// */
       #coa {
-        /* width: 98%; */
-        transform: scale(0.79);
+        transform: scale(0.92);
+        transform-origin: center;
         border: 2px solid black;
-        transform-origin: top;
+        
       }
-
+      .desc p{
+        font-size: 0.75rem;
+      }
+      .desc{
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+      }
       .spec-table {
         width: 100%;
         border-collapse: collapse;
         table-layout: fixed;
-        font-size: 8pt;
-        background-color: #fff;
+        font-size: 10pt;
       }
 
       .spec-table th,
       .spec-table td {
         border: 1px solid #333;
-        padding: 8px;
+        padding: 6px;
         text-align: left;
         word-wrap: break-word;
+        
       }
 
       .spec-table th {
-        background-color: #f0f0f0;
         font-weight: bold;
       }
 
@@ -39,22 +44,20 @@
       .coa-table {
         width: 100%;
         border-collapse: collapse;
-        table-layout: fixed; /* Ensures equal column widths */
-        margin-top: 10px;
-        background-color: #fff;
+        table-layout: fixed; 
         font-size: 10pt;
       }
 
       .coa-table th,
       .coa-table td {
         border: 1px solid #333;
-        padding: 8px;
+        padding: 4px;
         text-align: left;
         word-wrap: break-word; /* Prevents overflow */
+        
       }
 
       .coa-table th {
-        background-color: #e6e6e6;
         font-weight: bold;
       }
 
@@ -64,45 +67,44 @@
         border-collapse: collapse;
         table-layout: fixed;
         font-size: 10pt;
-        margin-top: 10px;
-        background-color: #fff;
       }
 
       .footer-table th,
       .footer-table td {
         border: 1px solid #333;
-        padding: 8px;
-        text-align: left;
+        padding: 3px;
         word-wrap: break-word;
+        
       }
 
       .footer-table th {
-        background-color: #f0f0f0;
         font-weight: bold;
       }
 
       /* ////////////////////////////////////////////////////////////////////////////// */
       .header {
         display: flex;
+        height: 8vh;
         justify-content: space-between;
-        align-items: center;
         color: black;
-        background-color: #fff;
-        /* padding: 2px 5px; */
-        /* height: auto; */
         flex-wrap: wrap;
         font-family: Arial, sans-serif;
-        border: 2px solid black;
+        border-top: 1px solid black;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
       }
 
       .doc_no,
       .rev_date {
-        width: 15%;
-        background-color: #fff;
-        padding: 10px;
+        display: flex;
+        align-items: center;
+        width: 20%;
+        height: 8vh;
         font-weight: bold;
         font-size: 0.95em;
         box-sizing: border-box;
+        border-bottom: 1px solid black;
+
       }
 
       .supplier {
@@ -110,21 +112,20 @@
         align-items: center;
         justify-content: center;
         flex-direction: column;
-        width: 65%;
-        font-size: 2rem;
-        padding: 10px;
+        width: 60%;
+        font-size: 1.70rem;
         box-sizing: border-box;
       }
 
       .supp_name {
         font-weight: bold;
-        font-size: 1em;
+        font-size: 0.7em;
         align-items: center;
         justify-content: center;
       }
 
       .supp_add {
-        font-size: 0.35em;
+        font-size: 0.45em;
         margin-top: 4px;
         justify-content: center;
         align-items: center;
@@ -136,14 +137,24 @@
         font-weight: bold;
         margin-top: 15px;
         font-family: Arial, sans-serif;
+        
       }
 
       .coa_desc {
-        border: 2px solid black;
+        border-top: 1px solid black;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 1.25rem;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+      }
+
+      .sign{
+        text-align: center;
+         vertical-align: bottom;
+        height: 8vh;
+
       }
 
       /* ////////////////////// PRINT STYLES ////////////////////// */
@@ -222,7 +233,6 @@
     </style>
   </head>
   <body>
-    <%- include("../partials/qualityNav") %>
     <div id="coa">
       <div class="header">
         <div class="doc_no">Document no. <%=docDetails.docNo%></div>
@@ -426,7 +436,8 @@
             </tr>
           </tbody>
         </table>
-        <p>
+        <div class="desc">
+          <p>
           Certified that the above consignment of closures meets the standards
           and specifications as per the INSWA BU Packaging Specifications.
           Certified that the above consignment of closure fulfill requirements
@@ -436,24 +447,23 @@
           All packaging materials and Pallets used are clean and free from any
           of or obnoxious odors
         </p>
+        </div>
         <table class="footer-table">
           <tr>
-            <th>Inspected by (QAE)</th>
-            <td></td>
-            <th>Approved by (QAM)</th>
-            <td></td>
+            <th class="sign" colspan="2">Inspected by (QAE)</th>
+            <th class="sign" colspan="2">Approved by (QAM)</th>
           </tr>
           <tr>
-            <th>Issue Date</th>
-            <td>16th April, 2023</td>
-            <th>Document No.</th>
-            <td>IND-BU-RQ-140-SP-03 - Closure-Rev 11</td>
+            <th class="fdata">Issue Date</th>
+            <td class="fdata">16th April, 2023</td>
+            <th class="fdata">Document No.</th>
+            <td class="fdata">IND-BU-RQ-140-SP-03 - Closure-Rev 11</td>
           </tr>
           <tr>
-            <th>Revision Date</th>
-            <td>15 January, 2022</td>
-            <th>Page</th>
-            <td>17 of 17</td>
+            <th class="fdata">Revision Date</th>
+            <td class="fdata">15 January, 2022</td>
+            <th class="fdata">Page</th>
+            <td class="fdata">17 of 17</td>
           </tr>
         </table>
       </div>
@@ -463,6 +473,12 @@
       class="bg-blue-500 text-white px-4 py-2 rounded shadow-lg fixed bottom-4 right-4 z-50"
     >
       Download PDF
+    </button>
+    <button
+      id=""
+      class="bg-blue-500 text-white px-4 py-2 rounded shadow-lg fixed bottom-4 left4 z-50"
+    >
+      <a href="/">Home</a>
     </button>
 
     <!-- html2pdf.js -->
@@ -482,10 +498,9 @@
         const element = document.getElementById("coa");
 
         const opt = {
-          margin: [0.2, 0.2, 0.2, 0.2], // mm
           filename: filename,
           image: { type: "jpeg", quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true },
+          html2canvas: { scale: 2, useCORS: false },
           jsPDF: { unit: "mm", format: "a4", orientation: "landscape" },
         };
 

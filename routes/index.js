@@ -24,11 +24,6 @@ router.get('/coa/coa', isLoggedIn,  function(req, res) {
 });
 
 
-
-
-
-
-
 router.post('/register', function(req, res){
   var userdata = new userModel({
     username: req.body.username,
