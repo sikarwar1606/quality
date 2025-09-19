@@ -49,17 +49,24 @@ router.get("/new", isLoggedIn, (req, res) => {
 let showBatch;
 // ✅ POST route: save batch
 router.post("/new", isLoggedIn, async (req, res) => {
+  let { date } = req.body;
+  //Convert dd/mm/yyyy to yyyy-mm-dd
+  if (date.includes("/")) {
+    const [day, month, year] = date.split("/")
+    date = `${year}-${month}-${day}`;
+  }
   try {
     const batch_number = await getNewBatchNo();
     // showBatch = batch_number
 
     const newBatchData = new batch_details({
       ...req.body,
+      date: new Date(date),
       batch_number,
     });
 
     await newBatchData.save();
-    res.render("success/addBatchSuccess",{batch_number});
+    res.render("success/addBatchSuccess", { batch_number });
   } catch (err) {
     console.error("Error creating batch:", err);
     res.status(500).send("Server Error");
