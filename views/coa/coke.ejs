@@ -97,7 +97,9 @@
       .doc_no,
       .rev_date {
         display: flex;
+        flex-direction: column;
         align-items: center;
+        justify-content: center;
         width: 20%;
         height: 8vh;
         font-weight: bold;
@@ -301,9 +303,9 @@
         </tr>
         <tr>
           <th>Customer</th>
-          <td>
-            <%=customer_data.customer_name + " " +
-            customer_data.customer_location%>
+          <td>            
+            <%=customer_data.customer_name%>
+            <input type="text" value="<%=customer_data.customer_location%>">
           </td>
           <th>Color</th>
           <td><%=mbData.mb_colour%></td>
@@ -493,8 +495,10 @@
         const design = "<%= cokeCoaDetailsData.design %>";
         const colour = "<%= mbData.mb_colour %>";
         const debossed = "<%= batch_data.debossed %>";
+        const customerName = "<%=customer_data.customer_name%>"
+        const customerLocation = "<%=customer_data.customer_location%>"
 
-        const filename = `${inv_no}_${batch_no}_${design}_${colour}_${debossed}.pdf`;
+        const filename = `${inv_no}_${batch_no}_${design}_${customerName}_${customerLocation}_${colour}_${debossed}.pdf`;
 
         const element = document.getElementById("coa");
 
