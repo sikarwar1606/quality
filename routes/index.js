@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 const {isLoggedIn} = require('./auth')
-const userModel = require("../models/users")
+const users = require("../models/users")
 const passport = require('passport')
-const localStrategy = require("passport-local");
+const LocalStrategy = require("passport-local");
 
-passport.use(new localStrategy(userModel.authenticate()))
+// passport.use(new localStrategy(users.authenticate()))
+passport.use(new LocalStrategy({ usernameField: "user_id" }, users.authenticate()));
 
 /* GET home page. */
 router.get('/', isLoggedIn, function(req, res, next) {
@@ -25,13 +26,15 @@ router.get('/coa/coa', isLoggedIn,  function(req, res) {
 
 
 router.post('/register', function(req, res){
-  var userdata = new userModel({
+  var userdata = new users({
     username: req.body.username,
     user_designation: req.body.user_designation,
-    user_id: req.body.user_id
+    user_id: req.body.user_id,
+    role: req.body.role,
+    department: req.body.department
 
   });
-  userModel.register(userdata, req.body.password).then(function(registereduser){
+  users.register(userdata, req.body.password).then(function(registereduser){
     passport.authenticate("local")(req, res, function(){
       res.redirect('/login')
     })

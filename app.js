@@ -6,10 +6,12 @@ var logger = require('morgan');
 const expressSession = require('express-session')
 const flash = require('flash')
 const mongoose = require('mongoose')
+var users = require('./models/users');
+const mongostore = require('connect-mongo');
 
 //Models
 
-var usersRouter = require('./models/users');
+
 const customerSchema = require('./models/customerSC');
 const mbDetailsSchema = require('./models/mbDetailsSC');
 const rmDetailsSchema = require('./models/rmDetailsSC');
@@ -60,14 +62,15 @@ app.use(expressSession({
   resave: false,
   saveUninitialized: false,
   secret: "Hello",
+  store: mongostore.create({mongoUrl:"mongodb+srv://sikarwar1606:Bu5F9ylZFLFL9ob6@cluster0.epjwokb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"}),
   cookie: {
     maxAge: 1000 * 60 * 480 // 8 hour in ms
   }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-passport.serializeUser(usersRouter.serializeUser());
-passport.deserializeUser(usersRouter.deserializeUser());
+passport.serializeUser(users.serializeUser());
+passport.deserializeUser(users.deserializeUser());
 ///////////////////////////////////////////////////////////////////
 app.use(flash())
 
@@ -91,7 +94,6 @@ app.use('/addnewDocDetailsSC', docNoDetailsSchema);
 
 //Routes
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/coa/redirect', customerRouter);
 app.use('/cokecoadetails', cokeCoaDetails);
 app.use('/reliancecoadetails', relianceCoaDetails);

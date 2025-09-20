@@ -110,6 +110,30 @@
               placeholder="Enter your Username"
               required
             />
+            <label for="role">User Role:</label>
+            <input
+              type="text"
+              id="role"
+              name="role"
+              placeholder="Enter User Role"
+              list="role-suggestions"
+              required
+            />
+            <datalist id="role-suggestions">
+              <option value="admin"></option>
+              <option value="manager"></option>
+              <option value="employee"></option>
+              <option value="hr"></option>
+            </datalist>
+
+            <label for="department"> Department: </label>
+            <input
+              type="text"
+              id="department"
+              name="department"
+              placeholder="Enter Department"
+              required
+            />
 
             <label for="password"> Password: </label>
             <input
