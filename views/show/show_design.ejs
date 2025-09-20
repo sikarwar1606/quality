@@ -45,6 +45,15 @@
             value="<%=cl_type%>"
             required
           />
+           <label for="cl_size_ty">Closure Size & Type: </label>
+          <input
+            type="text"
+            id="cl_size_ty"
+            name="cl_size_ty"
+            value="<%=cl_size_ty%>"
+            class="uppercase"
+            required
+          />
 
           <label for="cl_drw">Closures Drawing Number: </label>
           <input
@@ -262,6 +271,9 @@
             value="<%=packing_qty%>"
             required
           />
+
+          <label for="sst">SST: </label>
+          <input type="text" id="sst" name="sst" value="<%=sst%>" required />
 
           <div class="wrap">
             <button type="submit">Submit</button>

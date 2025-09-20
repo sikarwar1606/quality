@@ -28,6 +28,8 @@ const specsSchema = new mongoose.Schema({
   slitting_ht: String,
   slitting_ht_tol: String,
   packing_qty: String,
+  cl_size_ty: String,
+  sst:String
 });
 const specs  = mongoose.model("specs", specsSchema);
 

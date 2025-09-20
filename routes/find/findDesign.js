@@ -25,16 +25,15 @@ router.get("/show", isLoggedIn, async (req, res) => {
     const designData = await design_details.findOne({
       design: design,
     });
-    console.log(designData);
     
     if (!designData) {
       return res.status(404).send("This design does not exist");
     }
 
-    const {product,cl_type,cl_drw,cl_wt_spec,cl_wt_spec_tol,cl_ht_spec_tol, cl_ht_spec,cl_kn_spec,cl_kn_spec_tol,thickness,thickness_tol,t_dia_tol,t_dia,e_dia_tol,e_dia,plug_dia_tol,plug_dia,plug_ht_tol,plug_ht,top_flatness,top_flatness_tol,max_dia,max_dia_tol,slitting_ht,slitting_ht_tol,packing_qty}= designData;
+    const {product,cl_type,cl_drw,cl_wt_spec,cl_wt_spec_tol,cl_ht_spec_tol, cl_ht_spec,cl_kn_spec,cl_kn_spec_tol,thickness,thickness_tol,t_dia_tol,t_dia,e_dia_tol,e_dia,plug_dia_tol,plug_dia,plug_ht_tol,plug_ht,top_flatness,top_flatness_tol,max_dia,max_dia_tol,slitting_ht,slitting_ht_tol,packing_qty,cl_size_ty, sst}= designData;
     
   
-  res.render("show/show_design", { design,product,cl_type,cl_drw,cl_wt_spec,cl_wt_spec_tol,cl_ht_spec_tol, cl_ht_spec,cl_kn_spec,cl_kn_spec_tol,thickness,thickness_tol,t_dia_tol,t_dia,e_dia_tol,e_dia,plug_dia_tol,plug_dia,plug_ht_tol,plug_ht,top_flatness,top_flatness_tol,max_dia,max_dia_tol,slitting_ht,slitting_ht_tol,packing_qty });
+  res.render("show/show_design", { design,product,cl_type,cl_drw,cl_wt_spec,cl_wt_spec_tol,cl_ht_spec_tol, cl_ht_spec,cl_kn_spec,cl_kn_spec_tol,thickness,thickness_tol,t_dia_tol,t_dia,e_dia_tol,e_dia,plug_dia_tol,plug_dia,plug_ht_tol,plug_ht,top_flatness,top_flatness_tol,max_dia,max_dia_tol,slitting_ht,slitting_ht_tol,packing_qty,cl_size_ty,sst });
 
 }catch (err) {
     res.status(500).send("Server Error");

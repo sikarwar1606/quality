@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>COA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+  <style>
+    /* ///////////////////////////////////////////////////////////////////////////////////// */
+    #coa {
+      transform: scale(0.92);
+      transform-origin: center;
+      border: 2px solid black;
+
+    }
+
+    .desc p {
+      font-size: 1rem;
+    }
+
+    .desc {
+      border-left: 1px solid black;
+      border-right: 1px solid black;
+    }
+
+    .spec-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 12pt;
+    }
+
+    .spec-table th,
+    .spec-table td {
+      border: 1px solid #333;
+      padding: 6px;
+      text-align: left;
+      word-wrap: break-word;
+
+    }
+
+    .spec-table th {
+      font-weight: bold;
+    }
+
+    /* ///////////////////////////////////////////////////////////////////////////////////// */
+    .coa-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 12pt;
+    }
+
+    .coa-table th,
+    .coa-table td {
+      border: 1px solid #333;
+      padding: 6px;
+      text-align: left;
+      word-wrap: break-word;
+      /* Prevents overflow */
+
+    }
+
+    .coa-table th {
+      font-weight: bold;
+    }
+
+    /* ///////////////////////////////////////////////////////////////////////////// */
+    .footer-table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 10pt;
+    }
+
+    .footer-table th,
+    .footer-table td {
+      border: 1px solid #333;
+      padding: 4px;
+      word-wrap: break-word;
+
+    }
+
+    .footer-table th {
+      font-weight: bold;
+    }
+
+    /* ////////////////////////////////////////////////////////////////////////////// */
+    .header {
+      display: flex;
+      height: 9vh;
+      justify-content: space-between;
+      color: black;
+      flex-wrap: wrap;
+      font-family: Arial, sans-serif;
+      border-top: 1px solid black;
+      border-left: 1px solid black;
+      border-right: 1px solid black;
+    }
+
+    .doc_no,
+    .rev_date {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 20%;
+      height: 9vh;
+      font-weight: bold;
+      font-size: 0.95em;
+      box-sizing: border-box;
+      border-bottom: 1px solid black;
+
+    }
+
+    .supplier {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      width: 60%;
+      font-size: 1.70rem;
+      box-sizing: border-box;
+    }
+
+    .supp_name {
+      font-weight: bold;
+      font-size: 0.7em;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .supp_add {
+      font-size: 0.45em;
+      margin-top: 4px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 1.1em;
+      font-weight: bold;
+      margin-top: 15px;
+      font-family: Arial, sans-serif;
+
+    }
+
+    .coa_desc {
+      border-top: 1px solid black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.30rem;
+      border-left: 1px solid black;
+      border-right: 1px solid black;
+    }
+
+    .sign {
+      text-align: center;
+      vertical-align: bottom;
+      height: 9vh;
+      max-height: 50px;
+
+    }
+
+    /* ////////////////////// PRINT STYLES ////////////////////// */
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 10mm;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      .spec-table {
+        font-size: 8pt;
+      }
+
+      .spec-table th,
+      .spec-table td {
+        padding: 8px;
+        border: 1px solid #000;
+      }
+
+      .coa-table {
+        font-size: 9pt;
+        page-break-inside: avoid;
+      }
+
+      .coa-table th,
+      .coa-table td {
+        padding: 8px;
+        border: 1px solid #000;
+      }
+
+      .footer-table {
+        font-size: 9pt;
+      }
+
+      .footer-table th,
+      .footer-table td {
+        padding: 6px;
+        border: 1px solid #000;
+      }
+
+      .header {
+        background-color: #fff;
+      }
+
+      .doc_no,
+      .rev_date,
+      .supplier {
+        border: none;
+      }
+
+      .title {
+        font-size: 1em;
+        margin-top: 10px;
+      }
+
+      /* Force COA container to one page */
+      #coa {
+        width: 297mm;
+        height: 210mm;
+        transform: scale(0.8);
+        transform-origin: top left;
+        overflow: hidden;
+        page-break-inside: avoid;
+      }
+
+      nav {
+        display: none !important;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="coa">
+    <div class="header">
+      <div class="doc_no">Document no. <%=docDetails.docNo%>
+      </div>
+      <div class="supplier">
+        <div class="supp_name">
+          <%=plant_data.plant_name + "-" + plant_data.plant_location%>
+        </div>
+        <div class="supp_add">
+          <%=plant_data.plant_add%>
+        </div>
+      </div>
+      <div class="rev_date">
+        <div class="revdt">Rev. Date <%=docDetails.revNo %>
+        </div>
+        <div class="revno">Rev. Date <%=docDetails.revDt%>
+        </div>
+      </div>
+      <!-- <div class="rev_date">Rev. Date <%=docDetails.revDt%></div> -->
+    </div>
+    <div class="coa_desc">
+      <p>
+        Certificate of analysis of Plastic
+        closure:<%=specData.product%>
+      </p>
+    </div>
+
+    <table class="spec-table">
+      <tr>
+        <th>Customer Name</th>
+        <td>
+          <%=customer_data.customer_name%>
+            <input type="text" value="<%=customer_data.customer_location%>">
+        </td>
+        <th>Resin Grade/Supplier</th>
+        <td>
+          <%=rmData.rm + "/" + rmData.rm_type + " " +rmData.rm_sup %>
+        </td>
+
+      </tr>
+
+      <tr>
+        <th>Closure Size & Type</th>
+        <td>
+          <%=specData.cl_size_ty%>
+        </td>
+        <th>Colorant Detail and Dosage</th>
+        <td>
+          <%=batch_data.mb_code %>
+        </td>
+      </tr>
+      <tr>
+        <th>Batch/Lot No</th>
+        <td>
+          <%=batch_data.batch_number%>
+        </td>
+        <th>Invoice No.</th>
+        <td>
+          <%=more_info.inv_no%>
+        </td>
+      </tr>
+      <tr>
+        <th>Product</th>
+        <td>
+          <%=batch_data.design%>
+        </td>
+       
+        <th>Invoice Quantity</th>
+        <td>
+          <%=more_info.qty * specData.packing_qty %> nos. (<%=more_info.qty%>
+              boxes)
+        </td>
+      </tr>
+      <tr>
+        <th>Debossed</th>
+        <td>
+          <%=batch_data.debossed%>
+        </td>
+        <th>Date of Invoice</th>
+        <td>
+          <%=more_info.inv_dt%>
+        </td>
+      </tr>
+    
+      <tr>
+       <th>Color</th>
+        <td>
+          <%=mbData.mb_colour%>
+        </td>
+        <th>MFD</th>
+        <td>
+          <%=more_info.mfd%>
+        </td>
+        
+      </tr>
+      
+    </table>
+
+    <div class="dimension">
+      <table class="coa-table">
+        <thead>
+          <tr>
+            <th>Characteristic</th>
+            <th>Specs</th>
+            <th>Minimum (mm)</th>
+            <th>Maximum (mm)</th>
+            <th>Average (Min. 25 Closures)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Visual</td>
+            <td>Ok</td>
+            <td>Ok</td>
+            <td>Ok</td>
+            <td>Ok</td>
+          </tr>
+          <tr>
+            <td>Knurling</td>
+            <td>
+              <%= specData.cl_kn + "±" + specData.cl_kn_tol %>
+            </td>
+            <td>
+              <input type="text" value="<%= avgData && avgData.minkn ? avgData.minkn.toFixed(2) : ''%>" />
+            </td>
+            <td>
+              <input type="text" value="<%= avgData && avgData.maxkn ? avgData.maxkn.toFixed(2) : ''%>" />
+            </td>
+            <td>
+              <input type="text" value="<%= avgData && avgData.avgkn ? avgData.avgkn.toFixed(2) : ''%>" />
+            </td>
+          </tr>
+          <tr>
+            <td>Thread Dia.</td>
+            <td>
+              <%= specData.cl_e_dia + "±" + specData.cl_e_dia_tol %>
+            </td>
+            <td>
+              <input type="text" value="<%= avgData && avgData.mine_dia ? avgData.mine_dia.toFixed(2) : ''%>" />
+            </td>
+            <td>
+              <input type="text" value="<%= avgData && avgData.maxe_dia ? avgData.maxe_dia.toFixed(2) : ''%>" />
+            </td>
+            <td>
+              <input type="text" value="<%= avgData && avgData.avge_dia ? avgData.avge_dia.toFixed(2) : ''%>" />
+            </td>
+          </tr>
+          
+          <tr>
+            <td>Closure Height</td>
+            <td>
+              <%= specData.cl_ht + "±" + specData.cl_ht_tol %>
+            </td>
+            <td>
+              <input type="text" value="<%= avgData && avgData.minht ? avgData.minht.toFixed(2) : '' %>" />
+            </td>
+            <td>
+              <input type="text" value="<%= avgData && avgData.maxht ? avgData.maxht.toFixed(2) : '' %>" />
+            </td>
+            <td>
+              <input type="text" name="" id=""
+                value="<%= avgData && avgData.avght ? avgData.avght.toFixed(2) : '' %>" />
+            </td>
+          </tr>
+          <tr>
+            <td>Closure Weight</td>
+            <td>
+              <%= specData.cl_wt + "±" + specData.cl_wt_tol %>
+            </td>
+            <td>
+              <input type="text" value="<%= avgData && avgData.minwt ? avgData.minwt.toFixed(2) : '' %>" />
+            </td>
+            <td>
+              <input type="text" value="<%= avgData && avgData.maxwt ? avgData.maxwt.toFixed(2) : '' %>" />
+            </td>
+            <td>
+              <input type="text" value="<%= avgData && avgData.avgwt ? avgData.avgwt.toFixed(2) : '' %>" />
+            </td>
+          </tr>
+          <tr>
+            <td>SST</td>
+            <td colspan="4"><%= specData.sst%></td>
+            
+          </tr>
+
+        </tbody>
+      </table>
+      <div class="desc">
+        <p>
+          All Dimensions are in millimeter untill unless specified.
+        </p>
+        <p>
+          Made of Food Grade Raw Materials Confirming To IS. 10141-1982
+        </p>
+      </div>
+      <table class="footer-table">
+        <tr>
+          <th class="sign" colspan="2">Inspected by (QAE)</th>
+          <th class="sign" colspan="2">Approved by (QAM)</th>
+        </tr>
+
+      </table>
+    </div>
+  </div>
+  <button id="downloadPDF" class="bg-blue-500 text-white px-4 py-2 rounded shadow-lg fixed bottom-4 right-4 z-50">
+    Download PDF
+  </button>
+  <button id="" class="bg-blue-500 text-white px-4 py-2 rounded shadow-lg fixed bottom-4 left4 z-50">
+    <a href="/">Home</a>
+  </button>
+
+  <!-- html2pdf.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+  <script>
+    document.getElementById("downloadPDF").addEventListener("click", () => {
+      // Dynamic filename
+      const inv_no = "<%= more_info.inv_no %>";
+      const batch_no = "<%= batch_data.batch_number %>";
+      const design = "<%= specData.design %>";
+      const colour = "<%= mbData.mb_colour %>";
+      const debossed = "<%= batch_data.debossed %>";
+      const customerName = "<%=customer_data.customer_name%>"
+      const customerLocation = "<%=customer_data.customer_location%>"
+
+      const filename = `${inv_no}_${batch_no}_${design}_${customerName}_${customerLocation}_${colour}_${debossed}.pdf`;
+
+      const element = document.getElementById("coa");
+
+      const opt = {
+        filename: filename,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: false },
+        jsPDF: { unit: "mm", format: "a4", orientation: "landscape" },
+      };
+
+      // Generate and save in landscape (fits automatically)
+      html2pdf().set(opt).from(element).save();
+    });
+  </script>
+</body>
+
+</html>
