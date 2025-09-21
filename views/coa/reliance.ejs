@@ -330,6 +330,7 @@
         const design = "<%= batch_data.design %>";
         const colour = "<%= mbData.mb_colour %>";
         const debossed = "<%= batch_data.debossed %>";
+        const cust = "<%=customer_data.customer_name + "-" + customer_data.customer_location%>"
 
         const filename = `${inv_no}_${batch_no}_${design}_${colour}_${debossed}.pdf`;
 

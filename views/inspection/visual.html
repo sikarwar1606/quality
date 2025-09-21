@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+  }
+
+  .visual {
+    width: 210mm; /* A4 portrait width */
+    min-height: 297mm; /* A4 height */
+    margin: 0 auto;
+    box-sizing: border-box;
+    background: #fff;
+    border: 2px solid black;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .heading table td {
+    border: 1px solid black;
+    padding: 2.5px ;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 2.2;
+  }
+  
+        /* table td{
+            border: 1px solid black;
+            width: 150px;
+            height: 20px;
+        } */
+    </style>
+</head>
+<body>
+    
+    <div class="visual">
+        <div class="heading">
+        <table>
+            
+            <tbody>
+               <tr>
+                    <td colspan="5" rowspan="2">Doc No. <br> SIPL-QA-R-05 & 60</td>
+                    <td colspan="14" >Secure Industries Pvt. Ltd. Hyderabad</td>
+                    <td colspan="5" >Rev. No. 00</td>
+                    
+               </tr>
+               <tr>
+                    <td colspan="14">Visual Inspection Report (SFM & CCM)</td>
+                    
+                    <td colspan="5" >Rev. Dt. 01-07-2024</td>
+                    
+               </tr>
+               <tr>
+                    <td colspan="3">Date</td>
+                    <td colspan="5">01/01/2022</td>
+                    <td colspan="3">Product</td>
+                    <td colspan="5">S-1881-CSD-001 R01</td>
+                    <td colspan="3">Batch No.</td>
+                    <td colspan="5">2509001</td>
+                    
+               </tr>
+               <tr>
+                    <td colspan="3">M/C No.</td>
+                    <td colspan="5">CCM-17</td>
+                    <td colspan="3">Colour</td>
+                    <td colspan="5">Blue</td>
+                    <td colspan="3">DB/EM/PL</td>
+                    <td colspan="5">Coca Cola</td>                    
+               </tr>
+               
+               
+            </tbody>
+            
+            
+        </table>
+    </div>
+     <button
+      id="downloadPDF"
+      class="bg-blue-500 text-white px-4 py-2 rounded shadow-lg fixed bottom-4 right-4 z-50"
+    >
+      Download PDF
+    </button>
+    
+    <script>
+      document.getElementById("downloadPDF").addEventListener("click", () => {
+        // Dynamic filename
+        const inv_no = "tt";
+        const batch_no = "<%= batch_data.batch_number %>";
+        const design = "<%= batch_data.design %>";
+        const colour = "<%= mbData.mb_colour %>";
+        const debossed = "<%= batch_data.debossed %>";
+
+        const filename = `${inv_no}_${batch_no}_${design}_${colour}_${debossed}.pdf`;
+
+        const element = document.getElementById("coa");
+
+        const opt = {
+          margin: [0.2, 0.2, 0.2, 0.2], // mm
+          filename: filename,
+          image: { type: "jpeg", quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true },
+          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+        };
+
+        // Generate and save in landscape (fits automatically)
+        html2pdf().set(opt).from(element).save();
+      });
+    </script>
+</body>
+</html>
