@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visual</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        margin: 0;
+        padding: 0;
+        background: #fff;
+      }
+
+      .visual {
+        width: 210mm;
+        /* A4 portrait width */
+        min-height: 297mm;
+        /* A4 height */
+        margin: 0 auto;
+        box-sizing: border-box;
+        background: #fff;
+        border: 2px solid black;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .heading table td {
+        border: 1px solid black;
+        padding: 2.5px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 2.2;
+      }
+      .body table td {
+        border: 1px solid black;
+      }
+
+      .time {
+        width: 15px;
+        cursor: pointer;
+        text-align: center;
+      }
+
+      .defect-found {
+        color: red;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="visual">
+      <div class="heading">
+        <table >
+          <tbody>
+            <tr>
+              <td colspan="5" rowspan="2">
+                Doc No. <br />
+                SIPL-QA-R-05 & 60
+              </td>
+              <td colspan="14">Secure Industries Pvt. Ltd. Hyderabad</td>
+              <td colspan="5">Rev. No. 00</td>
+            </tr>
+            <tr>
+              <td colspan="14">Visual Inspection Report (SFM & CCM)</td>
+
+              <td colspan="5">Rev. Dt. 01-07-2024</td>
+            </tr>
+            <tr>
+              <td colspan="3">Date</td>
+              <td colspan="5">01/01/2022</td>
+              <td colspan="3">Product</td>
+              <td colspan="5">S-1881-CSD-001 R01</td>
+              <td colspan="3">Batch No.</td>
+              <td colspan="5">2509001</td>
+            </tr>
+            <tr>
+              <td colspan="3">M/C No.</td>
+              <td colspan="5">CCM-17</td>
+              <td colspan="3">Colour</td>
+              <td colspan="5">Blue</td>
+              <td colspan="3">DB/EM/PL</td>
+              <td colspan="5">Coca Cola</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="body">
+        <table id="defectTable">
+          <tbody>
+            <tr>
+              <td colspan="3"></td>
+              <td colspan="7">A</td>
+              <td colspan="7">B</td>
+              <td colspan="7">C</td>
+            </tr>
+            <tr>
+              <td colspan="3">Time/Defect</td>
+              <td class="time">07:20</td>
+              <td class="time">09:12</td>
+              <td class="time">11:01</td>
+              <td class="time">14.01</td>
+              <td colspan="3">Remarks</td>
+              <td class="time">15.40</td>
+              <td class="time">17.06</td>
+              <td class="time">19:24</td>
+              <td class="time">21:51</td>
+              <td colspan="3">Remarks</td>
+              <td class="time">23.01</td>
+              <td class="time">00:56</td>
+              <td class="time">03:15</td>
+              <td class="time">06:24</td>
+              <td colspan="3">Remarks</td>
+            </tr>
+            <!-- <tr>
+                        <td colspan="3">Outer Flash</td>
+                        <td class="time" onclick="toggleSign(this)">✖</td>
+                        <td class="time" onclick="toggleSign(this)">✖</td>
+                        <td class="time" onclick="toggleSign(this)">✖</td>
+                        <td class="time" onclick="toggleSign(this)">✖</td>
+                        <td colspan="3"></td>
+                        <td class="time" poin onclick="toggleSign(this)">✖</td>
+                        <td class="time" poin onclick="toggleSign(this)">✖</td>
+                        <td class="time" poin onclick="toggleSign(this)">✖</td>
+                        <td class="time" poin onclick="toggleSign(this)">✖</td>
+                        <td colspan="3"></td>
+                        <td class="time" poin onclick="toggleSign(this)">✖</td>
+                        <td class="time" poin onclick="toggleSign(this)">✖</td>
+                        <td class="time" poin onclick="toggleSign(this)">✖</td>
+                        <td class="time" poin onclick="toggleSign(this)">✖</td>
+                        <td colspan="3"></td>
+                        
+                    </tr> -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      const defects = [
+        "Outer Flash",
+        "Short Shot",
+        "Outer Flash",
+        "Short Shot",
+        "Outer Flash",
+        "Short Shot",
+        "Outer Flash",
+        "Short Shot",
+        "Outer Flash",
+        "Short Shot",
+        "Outer Flash",
+        "Short Shot",
+        "Outer Flash",
+        "Short Shot",
+        "Outer Flash",
+        "Short Shot",
+        "Outer Flash",
+        "Short Shot",
+        
+      ];
+
+      let table = document.getElementById("defectTable").querySelector("tbody")
+
+      defects.forEach(element => {
+        let tr = document.createElement("tr")
+
+        //Creating first cell 
+        let defectCell = document.createElement("td");
+        defectCell.colSpan="3";
+        defectCell.textContent = element
+        tr.appendChild(defectCell)
+
+        //Create 4 coloumns for check box for defect
+        let timeSlots = [4,4,4]
+        timeSlots.forEach((count, index) => {
+          for (let i = 0; i<count; i++){
+            let timeCell = document.createElement("td")
+            timeCell.className="time"
+            timeCell.textContent= "✖";
+            timeCell.onclick= function(){
+              toggleSign(this);
+            }
+            tr.appendChild(timeCell)
+          }
+          let remarks = document.createElement("td")
+          remarks.colSpan="3"
+          tr.appendChild(remarks)
+          
+        });
+
+        table.appendChild(tr)
+        
+      });
+
+
+      //This code is for making defect check list
+      function toggleSign(cell) {
+        if (cell.textContent === "✖") {
+          cell.textContent = "✔";
+          cell.classList.add("defect-found");
+        } else {
+          cell.textContent = "✖";
+          cell.classList.remove("defect-found");
+        }
+      }
+
+      document.getElementById("downloadPDF").addEventListener("click", () => {
+        // Dynamic filename
+        const inv_no = "tt";
+        const batch_no = "77";
+        const design = "ee";
+        const colour = "33";
+        const debossed = "gg";
+
+        const filename = `${inv_no}_${batch_no}_${design}_${colour}_${debossed}.pdf`;
+
+        const element = document.getElementById("coa");
+
+        const opt = {
+          margin: [0.2, 0.2, 0.2, 0.2], // mm
+          filename: filename,
+          image: { type: "jpeg", quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true },
+          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+        };
+
+        // Generate and save in landscape (fits automatically)
+        html2pdf().set(opt).from(element).save();
+      });
+    </script>
+  </body>
+</html>

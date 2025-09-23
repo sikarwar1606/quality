@@ -1,120 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visual</title>
-    <style>
-        body {
-    font-family: Arial, sans-serif;
-    font-size: 12px;
-    margin: 0;
-    padding: 0;
-    background: #fff;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visual</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+    }
 
-  .visual {
-    width: 210mm; /* A4 portrait width */
-    min-height: 297mm; /* A4 height */
-    margin: 0 auto;
-    box-sizing: border-box;
-    background: #fff;
-    border: 2px solid black;
-  }
+    .visual {
+      width: 210mm;
+      /* A4 portrait width */
+      min-height: 297mm;
+      /* A4 height */
+      margin: 0 auto;
+      box-sizing: border-box;
+      background: #fff;
+      border: 2px solid black;
+    }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  .heading table td {
-    border: 1px solid black;
-    padding: 2.5px ;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 2.2;
-  }
-  
-        /* table td{
-            border: 1px solid black;
-            width: 150px;
-            height: 20px;
-        } */
-    </style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .heading table td {
+      border: 1px solid black;
+      padding: 2.5px;
+      text-align: center;
+      vertical-align: middle;
+      line-height: 2.2;
+    }
+
+    .body table td {
+      border: 1px solid black;
+    }
+
+    .time {
+      width: 15px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .defect-found {
+      color: red;
+    }
+  </style>
 </head>
+
 <body>
-    
-    <div class="visual">
-        <div class="heading">
-        <table>
-            
-            <tbody>
-               <tr>
-                    <td colspan="5" rowspan="2">Doc No. <br> SIPL-QA-R-05 & 60</td>
-                    <td colspan="14" >Secure Industries Pvt. Ltd. Hyderabad</td>
-                    <td colspan="5" >Rev. No. 00</td>
-                    
-               </tr>
-               <tr>
-                    <td colspan="14">Visual Inspection Report (SFM & CCM)</td>
-                    
-                    <td colspan="5" >Rev. Dt. 01-07-2024</td>
-                    
-               </tr>
-               <tr>
-                    <td colspan="3">Date</td>
-                    <td colspan="5">01/01/2022</td>
-                    <td colspan="3">Product</td>
-                    <td colspan="5">S-1881-CSD-001 R01</td>
-                    <td colspan="3">Batch No.</td>
-                    <td colspan="5">2509001</td>
-                    
-               </tr>
-               <tr>
-                    <td colspan="3">M/C No.</td>
-                    <td colspan="5">CCM-17</td>
-                    <td colspan="3">Colour</td>
-                    <td colspan="5">Blue</td>
-                    <td colspan="3">DB/EM/PL</td>
-                    <td colspan="5">Coca Cola</td>                    
-               </tr>
-               
-               
-            </tbody>
-            
-            
-        </table>
+  <div class="visual">
+    <div class="heading">
+      <table class="tbCCM">
+        <tbody>
+          <tr>
+            <td colspan="5" rowspan="2">
+              Doc No. <br />
+              SIPL-QA-R-05 & 60
+            </td>
+            <td colspan="14">Secure Industries Pvt. Ltd. Hyderabad</td>
+            <td colspan="5">Rev. No. 00</td>
+          </tr>
+          <tr>
+            <td colspan="14">Visual Inspection Report (SFM & CCM)</td>
+
+            <td colspan="5">Rev. Dt. 01-07-2024</td>
+          </tr>
+          <tr>
+            <td colspan="3">Date</td>
+            <td colspan="5">01/01/2022</td>
+            <td colspan="3">Product</td>
+            <td colspan="5">S-1881-CSD-001 R01</td>
+            <td colspan="3">Batch No.</td>
+            <td colspan="5">2509001</td>
+          </tr>
+          <tr>
+            <td colspan="3">M/C No.</td>
+            <td colspan="5">CCM-17</td>
+            <td colspan="3">Colour</td>
+            <td colspan="5">Blue</td>
+            <td colspan="3">DB/EM/PL</td>
+            <td colspan="5">Coca Cola</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-     <button
-      id="downloadPDF"
-      class="bg-blue-500 text-white px-4 py-2 rounded shadow-lg fixed bottom-4 right-4 z-50"
-    >
-      Download PDF
-    </button>
-    
-    <script>
-      document.getElementById("downloadPDF").addEventListener("click", () => {
-        // Dynamic filename
-        const inv_no = "tt";
-        const batch_no = "<%= batch_data.batch_number %>";
-        const design = "<%= batch_data.design %>";
-        const colour = "<%= mbData.mb_colour %>";
-        const debossed = "<%= batch_data.debossed %>";
+    <div class="body">
+      <table id="CCMdefectTable">
+        <tbody>
+          <tr>
+            <td colspan="3"></td>
+            <td colspan="7">A</td>
+            <td colspan="7">B</td>
+            <td colspan="7">C</td>
+          </tr>
+          <tr>
+            <td colspan="3">Time/Defect</td>
+            <td class="time">07:20</td>
+            <td class="time">09:12</td>
+            <td class="time">11:01</td>
+            <td class="time">14.01</td>
+            <td colspan="3">Remarks</td>
+            <td class="time">15.40</td>
+            <td class="time">17.06</td>
+            <td class="time">19:24</td>
+            <td class="time">21:51</td>
+            <td colspan="3">Remarks</td>
+            <td class="time">23.01</td>
+            <td class="time">00:56</td>
+            <td class="time">03:15</td>
+            <td class="time">06:24</td>
+            <td colspan="3">Remarks</td>
+          </tr>
+        </tbody>
+      </table>
+      <table id="SFMdefectTable">
+        <tbody>
 
-        const filename = `${inv_no}_${batch_no}_${design}_${colour}_${debossed}.pdf`;
+        </tbody>
+      </table>
 
-        const element = document.getElementById("coa");
+      <table id="TEbandperformace">
+        <tbody>
 
-        const opt = {
-          margin: [0.2, 0.2, 0.2, 0.2], // mm
-          filename: filename,
-          image: { type: "jpeg", quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true },
-          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-        };
+        </tbody>
+      </table>
 
-        // Generate and save in landscape (fits automatically)
-        html2pdf().set(opt).from(element).save();
+      
+    </div>
+    <div class="heading">
+      <table class="tbCCM">
+        <tbody>
+          <tr>
+            <td>Inspected By:</td>
+            <td> <input type="text"></td>            
+            <td>Inspected By:</td>
+            <td> <input type="text"></td>           
+            <td>Inspected By:</td>
+            <td> <input type="text"></td>              
+          </tr>
+          <tr>
+            <td >Verified By:</td>
+            <td colspan="6"><input type="text">  </td>
+          </tr>
+         
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    const ccmDefects = [
+      "Physical Appearance",
+      "Dirty Closures/Oil Mark",
+      "Colour Varialtion",
+      "Odour",
+      "Black Spot",
+      "Flow Mark",
+      "Logo Flash",
+      "Logo Damage",
+      "Knurling Damage",
+      "Water Leakage",
+      "Buldging",
+      "Pull-up mark position",
+      "Outer Flash",
+      "Stripper Flash",
+      "TE Band Flash",
+      "TE Band Shortfill",
+      "Oval Shape",
+      "Thread Shear",
+      "Bore Plug Flash",
+      "Inner Core Flash",
+      "Inner Core Damage"
+    ];
+    const sfmDefects = [
+      "Bore Plug Damage",
+      "Pin Mark",
+      "Step Cut",
+      "Ring Cut",
+      "Bridge Missing",
+      "Brocken Bridge",
+      "Burr",
+      "Double Bridge",
+      "Knurling Damage",
+      "Slitting Mark",
+      "Unfolding",
+    ];
+    let toolNo = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+
+    const ccmDefectTable = document
+      .getElementById("CCMdefectTable")
+      .querySelector("tbody");
+
+    ccmDefects.forEach((defect) => {
+      const tr = document.createElement("tr");
+
+      //First cell = defect name
+      const tdName = document.createElement("td");
+      tdName.colSpan = 3;
+      tdName.textContent = defect;
+      tr.appendChild(tdName);
+
+      //Loop through each inspection time slot
+      const timeSlots = [4, 4, 4]; //Groups with remarks
+      timeSlots.forEach((count, index) => {
+        for (let i = 0; i < count; i++) {
+          const td = document.createElement("td");
+          td.className = "time";
+          td.textContent = "✖";
+          td.onclick = function () {
+            toggleSign(this);
+          };
+          tr.appendChild(td);
+        }
+
+        //After 4 slots  add remarks
+        const remarksTd = document.createElement("td");
+        remarksTd.colSpan = 3;
+        tr.appendChild(remarksTd);
       });
-    </script>
+      ccmDefectTable.appendChild(tr);
+    });
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////
+
+    const sfmDefectTable = document
+      .getElementById("SFMdefectTable")
+      .querySelector("tbody");
+
+    sfmDefects.forEach((defect) => {
+      const tr = document.createElement("tr");
+
+      //First cell = defect name
+      const tdName = document.createElement("td");
+      tdName.colSpan = 3;
+      tdName.textContent = defect;
+      tr.appendChild(tdName);
+
+      //Loop through each inspection time slot
+      const timeSlots = [4, 4, 4]; //Groups with remarks
+      timeSlots.forEach((count, index) => {
+        for (let i = 0; i < count; i++) {
+          const td = document.createElement("td");
+          td.className = "time";
+          td.textContent = "✖";
+          td.onclick = function () {
+            toggleSign(this);
+          };
+          tr.appendChild(td);
+        }
+
+        //After 4 slots  add remarks
+        const remarksTd = document.createElement("td");
+        remarksTd.colSpan = 3;
+        tr.appendChild(remarksTd);
+      });
+      ccmDefectTable.appendChild(tr);
+    });
+
+
+
+
+
+
+
+    let teBandPerformace = document.getElementById("TEbandperformace").querySelector("tbody");
+let tr = document.createElement("tr")
+    let teband = document.createElement("td")
+    teband.textContent = "Te band performance"
+    teband.rowSpan = 13
+    teband.colSpan=2
+    tr.appendChild(teband)
+    ccmDefectTable.appendChild(tr)
+
+
+    toolNo.forEach(tool => {
+      let tr = document.createElement("tr")
+      let contant = document.createElement("td")
+      contant.textContent = `Tool No. ${tool}`
+      tr.appendChild(contant)
+
+      let toolSlot = [4, 4, 4]
+      toolSlot.forEach((count, index) => {
+
+        for (let i = 0; i < count; i++) {
+          let toodDAte = document.createElement("td")
+          toodDAte.className = "time"
+          toodDAte.textContent = "✔"
+          toodDAte.onclick = function () {
+            toggleSign(this)
+          }
+          tr.appendChild(toodDAte)
+        }
+        let remarks = document.createElement("td")
+        remarks.colSpan = 3
+        tr.appendChild(remarks)
+
+      });
+      ccmDefectTable.appendChild(tr)
+    });
+
+
+
+    //This code is for making defect check list
+    function toggleSign(cell) {
+      if (cell.textContent === "✖") {
+        cell.textContent = "✔";
+        cell.classList.add("defect-found");
+      } else {
+        cell.textContent = "✖";
+        cell.classList.remove("defect-found");
+      }
+    }
+
+    document.getElementById("downloadPDF").addEventListener("click", () => {
+      // Dynamic filename
+      const inv_no = "tt";
+      const batch_no = "77";
+      const design = "ee";
+      const colour = "33";
+      const debossed = "gg";
+
+      const filename = `${inv_no}_${batch_no}_${design}_${colour}_${debossed}.pdf`;
+
+      const element = document.getElementById("coa");
+
+      const opt = {
+        margin: [0.2, 0.2, 0.2, 0.2], // mm
+        filename: filename,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+      };
+
+      // Generate and save in landscape (fits automatically)
+      html2pdf().set(opt).from(element).save();
+    });
+  </script>
 </body>
+
 </html>
