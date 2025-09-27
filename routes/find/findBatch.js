@@ -12,7 +12,7 @@ router.get('/find', isLoggedIn, (req, res)=>{
 
 router.post('/find', isLoggedIn, (req, res)=>{
   const batch_number = req.body.batch_number;
-  res.redirect(`/batch/show?batch_number=${batch_number}`);
+  res.redirect(`/batch/show?batch_number=${batch_number,user}`);
 })
 
 

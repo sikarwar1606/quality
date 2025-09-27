@@ -36,7 +36,7 @@
             class="uppercase"
             required
           />
-          <datalist  id="shiftOptions">
+          <datalist id="shiftOptions">
             <option value="A">A</option>
             <option value="B">B</option>
             <option value="C">C</option>
@@ -81,7 +81,7 @@
             required
           />
 
-          <datalist  id="logoList"> </datalist>
+          <datalist id="logoList"> </datalist>
           <script>
             async function loadLogoList() {
               const res = await fetch("/api/logo");
@@ -126,7 +126,14 @@
           </datalist>
 
           <label for="rm">Raw Material: </label>
-          <input type="text" id="rm" name="rm" class="uppercase" list="rmList" required />
+          <input
+            type="text"
+            id="rm"
+            name="rm"
+            class="uppercase"
+            list="rmList"
+            required
+          />
           <datalist id="rmList"></datalist>
 
           <script>
@@ -146,9 +153,6 @@
 
             loadrm();
           </script>
-
-
-
 
           <label for="mb_code">Master Batch Code: </label>
           <input
@@ -182,15 +186,15 @@
           <input type="text" id="mc_speed" name="mc_speed" required />
 
           <label for="issued_by">Issued By: </label>
-<input
-  type="text"
-  id="issued_by"
-  name="issued_by"
-  class="uppercase"
-  value="<%= user ? user : '' %>"
-  readonly
-  required
-/>
+          <input
+            type="text"
+            id="issued_by"
+            name="issued_by"
+            class="uppercase"
+            value="<%= user ? user : '' %>"
+            readonly
+            required
+          />
 
           <div class="wrap">
             <button type="submit">Submit</button>
