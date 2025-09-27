@@ -21,6 +21,7 @@ const batchSchema = require('./models/batchSC');
 const CokeCoaSchema = require('./models/cokeCoaDetailsSC');
 const RelianceCoaSchema = require('./models/relianceCoaDetailsSC');
 const visualReportSc = require('./models/visual_inspecSC')
+const logoSc = require('./models/logoSC')
 
 
 //Routes
@@ -37,6 +38,10 @@ const relianceCoaDetails = require('./routes/relianceCoaDetails');
 const newCustomer = require('./routes/newCustomer');
 const specs = require('./routes/specs');
 const mbCodesRoute = require('./routes/mbcode')
+const DesignRoute = require('./routes/design')
+const rmRoute = require('./routes/rm')
+const addLogoRoute = require('./routes/addLogo')
+const logoRoute = require('./routes/logo')
 
 //Find routes
 const findBatch = require('./routes/find/findBatch');
@@ -45,6 +50,7 @@ const findMB = require('./routes/find/findMB');
 const findRM = require('./routes/find/findRM');
 const findrelcoa = require('./routes/find/findRelCoaDe');
 const findDesign = require('./routes/find/findDesign');
+const findLogo = require('./routes/find/findLogo')
 
 //Inspection routes
 const inspec = require('./routes/inspection')
@@ -86,7 +92,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.static("public"));
 
-//Models
+// Models
 app.use('/customerSC', customerSchema);
 app.use('/batchSC', batchSchema);
 app.use('/cokeCoaDetailsSC', CokeCoaSchema);
@@ -94,6 +100,7 @@ app.use('/plantSC', plantSchema);
 app.use('/dimensionSC', dimensionSchema);
 app.use('/mbDetailsSC', mbDetailsSchema);
 app.use('/addnewDocDetailsSC', docNoDetailsSchema);
+app.use('/logoSC', logoSc)
 
 //Routes
 app.use('/', indexRouter);
@@ -107,13 +114,18 @@ app.use('/customer', newCustomer);
 app.use('/customer', findCustomer);
 app.use('/specs', specs);
 app.use('/addmbDetails', addmbDetail);
-app.use('/addmbDetails', addmbDetail);
+// app.use('/addmbDetails', addmbDetail);
 app.use('/mb', findMB);
 app.use('/rm', findRM);
 app.use('/relcoade', findrelcoa);
 app.use('/design', findDesign);
+app.use('/add_logo', addLogoRoute);
+app.use('/find_logo', findLogo)
 app.use('/addnewdocDetails', addnewDocDetail);
 app.use("/api/mbcodes", mbCodesRoute);
+app.use("/api/design", DesignRoute);
+app.use("/api/rm", rmRoute);
+app.use("/api/logo", logoRoute);
 
 //Inspection Routes
 app.use('/', inspec)

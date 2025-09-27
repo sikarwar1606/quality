@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const batch_details = require("../models/batchSC");
 const { isLoggedIn } = require("./auth");
+const userSC = require('../models/users')
 
 const router = express.Router();
 
@@ -42,11 +43,19 @@ const getNewBatchNo = async () => {
   return batch_number;
 };
 
+
+
 // ✅ GET route: render batch form
 router.get("/new", isLoggedIn, (req, res) => {
-  res.render("add/add_batch");
+  let user = req.user.username
+  
+  res.render("add/add_batch", {user});
 });
+
+
 let showBatch;
+
+
 // ✅ POST route: save batch
 router.post("/new", isLoggedIn, async (req, res) => {
   let { date } = req.body;
@@ -62,7 +71,8 @@ router.post("/new", isLoggedIn, async (req, res) => {
     const newBatchData = new batch_details({
       ...req.body,
       date: new Date(date),
-      batch_number,
+      batch_number,      
+      issued_by:user
     });
 
     await newBatchData.save();

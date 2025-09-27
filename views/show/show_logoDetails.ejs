@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <title>Update Logo</title>
+    <link rel="stylesheet" href="/stylesheets/add_batch.css">
+  </head>
+  <body>
+    <%- include("../partials/qualityNav") %>
+
+    <div class="details">
+      <div class="main">
+        <h1>Corporate</h1>
+        <h3>Logo Details</h3>
+
+        <form action="/find_logo/update" method="post">
+           <label for="logo"> Logo Name: </label>
+          <input type="text" id="logo" name="logo" value="<%=logo%>" required />  
+          
+          <label for="customer"> Customer: </label>
+          <input type="text" id="customer" name="customer" value="<%=customer%>" required />
+
+
+          <div class="wrap">
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      document.querySelectorAll("input[type='text']").forEach((input) => {
+        input.addEventListener("input", function () {
+          this.value = this.value.toUpperCase();
+        });
+      });
+    </script>
+  </body>
+</html>

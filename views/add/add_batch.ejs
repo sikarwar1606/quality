@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <title>New Batch</title>
+    <link rel="stylesheet" href="/stylesheets/add_batch.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-  <title>New Batch</title>
-  <link rel="stylesheet" href="/stylesheets/add_batch.css">
-</head>
-
-<body>
-  <%- include("../partials/qualityNav") %>
+  <body>
+    <%- include("../partials/qualityNav") %>
 
     <div class="details">
       <div class="main">
@@ -20,54 +19,178 @@
 
         <form action="/batch/new" method="post">
           <label for="date"> Date: </label>
-          <input type="text" id="date" name="date" value="<%= new Date().toLocaleDateString('en-GB') %>" required />
+          <input
+            type="text"
+            id="date"
+            name="date"
+            value="<%= new Date().toLocaleDateString('en-GB') %>"
+            required
+          />
 
           <label for="shift">Shift: </label>
-          <input type="text" id="shift" name="shift" class="uppercase" required />
+          <input
+            type="text"
+            list="shiftOptions"
+            id="shift"
+            name="shift"
+            class="uppercase"
+            required
+          />
+          <datalist  id="shiftOptions">
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+          </datalist>
 
           <label for="design"> Design: </label>
-          <input type="text" id="design" name="design" class="uppercase" required />
-
-          <label for="debossed">Debossed: </label>
-          <input type="text" id="debossed" name="debossed" class="uppercase" required />
-
-
-          <label for="mc_no"> Machine No.: </label>
-          <input type="text" id="mc_no" name="mc_no" class="uppercase" required />
-
-          <label for="rm">Raw Material: </label>
-          <input type="text" id="rm" name="rm" class="uppercase" required />
-
-          <label for="mb_code">Master Batch Code: </label>
-          <input list="mb_codes" id="mb_code" name="mb_code" class="uppercase" required />
-          <datalist id="mb_codes"></datalist>
-
+          <input
+            type="text"
+            list="designList"
+            id="design"
+            name="design"
+            class="uppercase"
+            required
+          />
+          <datalist id="designList"></datalist>
 
           <script>
-           async function loadMBCodes() {
-  const res = await fetch("/api/mbcodes");
-  const codes = await res.json();
+            async function loadDesignCodes() {
+              const res = await fetch("/api/design");
+              const codes = await res.json();
 
-  const datalist = document.getElementById("mb_codes");
-  datalist.innerHTML = "";
+              const datalist = document.getElementById("designList");
+              datalist.innerHTML = "";
 
-  codes.forEach(code => {
-    const option = document.createElement("option");
-    option.value = code;
-    datalist.appendChild(option);
-  });
-}
+              codes.forEach((code) => {
+                const option = document.createElement("option");
+                option.value = code;
+                datalist.appendChild(option);
+              });
+            }
 
-loadMBCodes();
-
+            loadDesignCodes();
           </script>
 
+          <label for="debossed">Logo: </label>
+          <input
+            type="text"
+            id="debossed"
+            list="logoList"
+            name="debossed"
+            class="uppercase"
+            required
+          />
+
+          <datalist  id="logoList"> </datalist>
+          <script>
+            async function loadLogoList() {
+              const res = await fetch("/api/logo");
+              const codes = await res.json();
+
+              const datalist = document.getElementById("logoList");
+              datalist.innerHTML = "";
+
+              codes.forEach((code) => {
+                const option = document.createElement("option");
+                option.value = code;
+                datalist.appendChild(option);
+              });
+            }
+
+            loadLogoList();
+          </script>
+
+          <label for="mc_no"> Machine No.: </label>
+          <input
+            type="text"
+            id="mc_no"
+            list="machineList"
+            name="mc_no"
+            class="uppercase"
+            required
+          />
+          <datalist id="machineList">
+            <option value="CCM-01">CCM-01</option>
+            <option value="CCM-02">CCM-02</option>
+            <option value="CCM-03">CCM-03</option>
+            <option value="CCM-04">CCM-04</option>
+            <option value="CCM-05">CCM-05</option>
+            <option value="CCM-06">CCM-06</option>
+            <option value="CCM-07/08">CCM-07/08</option>
+            <option value="CCM-09/10/11">CCM-09/10/11</option>
+            <option value="CCM-12">CCM-12</option>
+            <option value="CCM-14">CCM-14</option>
+            <option value="CCM-15">CCM-15</option>
+            <option value="CCM-16">CCM-16</option>
+            <option value="CCM-17">CCM-17</option>
+          </datalist>
+
+          <label for="rm">Raw Material: </label>
+          <input type="text" id="rm" name="rm" class="uppercase" list="rmList" required />
+          <datalist id="rmList"></datalist>
+
+          <script>
+            async function loadrm() {
+              const res = await fetch("/api/rm");
+              const codes = await res.json();
+
+              const datalist = document.getElementById("rmList");
+              datalist.innerHTML = "";
+
+              codes.forEach((code) => {
+                const option = document.createElement("option");
+                option.value = code;
+                datalist.appendChild(option);
+              });
+            }
+
+            loadrm();
+          </script>
+
+
+
+
+          <label for="mb_code">Master Batch Code: </label>
+          <input
+            list="mb_codes"
+            id="mb_code"
+            name="mb_code"
+            class="uppercase"
+            required
+          />
+          <datalist id="mb_codes"></datalist>
+
+          <script>
+            async function loadMBCodes() {
+              const res = await fetch("/api/mbcodes");
+              const codes = await res.json();
+
+              const datalist = document.getElementById("mb_codes");
+              datalist.innerHTML = "";
+
+              codes.forEach((code) => {
+                const option = document.createElement("option");
+                option.value = code;
+                datalist.appendChild(option);
+              });
+            }
+
+            loadMBCodes();
+          </script>
 
           <label for="mc_speed">Machine Speed: </label>
           <input type="text" id="mc_speed" name="mc_speed" required />
 
           <label for="issued_by">Issued By: </label>
-          <input type="text" id="issued_by" name="issued_by" class="uppercase" required />
+<input
+  type="text"
+  id="issued_by"
+  name="issued_by"
+  class="uppercase"
+  value="<%= user ? user : '' %>"
+  readonly
+  required
+/>
 
           <div class="wrap">
             <button type="submit">Submit</button>
@@ -78,12 +201,11 @@ loadMBCodes();
 
     <script>
       // Force uppercase for all inputs with class="uppercase"
-      document.querySelectorAll("input.uppercase").forEach(input => {
+      document.querySelectorAll("input.uppercase").forEach((input) => {
         input.addEventListener("input", function () {
           this.value = this.value.toUpperCase();
         });
       });
     </script>
-</body>
-
+  </body>
 </html>
