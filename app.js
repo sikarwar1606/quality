@@ -80,6 +80,12 @@ app.use(passport.initialize());
 app.use(passport.session());
 passport.serializeUser(users.serializeUser());
 passport.deserializeUser(users.deserializeUser());
+
+// ✅ Make user available in all views
+app.use((req, res, next) => {
+  res.locals.user = req.user || null;
+  next();
+});
 ///////////////////////////////////////////////////////////////////
 app.use(flash())
 
@@ -129,6 +135,12 @@ app.use("/api/logo", logoRoute);
 
 //Inspection Routes
 app.use('/', inspec)
+
+
+app.use((req, res, next) => {
+  res.locals.user = req.user || null; 
+  next();
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

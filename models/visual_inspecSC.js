@@ -47,12 +47,12 @@ async function insertSample() {
     }
   });
 
-  console.log("Inserted Data:", data1);
+  // console.log("Inserted Data:", data1);
 }
 VisualReport.find({ batch_no: "2301001", date: new Date('2025-01-01') })
   .then(docs => {
     docs.forEach(doc => {
-      console.log("ShiftA Observation1:", doc.shifts.ShiftA);
+      // console.log("ShiftA Observation1:", doc.shifts.ShiftA);
     });
   })
   .catch(err => console.error(err));

@@ -20,6 +20,7 @@ router.get('/register',  function(req, res, next) {
   res.render('register');
 });
 
+
 router.get('/coa/coa', isLoggedIn,  function(req, res) {
   res.render('coa/coa');
 });
