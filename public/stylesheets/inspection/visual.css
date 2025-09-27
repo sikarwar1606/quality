@@ -1,0 +1,59 @@
+ body {
+      font-family: Arial, sans-serif;
+      font-size: 10px;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+    }
+
+    .visual {
+      width: 210mm;
+      /* A4 portrait width */
+      min-height: 275mm;
+      /* A4 height */
+      margin: 0 auto;
+      box-sizing: border-box;
+      background: #fff;
+      border: 2px solid black;
+    }
+
+
+    td input {
+      width: 100%;
+      border: none;
+      font-size: 11px;
+      box-sizing: border-box;
+    }
+
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .heading table td {
+      border: 1px solid black;
+      padding: 2.5px;
+      text-align: center;
+      vertical-align: middle;
+      line-height: 2.2;
+    }
+
+    .body table td {
+      border: 1px solid black;
+    }
+
+    .time, .obdefect, .teband {
+      width: 32px;
+      height: 15.5px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .defect-found {
+      color: red;
+    }
+
+   .remarks{
+    width: 90px;
+   }

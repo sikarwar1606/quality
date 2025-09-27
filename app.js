@@ -20,6 +20,7 @@ const plantSchema = require('./models/plantSC');
 const batchSchema = require('./models/batchSC');
 const CokeCoaSchema = require('./models/cokeCoaDetailsSC');
 const RelianceCoaSchema = require('./models/relianceCoaDetailsSC');
+const visualReportSc = require('./models/visual_inspecSC')
 
 
 //Routes
@@ -35,6 +36,7 @@ const cokeCoaDetails = require('./routes/cokeCoaDetails');
 const relianceCoaDetails = require('./routes/relianceCoaDetails');
 const newCustomer = require('./routes/newCustomer');
 const specs = require('./routes/specs');
+const mbCodesRoute = require('./routes/mbcode')
 
 //Find routes
 const findBatch = require('./routes/find/findBatch');
@@ -44,7 +46,8 @@ const findRM = require('./routes/find/findRM');
 const findrelcoa = require('./routes/find/findRelCoaDe');
 const findDesign = require('./routes/find/findDesign');
 
-
+//Inspection routes
+const inspec = require('./routes/inspection')
 
 const passport = require('passport');
 var app = express();
@@ -110,8 +113,10 @@ app.use('/rm', findRM);
 app.use('/relcoade', findrelcoa);
 app.use('/design', findDesign);
 app.use('/addnewdocDetails', addnewDocDetail);
+app.use("/api/mbcodes", mbCodesRoute);
 
-
+//Inspection Routes
+app.use('/', inspec)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

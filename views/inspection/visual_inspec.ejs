@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visual</title>
+  <link rel="stylesheet" href="/stylesheets/inspection/visual.css">
+
+</head>
+
+<body>
+  <%- include("../partials/visual") %>
+  <form id="inspectionForm" action="/visual/save" method="post">
+  <div class="visual">
+    <div class="heading">
+      <table class="tbCCM">
+        <tbody>
+          <tr>
+            <td colspan="5" rowspan="2">
+              Doc No. <br />
+              SIPL-QA-R-05 & 60
+            </td>
+            <td colspan="14">Secure Industries Pvt. Ltd. Hyderabad</td>
+            <td colspan="5">Rev. No. 00</td>
+          </tr>
+          <tr>
+            <td colspan="14">Visual Inspection Report (SFM & CCM)</td>
+
+            <td colspan="5">Rev. Dt. 01-07-2024</td>
+          </tr>
+          <tr>
+            <td colspan="3">Date</td>
+            <td colspan="5">01/01/2022</td>
+            <td colspan="3">Product</td>
+            <td colspan="5">S-1881-CSD-001 R01</td>
+            <td colspan="3">Batch No.</td>
+            <td colspan="5">2509001</td>
+          </tr>
+          <tr>
+            <td colspan="3">M/C No.</td>
+            <td colspan="5">CCM-17</td>
+            <td colspan="3">Colour</td>
+            <td colspan="5">Blue</td>
+            <td colspan="3">DB/EM/PL</td>
+            <td colspan="5">Coca Cola</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="body">
+      <table id="CCMdefectTable">
+        <tbody>
+          <tr>
+            <td colspan="3"></td>
+            <td colspan="7">A</td>
+            <td colspan="7">B</td>
+            <td colspan="7">C</td>
+          </tr>
+          <tr>
+            <td colspan="3">Time/Defect</td>
+            <td><input type="text" id="t1"></td>
+            <td><input type="text" id="t2"></td>
+            <td><input type="text" id="t3"></td>
+            <td><input type="text" id="t4"></td>
+            <td colspan="3">Remarks</td>
+            <td><input type="text" id="t5"></td>
+            <td><input type="text" id="t6"></td>
+            <td><input type="text" id="t7"></td>
+            <td><input type="text" id="t8"></td>
+            <td colspan="3">Remarks</td>
+            <td><input type="text" id="t9"></td>
+            <td><input type="text" id="t10"></td>
+            <td><input type="text" id="t11"></td>
+            <td><input type="text" id="t12"></td>
+            <td colspan="3">Remarks</td>
+          </tr>
+        </tbody>
+      </table>
+      <table id="SFMdefectTable">
+        <tbody>
+
+        </tbody>
+      </table>
+
+      <table id="TEbandperformace">
+        <tbody>
+
+        </tbody>
+      </table>
+
+
+    </div>
+    <div class="heading">
+      <table class="tbCCM">
+        <tbody>
+          <tr>
+            <td>Inspected By:</td>
+            <td> <input type="text"></td>
+            <td>Inspected By:</td>
+            <td> <input type="text"></td>
+            <td>Inspected By:</td>
+            <td> <input type="text"></td>
+          </tr>
+          <tr>
+            <td>Verified By:</td>
+            <td colspan="6"><input type="text"> </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    
+  </div>
+  <button type="submit">Save</button>
+  </form>
+
+  <script src="/javascripts/script.js"></script>
+
+  
+</script>
+
+
+</body>
+
+</html>

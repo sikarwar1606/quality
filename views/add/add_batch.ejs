@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
-    <title>New Batch</title>
-    <link rel="stylesheet" href="/stylesheets/add_batch.css">
-  </head>
-  <body>
-    <%- include("../partials/qualityNav") %>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+  <title>New Batch</title>
+  <link rel="stylesheet" href="/stylesheets/add_batch.css">
+</head>
+
+<body>
+  <%- include("../partials/qualityNav") %>
 
     <div class="details">
       <div class="main">
@@ -37,7 +39,29 @@
           <input type="text" id="rm" name="rm" class="uppercase" required />
 
           <label for="mb_code">Master Batch Code: </label>
-          <input type="text" id="mb_code" name="mb_code" class="uppercase" required />
+          <input list="mb_codes" id="mb_code" name="mb_code" class="uppercase" required />
+          <datalist id="mb_codes"></datalist>
+
+
+          <script>
+           async function loadMBCodes() {
+  const res = await fetch("/api/mbcodes");
+  const codes = await res.json();
+
+  const datalist = document.getElementById("mb_codes");
+  datalist.innerHTML = "";
+
+  codes.forEach(code => {
+    const option = document.createElement("option");
+    option.value = code;
+    datalist.appendChild(option);
+  });
+}
+
+loadMBCodes();
+
+          </script>
+
 
           <label for="mc_speed">Machine Speed: </label>
           <input type="text" id="mc_speed" name="mc_speed" required />
@@ -60,5 +84,6 @@
         });
       });
     </script>
-  </body>
+</body>
+
 </html>
