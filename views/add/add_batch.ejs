@@ -37,9 +37,9 @@
             required
           />
           <datalist id="shiftOptions">
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
+            <option value="A"></option>
+            <option value="B"></option>
+            <option value="C"></option>
           </datalist>
 
           <label for="design"> Design: </label>
@@ -53,24 +53,6 @@
           />
           <datalist id="designList"></datalist>
 
-          <script>
-            async function loadDesignCodes() {
-              const res = await fetch("/api/design");
-              const codes = await res.json();
-
-              const datalist = document.getElementById("designList");
-              datalist.innerHTML = "";
-
-              codes.forEach((code) => {
-                const option = document.createElement("option");
-                option.value = code;
-                datalist.appendChild(option);
-              });
-            }
-
-            loadDesignCodes();
-          </script>
-
           <label for="debossed">Logo: </label>
           <input
             type="text"
@@ -80,25 +62,7 @@
             class="uppercase"
             required
           />
-
-          <datalist id="logoList"> </datalist>
-          <script>
-            async function loadLogoList() {
-              const res = await fetch("/api/logo");
-              const codes = await res.json();
-
-              const datalist = document.getElementById("logoList");
-              datalist.innerHTML = "";
-
-              codes.forEach((code) => {
-                const option = document.createElement("option");
-                option.value = code;
-                datalist.appendChild(option);
-              });
-            }
-
-            loadLogoList();
-          </script>
+          <datalist id="logoList"></datalist>
 
           <label for="mc_no"> Machine No.: </label>
           <input
@@ -110,19 +74,19 @@
             required
           />
           <datalist id="machineList">
-            <option value="CCM-01">CCM-01</option>
-            <option value="CCM-02">CCM-02</option>
-            <option value="CCM-03">CCM-03</option>
-            <option value="CCM-04">CCM-04</option>
-            <option value="CCM-05">CCM-05</option>
-            <option value="CCM-06">CCM-06</option>
-            <option value="CCM-07/08">CCM-07/08</option>
-            <option value="CCM-09/10/11">CCM-09/10/11</option>
-            <option value="CCM-12">CCM-12</option>
-            <option value="CCM-14">CCM-14</option>
-            <option value="CCM-15">CCM-15</option>
-            <option value="CCM-16">CCM-16</option>
-            <option value="CCM-17">CCM-17</option>
+            <option value="CCM-01"></option>
+            <option value="CCM-02"></option>
+            <option value="CCM-03"></option>
+            <option value="CCM-04"></option>
+            <option value="CCM-05"></option>
+            <option value="CCM-06"></option>
+            <option value="CCM-07/08"></option>
+            <option value="CCM-09/10/11"></option>
+            <option value="CCM-12"></option>
+            <option value="CCM-14"></option>
+            <option value="CCM-15"></option>
+            <option value="CCM-16"></option>
+            <option value="CCM-17"></option>
           </datalist>
 
           <label for="rm">Raw Material: </label>
@@ -136,24 +100,6 @@
           />
           <datalist id="rmList"></datalist>
 
-          <script>
-            async function loadrm() {
-              const res = await fetch("/api/rm");
-              const codes = await res.json();
-
-              const datalist = document.getElementById("rmList");
-              datalist.innerHTML = "";
-
-              codes.forEach((code) => {
-                const option = document.createElement("option");
-                option.value = code;
-                datalist.appendChild(option);
-              });
-            }
-
-            loadrm();
-          </script>
-
           <label for="mb_code">Master Batch Code: </label>
           <input
             list="mb_codes"
@@ -164,24 +110,6 @@
           />
           <datalist id="mb_codes"></datalist>
 
-          <script>
-            async function loadMBCodes() {
-              const res = await fetch("/api/mbcodes");
-              const codes = await res.json();
-
-              const datalist = document.getElementById("mb_codes");
-              datalist.innerHTML = "";
-
-              codes.forEach((code) => {
-                const option = document.createElement("option");
-                option.value = code;
-                datalist.appendChild(option);
-              });
-            }
-
-            loadMBCodes();
-          </script>
-
           <label for="mc_speed">Machine Speed: </label>
           <input type="text" id="mc_speed" name="mc_speed" required />
 
@@ -191,7 +119,7 @@
             id="issued_by"
             name="issued_by"
             class="uppercase"
-            value="<%= user ? user : '' %>"
+            value="<%= user ? user: '' %>"
             readonly
             required
           />
@@ -204,6 +132,39 @@
     </div>
 
     <script>
+      async function loadDatalist(apiUrl, datalistId) {
+        try {
+          const res = await fetch(apiUrl);
+          const codes = await res.json();
+
+          const datalist = document.getElementById(datalistId);
+          datalist.innerHTML = "";
+
+          codes.forEach((code) => {
+            const option = document.createElement("option");
+            option.value = code;
+            datalist.appendChild(option);
+          });
+        } catch (err) {
+          console.error(`Error loading ${datalistId}:`, err);
+        }
+      }
+
+      // Load all datalists
+      window.addEventListener("DOMContentLoaded", () => {
+        loadDatalist("/api/design", "designList");
+        loadDatalist("/api/logo", "logoList");
+        loadDatalist("/api/rm", "rmList");
+        loadDatalist("/api/mbcodes", "mb_codes");
+      });
+
+      // Force uppercase globally
+      document.addEventListener("input", (e) => {
+        if (e.target.classList.contains("uppercase")) {
+          e.target.value = e.target.value.toUpperCase();
+        }
+      });
+
       // Force uppercase for all inputs with class="uppercase"
       document.querySelectorAll("input.uppercase").forEach((input) => {
         input.addEventListener("input", function () {

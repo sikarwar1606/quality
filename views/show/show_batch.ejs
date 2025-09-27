@@ -6,7 +6,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     <title>Show Batch</title>
-    <link rel="stylesheet" href="/stylesheets/add_batch.css">
+    <link rel="stylesheet" href="/stylesheets/add_batch.css" />
   </head>
   <body>
     <%- include("../partials/qualityNav") %>
@@ -14,47 +14,167 @@
     <div class="details">
       <div class="main">
         <h1>Corporate</h1>
-        <h3> Batch Details</h3>
+        <h3>Batch Details</h3>
 
         <form action="/batch/update" method="post">
-          
           <label for="date"> Date: </label>
-          <input type="text" id="date" name="date"  value="<%=bDate%>" />
+          <input type="text" id="date" name="date" value="<%=bDate%>" />
 
           <label for="shift">Shift: </label>
-          <input type="text" id="shift" name="shift" class="uppercase" value="<%=shift%>" />
+          <input
+            type="text"
+            id="shift"
+            list="shiftOptions"
+            name="shift"
+            class="uppercase"
+            value="<%=shift%>"
+          />
+
+          <datalist id="shiftOptions">
+            <option value="A"></option>
+            <option value="B"></option>
+            <option value="C"></option>
+          </datalist>
 
           <label for="design"> Design: </label>
-          <input type="text" id="design" name="design" class="uppercase" value="<%=design%>" />
+          <input
+            type="text"
+            list="designList"
+            id="design"
+            name="design"
+            class="uppercase"
+            value="<%=design%>"
+          />
+          <datalist id="designList"></datalist>
 
-          <label for="debossed">Debossed: </label>
-          <input type="text" id="debossed" name="debossed" class="uppercase" value="<%=debossed%>" />
-
+          <label for="debossed">Logo: </label>
+          <input
+            type="text"
+            id="debossed"
+            list="logoList"
+            name="debossed"
+            class="uppercase"
+            value="<%=debossed%>"
+          />
+          <datalist id="logoList"></datalist>
 
           <label for="mc_no"> Machine No.: </label>
-          <input type="text" id="mc_no" name="mc_no" class="uppercase" value="<%=mc_no%>" />
+          <input
+            type="text"
+            id="mc_no"
+            list="machineList"
+            name="mc_no"
+            class="uppercase"
+            value="<%=mc_no%>"
+          />
+          <datalist id="machineList">
+            <option value="CCM-01"></option>
+            <option value="CCM-02"></option>
+            <option value="CCM-03"></option>
+            <option value="CCM-04"></option>
+            <option value="CCM-05"></option>
+            <option value="CCM-06"></option>
+            <option value="CCM-07/08"></option>
+            <option value="CCM-09/10/11"></option>
+            <option value="CCM-12"></option>
+            <option value="CCM-14"></option>
+            <option value="CCM-15"></option>
+            <option value="CCM-16"></option>
+            <option value="CCM-17"></option>
+          </datalist>
 
           <label for="rm">Raw Material: </label>
-          <input type="text" id="rm" name="rm" class="uppercase"  value="<%=rm%>"/>
+          <input
+            type="text"
+            id="rm"
+            list="rmList"
+            name="rm"
+            class="uppercase"
+            value="<%=rm%>"
+          />
+          <datalist id="rmList"></datalist>
 
           <label for="mb_code">Master Batch Code: </label>
-          <input type="text" id="mb_code" name="mb_code" class="uppercase" value="<%=mb_code%>" />
+          <input
+            type="text"
+            list="mb_codes"
+            id="mb_code"
+            name="mb_code"
+            class="uppercase"
+            value="<%=mb_code%>"
+          />
+          <datalist id="mb_codes"></datalist>
 
           <label for="mc_speed">Machine Speed: </label>
-          <input type="text" id="mc_speed" name="mc_speed" value="<%=mc_speed%>" />
+          <input
+            type="text"
+            id="mc_speed"
+            name="mc_speed"
+            value="<%=mc_speed%>"
+          />
 
-          <input type="hidden" name="batch_number" value="<%= batch_number %>" />
+          <input
+            type="hidden"
+            name="batch_number"
+            value="<%= batch_number %>"
+          />
 
           <label for="issued_by">Issued By: </label>
-          <input type="text" id="issued_by" name="issued_by" class="uppercase" value="<%=issued_by%>" readonly />
+          <input
+            type="text"
+            id="issued_by"
+            name="issued_by"
+            class="uppercase"
+            value="<%=issued_by%>"
+            readonly
+          />
 
-         <div class="wrap">
+          <div class="wrap">
             <button type="submit">Update</button>
           </div>
         </form>
       </div>
     </div>
+    <script>
+      async function loadDatalist(apiUrl, datalistId) {
+        try {
+          const res = await fetch(apiUrl);
+          const codes = await res.json();
 
-    
+          const datalist = document.getElementById(datalistId);
+          datalist.innerHTML = "";
+
+          codes.forEach((code) => {
+            const option = document.createElement("option");
+            option.value = code;
+            datalist.appendChild(option);
+          });
+        } catch (err) {
+          console.error(`Error loading ${datalistId}:`, err);
+        }
+      }
+
+      // Load all datalists
+      window.addEventListener("DOMContentLoaded", () => {
+        loadDatalist("/api/design", "designList");
+        loadDatalist("/api/logo", "logoList");
+        loadDatalist("/api/rm", "rmList");
+        loadDatalist("/api/mbcodes", "mb_codes");
+      });
+
+      // Force uppercase globally
+      document.addEventListener("input", (e) => {
+        if (e.target.classList.contains("uppercase")) {
+          e.target.value = e.target.value.toUpperCase();
+        }
+      });
+
+      // Force uppercase for all inputs with class="uppercase"
+      document.querySelectorAll("input.uppercase").forEach((input) => {
+        input.addEventListener("input", function () {
+          this.value = this.value.toUpperCase();
+        });
+      });
+    </script>
   </body>
 </html>
