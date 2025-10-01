@@ -1,186 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <script src="https://cdn.tailwindcss.com"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Factory Management Portal</title>
+    <style>
+      /* Custom scrollbar for tables */
+      .runningProduction::-webkit-scrollbar {
+        height: 8px;
+        width: 8px;
+      }
+      .runningProduction::-webkit-scrollbar-thumb {
+        background-color: #a0aec0;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 font-sans">
+    <!-- Navbar -->
+    <%- include("partials/qualityNav") %>
 
-    <title>Home</title>
-</head>
-<body>
-    <!-- including the nav bar -->
-    <%- include("partials/qualityNav") %> 
-  <div style="text-align:center; padding:60px; font-family:Arial;">
-  <h1>👋 Welcome to Factory Management Portal</h1>
-  <p style="font-size:20px; font-weight:bold; color:#333;">
-    Making your work easier and smarter
-  </p>
-  <a href="/coa/coa" style="display:inline-block; margin-top:20px; padding:12px 24px;
-     background:#3297b3; color:#fff; border-radius:6px; text-decoration:none;">
-    COA
-    
-  </a>
-  <a href="/batch/new" style="display:inline-block; margin-top:20px; padding:12px 24px;
-     background:#007bff; color:#fff; border-radius:6px; text-decoration:none;">
-    NEW BATCH NUMBER
+    <!-- Hero / Welcome Section -->
 
-  </a>
-</div>
-<div class="runningProductio">
-  <!-- <table style="border: 1 px solid black;">
-    <th>
-      <tr>
-        <td>Date</td>
-        <td>M/C</td>
-        <td>Batch No.</td>
-        <td>Design</td>
-        <td>Logo</td>
-        <td>Colour</td>
-        <td>From</td>
-      </tr>
+    <!-- Quick Stats Cards -->
+    <section
+      class="my-8 mx-3 md:mx-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
+    >
+      <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition">
+        <h3 class="text-gray-500 font-semibold">Active Line</h3>
+        <p class="text-3xl font-bold text-indigo-600 mt-2">
+          <%= machineList.length %>
+        </p>
+      </div>
+      <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition">
+        <h3 class="text-gray-500 font-semibold">Total Change Over</h3>
+        <p class="text-3xl font-bold text-yellow-500 mt-2">3</p>
+      </div>
+      <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition">
+        <h3 class="text-gray-500 font-semibold">Latest Batch</h3>
+        <p class="text-3xl font-bold text-purple-600 mt-2">
+          <%= latestBatchNo ? latestBatchNo.batch_number : '-' %>
+        </p>
+      </div>
+     
       
-    </th>
-    <tbody>
-      <tr>
-        <td><input type="text"></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-    </tbody>
-  </table> -->
-</div>
+       <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition" id="prepareCoa">
+        <h3 class="text-gray-500 font-semibold">Peraper COA</h3>
+        <p class="text-3xl font-bold text-green-600 mt-2">
+          <a href="/coa/coa">
+            <img
+              src="../images/document.svg"
+              alt="COA"
+              class="w-6 h-6 inline-block"
+            />
+          </a>
+        </p>
+      </div>
+    </section>
 
-
-</body>
+    <!-- Latest Batches Table -->
+    <section
+      class="my-8 mx-4 md:mx-12 bg-white rounded-xl shadow overflow-hidden"
+    >
+      <h2 class="text-2xl font-bold text-gray-700 p-3 border-b border-gray-200">
+        Running Machine
+      </h2>
+      <div class="runningProduction overflow-x-auto">
+        <table class="min-w-full text-center">
+          <thead
+            class="bg-gradient-to-r from-indigo-500 to-purple-500 text-white"
+          >
+            <tr>
+              <th class="py-3 px-6">M/C</th>
+              <th class="py-3 px-6">Batch No.</th>
+              <th class="py-3 px-6">Design</th>
+              <th class="py-3 px-6">Logo</th>
+              <th class="py-3 px-6">Colour</th>
+              <th class="py-3 px-6">From</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200">
+            <% machineList.forEach(mc => { const row = dataMap[mc]; %>
+            <tr class="hover:bg-indigo-50 transition">
+              <td class="py-2 px-4 font-medium"><%= mc %></td>
+              <td class="py-2 px-4"><%= row ? row.batch_number : '' %></td>
+              <td class="py-2 px-4"><%= row ? row.design : '' %></td>
+              <td class="py-2 px-4"><%= row ? row.debossed : '' %></td>
+              <td class="py-2 px-4"><%= row ? row.colour : '' %></td>
+              <td class="py-2 px-4">
+                <%= row && row.date ? new
+                Date(row.date).toLocaleDateString("en-GB") : '' %>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <script>
+      let prepareCoa = document.getElementById("prepareCoa")
+      prepareCoa.addEventListener('click', ()=>{
+         window.location.href = '/coa/coa';
+      })
+    </script>
+  </body>
 </html>
