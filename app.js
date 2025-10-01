@@ -42,6 +42,7 @@ const DesignRoute = require('./routes/design')
 const rmRoute = require('./routes/rm')
 const addLogoRoute = require('./routes/addLogo')
 const logoRoute = require('./routes/logo')
+const visualReport = require('./routes/visual')
 
 //Find routes
 const findBatch = require('./routes/find/findBatch');
@@ -53,7 +54,7 @@ const findDesign = require('./routes/find/findDesign');
 const findLogo = require('./routes/find/findLogo')
 
 //Inspection routes
-const inspec = require('./routes/inspection')
+// const inspec = require('./routes/inspection') 
 
 const passport = require('passport');
 var app = express();
@@ -107,6 +108,7 @@ app.use('/dimensionSC', dimensionSchema);
 app.use('/mbDetailsSC', mbDetailsSchema);
 app.use('/addnewDocDetailsSC', docNoDetailsSchema);
 app.use('/logoSC', logoSc)
+app.use('/visualSc', visualReportSc)
 
 //Routes
 app.use('/', indexRouter);
@@ -133,8 +135,11 @@ app.use("/api/design", DesignRoute);
 app.use("/api/rm", rmRoute);
 app.use("/api/logo", logoRoute);
 
+
+
 //Inspection Routes
-app.use('/', inspec)
+// app.use('/', inspec)
+app.use('/visual', visualReport)
 
 
 app.use((req, res, next) => {

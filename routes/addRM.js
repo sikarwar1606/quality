@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const rmDetailsSC = require("../models/rmDetailsSC");
 const { isLoggedIn } = require("./auth");
+const rmDetailsSC = require("../models/rmDetailsSC");
 
 const router = express.Router();
 

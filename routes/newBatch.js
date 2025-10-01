@@ -59,6 +59,7 @@ let showBatch;
 // ✅ POST route: save batch
 router.post("/new", isLoggedIn, async (req, res) => {
   let { date } = req.body;
+  let user = req.body
   //Convert dd/mm/yyyy to yyyy-mm-dd
   if (date.includes("/")) {
     const [day, month, year] = date.split("/")
@@ -72,7 +73,7 @@ router.post("/new", isLoggedIn, async (req, res) => {
       ...req.body,
       date: new Date(date),
       batch_number,      
-      issued_by:user
+      issued_by:req.user.username
     });
 
     await newBatchData.save();

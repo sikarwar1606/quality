@@ -1,12 +1,13 @@
-const express = require("express");
-var path = require('path');
+// const express = require("express");
+// var path = require('path');
 // const mongoose = require("mongoose");
 
-const router = express.Router();
+// const router = express.Router();
 
-router.get('/visual', (req,res)=>{
-    res.render('inspection/visual_inspec')
-})
+// router.get('/visualRoute', (req,res)=>{
+//     res.render('inspection/visual_inspec')
+// })
 
 
-module.exports = router;
+
+// module.exports = router;
