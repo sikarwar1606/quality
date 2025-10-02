@@ -1,30 +1,27 @@
 const mongoose = require("mongoose");
 
-const inspectionSchema = new mongoose.Schema({
-  boservation1:String,
-  boservation2:String,
-  boservation3:String,
-  boservation4:String,
-  remarks: String,
-  inspectedBy: String
-});
-
-
 const shiftSchema = new mongoose.Schema({
-  inspections: [inspectionSchema] // up to 4 per shift
+  observation1: { type: [String], default: [] },
+  observation2: { type: [String], default: [] },
+  observation3: { type: [String], default: [] },
+  observation4: { type: [String], default: [] },
+  remarks: { type: [String], default: [] },
+  inspectedBy: { type: String, default: "" }
 });
 
-const visualReportSchema = new mongoose.Schema({
-  date: { type: Date, required: true },        
-  design: { type: String, required: true },    
-  batch_no: { type: String, required: true },  
-  mc_no: { type: String, required: true },     
-  colour: { type: String, required: true },    
-  logo: { type: String, required: true },      
+const inspectionSchema = new mongoose.Schema({
+  date: { type: Date, required: true },   // save inspection date
+  batch_number: { type: String, required: true },
 
-  obs:shiftSchema
+  shiftA: { type: shiftSchema, default: () => ({}) },
+  shiftB: { type: shiftSchema, default: () => ({}) },
+  shiftC: { type: shiftSchema, default: () => ({}) },
+
+  verifiedBy: { type: String, default: "" }
 });
 
-const VisualReport = mongoose.model("VisualReport", visualReportSchema);
+// Model
+const visual_inspection = mongoose.model("visual_inspection", inspectionSchema);
 
-module.exports = VisualReport;
+module.exports = visual_inspection;
+

@@ -43,9 +43,11 @@
           <%= latestBatchNo ? latestBatchNo.batch_number : '-' %>
         </p>
       </div>
-     
-      
-       <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition" id="prepareCoa">
+
+      <div
+        class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition"
+        id="prepareCoa"
+      >
         <h3 class="text-gray-500 font-semibold">Peraper COA</h3>
         <p class="text-3xl font-bold text-green-600 mt-2">
           <a href="/coa/coa">
@@ -99,10 +101,10 @@
       </div>
     </section>
     <script>
-      let prepareCoa = document.getElementById("prepareCoa")
-      prepareCoa.addEventListener('click', ()=>{
-         window.location.href = '/coa/coa';
-      })
+      let prepareCoa = document.getElementById("prepareCoa");
+      prepareCoa.addEventListener("click", () => {
+        window.location.href = "/coa/coa";
+      });
     </script>
   </body>
 </html>
