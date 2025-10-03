@@ -1,187 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visual</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        margin: 0;
+        padding: 0;
+        background: #fff;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Visual</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      font-size: 12px;
-      margin: 0;
-      padding: 0;
-      background: #fff;
-    }
+      .visual {
+        width: 210mm;
+        /* A4 portrait width */
+        min-height: 297mm;
+        /* A4 height */
+        margin: 0 auto;
+        box-sizing: border-box;
+        background: #fff;
+        border: 2px solid black;
+      }
 
-    .visual {
-      width: 210mm;
-      /* A4 portrait width */
-      min-height: 297mm;
-      /* A4 height */
-      margin: 0 auto;
-      box-sizing: border-box;
-      background: #fff;
-      border: 2px solid black;
-    }
+      td input {
+        width: 100%;
+        border: none;
+        font-size: 11px;
+        box-sizing: border-box;
+      }
 
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
 
-    td input {
-      width: 100%;
-      border: none;
-      font-size: 11px;
-      box-sizing: border-box;
-    }
+      .heading table td {
+        border: 1px solid black;
+        padding: 2.5px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 2.2;
+      }
 
+      .body table td {
+        border: 1px solid black;
+      }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
+      .time,
+      .obdefect,
+      .teband {
+        width: 35px;
+        cursor: pointer;
+        text-align: center;
+      }
 
-    .heading table td {
-      border: 1px solid black;
-      padding: 2.5px;
-      text-align: center;
-      vertical-align: middle;
-      line-height: 2.2;
-    }
+      .defect-found {
+        color: red;
+      }
 
-    .body table td {
-      border: 1px solid black;
-    }
+      button {
+        width: 100%;
+        background-color: white;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
 
-    .time, .obdefect, .teband {
-      width: 35px;
-      cursor: pointer;
-      text-align: center;
-    }
+  <body>
+    <%- include("../partials/visual") %>
+    <div class="visual">
+      <div class="heading">
+        <table class="tbCCM">
+          <tbody>
+            <tr>
+              <td colspan="5" rowspan="2">
+                Doc No. <br />
+                SIPL-QA-R-05 & 60
+              </td>
+              <td colspan="14">Secure Industries Pvt. Ltd. Hyderabad</td>
+              <td colspan="5">Rev. No. 00</td>
+            </tr>
+            <tr>
+              <td colspan="14">Visual Inspection Report (SFM & CCM)</td>
 
-    .defect-found {
-      color: red;
-    }
+              <td colspan="5">Rev. Dt. 01-07-2024</td>
+            </tr>
+            <tr>
+              <td colspan="3">Date</td>
+              <td colspan="5">
+                <input
+                  type="date"
+                  id="date"
+                  readonly
+                  value="<%= new Date().toISOString().split('T')[0] %>"
+                />
+              </td>
 
-    button{
-      width: 100%;
-      background-color: white;
-      border: none;
-      cursor: pointer;
-    }
-  </style>
-</head>
+              <td colspan="3">Design</td>
+              <td colspan="5"><%=latestBatches? latestBatches.design : ''%></td>
+              <td colspan="3">Batch No.</td>
+              <td colspan="5"><%=latestBatches? latestBatches.batch_number : ''%></td>
+            </tr>
+            <tr>
+              <td colspan="3">M/C No.</td>
+              <td colspan="5"><%=mcId%></td>
+              <td colspan="3">Colour</td>
+              <td colspan="5"><input type="text" value="<%=mb_detail? mb_detail.mb_colour : ''%>"></td>
+              <td colspan="3">DB/EM/PL</td>
+              <td colspan="5"><%=latestBatches? latestBatches.debossed : ''%></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="body">
+        <table id="CCMdefectTable">
+          <tbody>
+            <tr>
+              <td colspan="3"></td>
+              <td colspan="7">
+                <button id="shiftA" onclick="sendShiftData('shiftA')">
+                  Shift A
+                </button>
+              </td>
+              <td colspan="7">
+                <button id="shiftB" onclick="sendShiftData('shiftB')">
+                  Shift B
+                </button>
+              </td>
+              <td colspan="7">
+                <button id="shiftC" onclick="sendShiftData('shiftC')">
+                  Shift C
+                </button>
+              </td>
+            </tr>
 
-<body>
-  
-  <%- include("../partials/visual") %>
-  <div class="visual">
-    <div class="heading">
-      <table class="tbCCM">
-        <tbody>
-          <tr>
-            <td colspan="5" rowspan="2">
-              Doc No. <br />
-              SIPL-QA-R-05 & 60
-            </td>
-            <td colspan="14">Secure Industries Pvt. Ltd. Hyderabad</td>
-            <td colspan="5">Rev. No. 00</td>
-          </tr>
-          <tr>
-            <td colspan="14">Visual Inspection Report (SFM & CCM)</td>
+            <tr>
+              <td colspan="3">Time/Defect</td>
+              <td><input type="text" id="t1" /></td>
+              <td><input type="text" id="t2" /></td>
+              <td><input type="text" id="t3" /></td>
+              <td><input type="text" id="t4" /></td>
+              <td colspan="3">Remarks</td>
+              <td><input type="text" id="t5" /></td>
+              <td><input type="text" id="t6" /></td>
+              <td><input type="text" id="t7" /></td>
+              <td><input type="text" id="t8" /></td>
+              <td colspan="3">Remarks</td>
+              <td><input type="text" id="t9" /></td>
+              <td><input type="text" id="t10" /></td>
+              <td><input type="text" id="t11" /></td>
+              <td><input type="text" id="t12" /></td>
+              <td colspan="3">Remarks</td>
+            </tr>
+          </tbody>
+        </table>
+        <table id="SFMdefectTable">
+          <tbody></tbody>
+        </table>
 
-            <td colspan="5">Rev. Dt. 01-07-2024</td>
-          </tr>
-          <tr>
-            <td colspan="3">Date</td>
-            <td colspan="5"><input type="date" id="date"></td>
-            <td colspan="3">Design</td>
-            <td colspan="5">S-1881-CSD-001 R01</td>
-            <td colspan="3">Batch No.</td>
-            <td colspan="5"><input type="text" id="batch_number"></td>
-          </tr>
-          <tr>
-            <td colspan="3">M/C No.</td>
-            <td colspan="5">CCM-17</td>
-            <td colspan="3">Colour</td>
-            <td colspan="5">Blue</td>
-            <td colspan="3">DB/EM/PL</td>
-            <td colspan="5">Coca Cola</td>
-          </tr>
-        </tbody>
-      </table>
+        <table id="TEbandperformace">
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="heading">
+        <table class="tbCCM">
+          <tbody>
+            <tr>
+              <td>Inspected By:</td>
+              <td><input type="text" id="inspector1" /></td>
+              <td>Inspected By:</td>
+              <td><input type="text" id="inspector2" /></td>
+              <td>Inspected By:</td>
+              <td><input type="text" id="inspector3" /></td>
+            </tr>
+            <tr>
+              <td>Verified By:</td>
+              <td colspan="6">
+                <input
+                  type="text"
+                  id="verifedBy"
+                  value=""
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="body">
-      <table id="CCMdefectTable">
-        <tbody>
-          <tr>
-            <td colspan="3"></td>
-            <td colspan="7"><button id="shiftA" onclick="sendShiftData('shiftA')">Shift A</button></td>
-            <td colspan="7"><button id="shiftB" onclick="sendShiftData('shiftB')">Shift B</button></td>
-            <td colspan="7"><button id="shiftC" onclick="sendShiftData('shiftC')">Shift C</button></td>
-          </tr>
-         
-          <tr>
-            <td colspan="3">Time/Defect</td>
-            <td><input type="text" id="t1"></td>
-            <td><input type="text" id="t2"></td>
-            <td><input type="text" id="t3"></td>
-            <td><input type="text" id="t4"></td>
-            <td colspan="3">Remarks</td>
-            <td><input type="text" id="t5"></td>
-            <td><input type="text" id="t6"></td>
-            <td><input type="text" id="t7"></td>
-            <td><input type="text" id="t8"></td>
-            <td colspan="3">Remarks</td>
-            <td><input type="text" id="t9"></td>
-            <td><input type="text" id="t10"></td>
-            <td><input type="text" id="t11"></td>
-            <td><input type="text" id="t12"></td>
-            <td colspan="3">Remarks</td>
-          </tr>
-        </tbody>
-      </table>
-      <table id="SFMdefectTable">
-        <tbody>
 
-        </tbody>
-      </table>
-
-      <table id="TEbandperformace">
-        <tbody>
-
-        </tbody>
-      </table>
-
-
-    </div>
-    <div class="heading">
-      <table class="tbCCM">
-        <tbody>
-          <tr>
-            <td>Inspected By:</td>
-            <td> <input type="text" id="inspector1"></td>
-            <td>Inspected By:</td>
-            <td> <input type="text" id="inspector2"></td>
-            <td>Inspected By:</td>
-            <td><input type="text" id="inspector3"></td>
-          </tr>
-          <tr>
-            <td>Verified By:</td>
-            <td colspan="6"><input type="text" id="verifedBy"> </td>
-          </tr>
-
-        </tbody>
-      </table>
-    </div>
-    
-    
-    
-  </div>
-
-  <script src="/javascripts/visualForm.js">
-  
-</script>
-
-
-</body>
-
+    <script src="/javascripts/visualForm.js">
+      console.log(inspection.verifiedBy);
+    </script>
+  </body>
 </html>

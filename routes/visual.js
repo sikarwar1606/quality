@@ -3,26 +3,54 @@ const mongoose = require("mongoose");
 const { isLoggedIn } = require("./auth");
 const VisualReport = require("../models/visual_inspecSC");
 const router = express.Router();
+const Batch = require('../models/batchSC')
+const mbDetailsSC = require('../models/mbDetailsSC')
 
-// Render visual inspection page
-router.get("/", isLoggedIn, (req, res) => {
-  res.render("inspection/visual_inspec");
+let inspection;
+
+router.get("/:id", async (req, res) => {
+  const mcId = req.params.id;
+  console.log(mcId);
+  
+  try {
+    // Aggregate latest batches per machine
+    const regex = new RegExp(`(^|\\s*/\\s*)${mcId}(\\s*/\\s*|$)`);
+const latestBatches = await Batch.findOne({ mc_no: { $regex: regex } })
+  .sort({ batch_number: -1 })
+  .exec();
+
+if (!latestBatches) {
+  return res.status(404).send(`No batch found for machine ${mcId}`);
+}
+
+    const mb_code = latestBatches.mb_code
+    const mb_detail = await mbDetailsSC.findOne({mb_code:mb_code})
+
+    
+    res.render("inspection/visual_inspec", { mcId, latestBatches, mb_detail });
+    console.log(mb_detail);
+
+    
+  } catch (err) {
+    console.error("Error fetching latest batches:", err);
+    res.status(500).send("Server error");
+  }
 });
 
 router.post("/save", isLoggedIn, async (req, res) => {
-
   try {
     const { date, batch_number, shiftA, shiftB, shiftC, verifiedBy } = req.body;
 
     if (!date || !batch_number) {
-      return res.status(400).json({ 
-        success: false, 
-        message: "Date and Batch Number are required" 
+      return res.status(400).json({
+        success: false,
+        message: "Date and Batch Number are required",
       });
     }
 
     // Check if inspection for this batch/date already exists
-    let inspection = await VisualReport.findOne({ batch_number, date });
+    inspection = await VisualReport.findOne({ batch_number, date });
+    console.log(inspection);
 
     if (!inspection) {
       // create new document
@@ -32,7 +60,7 @@ router.post("/save", isLoggedIn, async (req, res) => {
         shiftA,
         shiftB,
         shiftC,
-        verifiedBy
+        verifiedBy,
       });
     } else {
       // update existing document
@@ -48,12 +76,6 @@ router.post("/save", isLoggedIn, async (req, res) => {
     console.error(err);
     res.status(500).json({ success: false, error: err.message });
   }
-  
 });
-
-
-
-
-
 
 module.exports = router;

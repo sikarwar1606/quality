@@ -367,8 +367,8 @@ async function sendShiftData(shiftName) {
         inspection.shiftA.observation4.push(cell.textContent);
       });
 
-      remarksCol0.forEach((cell) => {
-        inspection.shiftA.remarks.push(cell.textContent); // Pushing Remarks
+      remarksCol0.forEach((cell, index) => {
+        inspection.shiftA.remarks[index]=cell.textContent; // Pushing Remarks
       });
       let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
       inspection.shiftA.inspectedBy = inspector1;
