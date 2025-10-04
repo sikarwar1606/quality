@@ -90,7 +90,7 @@
             </tr>
             <tr>
               <td colspan="3">Date</td>
-              <td colspan="5">
+              <td colspan="5" >
                 <input
                   type="date"
                   id="date"
@@ -101,12 +101,12 @@
 
               <td colspan="3">Design</td>
               <td colspan="5"><%=latestBatches? latestBatches.design : ''%></td>
-              <td colspan="3">Batch No.</td>
-              <td colspan="5"><%=latestBatches? latestBatches.batch_number : ''%></td>
+              <td colspan="3" >Batch No.</td>
+              <td colspan="5" id="batch_number"><%=latestBatches? latestBatches.batch_number : ''%></td>
             </tr>
             <tr>
               <td colspan="3">M/C No.</td>
-              <td colspan="5"><%=mcId%></td>
+              <td colspan="5" id="mc_no"><%=mcId? mcId:''%></td>
               <td colspan="3">Colour</td>
               <td colspan="5"><input type="text" value="<%=mb_detail? mb_detail.mb_colour : ''%>"></td>
               <td colspan="3">DB/EM/PL</td>
@@ -192,7 +192,6 @@
     </div>
 
     <script src="/javascripts/visualForm.js">
-      console.log(inspection.verifiedBy);
     </script>
   </body>
 </html>

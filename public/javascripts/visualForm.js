@@ -36,6 +36,12 @@ const ccmDefects = [
 const sfmDefects = [];
 let toolNo = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
+const batch_number = document.getElementById("batch_number").textContent.trim()
+const date = document.getElementById("date").value
+const mc_no = document.getElementById('mc_no').textContent.trim()
+
+
+
 const ccmDefectTable = document
   .getElementById("CCMdefectTable")
   .querySelector("tbody");
@@ -329,7 +335,7 @@ let inspection = {
 async function sendShiftData(shiftName) {
   try {
     inspection.date = date;
-    inspection.batch_number = batch_number;
+    inspection.batch_number = batch_number.textContent;
     inspection.verifiedBy = verifedBy;
 
     if (shiftName === "shiftA") {
@@ -373,7 +379,7 @@ async function sendShiftData(shiftName) {
       let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
       inspection.shiftA.inspectedBy = inspector1;
     } else if (shiftName === "shiftB") {
-      console.log(`We are collecting ${shiftName} data`);
+      
 
       inspection.shiftB.observation1=[inputs[5].value]; //Pushing time
       def01.forEach((cell) => {
@@ -413,7 +419,7 @@ async function sendShiftData(shiftName) {
       let inspector2 = document.getElementById("inspector2").value; //Pushing inspector name
       inspection.shiftB.inspectedBy = inspector2;
     } else if(shiftName === "shiftC") {
-      console.log(`We are collecting ${shiftName} data, May be failed`);
+      
       inspection.shiftC.observation1=[inputs[9].value]; //Pushing time
       def02.forEach((cell) => {
         inspection.shiftC.observation1.push(cell.textContent); // Pushing observations
@@ -454,16 +460,23 @@ async function sendShiftData(shiftName) {
     }else{
       alert("Shift name not match")
     }
+
+   
+    
     const response = await fetch("/visual/save", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         date: document.getElementById("date").value,
-        batch_number: document.getElementById("batch_number").value,
+        mc_no,
+        batch_number: document.getElementById("batch_number").textContent,
         [shiftName]: inspection[shiftName], // send only selected shift
         verifiedBy: document.getElementById("verifedBy").value,
       }),
     });
+
+  
+    
 
     const result = await response.json();
     console.log("Saved:", result);

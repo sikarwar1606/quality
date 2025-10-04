@@ -80,8 +80,8 @@
             <option value="CCM-04"></option>
             <option value="CCM-05"></option>
             <option value="CCM-06"></option>
-            <option value="CCM-07/08"></option>
-            <option value="CCM-09/10/11"></option>
+            <option value="CCM-07 / CCM-08"></option>
+            <option value="CCM-09 / CCM-10 / CCM-11"></option>
             <option value="CCM-12"></option>
             <option value="CCM-14"></option>
             <option value="CCM-15"></option>
@@ -171,6 +171,23 @@
           this.value = this.value.toUpperCase();
         });
       });
+
+       const input = document.getElementById("mc_no");
+  const options = Array.from(document.querySelectorAll("#machineList option")).map(opt => opt.value);
+
+  input.addEventListener("input", function () {
+    if (!options.includes(this.value)) {
+      this.setCustomValidity("Please select a valid option from the list.");
+    } else {
+      this.setCustomValidity(""); // clears error if valid
+    }
+  });
+
+  input.addEventListener("blur", function () {
+    if (!options.includes(this.value)) {
+      this.value = ""; // clear invalid input on blur
+    }
+  });
     </script>
   </body>
 </html>

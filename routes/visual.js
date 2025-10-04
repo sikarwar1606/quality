@@ -3,33 +3,30 @@ const mongoose = require("mongoose");
 const { isLoggedIn } = require("./auth");
 const VisualReport = require("../models/visual_inspecSC");
 const router = express.Router();
-const Batch = require('../models/batchSC')
-const mbDetailsSC = require('../models/mbDetailsSC')
+const Batch = require("../models/batchSC");
+const mbDetailsSC = require("../models/mbDetailsSC");
 
 let inspection;
 
 router.get("/:id", async (req, res) => {
   const mcId = req.params.id;
-  console.log(mcId);
-  
+
   try {
     // Aggregate latest batches per machine
-    const regex = new RegExp(`(^|\\s*/\\s*)${mcId}(\\s*/\\s*|$)`);
-const latestBatches = await Batch.findOne({ mc_no: { $regex: regex } })
-  .sort({ batch_number: -1 })
-  .exec();
+    const regex = new RegExp(`(^|\\s*/\\s*)${mcId}(\\s*/\\s*|$)`, "i");
 
-if (!latestBatches) {
-  return res.status(404).send(`No batch found for machine ${mcId}`);
-}
+    const latestBatches = await Batch.findOne({ mc_no: { $regex: regex } })
+      .sort({ batch_number: -1 })
+      .exec();
 
-    const mb_code = latestBatches.mb_code
-    const mb_detail = await mbDetailsSC.findOne({mb_code:mb_code})
+    if (!latestBatches) {
+      return res.status(404).send(`No batch found for machine ${mcId}`);
+    }
 
-    
+    const mb_code = latestBatches.mb_code;
+    const mb_detail = await mbDetailsSC.findOne({ mb_code: mb_code });
+
     res.render("inspection/visual_inspec", { mcId, latestBatches, mb_detail });
-    console.log(mb_detail);
-
     
   } catch (err) {
     console.error("Error fetching latest batches:", err);
@@ -38,8 +35,10 @@ if (!latestBatches) {
 });
 
 router.post("/save", isLoggedIn, async (req, res) => {
+  
   try {
-    const { date, batch_number, shiftA, shiftB, shiftC, verifiedBy } = req.body;
+    const { date, batch_number, mc_no, shiftA, shiftB, shiftC, verifiedBy } =
+      req.body;     
 
     if (!date || !batch_number) {
       return res.status(400).json({
@@ -50,12 +49,13 @@ router.post("/save", isLoggedIn, async (req, res) => {
 
     // Check if inspection for this batch/date already exists
     inspection = await VisualReport.findOne({ batch_number, date });
-    console.log(inspection);
+    
 
     if (!inspection) {
       // create new document
       inspection = new VisualReport({
         date,
+        mc_no,
         batch_number,
         shiftA,
         shiftB,
