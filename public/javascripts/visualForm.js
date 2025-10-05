@@ -10,15 +10,14 @@ function getShiftDate() {
     now.setDate(now.getDate() - 1);
   }
 
-  const day = String(now.getDate()).padStart(2, '0');
-  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, "0");
+  const month = String(now.getMonth() + 1).padStart(2, "0");
   const year = now.getFullYear();
 
   return `${year}-${month}-${day}`; // YYYY-MM-DD local time
 }
 
-document.getElementById("date").value=getShiftDate()
-
+document.getElementById("date").value = getShiftDate();
 
 const ccmDefects = [
   "Physical Appearance",
@@ -392,11 +391,11 @@ async function sendShiftData(shiftName) {
     inspection.batch_number = batch_number.textContent;
     inspection.verifiedBy = verifedBy;
 
-    if (currentHours>7 && currentHours<=15 && shiftName === "shiftA") {
-      for (let obs = 1; obs <= 4; obs++) {
-        let observation = `observation${obs}`;
-        inspection.shiftA[observation] = [inputs[obs].value];
-      }
+    if (currentHours > 7 && currentHours <= 15 && shiftName === "shiftA") {
+      inspection.shiftC.observation1 = [inputs[1].value]; 
+      inspection.shiftC.observation2 = [inputs[2].value];
+      inspection.shiftC.observation3 = [inputs[3].value];
+      inspection.shiftC.observation4 = [inputs[4].value];
 
       def00.forEach((cell) => {
         inspection.shiftA.observation1.push(cell.textContent); // Pushing observations
@@ -429,11 +428,15 @@ async function sendShiftData(shiftName) {
       });
       let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
       inspection.shiftA.inspectedBy = inspector1;
-    } else if (currentHours>15 && currentHours<=23 &&shiftName === "shiftB") {
-      for (let obs = 5; obs <= 8; obs++) {
-        let observation = `observation${obs}`;
-        inspection.shiftB[observation] = [inputs[obs].value];
-      }
+    } else if (
+      currentHours > 15 &&
+      currentHours <= 23 &&
+      shiftName === "shiftB"
+    ) {
+      inspection.shiftB.observation1 = [inputs[5].value];
+      inspection.shiftB.observation2 = [inputs[6].value];
+      inspection.shiftB.observation3 = [inputs[7].value];
+      inspection.shiftB.observation4 = [inputs[8].value];
 
       def01.forEach((cell) => {
         inspection.shiftB.observation1.push(cell.textContent); // Pushing observations
@@ -466,19 +469,21 @@ async function sendShiftData(shiftName) {
       });
       let inspector2 = document.getElementById("inspector2").value; //Pushing inspector name
       console.log(inspector2);
-      
+
       inspection.shiftB.inspectedBy = inspector2;
-    } else if ((currentHours >= 23 || currentHours < 7) && shiftName === "shiftC") {
-      for (let obs = 9; obs <= 12; obs++) {
-        let observation = `observation${obs}`;
-        inspection.shiftC[observation] = [inputs[obs].value];
-      }
+    } else if (
+      (currentHours >= 23 || currentHours < 7) &&
+      shiftName === "shiftC"
+    ) {
+      // for (let obs = 9; obs <= 12; obs++) {
+      //   let observation = `observation${obs}`;
+      //   inspection.shiftC[observation] = [inputs[obs].value];
+      // }
 
-    //  inspection.shiftC.observation1 = [inputs[9].value]; //Pushing time 
-    //  inspection.shiftC.observation2 = [inputs[10].value]; //Pushing time 
-    //  inspection.shiftC.observation3 = [inputs[11].value]; //Pushing time 
-    //  inspection.shiftC.observation4 = [inputs[12].value]; //Pushing time
-
+      inspection.shiftC.observation1 = [inputs[9].value]; //Pushing time
+      inspection.shiftC.observation2 = [inputs[10].value]; //Pushing time
+      inspection.shiftC.observation3 = [inputs[11].value]; //Pushing time
+      inspection.shiftC.observation4 = [inputs[12].value]; //Pushing time
 
       def02.forEach((cell) => {
         inspection.shiftC.observation1.push(cell.textContent); // Pushing observations
