@@ -1,3 +1,7 @@
+let now = new Date();
+let currentHours = now.getHours();
+console.log(currentHours);
+
 const ccmDefects = [
   "Physical Appearance",
   "Dirty Closures/Oil Mark",
@@ -142,6 +146,138 @@ function toggleSigntl(cell) {
     cell.classList.remove("defect-found");
   }
 }
+
+
+
+
+
+
+window.addEventListener("DOMContentLoaded", () => {
+  if (savedInspection) {
+    // Example for Shift A
+    if (savedInspection.shiftB) {
+
+      inputs[1].value = savedInspection.shiftA.observation1[0]||" " ; // time
+      def00.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftA.observation1[i+1]; // observations1
+      });
+      tl00.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftA.observation1[i+33]; // tool data1
+      });
+
+      inputs[2].value = savedInspection.shiftA.observation2[0]||" "; // time2
+      def10.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftA.observation2[i + 1]; // observations2
+      });
+      tl10.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftA.observation2[i + 33]; // tool data2
+      });
+      inputs[3].value = savedInspection.shiftA.observation3[0]||" "; // time3
+      def20.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftA.observation3[i + 1]; // observations3
+      });
+      tl20.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftA.observation3[i + 33]; // tool data3
+      });
+      inputs[4].value = savedInspection.shiftA.observation4[0]||" "; // time4
+      def30.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftA.observation4[i + 1]; // observations4
+      });
+      tl30.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftA.observation4[i + 33]; // tool data4
+      });
+      remarksCol0.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftA.remarks[i];
+      });
+      document.getElementById("inspector1").value = savedInspection.shiftA.inspectedBy;
+    }
+    
+    if (savedInspection.shiftB) {
+
+      inputs[5].value = savedInspection.shiftB.observation1[0]||" "; // time
+      def01.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftB.observation1[i+1]; // observations1
+      });
+      tl01.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftB.observation1[i+33]; // tool data1
+      });
+
+      inputs[6].value = savedInspection.shiftB.observation2[0]||" "; // time2
+      def11.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftB.observation2[i + 1]; // observations2
+      });
+      tl11.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftB.observation2[i + 33]; // tool data2
+      });
+      inputs[7].value = savedInspection.shiftB.observation3[0]||" "; // time3
+      def21.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftB.observation3[i + 1]; // observations3
+      });
+      tl21.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftB.observation3[i + 33]; // tool data3
+      });
+      inputs[8].value = savedInspection.shiftB.observation4[0]||" "; // time4
+      def31.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftB.observation4[i + 1]; // observations4
+      });
+      tl31.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftB.observation4[i + 33]; // tool data4
+      });
+      remarksCol1.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftB.remarks[i];
+      });
+      document.getElementById("inspector2").value = savedInspection.shiftB.inspectedBy;
+    }
+
+    if (savedInspection.shiftC) {
+
+      inputs[9].value = savedInspection.shiftC.observation1[0]||" "; // time
+      def02.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftC.observation1[i+1]; // observations1
+      });
+      tl02.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftC.observation1[i+33]; // tool data1
+      });
+
+      inputs[10].value = savedInspection.shiftC.observation2[0]||" "; // time2
+      def12.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftC.observation2[i + 1]; // observations2
+      });
+      tl12.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftC.observation2[i + 33]; // tool data2
+      });
+      inputs[11].value = savedInspection.shiftC.observation3[0]||" "; // time3
+      def22.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftC.observation3[i + 1]; // observations3
+      });
+      tl22.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftC.observation3[i + 33]; // tool data3
+      });
+      inputs[12].value = savedInspection.shiftC.observation4[0]||" "; // time4
+      def32.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftC.observation4[i + 1]; // observations4
+      });
+      tl32.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftC.observation4[i + 33]; // tool data4
+      });
+      remarksCol2.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftC.remarks[i];
+      });
+      document.getElementById("inspector3").value = savedInspection.shiftC.inspectedBy;
+    }
+
+  }
+});
+
+
+
+
+
+
+
+
+
+
 
 let inputs = [];
 for (let i = 0; i <= 12; i++) {
@@ -413,7 +549,7 @@ async function sendShiftData(shiftName) {
         inspection.shiftB.observation4.push(cell.textContent);
       });
 
-      remarksCol0.forEach((cell) => {
+      remarksCol1.forEach((cell) => {
         inspection.shiftB.remarks.push(cell.textContent); // Pushing Remarks
       });
       let inspector2 = document.getElementById("inspector2").value; //Pushing inspector name
@@ -452,7 +588,7 @@ async function sendShiftData(shiftName) {
         inspection.shiftC.observation4.push(cell.textContent);
       });
 
-      remarksCol0.forEach((cell) => {
+      remarksCol2.forEach((cell) => {
         inspection.shiftC.remarks.push(cell.textContent); // Pushing Remarks
       });
       let inspector3 = document.getElementById("inspector3").value; //Pushing inspector name
@@ -468,7 +604,7 @@ async function sendShiftData(shiftName) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         date: document.getElementById("date").value,
-        mc_no,
+        mc_no:mc_no,
         batch_number: document.getElementById("batch_number").textContent,
         [shiftName]: inspection[shiftName], // send only selected shift
         verifiedBy: document.getElementById("verifedBy").value,

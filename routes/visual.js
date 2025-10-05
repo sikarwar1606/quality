@@ -6,10 +6,13 @@ const router = express.Router();
 const Batch = require("../models/batchSC");
 const mbDetailsSC = require("../models/mbDetailsSC");
 
+
+const today = new Date().toISOString().split('T')[0];
 let inspection;
 
 router.get("/:id", async (req, res) => {
   const mcId = req.params.id;
+  console.log(req.body);
 
   try {
     // Aggregate latest batches per machine
@@ -26,8 +29,14 @@ router.get("/:id", async (req, res) => {
     const mb_code = latestBatches.mb_code;
     const mb_detail = await mbDetailsSC.findOne({ mb_code: mb_code });
 
-    res.render("inspection/visual_inspec", { mcId, latestBatches, mb_detail });
+    const existingInspection = await VisualReport.findOne({
+     date: new Date(today),
+      mc_no: mcId,
+    })
+
+    // console.log(`Existing data ${existingInspection}`);
     
+    res.render("inspection/visual_inspec", { mcId, latestBatches, mb_detail,inspectionReportIncom:existingInspection || null });
   } catch (err) {
     console.error("Error fetching latest batches:", err);
     res.status(500).send("Server error");
@@ -35,10 +44,9 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/save", isLoggedIn, async (req, res) => {
-  
   try {
     const { date, batch_number, mc_no, shiftA, shiftB, shiftC, verifiedBy } =
-      req.body;     
+      req.body;
 
     if (!date || !batch_number) {
       return res.status(400).json({
@@ -49,7 +57,6 @@ router.post("/save", isLoggedIn, async (req, res) => {
 
     // Check if inspection for this batch/date already exists
     inspection = await VisualReport.findOne({ batch_number, date });
-    
 
     if (!inspection) {
       // create new document
