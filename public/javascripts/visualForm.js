@@ -2,6 +2,24 @@ let now = new Date();
 let currentHours = now.getHours();
 console.log(currentHours);
 
+function getShiftDate() {
+  const now = new Date();
+  const hour = now.getHours();
+
+  if (hour < 7) {
+    now.setDate(now.getDate() - 1);
+  }
+
+  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const year = now.getFullYear();
+
+  return `${year}-${month}-${day}`; // YYYY-MM-DD local time
+}
+
+document.getElementById("date").value=getShiftDate()
+
+
 const ccmDefects = [
   "Physical Appearance",
   "Dirty Closures/Oil Mark",
@@ -37,14 +55,11 @@ const ccmDefects = [
   "Unfolding",
 ];
 
-const sfmDefects = [];
 let toolNo = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-const batch_number = document.getElementById("batch_number").textContent.trim()
-const date = document.getElementById("date").value
-const mc_no = document.getElementById('mc_no').textContent.trim()
-
-
+const batch_number = document.getElementById("batch_number").textContent.trim();
+const date = document.getElementById("date").value;
+const mc_no = document.getElementById("mc_no").textContent.trim();
 
 const ccmDefectTable = document
   .getElementById("CCMdefectTable")
@@ -147,39 +162,33 @@ function toggleSigntl(cell) {
   }
 }
 
-
-
-
-
-
 window.addEventListener("DOMContentLoaded", () => {
   if (savedInspection) {
     // Example for Shift A
-    if (savedInspection.shiftB) {
-
-      inputs[1].value = savedInspection.shiftA.observation1[0]||" " ; // time
+    if (savedInspection.shiftA) {
+      inputs[1].value = savedInspection.shiftA.observation1[0] || " "; // time
       def00.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftA.observation1[i+1]; // observations1
+        cell.textContent = savedInspection.shiftA.observation1[i + 1]; // observations1
       });
       tl00.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftA.observation1[i+33]; // tool data1
+        cell.textContent = savedInspection.shiftA.observation1[i + 33]; // tool data1
       });
 
-      inputs[2].value = savedInspection.shiftA.observation2[0]||" "; // time2
+      inputs[2].value = savedInspection.shiftA.observation2[0] || " "; // time2
       def10.forEach((cell, i) => {
         cell.textContent = savedInspection.shiftA.observation2[i + 1]; // observations2
       });
       tl10.forEach((cell, i) => {
         cell.textContent = savedInspection.shiftA.observation2[i + 33]; // tool data2
       });
-      inputs[3].value = savedInspection.shiftA.observation3[0]||" "; // time3
+      inputs[3].value = savedInspection.shiftA.observation3[0] || " "; // time3
       def20.forEach((cell, i) => {
         cell.textContent = savedInspection.shiftA.observation3[i + 1]; // observations3
       });
       tl20.forEach((cell, i) => {
         cell.textContent = savedInspection.shiftA.observation3[i + 33]; // tool data3
       });
-      inputs[4].value = savedInspection.shiftA.observation4[0]||" "; // time4
+      inputs[4].value = savedInspection.shiftA.observation4[0] || " "; // time4
       def30.forEach((cell, i) => {
         cell.textContent = savedInspection.shiftA.observation4[i + 1]; // observations4
       });
@@ -189,34 +198,34 @@ window.addEventListener("DOMContentLoaded", () => {
       remarksCol0.forEach((cell, i) => {
         cell.textContent = savedInspection.shiftA.remarks[i];
       });
-      document.getElementById("inspector1").value = savedInspection.shiftA.inspectedBy;
+      document.getElementById("inspector1").value =
+        savedInspection.shiftA.inspectedBy;
     }
-    
-    if (savedInspection.shiftB) {
 
-      inputs[5].value = savedInspection.shiftB.observation1[0]||" "; // time
+    if (savedInspection.shiftB) {
+      inputs[5].value = savedInspection.shiftB.observation1[0] || " "; // time
       def01.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftB.observation1[i+1]; // observations1
+        cell.textContent = savedInspection.shiftB.observation1[i + 1]; // observations1
       });
       tl01.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftB.observation1[i+33]; // tool data1
+        cell.textContent = savedInspection.shiftB.observation1[i + 33]; // tool data1
       });
 
-      inputs[6].value = savedInspection.shiftB.observation2[0]||" "; // time2
+      inputs[6].value = savedInspection.shiftB.observation2[0] || " "; // time2
       def11.forEach((cell, i) => {
         cell.textContent = savedInspection.shiftB.observation2[i + 1]; // observations2
       });
       tl11.forEach((cell, i) => {
         cell.textContent = savedInspection.shiftB.observation2[i + 33]; // tool data2
       });
-      inputs[7].value = savedInspection.shiftB.observation3[0]||" "; // time3
+      inputs[7].value = savedInspection.shiftB.observation3[0] || " "; // time3
       def21.forEach((cell, i) => {
         cell.textContent = savedInspection.shiftB.observation3[i + 1]; // observations3
       });
       tl21.forEach((cell, i) => {
         cell.textContent = savedInspection.shiftB.observation3[i + 33]; // tool data3
       });
-      inputs[8].value = savedInspection.shiftB.observation4[0]||" "; // time4
+      inputs[8].value = savedInspection.shiftB.observation4[0] || " "; // time4
       def31.forEach((cell, i) => {
         cell.textContent = savedInspection.shiftB.observation4[i + 1]; // observations4
       });
@@ -226,34 +235,34 @@ window.addEventListener("DOMContentLoaded", () => {
       remarksCol1.forEach((cell, i) => {
         cell.textContent = savedInspection.shiftB.remarks[i];
       });
-      document.getElementById("inspector2").value = savedInspection.shiftB.inspectedBy;
+      document.getElementById("inspector2").value =
+        savedInspection.shiftB.inspectedBy;
     }
 
     if (savedInspection.shiftC) {
-
-      inputs[9].value = savedInspection.shiftC.observation1[0]||" "; // time
+      inputs[9].value = savedInspection.shiftC.observation1[0] || " "; // time
       def02.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftC.observation1[i+1]; // observations1
+        cell.textContent = savedInspection.shiftC.observation1[i + 1]; // observations1
       });
       tl02.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftC.observation1[i+33]; // tool data1
+        cell.textContent = savedInspection.shiftC.observation1[i + 33]; // tool data1
       });
 
-      inputs[10].value = savedInspection.shiftC.observation2[0]||" "; // time2
+      inputs[10].value = savedInspection.shiftC.observation2[0] || " "; // time2
       def12.forEach((cell, i) => {
         cell.textContent = savedInspection.shiftC.observation2[i + 1]; // observations2
       });
       tl12.forEach((cell, i) => {
         cell.textContent = savedInspection.shiftC.observation2[i + 33]; // tool data2
       });
-      inputs[11].value = savedInspection.shiftC.observation3[0]||" "; // time3
+      inputs[11].value = savedInspection.shiftC.observation3[0] || " "; // time3
       def22.forEach((cell, i) => {
         cell.textContent = savedInspection.shiftC.observation3[i + 1]; // observations3
       });
       tl22.forEach((cell, i) => {
         cell.textContent = savedInspection.shiftC.observation3[i + 33]; // tool data3
       });
-      inputs[12].value = savedInspection.shiftC.observation4[0]||" "; // time4
+      inputs[12].value = savedInspection.shiftC.observation4[0] || " "; // time4
       def32.forEach((cell, i) => {
         cell.textContent = savedInspection.shiftC.observation4[i + 1]; // observations4
       });
@@ -263,22 +272,11 @@ window.addEventListener("DOMContentLoaded", () => {
       remarksCol2.forEach((cell, i) => {
         cell.textContent = savedInspection.shiftC.remarks[i];
       });
-      document.getElementById("inspector3").value = savedInspection.shiftC.inspectedBy;
+      document.getElementById("inspector3").value =
+        savedInspection.shiftC.inspectedBy;
     }
-
   }
 });
-
-
-
-
-
-
-
-
-
-
-
 let inputs = [];
 for (let i = 0; i <= 12; i++) {
   inputs.push(document.getElementById(`t${i}`));
@@ -314,128 +312,48 @@ let remarksCol0 = document.querySelectorAll(".remarksCol0");
 let remarksCol1 = document.querySelectorAll(".remarksCol1");
 let remarksCol2 = document.querySelectorAll(".remarksCol2");
 
-def00.forEach((cell) => {
-  inputs[1].addEventListener("input", () => {
-    cell.textContent = "✖";
+let defs = [
+  def00,
+  def10,
+  def20,
+  def30,
+  def01,
+  def11,
+  def21,
+  def31,
+  def02,
+  def12,
+  def22,
+  def32,
+];
+
+defs.forEach((def, i) => {
+  def.forEach((cell) => {
+    inputs[i + 1].addEventListener("input", () => {
+      cell.textContent = "✖";
+    });
   });
 });
 
-def10.forEach((cell) => {
-  inputs[2].addEventListener("input", () => {
-    cell.textContent = "✖";
-  });
-});
-def20.forEach((cell) => {
-  inputs[3].addEventListener("input", () => {
-    cell.textContent = "✖";
-  });
-});
-def30.forEach((cell) => {
-  inputs[4].addEventListener("input", () => {
-    cell.textContent = "✖";
-  });
-});
-def01.forEach((cell) => {
-  inputs[5].addEventListener("input", () => {
-    cell.textContent = "✖";
-  });
-});
-def11.forEach((cell) => {
-  inputs[6].addEventListener("input", () => {
-    cell.textContent = "✖";
-  });
-});
-def21.forEach((cell) => {
-  inputs[7].addEventListener("input", () => {
-    cell.textContent = "✖";
-  });
-});
-def31.forEach((cell) => {
-  inputs[8].addEventListener("input", () => {
-    cell.textContent = "✖";
-  });
-});
-def02.forEach((cell) => {
-  inputs[9].addEventListener("input", () => {
-    cell.textContent = "✖";
-  });
-});
-def12.forEach((cell) => {
-  inputs[10].addEventListener("input", () => {
-    cell.textContent = "✖";
-  });
-});
-def22.forEach((cell) => {
-  inputs[11].addEventListener("input", () => {
-    cell.textContent = "✖";
-  });
-});
-def32.forEach((cell) => {
-  inputs[12].addEventListener("input", () => {
-    cell.textContent = "✖";
-  });
-});
-
-//Entering the input for tool
-tl00.forEach((cell) => {
-  inputs[1].addEventListener("input", () => {
-    cell.textContent = "✔";
-  });
-});
-
-tl10.forEach((cell) => {
-  inputs[2].addEventListener("input", () => {
-    cell.textContent = "✔";
-  });
-});
-tl20.forEach((cell) => {
-  inputs[3].addEventListener("input", () => {
-    cell.textContent = "✔";
-  });
-});
-tl30.forEach((cell) => {
-  inputs[4].addEventListener("input", () => {
-    cell.textContent = "✔";
-  });
-});
-tl01.forEach((cell) => {
-  inputs[5].addEventListener("input", () => {
-    cell.textContent = "✔";
-  });
-});
-tl11.forEach((cell) => {
-  inputs[6].addEventListener("input", () => {
-    cell.textContent = "✔";
-  });
-});
-tl21.forEach((cell) => {
-  inputs[7].addEventListener("input", () => {
-    cell.textContent = "✔";
-  });
-});
-tl31.forEach((cell) => {
-  inputs[8].addEventListener("input", () => {
-    cell.textContent = "✔";
-  });
-});
-tl02.forEach((cell) => {
-  inputs[9].addEventListener("input", () => {
-    cell.textContent = "✔";
-  });
-});
-tl12.forEach((cell) => {
-  inputs[10].addEventListener("input", () => {
-    cell.textContent = "✔";
-  });
-});
-tl22.forEach((cell) => {
-  inputs[11].addEventListener("input", () => {
-    cell.textContent = "✔";
-  });
-});
-tl32.forEach((cell) => {
-  inputs[12].addEventListener("input", () => {
-    cell.textContent = "✔";
+let tls = [
+  tl00,
+  tl10,
+  tl20,
+  tl30,
+  tl01,
+  tl11,
+  tl21,
+  tl31,
+  tl02,
+  tl12,
+  tl22,
+  tl32,
+];
+tls.forEach((tl, i) => {
+  tl.forEach((cell) => {
+    inputs[i + 1].addEventListener("input", () => {
+      cell.textContent = "✔";
+    });
   });
 });
 
@@ -474,76 +392,70 @@ async function sendShiftData(shiftName) {
     inspection.batch_number = batch_number.textContent;
     inspection.verifiedBy = verifedBy;
 
-    if (shiftName === "shiftA") {
-      console.log(`We are collecting ${shiftName} data`);
+    if (currentHours>7 && currentHours<=15 && shiftName === "shiftA") {
+      for (let obs = 1; obs <= 4; obs++) {
+        let observation = `observation${obs}`;
+        inspection.shiftA[observation] = [inputs[obs].value];
+      }
 
-      inspection.shiftA.observation1=[inputs[1].value]; //Pushing time
       def00.forEach((cell) => {
         inspection.shiftA.observation1.push(cell.textContent); // Pushing observations
       });
-      tl00.forEach((cell) => {
-        inspection.shiftA.observation1.push(cell.textContent); // Pushing observations
-      });
-      
-      inspection.shiftA.observation2=[inputs[2].value]; //Pushing time
       def10.forEach((cell) => {
         inspection.shiftA.observation2.push(cell.textContent);
+      });
+      def20.forEach((cell) => {
+        inspection.shiftA.observation3.push(cell.textContent);
+      });
+      def30.forEach((cell) => {
+        inspection.shiftA.observation4.push(cell.textContent);
+      });
+
+      tl00.forEach((cell) => {
+        inspection.shiftA.observation1.push(cell.textContent); // Pushing observations
       });
       tl10.forEach((cell) => {
         inspection.shiftA.observation2.push(cell.textContent);
       });
-
-      inspection.shiftA.observation3=[inputs[3].value]; //Pushing time
-      def20.forEach((cell) => {
-        inspection.shiftA.observation3.push(cell.textContent);
-      });
       tl20.forEach((cell) => {
         inspection.shiftA.observation3.push(cell.textContent);
-      });
-
-      inspection.shiftA.observation4=[inputs[4].value]; //Pushing time
-      def30.forEach((cell) => {
-        inspection.shiftA.observation4.push(cell.textContent);
       });
       tl30.forEach((cell) => {
         inspection.shiftA.observation4.push(cell.textContent);
       });
 
       remarksCol0.forEach((cell, index) => {
-        inspection.shiftA.remarks[index]=cell.textContent; // Pushing Remarks
+        inspection.shiftA.remarks[index] = cell.textContent; // Pushing Remarks
       });
       let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
       inspection.shiftA.inspectedBy = inspector1;
-    } else if (shiftName === "shiftB") {
-      
+    } else if (currentHours>15 && currentHours<=23 &&shiftName === "shiftB") {
+      for (let obs = 5; obs <= 8; obs++) {
+        let observation = `observation${obs}`;
+        inspection.shiftB[observation] = [inputs[obs].value];
+      }
 
-      inspection.shiftB.observation1=[inputs[5].value]; //Pushing time
       def01.forEach((cell) => {
         inspection.shiftB.observation1.push(cell.textContent); // Pushing observations
       });
-      tl01.forEach((cell) => {
-        inspection.shiftB.observation1.push(cell.textContent); // Pushing observations
-      });
-
-      inspection.shiftB.observation2=[inputs[6].value]; //Pushing time
       def11.forEach((cell) => {
         inspection.shiftB.observation2.push(cell.textContent);
+      });
+      def21.forEach((cell) => {
+        inspection.shiftB.observation3.push(cell.textContent);
+      });
+      def31.forEach((cell) => {
+        inspection.shiftB.observation4.push(cell.textContent);
+      });
+
+      tl01.forEach((cell) => {
+        inspection.shiftB.observation1.push(cell.textContent); // Pushing observations
       });
       tl11.forEach((cell) => {
         inspection.shiftB.observation2.push(cell.textContent);
       });
-
-      inspection.shiftB.observation3=[inputs[7].value]; //Pushing time
-      def21.forEach((cell) => {
-        inspection.shiftB.observation3.push(cell.textContent);
-      });
       tl21.forEach((cell) => {
         inspection.shiftB.observation3.push(cell.textContent);
-      });
-
-      inspection.shiftB.observation4=[inputs[8].value]; //Pushing time
-      def31.forEach((cell) => {
-        inspection.shiftB.observation4.push(cell.textContent);
       });
       tl31.forEach((cell) => {
         inspection.shiftB.observation4.push(cell.textContent);
@@ -553,10 +465,21 @@ async function sendShiftData(shiftName) {
         inspection.shiftB.remarks.push(cell.textContent); // Pushing Remarks
       });
       let inspector2 = document.getElementById("inspector2").value; //Pushing inspector name
-      inspection.shiftB.inspectedBy = inspector2;
-    } else if(shiftName === "shiftC") {
+      console.log(inspector2);
       
-      inspection.shiftC.observation1=[inputs[9].value]; //Pushing time
+      inspection.shiftB.inspectedBy = inspector2;
+    } else if ((currentHours >= 23 || currentHours < 7) && shiftName === "shiftC") {
+      for (let obs = 9; obs <= 12; obs++) {
+        let observation = `observation${obs}`;
+        inspection.shiftC[observation] = [inputs[obs].value];
+      }
+
+    //  inspection.shiftC.observation1 = [inputs[9].value]; //Pushing time 
+    //  inspection.shiftC.observation2 = [inputs[10].value]; //Pushing time 
+    //  inspection.shiftC.observation3 = [inputs[11].value]; //Pushing time 
+    //  inspection.shiftC.observation4 = [inputs[12].value]; //Pushing time
+
+
       def02.forEach((cell) => {
         inspection.shiftC.observation1.push(cell.textContent); // Pushing observations
       });
@@ -564,7 +487,6 @@ async function sendShiftData(shiftName) {
         inspection.shiftC.observation1.push(cell.textContent); // Pushing observations
       });
 
-      inspection.shiftC.observation2=[inputs[10].value]; //Pushing time
       def12.forEach((cell) => {
         inspection.shiftC.observation2.push(cell.textContent);
       });
@@ -572,7 +494,6 @@ async function sendShiftData(shiftName) {
         inspection.shiftC.observation2.push(cell.textContent);
       });
 
-      inspection.shiftC.observation3=[inputs[11].value]; //Pushing time
       def22.forEach((cell) => {
         inspection.shiftC.observation3.push(cell.textContent);
       });
@@ -580,7 +501,6 @@ async function sendShiftData(shiftName) {
         inspection.shiftC.observation3.push(cell.textContent);
       });
 
-      inspection.shiftC.observation4=[inputs[12].value]; //Pushing time
       def32.forEach((cell) => {
         inspection.shiftC.observation4.push(cell.textContent);
       });
@@ -593,26 +513,21 @@ async function sendShiftData(shiftName) {
       });
       let inspector3 = document.getElementById("inspector3").value; //Pushing inspector name
       inspection.shiftC.inspectedBy = inspector3;
-    }else{
-      alert("Shift name not match")
+    } else {
+      alert("You are not allowed to make changes here");
     }
 
-   
-    
     const response = await fetch("/visual/save", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         date: document.getElementById("date").value,
-        mc_no:mc_no,
+        mc_no: mc_no,
         batch_number: document.getElementById("batch_number").textContent,
         [shiftName]: inspection[shiftName], // send only selected shift
         verifiedBy: document.getElementById("verifedBy").value,
       }),
     });
-
-  
-    
 
     const result = await response.json();
     console.log("Saved:", result);
@@ -621,8 +536,3 @@ async function sendShiftData(shiftName) {
     console.error("Error saving shift data:", err);
   }
 }
-
-console.log(inspection);
-
-
-

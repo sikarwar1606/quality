@@ -33,14 +33,29 @@
           <%= machineList.length %>
         </p>
       </div>
-      <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition">
-        <h3 class="text-gray-500 font-semibold">Total Change Over</h3>
-        <p class="text-3xl font-bold text-yellow-500 mt-2">3</p>
-      </div>
+
+     
+
       <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition">
         <h3 class="text-gray-500 font-semibold">Latest Batch</h3>
         <p class="text-3xl font-bold text-purple-600 mt-2">
           <%= latestBatchNo ? latestBatchNo.batch_number : '-' %>
+        </p>
+      </div>
+
+       <div
+        class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition"
+        id="visualInspection"
+      >
+        <h3 class="text-gray-500 font-semibold">Visual Inspection</h3>
+        <p class="text-3xl font-bold text-green-600 mt-2">
+          <a href="/visual/CCM-01">
+            <img
+              src="../images/document.svg"
+              alt="COA"
+              class="w-6 h-6 inline-block"
+            />
+          </a>
         </p>
       </div>
 
@@ -104,6 +119,10 @@
       let prepareCoa = document.getElementById("prepareCoa");
       prepareCoa.addEventListener("click", () => {
         window.location.href = "/coa/coa";
+      });
+      let visualInspection = document.getElementById("visualInspection");
+      visualInspection.addEventListener("click", () => {
+        window.location.href = "/visual/CCM-01";
       });
     </script>
   </body>

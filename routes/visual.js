@@ -5,14 +5,32 @@ const VisualReport = require("../models/visual_inspecSC");
 const router = express.Router();
 const Batch = require("../models/batchSC");
 const mbDetailsSC = require("../models/mbDetailsSC");
+const docNo = require("../models/docNoDetailsSC")
 
 
-const today = new Date().toISOString().split('T')[0];
+function getShiftDate() {
+  const now = new Date();
+  const hour = now.getHours();
+
+  if (hour < 7) {
+    now.setDate(now.getDate() - 1);
+  }
+
+  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const year = now.getFullYear();
+
+  return `${year}-${month}-${day}`; // YYYY-MM-DD local time
+}
+
+
 let inspection;
 
 router.get("/:id", async (req, res) => {
+  let user = req.user.username
   const mcId = req.params.id;
   console.log(req.body);
+console.log(user);
 
   try {
     // Aggregate latest batches per machine
@@ -26,17 +44,20 @@ router.get("/:id", async (req, res) => {
       return res.status(404).send(`No batch found for machine ${mcId}`);
     }
 
+    //Fetching document details
+    let docDetail = await docNo.findOne({docNo:"SIPL-QA-R-05"})
+
     const mb_code = latestBatches.mb_code;
     const mb_detail = await mbDetailsSC.findOne({ mb_code: mb_code });
 
     const existingInspection = await VisualReport.findOne({
-     date: new Date(today),
+     date: getShiftDate(),
       mc_no: mcId,
     })
 
     // console.log(`Existing data ${existingInspection}`);
     
-    res.render("inspection/visual_inspec", { mcId, latestBatches, mb_detail,inspectionReportIncom:existingInspection || null });
+    res.render("inspection/visual_inspec", {user, docDetail, mcId, latestBatches, mb_detail,inspectionReportIncom:existingInspection || null });
   } catch (err) {
     console.error("Error fetching latest batches:", err);
     res.status(500).send("Server error");

@@ -4,89 +4,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Visual</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        font-size: 12px;
-        margin: 0;
-        padding: 0;
-        background: #fff;
-      }
-
-      .visual {
-        width: 210mm;
-        /* A4 portrait width */
-        min-height: 297mm;
-        /* A4 height */
-        margin: 0 auto;
-        box-sizing: border-box;
-        background: #fff;
-        border: 2px solid black;
-      }
-
-      td input {
-        width: 100%;
-        border: none;
-        font-size: 11px;
-        box-sizing: border-box;
-      }
-
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-
-      .heading table td {
-        border: 1px solid black;
-        padding: 2.5px;
-        text-align: center;
-        vertical-align: middle;
-        line-height: 2.2;
-      }
-
-      .body table td {
-        border: 1px solid black;
-      }
-
-      .time,
-      .obdefect,
-      .teband {
-        width: 35px;
-        cursor: pointer;
-        text-align: center;
-      }
-
-      .defect-found {
-        color: red;
-      }
-
-      button {
-        width: 100%;
-        background-color: white;
-        border: none;
-        cursor: pointer;
-      }
-    </style>
+    <link rel="stylesheet" href="/stylesheets/inspection/visual.css">
   </head>
 
   <body>
-    <%- include("../partials/visual") %>
+    <div class="no-print">
+      <%- include("../partials/visual") %>
+    </div>
     <div class="visual">
       <div class="heading">
         <table class="tbCCM">
           <tbody>
             <tr>
               <td colspan="5" rowspan="2">
-                Doc No. <br />
-                SIPL-QA-R-05 & 60
+                Doc No. <br />  
+                <%=docDetail? docDetail.docNo: ""%>
               </td>
               <td colspan="14">Secure Industries Pvt. Ltd. Hyderabad</td>
-              <td colspan="5">Rev. No. 00</td>
+              <td colspan="5">Rev. No. <%=docDetail? docDetail.revNo: ""%></td>
             </tr>
             <tr>
-              <td colspan="14">Visual Inspection Report (SFM & CCM)</td>
+              <td colspan="14"><%=docDetail? docDetail.docName: ""%></td>
 
-              <td colspan="5">Rev. Dt. 01-07-2024</td>
+              <td colspan="5">Rev. Dt. <%=docDetail? docDetail.revDt: ""%></td>
             </tr>
             <tr>
               <td colspan="3">Date</td>
@@ -95,7 +35,7 @@
                   type="date"
                   id="date"
                   readonly
-                  value="<%= new Date().toISOString().split('T')[0] %>"
+              
                 />
               </td>
 
@@ -170,11 +110,14 @@
           <tbody>
             <tr>
               <td>Inspected By:</td>
-              <td><input type="text" id="inspector1" /></td>
+              <td><input type="text" id="inspector1" value="" readonly  />
+</td>
               <td>Inspected By:</td>
-              <td><input type="text" id="inspector2" /></td>
+              <td><input type="text" id="inspector2" value="" readonly  />
+</td>
               <td>Inspected By:</td>
-              <td><input type="text" id="inspector3" /></td>
+              <td><input type="text" id="inspector3" value="<%= user  %>" readonly  />
+</td>
             </tr>
             <tr>
               <td>Verified By:</td>

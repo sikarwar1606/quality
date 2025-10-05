@@ -1,59 +1,67 @@
  body {
-      font-family: Arial, sans-serif;
-      font-size: 10px;
-      margin: 0;
-      padding: 0;
-      background: #fff;
-    }
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        margin: 0;
+        padding: 0;
+      }
 
-    .visual {
-      width: 210mm;
-      /* A4 portrait width */
-      min-height: 275mm;
-      /* A4 height */
-      margin: 0 auto;
-      box-sizing: border-box;
-      background: #fff;
-      border: 2px solid black;
-    }
+      .visual {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0 auto;
+        box-sizing: border-box;
+        background: #fff;
+        border: 2px solid black;
+      }
+      
 
+      td input {
+        width: 100%;
+        border: none;
+        font-size: 11px;
+        box-sizing: border-box;
+        color: black;
+      }
 
-    td input {
-      width: 100%;
-      border: none;
-      font-size: 11px;
-      box-sizing: border-box;
-    }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
 
+      .heading table td {
+        border: 1px solid black;
+        padding: 2.5px;
+        text-align: center;
+        vertical-align: middle;
+        line-height: 2.2;
+      }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
+      .body table td {
+        border: 1px solid black;
+      }
 
-    .heading table td {
-      border: 1px solid black;
-      padding: 2.5px;
-      text-align: center;
-      vertical-align: middle;
-      line-height: 2.2;
-    }
+      .time,
+      .obdefect,
+      .teband {
+        width: 35px;
+        cursor: pointer;
+        text-align: center;
+      }
 
-    .body table td {
-      border: 1px solid black;
-    }
+      .defect-found {
+        color: red;
+      }
 
-    .time, .obdefect, .teband {
-      width: 32px;
-      height: 15.5px;
-      cursor: pointer;
-      text-align: center;
-    }
+      button {
+        width: 100%;
+        background-color: rgb(189, 226, 189);
+        border: none;
+        cursor: pointer;
+      }
+      
 
-    .defect-found {
-      color: red;
-    }
-
-   .remarks{
-    width: 90px;
-   }
+      @media print {
+  .no-print {
+    display: none !important;
+  }
+}
