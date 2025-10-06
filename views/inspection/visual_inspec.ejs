@@ -32,11 +32,12 @@
               <td colspan="3">Date</td>
               <td colspan="5" >
                 <input
-                  type="date"
-                  id="date"
-                  readonly
-              
-                />
+            type="text"
+            id="date"
+            name="date"
+            value="<%= new Date().toLocaleDateString('en-GB') %>"
+            required
+          />
               </td>
 
               <td colspan="3">Design</td>

@@ -2,22 +2,25 @@ let now = new Date();
 let currentHours = now.getHours();
 console.log(currentHours);
 
-function getShiftDate() {
-  const now = new Date();
-  const hour = now.getHours();
+// function getShiftDate() {
+//   const now = new Date();
+//   const hour = now.getHours();
 
-  if (hour < 7) {
-    now.setDate(now.getDate() - 1);
-  }
+//   if (hour < 7) {
+//     now.setDate(now.getDate() - 1);
+//   }
 
-  const day = String(now.getDate()).padStart(2, "0");
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const year = now.getFullYear();
+//   const day = String(now.getDate()).padStart(2, "0");
+//   const month = String(now.getMonth() + 1).padStart(2, "0");
+//   const year = now.getFullYear();
 
-  return `${year}-${month}-${day}`; // YYYY-MM-DD local time
-}
+//   return `${day}-${month}-${year}`; // YYYY-MM-DD local time
+// }
 
-document.getElementById("date").value = getShiftDate();
+// console.log(`Date in visual inspection form ${getShiftDate()}`);
+
+
+// document.getElementById("date").value = getShiftDate();
 
 const ccmDefects = [
   "Physical Appearance",
@@ -392,10 +395,10 @@ async function sendShiftData(shiftName) {
     inspection.verifiedBy = verifedBy;
 
     if (currentHours > 7 && currentHours <= 15 && shiftName === "shiftA") {
-      inspection.shiftC.observation1 = [inputs[1].value]; 
-      inspection.shiftC.observation2 = [inputs[2].value];
-      inspection.shiftC.observation3 = [inputs[3].value];
-      inspection.shiftC.observation4 = [inputs[4].value];
+      inspection.shiftA.observation1 = [inputs[1].value]; 
+      inspection.shiftA.observation2 = [inputs[2].value];
+      inspection.shiftA.observation3 = [inputs[3].value];
+      inspection.shiftA.observation4 = [inputs[4].value];
 
       def00.forEach((cell) => {
         inspection.shiftA.observation1.push(cell.textContent); // Pushing observations

@@ -8,19 +8,37 @@ const mbDetailsSC = require("../models/mbDetailsSC");
 const docNo = require("../models/docNoDetailsSC")
 
 
+// function getShiftDate() {
+//   const now = new Date();
+//   const hour = now.getHours();
+
+//   if (hour < 7) {
+//     now.setDate(now.getDate() - 1);
+//   }
+
+//   const day = String(now.getDate()).padStart(2, '0');
+//   const month = String(now.getMonth() + 1).padStart(2, '0');
+//   const year = now.getFullYear();
+
+//   return `${day}-${month}-${year}`; // YYYY-MM-DD local time
+// }
+
+
 function getShiftDate() {
   const now = new Date();
   const hour = now.getHours();
 
+  // If time is before 07:00 AM, use previous day’s date (shift logic)
   if (hour < 7) {
     now.setDate(now.getDate() - 1);
   }
 
+  // Return date in same format as front-end (DD/MM/YYYY)
   const day = String(now.getDate()).padStart(2, '0');
   const month = String(now.getMonth() + 1).padStart(2, '0');
   const year = now.getFullYear();
 
-  return `${year}-${month}-${day}`; // YYYY-MM-DD local time
+  return `${day}/${month}/${year}`;
 }
 
 
@@ -54,7 +72,8 @@ console.log(user);
      date: getShiftDate(),
       mc_no: mcId,
     })
-
+    console.log(getShiftDate());
+    
     // console.log(`Existing data ${existingInspection}`);
     
     res.render("inspection/visual_inspec", {user, docDetail, mcId, latestBatches, mb_detail,inspectionReportIncom:existingInspection || null });
