@@ -329,34 +329,13 @@ let defs = [
   def32,
 ];
 
-// defs.forEach((def, i) => {
-//   def.forEach((cell) => {
-  
-//     inputs[i + 1].addEventListener("input", () => {
-//       cell.textContent = "✖";
-
-//     });
-//   });
-// });
-
-
 defs.forEach((def, i) => {
-  const input = inputs[i + 1]; // your original mapping
-
-  input.addEventListener("input", () => {
-    def.forEach((cell, index) => {
-      if (index === 0) {
-        // first cell = tick
-        cell.textContent = "✔";
-      } else {
-        // all others = X
-        cell.textContent = "✖";
-      }
+  def.forEach((cell) => {
+    inputs[i + 1].addEventListener("input", () => {
+      cell.textContent = "✖";
     });
   });
 });
-
-
 
 let tls = [
   tl00,
