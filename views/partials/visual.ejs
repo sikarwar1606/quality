@@ -41,6 +41,24 @@
     .machine:hover {
       background: #1bd124;
     }
+    .home {
+      display: block;
+      width: 100%;
+      margin: 3px 0;
+      padding: 5px;
+      background: #6bc1d7;
+      color: black;
+      font-weight: 400;
+      text-align: center;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 10px;
+    }
+
+    .home:hover {
+      background: #d1301b;
+    }
 
     /* Example main content */
     .content {
@@ -68,7 +86,8 @@
     <button class="machine" id="mc15">CCM-15</button>
     <button class="machine" id="mc16">CCM-16</button>
     <button class="machine" id="mc17">CCM-17</button>
-    <button class="machine" id="home" ><a href="/">Home</a></button>
+    <button class="home" id="home" >Home</button>
+    <!-- <button class="home" id="home" ><a href="/">Home</a></button> -->
   </div>
 
   
@@ -80,6 +99,11 @@
       window.location.href = `/visual/${machineId}`;
     });
   });
+
+  let home = document.getElementById("home")
+    home.addEventListener("click", function () {      
+      window.location.href = `/`;
+    });
 </script>
 
 </body>

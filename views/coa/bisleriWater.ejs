@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>COA - Plastic Closures</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 10.5px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 210mm;
+      /* A4 portrait width */
+      min-height: 297mm;
+      /* A4 height */
+      margin: 0 auto;
+      padding: 15mm;
+      box-sizing: border-box;
+      /* border: 1px solid #000; */
+    }
+
+    #coa {
+      transform: scale(0.93);
+      border: 2px solid black;
+    }
+
+    .coa-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid black;
+    }
+
+    .coa-table th,
+    .coa-table td {
+      border: 1px solid black;
+      padding: 2px;
+      text-align: center;
+      vertical-align: middle;
+      line-height: 2;
+    }
+
+    .coa-table thead th {
+      font-weight: bold;
+    }
+
+    /* Input inside table cells */
+    .coa-table input {
+      width: 100%;
+      border: none;
+      outline: none;
+      font-size: 10px;
+      text-align: center;
+      /* padding: 0.2px; */
+      background: transparent;
+      box-sizing: border-box;
+    }
+
+    /* On focus add a subtle underline */
+    .coa-table input:focus {
+      border-bottom: 1px solid #000;
+    }
+
+
+    /* Header rows */
+    .coa-table tbody tr:nth-child(1) td,
+    .coa-table tbody tr:nth-child(2) td,
+    .coa-table tbody tr:nth-child(3) td,
+    .coa-table tbody tr:nth-child(4) td {
+      font-weight: bold;
+      text-align: center;
+    }
+
+    /* Parameter text left align */
+    .coa-table td[colspan="2"] {
+      text-align: left;
+    }
+
+    /* Footer */
+    .coa-table tbody tr:last-child td {
+      text-align: center;
+      font-weight: bold;
+    }
+
+    /* Column widths */
+    .coa-table th:nth-child(1),
+    .coa-table td:nth-child(1) {
+      width: 14%;
+    }
+
+    .coa-table th:nth-child(2),
+    .coa-table td:nth-child(2) {
+      width: 17%;
+    }
+
+    .coa-table th:nth-child(3),
+    .coa-table td:nth-child(3) {
+      width: 20%;
+    }
+
+    .coa-table th:nth-child(4),
+    .coa-table td:nth-child(4) {
+      width: 22%;
+    }
+
+    .coa-table th:nth-child(5),
+    .coa-table td:nth-child(5) {
+      width: 13%;
+    }
+
+    .coa-table th:nth-child(6),
+    .coa-table td:nth-child(6) {
+      width: 14%;
+    }
+
+    /* Print Styling */
+    @media print {
+
+      body,
+      .container {
+        margin: 0;
+        padding: 0;
+        border: none;
+        width: 210mm;
+        min-height: 297mm;
+      }
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+    <!-- Header -->
+    </table>
+
+
+    <div class="dimension" id="coa">
+      <table class="coa-table">
+
+        <thead>
+          <tr></tr>
+          <tr></tr>
+          <tr></tr>
+          <tr></tr>
+          <tr></tr>
+          <tr></tr>
+          <tr></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="2">Doc. No. <%=docDetails.docNo%>
+            </td>
+            <td colspan="4">
+              <%= plant_data.plant_name + "-" + plant_data.plant_location%>
+            </td>
+            <td>Rev. No.<%=docDetails.revNo%>
+            </td>
+
+          </tr>
+          <tr>
+            <td colspan="4">
+              <%=plant_data.plant_add%>
+            </td>
+            <td>Rev.Date: <%=docDetails.revDt%>
+            </td>
+          </tr>
+          <tr>
+
+
+          </tr>
+          <tr>
+            <td colspan="6">CLOSURE-CERTIFICATE OF ANALYSIS (COA):Alaska/26.22 Neck</td>
+          </tr>
+
+
+
+          <tr>
+            <td>Closure Type</td>
+            <td colspan="2">
+              <%=specData.cl_type%>
+            </td>
+            <td>Closure Invoice No.</td>
+            <td colspan="2">
+              <%=more_info.inv_no%>
+              
+            </td>
+          </tr>
+          <tr>
+            <td>Customer Name & Plant Location</td>
+            <td colspan="2">
+              <input type="text" value="<%=customer_data.customer_name + "-" + customer_data.customer_location%>">
+              
+            </td>
+            <td>Date of Production</td>
+            <td colspan="2">
+              <%=more_info.mfd%>
+            </td>
+          </tr>
+          <tr>
+            <td>Resin Supplier Name</td>
+            <td colspan="2">
+              <%=rmData.rm_sup%></td>
+             <td>Quantity Per Box</td>
+             <td colspan=" 2">
+                <%=specData.packing_qty%> Nos.
+            </td>
+          </tr>
+          <tr>
+            <td>Resin Grade</td>
+            <td colspan="2">
+              <%=rmData.rm%>
+            </td>
+            <td>No. of Boxes</td>
+            <td colspan="2">
+              <%=more_info.qty %> nos.
+            </td>
+          </tr>
+          <tr>
+            <td>Resin Lot/Batch No.</td>
+            <td colspan="2">
+              <input type="text">
+            </td>
+            <td>Closure Batch Number</td>
+            <td colspan="2">
+              <%=batch_data.batch_number%>
+              
+            </td>
+          </tr>
+          <tr>
+            <td>Vehicle No.</td>
+            <td colspan="2">
+              <input type="text">
+            </td>
+            <td>No. Of Cavity</td>
+            <td colspan="2">
+              <input type="text" value="48 Nos.">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="6">This is to confirm that the Closures contained in this shipment meet and confirmed to all
+              requirments as per BISLERI INTERNATIONAL PVT. LTD. specification</td>
+          </tr>
+
+        </tbody>
+
+        <thead>
+          <tr>
+            <th>Sl No.</th>
+            <th>Parameter</th>
+            <th colspan="2">Specificatoin</th>
+            <th>Unit</th>
+            <th>Observation</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td>1</td>
+            <td>Appearance</td>
+            <td colspan="2">Should be free from all visual defects</td>
+            <td>N/A</td>
+            <td>Ok</td>
+          </tr>
+          <tr>
+            <td rowspan="2">2</td>
+            <td rowspan="2">Weight (± 0.15 )</td>
+            <td>27mm Alaska</td>
+            <td>26.22 neck-GME 30.28</td>
+            <td>N/A</td>
+            <td>27mm ALASKA</td>
+          </tr>
+          <td>1.30/1.50</td>
+          <td>1.25</td>
+          <td>g</td>
+          <td><input type="text"></td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Resin Material Grade</td>
+            <td colspan="2">HDPE resin conforming to IS 10146: 1982 and IS 10141 :2001</td>
+            <td>N/A</td>
+            <td>CONFIRMED</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>Master Batch - Supplier Name & Grade</td>
+            <td colspan="2">Clariant/ Avient - Pearl Green MB CIL 6194,
+              Konspec - Green Bisleri 2M35648C,
+              Blend colour- D4425072
+            </td>
+            <td>N/A</td>
+            <td><input type="text"> 2</td>
+
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Master Batch - Lot number</td>
+            <td colspan="2"></td>
+            <td>N/A</td>
+            <td><input type="text"></td>
+
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>Closure Shade</td>
+            <td colspan="2">As per provided shade card: dosage: 1.7% - 2%</td>
+            <td>%</td>
+            <td>2%</td>
+          </tr>
+          <tr>
+            <td rowspan="2">7</td>
+            <td rowspan="2">Identification on Closure</td>
+            <td colspan="2">BISLERI logo on top of closure</td>
+            <td>N/A</td>
+            <td>YES</td>
+          </tr>
+          <tr>
+            <td colspan="2">Supplier name/ logo, cavity number, Recycle logo to be marked under each closure </td>
+            <td>N/A</td>
+            <td>YES</td>
+
+          </tr>
+          <tr>
+            <td rowspan="7">8</td>
+            <td>Dimensional Parameter</td>
+            <td>27mm Alaska</td>
+            <td>26.22 neck - GME 30.28</td>
+            <td colspan="2"></td>
+            
+          </tr>
+          <tr>
+            <td>Total Height</td>
+            <td>14.20 ± 0.30</td>
+            <td>13.20 ± 0.30</td>
+            <td>mm</td>
+            <td><input type="text"></td>
+          </tr>
+          <tr>
+            <td>Closure Outer Diameter with ring</td>
+            <td>30.10 ± 0.30</td>
+            <td>28.55 ± 0.30</td>
+            <td>mm</td>
+            <td><input type="text"></td>
+          </tr>
+          <tr>
+            <td>Closure Outer Diameter without ring</td>
+            <td>28.50 ± 0.30</td>
+            <td>27.30 ± 0.30</td>
+            <td>mm</td>
+            <td><input type="text"></td>
+          </tr>
+          <tr>
+            <td>Thread Inner Diameter</td>
+            <td>25.60 ± 0.15</td>
+            <td>24.70 ± 0.20</td>
+            <td>mm</td>
+            <td><input type="text"></td>
+          </tr>
+          <tr>
+            <td>Plug Outer Diameter</td>
+            <td>22.20 ± 0.20</td>
+            <td>22.250 ± 0.20</td>
+            <td>mm</td>
+            <td><input type="text"></td>
+          </tr>
+          <tr>
+            <td>Plug Height</td>
+            <td>3.70 ± 0.20</td>
+            <td>5.0 ± 0.20</td>
+            <td>mm</td>
+            <td><input type="text"></td>
+          </tr>
+         
+          <tr>
+            <td>9</td>
+            <td>Overall, Colour Migration & Specific Migration</td>
+            <td colspan="2">Must complies with IS 9845 standard & FSSAI Regulation for Specific migration.</td>
+            <td>mg/l or mg/dm2</td>
+            <td>COMPLIANCE</td>
+          </tr>
+          <tr>
+          <tr>
+            <td>10</td>
+            <td>Resin material Food Grade Compliance Report</td>
+            <td colspan="2">As per IS:10146:1982</td>
+            <td>N/A</td>
+            <td>COMPLIANCE</td>
+          </tr>
+          <tr>
+          <tr>
+            <td>11</td>
+            <td>Resin COA</td>
+            <td colspan="2">Must be attached with every lot</td>
+            <td>N/A</td>
+            <td>COMPLIANCE</td>
+          </tr>
+          <tr>
+          <tr>
+            <td>12</td>
+            <td>Master Batch COA</td>
+            <td colspan="2">Must be attached with every lot</td>
+            <td>N/A</td>
+            <td>COMPLIANCE</td>
+          </tr>
+          <tr>
+            <td >Checked By</td>
+            <td  colspan="2"></td>
+            <td >Verified By</td>
+            <td colspan="2"></td>
+          </tr>
+          <tr>
+            <td colspan="3">Signature of QC In-charge</td>
+            <td  colspan="3"></td>
+          </tr>
+          
+
+
+        </tbody>
+      </table>
+    </div>
+    <button id="downloadPDF" class="bg-blue-500 text-white px-4 py-2 rounded shadow-lg fixed bottom-4 right-4 z-50">
+      Download PDF
+    </button>
+    <button class="bg-blue-500 text-white px-4 py-2 rounded shadow-lg fixed bottom-4 left z-50">
+      <a href="/">Home</a>
+    </button>
+
+    <!-- html2pdf.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <script>
+      document.getElementById("downloadPDF").addEventListener("click", () => {
+        // Dynamic filename
+        const inv_no = "<%= more_info.inv_no %>";
+        const batch_no = "<%= batch_data.batch_number %>";
+        const design = "<%= batch_data.design %>";
+        const colour = "<%= mbData.mb_colour %>";
+        const debossed = "<%= batch_data.debossed %>";
+        const cust = "<%=customer_data.customer_name + " - " + customer_data.customer_location%>"
+
+        const filename = `${inv_no}_${cust}_${batch_no}_${design}_${colour}_${debossed}.pdf`;
+
+        const element = document.getElementById("coa");
+
+        const opt = {
+          margin: [0.2, 0.2, 0.2, 0.2], // mm
+          filename: filename,
+          image: { type: "jpeg", quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true },
+          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+        };
+
+        // Generate and save in landscape (fits automatically)
+        html2pdf().set(opt).from(element).save();
+      });
+    </script>
+</body>
+
+</html>

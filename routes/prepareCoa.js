@@ -41,6 +41,8 @@ router.post("/", isLoggedIn, async (req, res) => {
       return res.redirect("/coa/redirect/cokeCoa")
     }else if (templateCode === "L"){
       return res.redirect("/coa/redirect/others")
+    }else if (templateCode === "B"){
+      return res.redirect("/coa/redirect/bisleriWater")
     }
 
     // If no matching condition
@@ -198,6 +200,141 @@ const mbData = {
     docDetails
   });
 });
+
+//This route will handle the Bisleri Water coa route
+router.get("/bisleriWater", isLoggedIn, async (req, res) => {
+  let inv_no = inputs.invoice_no;
+  let inv_dt = inputs.invoice_dt;
+  let qty = inputs.qty;
+  let mfd = inputs.mfd;
+  let batch_number = inputs.batch_number;
+  let customer_gst = inputs.customer_gst;
+  let plant_code = inputs.plant_code;
+
+  const more_info = { inv_no, inv_dt, qty, mfd };
+ 
+  
+
+  const result = await dimension_data.aggregate([
+    { $match: { batch_number: batch_number } },
+    { $unwind: "$data" },
+    {
+      $group: {
+        _id: "$batch_number",
+        avgwt: { $avg: "$data.wt" },
+        avght: { $avg: "$data.ht" },
+        avgkn: { $avg: "$data.knurling" },
+        avgmax: { $avg: "$data.maxDia" },
+        avgeDia: { $avg: "$data.eDia" },
+        avgplugDia: { $avg: "$data.plugDia" },
+        avgplugHt: { $avg: "$data.plugHt" },
+      },
+    },
+  ]);
+
+  let avgData = result.length > 0 ? result[0] : {};
+
+  // 3️⃣ Load other related data
+  const batch = await batch_details.findOne({ batch_number });
+  if (!batch) {
+    return res.send("This batch number does not exist, Please check once");
+  }
+
+  const customer = await Customer_gst.findOne({ gst_number: customer_gst });
+  if (!customer) {
+    return res.send("This GST number is not registered, Please contact admin");
+  }
+
+  
+  const relianceCoaDes = await relianceCoaDetailsSC.findOne({
+    design: batch.design,
+  });
+  const plant = await plant_details.findOne({ plant_code });
+  const specs = await specSC.findOne({ design: batch.design });
+  
+
+  const customer_data = {
+    customer_name: customer.customer_name,
+    customer_location: customer.customer_location,
+  };
+  const specData = {
+    packing_qty: specs.packing_qty,
+    product: specs.product,
+    cl_type: specs.cl_type
+  };
+
+  
+  //Taking document details like doc no and rev no from docDetailsSC
+  const rawdocDetails = await docNoDetailsSC.findOne({
+    docName: specData.product,
+  });
+  let docDetails;
+  if (plant_code === "A" || plant_code === "D") {
+    docDetails = rawdocDetails;
+  } else {
+    docDetails = {
+      docNo: rawdocDetails.docNo.replace("SIPL", "VFT"),
+      revNo: rawdocDetails.revNo,
+      revDt: rawdocDetails.revDt,
+    };
+  }
+  
+  
+
+  const batch_data = {
+    batch_number: batch.batch_number,
+    design: batch.design,
+    colour: batch.colour,
+    debossed: batch.debossed,
+    machine_number: batch.machine_number,
+    rm: batch.rm,
+    mb_code: batch.mb_code,
+  };
+
+ 
+
+  let mb_code = batch_data.mb_code;
+  let rm = batch_data.rm;
+
+ const mbDetails = await mbDetailsSC.findOne({ mb_code });
+
+const mbData = {
+  mb_code: mbDetails?.mb_code || "N/A",
+  mb_sup: mbDetails?.mb_sup || "",
+  mb_colour: mbDetails?.mb_colour || "Translucent",
+  mb_dosage: mbDetails?.mb_dosage || "N/A",
+};
+
+
+  const rmDetails = await rmDetailsSC.findOne({ rm: rm });
+  const rmData = {
+    rm:rm,
+    rm_sup: rmDetails.rm_sup,
+    rm_type: rmDetails.rm_type,
+  };
+
+  const plant_data = {
+    plant_name: plant.plant_name,
+    plant_location: plant.plant_location,
+    plant_add: plant.plant_add,
+  };
+
+  
+
+  res.render("coa/bisleriWater", {
+    customer_data,
+    batch_data,
+    plant_data,
+    avgData,
+    more_info,
+    specData,
+    mbData,
+    rmData,
+    docDetails
+  });
+});
+
+
 
 //This route is to handle the coa of coke
 router.get("/cokeCoa", async (req, res) => {
