@@ -22,6 +22,26 @@ console.log(currentHours);
 
 // document.getElementById("date").value = getShiftDate();
 
+
+function getShiftDate() {
+  const now = new Date();
+  const hour = now.getHours();
+
+  // If time is before 07:00 AM, use previous day’s date (shift logic)
+  if (hour < 7) {
+    now.setDate(now.getDate() - 1);
+  }
+
+  // Return date in same format as front-end (DD/MM/YYYY)
+  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const year = now.getFullYear();
+
+  return `${day}/${month}/${year}`;
+}
+
+document.getElementById("date").value=getShiftDate()
+
 const ccmDefects = [
   "Physical Appearance",
   "Dirty Closures/Oil Mark",
