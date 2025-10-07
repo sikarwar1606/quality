@@ -70,9 +70,8 @@ router.get("/:id", async (req, res) => {
      date: getShiftDate(),
       mc_no: { $regex: regex },
     })
-    console.log(getShiftDate());
+   
     
-    // console.log(`Existing data ${existingInspection}`);
     
     res.render("inspection/visual_inspec", {user, docDetail, mcId, latestBatches, mb_detail,inspectionReportIncom:existingInspection || null });
   } catch (err) {
@@ -85,6 +84,9 @@ router.post("/save", isLoggedIn, async (req, res) => {
   try {
     const { date, batch_number, mc_no, shiftA, shiftB, shiftC, verifiedBy } =
       req.body;
+
+      console.log(req.body);
+      
 
     if (!date || !batch_number) {
       return res.status(400).json({
