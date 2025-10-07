@@ -47,8 +47,6 @@ let inspection;
 router.get("/:id", async (req, res) => {
   let user = req.user.username
   const mcId = req.params.id;
-  console.log(req.body);
-console.log(user);
 
   try {
     // Aggregate latest batches per machine
@@ -70,7 +68,7 @@ console.log(user);
 
     const existingInspection = await VisualReport.findOne({
      date: getShiftDate(),
-      mc_no: mcId,
+      mc_no: { $regex: regex },
     })
     console.log(getShiftDate());
     
