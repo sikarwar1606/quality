@@ -8,11 +8,11 @@ const cokeCoaDetailsSC = require("../models/cokeCoaDetailsSC");
 const relianceCoaDetailsSC = require("../models/relianceCoaDetailsSC");
 const mbDetailsSC = require("../models/mbDetailsSC");
 const rmDetailsSC = require("../models/rmDetailsSC");
-const dimension_data = require("./dimension");
+const dimension_data = require("../models/dimension");
 const specSC = require("../models/specsSC");
 const docNoDetailsSC = require("../models/docNoDetailsSC");
 
-const puppeteer = require("puppeteer"); // 📌 add puppeteer for PDF export
+const puppeteer = require("puppeteer"); // add puppeteer for PDF export
 
 let templateCode;
 let inputs;
@@ -334,8 +334,6 @@ const mbData = {
   });
 });
 
-
-
 //This route is to handle the coa of coke
 router.get("/cokeCoa", async (req, res) => {
   let inv_no = inputs.invoice_no;
@@ -391,9 +389,6 @@ router.get("/cokeCoa", async (req, res) => {
     customer_name: customer.customer_name,
     customer_location: customer.customer_location,
   };
-
-    // 
-
   const cokeCoaDetailsData = {
     cl_type: cokeCoaDes.cl_type,
     cl_drw: cokeCoaDes.cl_drw,
@@ -410,7 +405,6 @@ router.get("/cokeCoa", async (req, res) => {
     cl_sst: cokeCoaDes.cl_sst,
     product: cokeCoaDes.product,
   };
-
   //Taking document details like doc no and rev no from docDetailsSC
   const rawdocDetails = await docNoDetailsSC.findOne({
     docName: cokeCoaDes.product,
@@ -425,7 +419,6 @@ router.get("/cokeCoa", async (req, res) => {
       revDt: rawdocDetails.revDt,
     };
   }
-
   const batch_data = {
     batch_number: batch.batch_number,
     design: batch.design,
@@ -453,7 +446,6 @@ router.get("/cokeCoa", async (req, res) => {
     rm_sup: rmDetails.rm_sup,
     rm_type: rmDetails.rm_type,
   };
-
   const plant_data = {
     plant_name: plant.plant_name,
     plant_location: plant.plant_location,
