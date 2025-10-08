@@ -7,23 +7,6 @@ const Batch = require("../models/batchSC");
 const mbDetailsSC = require("../models/mbDetailsSC");
 const docNo = require("../models/docNoDetailsSC")
 
-
-// function getShiftDate() {
-//   const now = new Date();
-//   const hour = now.getHours();
-
-//   if (hour < 7) {
-//     now.setDate(now.getDate() - 1);
-//   }
-
-//   const day = String(now.getDate()).padStart(2, '0');
-//   const month = String(now.getMonth() + 1).padStart(2, '0');
-//   const year = now.getFullYear();
-
-//   return `${day}-${month}-${year}`; // YYYY-MM-DD local time
-// }
-
-
 function getShiftDate() {
   const now = new Date();
   const hour = now.getHours();
@@ -40,8 +23,6 @@ function getShiftDate() {
 
   return `${day}/${month}/${year}`;
 }
-
-
 let inspection;
 
 router.get("/:id", async (req, res) => {
@@ -70,9 +51,6 @@ router.get("/:id", async (req, res) => {
      date: getShiftDate(),
       mc_no: { $regex: regex },
     })
-   
-    
-    
     res.render("inspection/visual_inspec", {user, docDetail, mcId, latestBatches, mb_detail,inspectionReportIncom:existingInspection || null });
   } catch (err) {
     console.error("Error fetching latest batches:", err);
@@ -84,8 +62,6 @@ router.post("/save", isLoggedIn, async (req, res) => {
   try {
     const { date, batch_number, mc_no, shiftA, shiftB, shiftC, verifiedBy } =
       req.body;
-
-      console.log(req.body);
       
 
     if (!date || !batch_number) {
@@ -97,6 +73,8 @@ router.post("/save", isLoggedIn, async (req, res) => {
 
     // Check if inspection for this batch/date already exists
     inspection = await VisualReport.findOne({ batch_number, date });
+    console.log(date);
+    
 
     if (!inspection) {
       // create new document

@@ -1,29 +1,106 @@
-const mongoose = require('mongoose');
+const express = require("express");
+const mongoose = require("mongoose");
+const { isLoggedIn } = require("./auth");
+const dimensionReport = require("../models/dimension")
+const router = express.Router();
+const Batch = require("../models/batchSC");
+const mbDetailsSC = require("../models/mbDetailsSC");
+const docNo = require("../models/docNoDetailsSC")
 
-// mongoose.connect("mongodb+srv://sikarwar1606:Bu5F9ylZFLFL9ob6@cluster0.epjwokb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+function getShiftDate() {
+  const now = new Date();
+  const hour = now.getHours();
 
+  // If time is before 07:00 AM, use previous day’s date (shift logic)
+  if (hour < 7) {
+    now.setDate(now.getDate() - 1);
+  }
 
-const clMesSchema = new mongoose.Schema({
-  cl_no: { type: Number, required: true },
-  wt: { type: Number, required: true },
-  ht: { type: Number, required: true },
-  knurling: { type: Number, required: true },
-  thickness: { type: Number, required: true }
+  // Return date in same format as front-end (DD/MM/YYYY)
+  const day = String(now.getDate()).padStart(2, '0');
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const year = now.getFullYear();
+
+  return `${day}/${month}/${year}`;
+}
+let inspection;
+
+router.get("/:id", async (req, res) => {
+  let user = req.user.username
+  const mcId = req.params.id;
+
+  try {
+    // Aggregate latest batches per machine
+    const regex = new RegExp(`(^|\\s*/\\s*)${mcId}(\\s*/\\s*|$)`, "i");
+
+    const latestBatches = await Batch.findOne({ mc_no: { $regex: regex } })
+      .sort({ batch_number: -1 })
+      .exec();
+
+    if (!latestBatches) {
+      return res.status(404).send(`No batch found for machine ${mcId}`);
+    }
+
+    //Fetching document details
+    let docDetail = await docNo.findOne({docNo:"SIPL-QA-R-06"})
+
+    const mb_code = latestBatches.mb_code;
+    const mb_detail = await mbDetailsSC.findOne({ mb_code: mb_code });
+
+    const existingInspection = await dimensionReport.findOne({
+     date: getShiftDate(),
+      mc_no: { $regex: regex },
+    })
+    res.render("inspection/dimension", {user, docDetail, mcId, latestBatches, mb_detail,inspectionReportIncom:existingInspection || null });
+  } catch (err) {
+    console.error("Error fetching latest batches:", err);
+    res.status(500).send("Server error");
+  }
 });
 
-const dimensionSchema = new mongoose.Schema({
-  batch_number: { type: String, required: true },
-  dop: { type: Date, required: true },
-  shift: { type: String, required: true },
-  data: [clMesSchema] // Array of closure measurements
-}, { timestamps: true });
+router.post("/save", isLoggedIn, async (req, res) => {
+  try {
+    const { date, batch_number, mc_no, shiftA, shiftB, shiftC, verifiedBy } =
+      req.body;
+      
 
-const dimension  = mongoose.model('dimension', dimensionSchema)
+    if (!date || !batch_number) {
+      return res.status(400).json({
+        success: false,
+        message: "Date and Batch Number are required",
+      });
+    }
 
+    // Check if inspection for this batch/date already exists
+    inspection = await dimensionReport.findOne({ batch_number, date });
+    console.log(date);
+    
 
+    if (!inspection) {
+      // create new document
+      inspection = new dimensionReport({
+        date,
+        mc_no,
+        batch_number,
+        shiftA,
+        shiftB,
+        shiftC,
+        verifiedBy,
+      });
+    } else {
+      // update existing document
+      if (shiftA) inspection.shiftA = shiftA;
+      if (shiftB) inspection.shiftB = shiftB;
+      if (shiftC) inspection.shiftC = shiftC;
+      if (verifiedBy) inspection.verifiedBy = verifiedBy;
+    }
 
+    await inspection.save();
+    res.json({ success: true, inspection });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
 
-module.exports = dimension
-
-
-
+module.exports = router;

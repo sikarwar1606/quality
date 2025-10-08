@@ -22,6 +22,7 @@ const CokeCoaSchema = require('./models/cokeCoaDetailsSC');
 const RelianceCoaSchema = require('./models/relianceCoaDetailsSC');
 const visualReportSc = require('./models/visual_inspecSC')
 const logoSc = require('./models/logoSC')
+const dimensionSchema = require('./routes/dimension');
 
 
 //Routes
@@ -31,7 +32,6 @@ const addmbDetail = require('./routes/addMB');
 const addrmDetail = require('./routes/addRM');
 const addnewDocDetail = require('./routes/docNoDetails');
 const newPlant = require('./routes/addPlant');
-const dimensionSchema = require('./routes/dimension');
 const newBatch = require('./routes/newBatch');
 const cokeCoaDetails = require('./routes/cokeCoaDetails');
 const relianceCoaDetails = require('./routes/relianceCoaDetails');
@@ -42,7 +42,7 @@ const DesignRoute = require('./routes/design')
 const rmRoute = require('./routes/rm')
 const addLogoRoute = require('./routes/addLogo')
 const logoRoute = require('./routes/logo')
-const visualReport = require('./routes/visual')
+
 
 //Find routes
 const findBatch = require('./routes/find/findBatch');
@@ -54,6 +54,9 @@ const findDesign = require('./routes/find/findDesign');
 const findLogo = require('./routes/find/findLogo')
 
 //Inspection routes
+const visualReport = require('./routes/visual')
+const dimensionReport = require('./routes/dimension')
+
 // const inspec = require('./routes/inspection') 
 
 const passport = require('passport');
@@ -122,7 +125,6 @@ app.use('/customer', newCustomer);
 app.use('/customer', findCustomer);
 app.use('/specs', specs);
 app.use('/addmbDetails', addmbDetail);
-// app.use('/addmbDetails', addmbDetail);
 app.use('/mb', findMB);
 app.use('/rm', findRM);
 app.use('/relcoade', findrelcoa);
@@ -134,6 +136,7 @@ app.use("/api/mbcodes", mbCodesRoute);
 app.use("/api/design", DesignRoute);
 app.use("/api/rm", rmRoute);
 app.use("/api/logo", logoRoute);
+app.use("/dimension", dimensionReport)
 
 
 

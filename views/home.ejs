@@ -106,9 +106,9 @@
               <td class="py-2 px-4"><%= row ? row.debossed : '' %></td>
               <td class="py-2 px-4"><%= row ? row.colour : '' %></td>
               <td class="py-2 px-4">
-                <%= row && row.date ? new
-                Date(row.date).toLocaleDateString("en-GB") : '' %>
-              </td>
+  <%= row?.date ? new Date(row.date).toLocaleDateString("en-GB") : '' %>
+</td>
+
             </tr>
             <% }) %>
           </tbody>
