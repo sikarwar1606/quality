@@ -52,8 +52,6 @@ router.get("/:id", async (req, res) => {
      batch_number: latestBatches.batch_number,
       mc_no: { $regex: regex },
     })
-
-    console.log(existingInspection);
     
     res.render("inspection/visual_inspec", {user, docDetail, mcId, latestBatches, mb_detail,inspectionReportIncom:existingInspection || null });
   } catch (err) {
@@ -78,8 +76,6 @@ router.post("/save", isLoggedIn, async (req, res) => {
     // Check if inspection for this batch/date already exists
     inspection = await VisualReport.findOne({ batch_number, date, mc_no });
     
-    
-
     if (!inspection) {
       // create new document
       inspection = new VisualReport({

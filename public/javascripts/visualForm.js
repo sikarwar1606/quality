@@ -1,28 +1,5 @@
 let now = new Date();
 let currentHours = now.getHours();
-console.log(currentHours);
-
-// function getShiftDate() {
-//   const now = new Date();
-//   const hour = now.getHours();
-
-//   if (hour < 7) {
-//     now.setDate(now.getDate() - 1);
-//   }
-
-//   const day = String(now.getDate()).padStart(2, "0");
-//   const month = String(now.getMonth() + 1).padStart(2, "0");
-//   const year = now.getFullYear();
-
-//   return `${day}-${month}-${year}`; // YYYY-MM-DD local time
-// }
-
-// console.log(`Date in visual inspection form ${getShiftDate()}`);
-
-
-// document.getElementById("date").value = getShiftDate();
-
-
 function getShiftDate() {
   const now = new Date();
   const hour = now.getHours();
@@ -348,18 +325,6 @@ let defs = [
   def22,
   def32,
 ];
-
-// defs.forEach((def, i) => {
-//   def.forEach((cell) => {
-  
-//     inputs[i + 1].addEventListener("input", () => {
-//       cell.textContent = "✖";
-
-//     });
-//   });
-// });
-
-
 defs.forEach((def, i) => {
   const input = inputs[i + 1]; // your original mapping
 
@@ -519,11 +484,6 @@ async function sendShiftData(shiftName) {
       (currentHours >= 23 || currentHours < 7) &&
       shiftName === "shiftC"
     ) {
-      // for (let obs = 9; obs <= 12; obs++) {
-      //   let observation = `observation${obs}`;
-      //   inspection.shiftC[observation] = [inputs[obs].value];
-      // }
-
       inspection.shiftC.observation1 = [inputs[9].value]; //Pushing time
       inspection.shiftC.observation2 = [inputs[10].value]; //Pushing time
       inspection.shiftC.observation3 = [inputs[11].value]; //Pushing time
@@ -585,3 +545,21 @@ async function sendShiftData(shiftName) {
     console.error("Error saving shift data:", err);
   }
 }
+const activeUser = document.body.dataset.user;
+
+ // Clear all first
+    document.getElementById("inspector1").value = "";
+    document.getElementById("inspector2").value = "";
+    document.getElementById("inspector3").value = "";
+
+    // Set according to shift
+    if (currentHours >7 && currentHours <= 15) {
+      // 06:00 to 15:59 → shift A
+      document.getElementById("inspector1").value = activeUser;
+    } else if (currentHours >15&& currentHours <= 23) {
+      // 16:00 to 23:59 → shift B
+      document.getElementById("inspector2").value = activeUser;
+    } else {
+      // 00:00 to 06:59 → shift C
+      document.getElementById("inspector3").value = activeUser;
+    }
