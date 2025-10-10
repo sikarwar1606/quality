@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const { isLoggedIn } = require("./auth");
-const VisualReport = require("../models/visual_inspecSC");
+const dimensionReport = require("../models/dimension")
 const router = express.Router();
 const Batch = require("../models/batchSC");
 const mbDetailsSC = require("../models/mbDetailsSC");
@@ -36,25 +36,22 @@ router.get("/:id", async (req, res) => {
     const latestBatches = await Batch.findOne({ mc_no: { $regex: regex } })
       .sort({ batch_number: -1 })
       .exec();
-      
 
     if (!latestBatches) {
       return res.status(404).send(`No batch found for machine ${mcId}`);
     }
 
     //Fetching document details
-    let docDetail = await docNo.findOne({docNo:"SIPL-QA-R-05"})
+    let docDetail = await docNo.findOne({docNo:"SIPL-QA-R-06"})
 
     const mb_code = latestBatches.mb_code;
     const mb_detail = await mbDetailsSC.findOne({ mb_code: mb_code });
 
-    const existingInspection = await VisualReport.findOne({
+    const existingInspection = await dimensionReport.findOne({
      date: getShiftDate(),
-     batch_number: latestBatches.batch_number,
       mc_no: { $regex: regex },
     })
-    
-    res.render("inspection/visual_inspec", {user, docDetail, mcId, latestBatches, mb_detail,inspectionReportIncom:existingInspection || null });
+    res.render("inspection/dimension", {user, docDetail, mcId, latestBatches, mb_detail,inspectionReportIncom:existingInspection || null });
   } catch (err) {
     console.error("Error fetching latest batches:", err);
     res.status(500).send("Server error");
@@ -75,11 +72,13 @@ router.post("/save", isLoggedIn, async (req, res) => {
     }
 
     // Check if inspection for this batch/date already exists
-    inspection = await VisualReport.findOne({ batch_number, date, mc_no });
+    inspection = await dimensionReport.findOne({ batch_number, date });
+    console.log(date);
     
+
     if (!inspection) {
       // create new document
-      inspection = new VisualReport({
+      inspection = new dimensionReport({
         date,
         mc_no,
         batch_number,
@@ -97,8 +96,6 @@ router.post("/save", isLoggedIn, async (req, res) => {
     }
 
     await inspection.save();
-
-
     res.json({ success: true, inspection });
   } catch (err) {
     console.error(err);

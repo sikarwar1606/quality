@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1." />
-  <title>Visual</title>
+  <title>Dimension</title>
   <!-- <link rel="stylesheet" href="/stylesheets/inspection/visual.css"> -->
   <style>
     body {
@@ -30,6 +30,17 @@
       font-size: 10px;
       box-sizing: border-box;
       color: black;
+    }
+
+    #date,
+    #design,
+    #colour,
+    #mc_no,
+    #batch_number,
+    #logo,
+    #mc_speed,
+    #rm {
+      width: auto;
     }
 
     table {
@@ -68,7 +79,7 @@
       cursor: pointer;
     }
 
-    
+
 
 
     @media print {
@@ -105,19 +116,25 @@
             </td>
           </tr>
           <tr>
-            <td colspan="4">Date: <input type="text" id="date" name="date" required /></td>
-            <td colspan="4">Design: <%=latestBatches? latestBatches.design : '' %></td>            
-            <td colspan="4">DB/EM/PL:<%=latestBatches? latestBatches.batch_number : '' %></td>
-            <td colspan="3"> No.:<%=latestBatches? latestBatches.batch_number : '' %></td>
-          
+            <td colspan="4">Date: <input type="text" id="date" name="date" required /> </td>
+            <td colspan="4">Design: <input type="text " id="design"
+                value="<%=latestBatches? latestBatches.design : ''%>"> </td>
+            <td colspan="4">DB/EM/PL: <input type="text" id="logo"
+                value="<%=latestBatches? latestBatches.debossed : ''%>"></td>
+            <td colspan="3">M/C No.: <input type="text" id="mc_no" value="<%=mcId? mcId:''%>"></td>
+
           </tr>
           <tr>
-            <td colspan="4">Date: <input type="text" id="date" name="date" required /></td>
-            <td colspan="4">Design: <%=latestBatches? latestBatches.design : '' %></td>            
-            <td colspan="4">Batch No.:<%=latestBatches? latestBatches.batch_number : '' %></td>
-            <td colspan="3">Batch No.:<%=latestBatches? latestBatches.batch_number : '' %></td>
-          
+            <td colspan="4">Batch No.: <input type="text" id="batch_number"
+                value="<%=latestBatches? latestBatches.batch_number : ''%>"> </td>
+            <td colspan="4">R/M: <input type="text" id="rm" value="<%=latestBatches? latestBatches.rm : ''%>"> </td>
+            <td colspan="4">Colour: <input type="text" id="colour" value="<%=mb_detail? mb_detail.mb_colour : ''%>" />
+            </td>
+            <td colspan="3"> M/C Speed: <input type="text" id="mc_speed"
+                value="<%=latestBatches? latestBatches.mc_speed : ''%>"></td>
+
           </tr>
+
 
           <tr>
             <td colspan="2"></td>
@@ -137,135 +154,209 @@
               </button>
             </td>
           </tr>
-          
+
           <tr>
             <td colspan="2">Parameter</td>
-            <td>Weight</td>
-            <td>Height</td>
-            <td>Kn. Dia.</td>
-            <td>T.T</td>
-            <td>T.F</td>
+            <td>Weight<br>(In gm)</td>
+            <td>Height<br>(In mm)</td>
+            <td>Kn. Dia.<br>(In mm)</td>
+            <td>T.T<br>(In mm)</td>
+            <td>T.F<br>(In mm)</td>
+            <td></td>
+            <td>Weight<br>(In gm)</td>
+            <td>T.T<br>(In mm)</td>
+            <td>T.F<br>(In mm)</td>
             <td></td>
             <td>Weight</td>
-            <td>T.T</td>
-            <td>T.F</td>
-            <td></td>
-            <td>Weight</td>
-            <td>T.T</td>
-            <td>T.F</td>
+            <td>T.T<br>(In mm)</td>
+            <td>T.F<br>(In mm)</td>
           </tr>
           <tr>
             <td colspan="2">USL</td>
-            <td>Weight</td>
-            <td>Height</td>
-            <td>Kn. Dia.</td>
-            <td>T.T</td>
-            <td>T.F</td>
+            <td>
+              <%= spec ? (Number(spec.cl_wt_spec || 0) + Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.cl_ht_spec || 0) + Number(spec.cl_ht_spec_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.cl_kn_spec || 0) + Number(spec.cl_kn_spec_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.thickness || 0) + Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.top_flatness || 0) + Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
+            </td>
             <td></td>
-            <td>Weight</td>
-            <td>T.T</td>
-            <td>T.F</td>
+            <td>
+              <%= spec ? (Number(spec.cl_wt_spec || 0) + Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.thickness || 0) + Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.top_flatness || 0) + Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
+            </td>
             <td></td>
-            <td>Weight</td>
-            <td>T.T</td>
-            <td>T.F</td>
+            <td>
+              <%= spec ? (Number(spec.cl_wt_spec || 0) + Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.thickness || 0) + Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.top_flatness || 0) + Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
+            </td>
           </tr>
+
           <tr>
             <td colspan="2">NOMINAL</td>
-            <td>Weight</td>
-            <td>Height</td>
-            <td>Kn. Dia.</td>
-            <td>T.T</td>
-            <td>T.F</td>
+            <td>
+              <%= spec ? Number(spec.cl_wt_spec || 0).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? Number(spec.cl_ht_spec || 0).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? Number(spec.cl_kn_spec || 0).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? Number(spec.thickness || 0).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? Number(spec.top_flatness || 0).toFixed(2) : '' %>
+            </td>
             <td></td>
-            <td>Weight</td>
-            <td>T.T</td>
-            <td>T.F</td>
+            <td>
+              <%= spec ? Number(spec.cl_wt_spec || 0).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? Number(spec.thickness || 0).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? Number(spec.top_flatness || 0).toFixed(2) : '' %>
+            </td>
             <td></td>
-            <td>Weight</td>
-            <td>T.T</td>
-            <td>T.F</td>
+            <td>
+              <%= spec ? Number(spec.cl_wt_spec || 0).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? Number(spec.thickness || 0).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? Number(spec.top_flatness || 0).toFixed(2) : '' %>
+            </td>
           </tr>
+
           <tr>
             <td colspan="2">LSL</td>
-            <td>Weight</td>
-            <td>Height</td>
-            <td>Kn. Dia.</td>
-            <td>T.T</td>
-            <td>T.F</td>
+            <td>
+              <%= spec ? (Number(spec.cl_wt_spec || 0) - Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.cl_ht_spec || 0) - Number(spec.cl_ht_spec_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.cl_kn_spec || 0) - Number(spec.cl_kn_spec_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.thickness || 0) - Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.top_flatness || 0) - Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
+            </td>
             <td></td>
-            <td>Weight</td>
-            <td>T.T</td>
-            <td>T.F</td>
+            <td>
+              <%= spec ? (Number(spec.cl_wt_spec || 0) - Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.thickness || 0) - Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.top_flatness || 0) - Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
+            </td>
             <td></td>
-            <td>Weight</td>
-            <td>T.T</td>
-            <td>T.F</td>
+            <td>
+              <%= spec ? (Number(spec.cl_wt_spec || 0) - Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.thickness || 0) - Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.top_flatness || 0) - Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
+            </td>
           </tr>
+
           <tr>
             <td colspan="2">MIN.</td>
-            <td>Weight</td>
-            <td>Height</td>
-            <td>Kn. Dia.</td>
-            <td>T.T</td>
-            <td>T.F</td>
             <td></td>
-            <td>Weight</td>
-            <td>T.T</td>
-            <td>T.F</td>
             <td></td>
-            <td>Weight</td>
-            <td>T.T</td>
-            <td>T.F</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
+          <tr>
           <tr>
             <td colspan="2">MAX.</td>
-            <td>Weight</td>
-            <td>Height</td>
-            <td>Kn. Dia.</td>
-            <td>T.T</td>
-            <td>T.F</td>
             <td></td>
-            <td>Weight</td>
-            <td>T.T</td>
-            <td>T.F</td>
             <td></td>
-            <td>Weight</td>
-            <td>T.T</td>
-            <td>T.F</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
+          <tr>
           <tr>
             <td colspan="2">AVG.</td>
-            <td>Weight</td>
-            <td>Height</td>
-            <td>Kn. Dia.</td>
-            <td>T.T</td>
-            <td>T.F</td>
             <td></td>
-            <td>Weight</td>
-            <td>T.T</td>
-            <td>T.F</td>
             <td></td>
-            <td>Weight</td>
-            <td>T.T</td>
-            <td>T.F</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
           <tr>
+          <tr>
             <td colspan="2">RANGE</td>
-            <td>Weight</td>
-            <td>Height</td>
-            <td>Kn. Dia.</td>
-            <td>T.T</td>
-            <td>T.F</td>
             <td></td>
-            <td>Weight</td>
-            <td>T.T</td>
-            <td>T.F</td>
             <td></td>
-            <td>Weight</td>
-            <td>T.T</td>
-            <td>T.F</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
+          <tr>
+           
           <tr>
             <td>SL. NO.</td>
             <td>CL. NO.</td>
@@ -283,15 +374,15 @@
             <td>In. mm</td>
             <td>In. mm</td>
           </tr>
-          
+
         </tbody>
 
 
-     
-      <tbody id="report">
-        <tr>
+
+        <tbody id="report">
+          <tr>
             <td>01</td>
-            <td><input type="text"></td>
+            <td><input type="text" class="wt"></td>
             <td><input type="text"></td>
             <td><input type="text"></td>
             <td><input type="text"></td>
@@ -308,7 +399,7 @@
           </tr>
           <tr>
             <td>02</td>
-            <td><input type="text"></td>
+            <td><input type="text" class="wt"></td>
             <td><input type="text"></td>
             <td><input type="text"></td>
             <td><input type="text"></td>
@@ -325,7 +416,7 @@
           </tr>
           <tr>
             <td>03</td>
-            <td><input type="text"></td>
+            <td><input type="text" class="wt"></td>
             <td><input type="text"></td>
             <td><input type="text"></td>
             <td><input type="text"></td>
@@ -391,21 +482,21 @@
             <td><input type="text"></td>
             <td><input type="text"></td>
           </tr>
-            <td>07</td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
+          <td>07</td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
           </tr>
           <tr>
             <td>08</td>
@@ -492,21 +583,21 @@
             <td><input type="text"></td>
             <td><input type="text"></td>
           </tr>
-            <td>13</td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
+          <td>13</td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
           </tr>
           <tr>
             <td>14</td>
@@ -593,21 +684,21 @@
             <td><input type="text"></td>
             <td><input type="text"></td>
           </tr>
-            <td>19</td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
+          <td>19</td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
           </tr>
           <tr>
             <td>20</td>
@@ -694,21 +785,21 @@
             <td><input type="text"></td>
             <td><input type="text"></td>
           </tr>
-            <td>25</td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
+          <td>25</td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
           </tr>
           <tr>
             <td>26</td>
@@ -795,21 +886,21 @@
             <td><input type="text"></td>
             <td><input type="text"></td>
           </tr>
-            <td>31</td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
+          <td>31</td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
           </tr>
           <tr>
             <td>32</td>
@@ -896,21 +987,21 @@
             <td><input type="text"></td>
             <td><input type="text"></td>
           </tr>
-            <td>37</td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
+          <td>37</td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
           </tr>
           <tr>
             <td>38</td>
@@ -997,21 +1088,21 @@
             <td><input type="text"></td>
             <td><input type="text"></td>
           </tr>
-            <td>43</td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
-            <td><input type="text"></td>
+          <td>43</td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
+          <td><input type="text"></td>
           </tr>
           <tr>
             <td>44</td>
@@ -1098,14 +1189,14 @@
             <td><input type="text"></td>
             <td><input type="text"></td>
           </tr>
-      </tbody>
-    </table>
+        </tbody>
+      </table>
     </div>
-    
+
     <div class="body">
       <table id="CCMdefectTable">
         <tbody>
-          
+
         </tbody>
       </table>
       <table id="SFMdefectTable">
@@ -1146,37 +1237,37 @@
 
     const table = document.querySelector("#report"); // your table element
 
-table.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") {
-    e.preventDefault(); // stop form submission or new line
+    table.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault(); // stop form submission or new line
 
-    const currentInput = e.target;
-    if (currentInput.tagName !== "INPUT") return;
+        const currentInput = e.target;
+        if (currentInput.tagName !== "INPUT") return;
 
-    // find current cell (td) and row (tr)
-    const currentCell = currentInput.closest("td");
-    const currentRow = currentInput.closest("tr");
-    const colIndex = [...currentRow.children].indexOf(currentCell);
+        // find current cell (td) and row (tr)
+        const currentCell = currentInput.closest("td");
+        const currentRow = currentInput.closest("tr");
+        const colIndex = [...currentRow.children].indexOf(currentCell);
 
-    // find next row
-    const nextRow = currentRow.nextElementSibling;
-    if (nextRow) {
-      const nextCell = nextRow.children[colIndex];
-      if (nextCell) {
-        const nextInput = nextCell.querySelector("input, select, textarea");
-        if (nextInput) {
-          nextInput.focus();
+        // find next row
+        const nextRow = currentRow.nextElementSibling;
+        if (nextRow) {
+          const nextCell = nextRow.children[colIndex];
+          if (nextCell) {
+            const nextInput = nextCell.querySelector("input, select, textarea");
+            if (nextInput) {
+              nextInput.focus();
+            }
+          }
         }
       }
-    }
-  }
-});
+    });
 
   </script>
 
 
 
-  <script src="/javascripts/visualForm.js">
+  <script src="/javascripts/dimensionForm.js">
 
 
   </script>

@@ -5,6 +5,7 @@ const dimensionReport = require("../models/dimension")
 const router = express.Router();
 const Batch = require("../models/batchSC");
 const mbDetailsSC = require("../models/mbDetailsSC");
+const designSC = require("../models/specsSC")
 const docNo = require("../models/docNoDetailsSC")
 
 function getShiftDate() {
@@ -41,6 +42,9 @@ router.get("/:id", async (req, res) => {
       return res.status(404).send(`No batch found for machine ${mcId}`);
     }
 
+    //Fetching Design details
+    let spec = await designSC.findOne({design:latestBatches.design})
+
     //Fetching document details
     let docDetail = await docNo.findOne({docNo:"SIPL-QA-R-06"})
 
@@ -49,9 +53,12 @@ router.get("/:id", async (req, res) => {
 
     const existingInspection = await dimensionReport.findOne({
      date: getShiftDate(),
+     batch_number: latestBatches.batch_number,
       mc_no: { $regex: regex },
     })
-    res.render("inspection/dimension", {user, docDetail, mcId, latestBatches, mb_detail,inspectionReportIncom:existingInspection || null });
+console.log(spec);
+
+    res.render("inspection/dimension", {spec, user, docDetail, mcId, latestBatches, mb_detail,inspectionReportIncom:existingInspection || null });
   } catch (err) {
     console.error("Error fetching latest batches:", err);
     res.status(500).send("Server error");
@@ -72,7 +79,7 @@ router.post("/save", isLoggedIn, async (req, res) => {
     }
 
     // Check if inspection for this batch/date already exists
-    inspection = await dimensionReport.findOne({ batch_number, date });
+    inspection = await dimensionReport.findOne({ batch_number, date, mc_no });
     console.log(date);
     
 

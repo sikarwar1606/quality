@@ -35,9 +35,7 @@
               <td colspan="3">Design</td>
               <td colspan="5"><%=latestBatches? latestBatches.design : ''%></td>
               <td colspan="3">Batch No.</td>
-              <td colspan="5" id="batch_number">
-                <%=latestBatches? latestBatches.batch_number : ''%>
-              </td>
+              <td colspan="5" id="batch_number"><%=latestBatches? latestBatches.batch_number : ''%></td>
             </tr>
             <tr>
               <td colspan="3">M/C No.</td>
@@ -131,9 +129,7 @@
       </div>
     </div>
     <script>
-      let savedInspection = JSON.parse(
-        "<%- JSON.stringify(inspectionReportIncom || {}) %>"
-      );
+       let savedInspection = <%- JSON.stringify(inspectionReportIncom || {}) %>;
 
     </script>
 
