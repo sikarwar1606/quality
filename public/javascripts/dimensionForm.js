@@ -17,17 +17,56 @@ function getShiftDate() {
   return `${day}/${month}/${year}`;
 }
 
+// General function to calculate stats
+const calculateStats = (selector, minId, maxId, avgId, rangeId) => {
+  const inputs = document.querySelectorAll(selector);
+  let values = [];
 
+  inputs.forEach(input => {
+    const val = parseFloat(input.value);
+    if (!isNaN(val)) values.push(val);
+  });
 
+  if (values.length > 0) {
+    const min = Math.min(...values);
+    const max = Math.max(...values);
+    const avg = values.reduce((a, b) => a + b, 0) / values.length;
+    const range = max - min;
 
+    if (minId) document.querySelector(minId).textContent = min.toFixed(2);
+    if (maxId) document.querySelector(maxId).textContent = max.toFixed(2);
+    if (avgId) document.querySelector(avgId).textContent = avg.toFixed(2);
+    if (rangeId) document.querySelector(rangeId).textContent = range.toFixed(2);
+  } else {
+    if (minId) document.querySelector(minId).textContent = " ";
+    if (maxId) document.querySelector(maxId).textContent = " ";
+    if (avgId) document.querySelector(avgId).textContent = " ";
+    if (rangeId) document.querySelector(rangeId).textContent = " ";
+  }
+};
 
+// Call this function for each column
+const columns = [
+  { selector: '.wtA', minId: '#wtAmin', maxId: '#wtAmax', avgId: '#wtAavg', rangeId: '#wtArange' },
+  { selector: '.wtB', minId: '#wtBmin', maxId: '#wtBmax', avgId: '#wtBavg', rangeId: '#wtBrange' },
+  { selector: '.wtC', minId: '#wtCmin', maxId: '#wtCmax', avgId: '#wtCavg', rangeId: '#wtCrange' },
+  { selector: '.kn', minId: '#knMin', maxId: '#knMax', avgId: '#knAvg', rangeId: '#knRange' },
+  { selector: '.ht', minId: '#htMin', maxId: '#htMax', avgId: '#htAvg', rangeId: '#htRange' },
+  { selector: '.ttA', minId: '#ttAMin', maxId: '#ttAMax', avgId: '#ttAAvg', rangeId: '#ttARange' },
+  { selector: '.tfA', minId: '#tfAMin', maxId: '#tfAMax', avgId: '#tfAAvg', rangeId: '#tfARange' },
+  { selector: '.ttB', minId: '#ttBMin', maxId: '#ttBMax', avgId: '#ttBAvg', rangeId: '#ttBRange' },
+  { selector: '.tfB', minId: '#tfBMin', maxId: '#tfBMax', avgId: '#tfBAvg', rangeId: '#tfBRange' },
+  { selector: '.ttC', minId: '#ttCMin', maxId: '#ttCMax', avgId: '#ttCAvg', rangeId: '#ttCRange' },
+  { selector: '.tfC', minId: '#tfCMin', maxId: '#tfCMax', avgId: '#tfCAvg', rangeId: '#tfCRange' },
+];
 
-
-
-
-
-
-
+// Add event listeners to all inputs dynamically
+columns.forEach(col => {
+  const inputs = document.querySelectorAll(col.selector);
+  inputs.forEach(input => {
+    input.addEventListener('input', () => calculateStats(col.selector, col.minId, col.maxId, col.avgId, col.rangeId));
+  });
+});
 
 
 
