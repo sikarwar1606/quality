@@ -10,7 +10,7 @@ const shiftSchema = new mongoose.Schema({
 });
 
 const inspectionSchema = new mongoose.Schema({
-  date: { type: Date, required: true },   // save inspection date
+  date: { type: String, required: true },   // save inspection date
   batch_number: { type: String, required: true },
   mc_no: {type:String, required:true},
 

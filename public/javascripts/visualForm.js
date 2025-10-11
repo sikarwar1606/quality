@@ -17,6 +17,8 @@ function getShiftDate() {
   return `${day}/${month}/${year}`;
 }
 
+
+
 document.getElementById("date").value=getShiftDate()
 
 const ccmDefects = [
@@ -61,6 +63,7 @@ let toolNo = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 const batch_number = document.getElementById("batch_number").textContent.trim();
 const date = document.getElementById("date").value;
+
 const mc_no = document.getElementById("mc_no").textContent.trim();
 
 const ccmDefectTable = document
@@ -400,6 +403,7 @@ let inspection = {
 async function sendShiftData(shiftName) {
   try {
     inspection.date = date;
+    
     // inspection.batch_number = batch_number.textContent;
     // inspection.batch_number = batch_number.textContent.trim();
     inspection.batch_number = (batch_number?.textContent || '').trim();
