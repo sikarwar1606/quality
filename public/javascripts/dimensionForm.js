@@ -62,6 +62,8 @@ const calculateStats = (selector, minId, maxId, avgId, rangeId) => {
   }
 };
 
+
+
 // Call this function for each column
 const columns = [
   { selector: '.wtA', minId: '#wtAmin', maxId: '#wtAmax', avgId: '#wtAavg', rangeId: '#wtArange' },
@@ -76,7 +78,11 @@ const columns = [
   { selector: '.ttC', minId: '#ttCMin', maxId: '#ttCMax', avgId: '#ttCAvg', rangeId: '#ttCRange' },
   { selector: '.tfC', minId: '#tfCMin', maxId: '#tfCMax', avgId: '#tfCAvg', rangeId: '#tfCRange' },
 ];
-
+window.onload=function(){
+  columns.forEach(col => {
+    calculateStats(col.selector, col.minId, col.maxId, col.avgId, col.rangeId);
+  })
+}
 // Add event listeners to all inputs dynamically
 columns.forEach(col => {
   const inputs = document.querySelectorAll(col.selector);

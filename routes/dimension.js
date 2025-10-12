@@ -26,7 +26,7 @@ function getShiftDate() {
 }
 let inspection;
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", isLoggedIn, async (req, res) => {
   let user = req.user.username
   const mcId = req.params.id;
 
