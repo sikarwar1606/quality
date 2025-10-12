@@ -398,8 +398,8 @@
             </tr>
 
             <tr>
-              <td>SL. NO.</td>
-              <td>CL. NO.</td>
+              <td>SL. No.</td>
+              <td>CL. No.</td>
               <td>In. gm</td>
               <td>In. mm</td>
               <td>In. mm</td>
@@ -409,7 +409,7 @@
               <td>In. gm</td>
               <td>In. mm</td>
               <td>In. mm</td>
-              <td>CL. NO.</td>
+              <td>CL. No.</td>
               <td>In. gm</td>
               <td>In. mm</td>
               <td>In. mm</td>
@@ -471,17 +471,17 @@
 
           row.innerHTML = `
         <td>${i.toString().padStart(2, "0")}</td>
-        <td><input type="text" class="wt"></td>
+        <td ><input type="text" class="clA" ></td>
         <td><input class="wtA" type="text"></td>
         <td><input class="ht" type="text"></td>
         <td><input class="kn" type="text"></td>
         <td><input class="ttA" type="text"></td>
         <td><input class="tfA" type="text"></td>
-        <td><input type="text"></td>
+        <td><input type="text" class="clB"></td>
         <td><input class="wtB" type="text"></td>
         <td><input class="ttB" type="text"></td>
         <td><input class="tfB" type="text"></td>
-        <td><input type="text"></td>
+        <td><input type="text" class="clC"></td>
         <td><input class="wtC" type="text"></td>
         <td><input class="ttC" type="text"></td>
         <td><input class="tfC" type="text"></td>
@@ -522,6 +522,8 @@
           }
         }
       });
+
+      let savedInspection = <%- JSON.stringify(inspectionReportIncom || {}) %>;
     </script>
 
 

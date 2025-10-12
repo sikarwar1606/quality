@@ -1,3 +1,20 @@
+let wtA = document.querySelectorAll(".wtA");
+let wtB = document.querySelectorAll(".wtB");
+let wtC = document.querySelectorAll(".wtC");
+let ttA = document.querySelectorAll(".ttA");
+let tfA = document.querySelectorAll(".tfA");
+let ttB = document.querySelectorAll(".ttB");
+let tfB = document.querySelectorAll(".tfB");
+let ttC = document.querySelectorAll(".ttC");
+let tfC = document.querySelectorAll(".tfC");
+let kn = document.querySelectorAll(".kn");
+let ht = document.querySelectorAll(".ht");
+let clA = document.querySelectorAll(".clA");
+let clB = document.querySelectorAll(".clB");
+let clC = document.querySelectorAll(".clC");
+
+
+
 let now = new Date();
 let currentHours = now.getHours();
 function getShiftDate() {
@@ -74,9 +91,11 @@ document.getElementById("date").value=getShiftDate()
 
 
 
-const batch_number = document.getElementById("batch_number").textContent.trim();
+const batch_number = document.getElementById("batch_number").value;
+// const batch_number = document.getElementById("batch_number").textContent.trim();
 const date = document.getElementById("date").value;
-const mc_no = document.getElementById("mc_no").textContent.trim();
+const mc_no = document.getElementById("mc_no").value;
+// const mc_no = document.getElementById("mc_no").value.trim();
 
 
 
@@ -86,149 +105,105 @@ window.addEventListener("DOMContentLoaded", () => {
   if (savedInspection) {
     // Example for Shift A
     if (savedInspection.shiftA) {
-      inputs[1].value = savedInspection.shiftA.observation1[0] || " "; // time
-      def00.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftA.observation1[i + 1]; // observations1
-      });
-      tl00.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftA.observation1[i + 33]; // tool data1
+      
+      clA.forEach((cell, i) => {
+        cell.value = savedInspection.shiftA.clA[i]; // observations1
       });
 
-      inputs[2].value = savedInspection.shiftA.observation2[0] || " "; // time2
-      def10.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftA.observation2[i + 1]; // observations2
+      wtA.forEach((cell, i) => {
+        cell.value = savedInspection.shiftA.wtA[i]; // observations2
       });
-      tl10.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftA.observation2[i + 33]; // tool data2
+      
+      ht.forEach((cell, i) => {
+        cell.value = savedInspection.shiftA.ht[i ]; // observations3
       });
-      inputs[3].value = savedInspection.shiftA.observation3[0] || " "; // time3
-      def20.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftA.observation3[i + 1]; // observations3
+     
+      kn.forEach((cell, i) => {
+        cell.value = savedInspection.shiftA.kn[i ]; // observations4
       });
-      tl20.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftA.observation3[i + 33]; // tool data3
+      ttA.forEach((cell, i) => {
+        cell.value = savedInspection.shiftA.ttA[i ]; // observations4
       });
-      inputs[4].value = savedInspection.shiftA.observation4[0] || " "; // time4
-      def30.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftA.observation4[i + 1]; // observations4
+      tfA.forEach((cell, i) => {
+        cell.value = savedInspection.shiftA.tfA[i ]; // observations4
       });
-      tl30.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftA.observation4[i + 33]; // tool data4
-      });
-      remarksCol0.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftA.remarks[i];
-      });
+
       document.getElementById("inspector1").value =
         savedInspection.shiftA.inspectedBy;
     }
 
     if (savedInspection.shiftB) {
-      inputs[5].value = savedInspection.shiftB.observation1[0] || " "; // time
-      def01.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftB.observation1[i + 1]; // observations1
-      });
-      tl01.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftB.observation1[i + 33]; // tool data1
+      clB.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftB.clB[i ]; // observations1
       });
 
-      inputs[6].value = savedInspection.shiftB.observation2[0] || " "; // time2
-      def11.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftB.observation2[i + 1]; // observations2
+      wtB.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftB.wtB[i ]; // observations2
       });
-      tl11.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftB.observation2[i + 33]; // tool data2
+      ttB.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftB.ttB[i ]; // observations2
       });
-      inputs[7].value = savedInspection.shiftB.observation3[0] || " "; // time3
-      def21.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftB.observation3[i + 1]; // observations3
+      tfB.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftB.tfB[i ]; // observations2
       });
-      tl21.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftB.observation3[i + 33]; // tool data3
-      });
-      inputs[8].value = savedInspection.shiftB.observation4[0] || " "; // time4
-      def31.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftB.observation4[i + 1]; // observations4
-      });
-      tl31.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftB.observation4[i + 33]; // tool data4
-      });
-      remarksCol1.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftB.remarks[i];
-      });
-      document.getElementById("inspector2").value =
-        savedInspection.shiftB.inspectedBy;
+      
+      
+      document.getElementById("inspector1").value =
+        savedInspection.shiftA.inspectedBy;
     }
 
     if (savedInspection.shiftC) {
-      inputs[9].value = savedInspection.shiftC.observation1[0] || " "; // time
-      def02.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftC.observation1[i + 1]; // observations1
-      });
-      tl02.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftC.observation1[i + 33]; // tool data1
+      clC.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftC.clC[i ]; // observations1
       });
 
-      inputs[10].value = savedInspection.shiftC.observation2[0] || " "; // time2
-      def12.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftC.observation2[i + 1]; // observations2
+      wtC.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftC.wtC[i ]; // observations2
       });
-      tl12.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftC.observation2[i + 33]; // tool data2
+      ttC.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftC.ttC[i ]; // observations2
       });
-      inputs[11].value = savedInspection.shiftC.observation3[0] || " "; // time3
-      def22.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftC.observation3[i + 1]; // observations3
+      tfC.forEach((cell, i) => {
+        cell.textContent = savedInspection.shiftC.tfC[i ]; // observations2
       });
-      tl22.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftC.observation3[i + 33]; // tool data3
-      });
-      inputs[12].value = savedInspection.shiftC.observation4[0] || " "; // time4
-      def32.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftC.observation4[i + 1]; // observations4
-      });
-      tl32.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftC.observation4[i + 33]; // tool data4
-      });
-      remarksCol2.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftC.remarks[i];
-      });
-      document.getElementById("inspector3").value =
-        savedInspection.shiftC.inspectedBy;
+      
+      
+      document.getElementById("inspector1").value =
+        savedInspection.shiftA.inspectedBy;
     }
   }
 });
-let inputs = [];
-for (let i = 0; i <= 12; i++) {
-  inputs.push(document.getElementById(`t${i}`));
-}
 
 
 //Taking data in to a array
 let inspection = {
   shiftA: {
-    observation1: [],
-    observation2: [],
-    observation3: [],
-    observation4: [],
-    remarks: [],
-    inspectedBy: "",
+    clA: [],
+    wtA: [],
+    ht: [],
+    kn: [],
+    ttA: [],
+    tfA: [],
+    remarksA: "",
+    inspectedByA: "",
   },
   shiftB: {
-    observation1: [],
-    observation2: [],
-    observation3: [],
-    observation4: [],
-    remarks: [],
-    inspectedBy: "",
+    clB: [],
+    wtB: [],
+    ttB: [],
+    tfB: [],
+    remarksB: "",
+    inspectedByB: "",
   },
   shiftC: {
-    observation1: [],
-    observation2: [],
-    observation3: [],
-    observation4: [],
-    remarks: [],
-    inspectedBy: "",
+    clC: [],
+    wtC: [],
+    ttC: [],
+    tfC: [],
+    remarksC: "",
+    inspectedByC: "",
   },
+  
   verifiedBy: "",
 };
 
@@ -239,39 +214,24 @@ async function sendShiftData(shiftName) {
     inspection.verifiedBy = verifedBy;
 
     if (currentHours > 7 && currentHours <= 15 && shiftName === "shiftA") {
-      inspection.shiftA.observation1 = [inputs[1].value]; 
-      inspection.shiftA.observation2 = [inputs[2].value];
-      inspection.shiftA.observation3 = [inputs[3].value];
-      inspection.shiftA.observation4 = [inputs[4].value];
-
-      def00.forEach((cell) => {
-        inspection.shiftA.observation1.push(cell.textContent); // Pushing observations
+     
+      clA.forEach((cell) => {
+        inspection.shiftA.clA.push(cell.value); // Pushing observations
       });
-      def10.forEach((cell) => {
-        inspection.shiftA.observation2.push(cell.textContent);
+      wtA.forEach((cell) => {
+        inspection.shiftA.wtA.push(cell.value);
       });
-      def20.forEach((cell) => {
-        inspection.shiftA.observation3.push(cell.textContent);
+      ht.forEach((cell) => {
+        inspection.shiftA.ht.push(cell.value);
       });
-      def30.forEach((cell) => {
-        inspection.shiftA.observation4.push(cell.textContent);
+      kn.forEach((cell) => {
+        inspection.shiftA.kn.push(cell.value);
       });
-
-      tl00.forEach((cell) => {
-        inspection.shiftA.observation1.push(cell.textContent); // Pushing observations
+      ttA.forEach((cell) => {
+        inspection.shiftA.ttA.push(cell.value);
       });
-      tl10.forEach((cell) => {
-        inspection.shiftA.observation2.push(cell.textContent);
-      });
-      tl20.forEach((cell) => {
-        inspection.shiftA.observation3.push(cell.textContent);
-      });
-      tl30.forEach((cell) => {
-        inspection.shiftA.observation4.push(cell.textContent);
-      });
-
-      remarksCol0.forEach((cell, index) => {
-        inspection.shiftA.remarks[index] = cell.textContent; // Pushing Remarks
+      tfA.forEach((cell) => {
+        inspection.shiftA.tfA.push(cell.value);
       });
       let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
       inspection.shiftA.inspectedBy = inspector1;
@@ -280,97 +240,61 @@ async function sendShiftData(shiftName) {
       currentHours <= 23 &&
       shiftName === "shiftB"
     ) {
-      inspection.shiftB.observation1 = [inputs[5].value];
-      inspection.shiftB.observation2 = [inputs[6].value];
-      inspection.shiftB.observation3 = [inputs[7].value];
-      inspection.shiftB.observation4 = [inputs[8].value];
-
-      def01.forEach((cell) => {
-        inspection.shiftB.observation1.push(cell.textContent); // Pushing observations
+      clA.forEach((cell) => {
+        inspection.shiftA.closureNo.push(cell.value); // Pushing observations
       });
-      def11.forEach((cell) => {
-        inspection.shiftB.observation2.push(cell.textContent);
+      wtA.forEach((cell) => {
+        inspection.shiftA.weight.push(cell.value);
       });
-      def21.forEach((cell) => {
-        inspection.shiftB.observation3.push(cell.textContent);
+      ht.forEach((cell) => {
+        inspection.shiftA.height.push(cell.value);
       });
-      def31.forEach((cell) => {
-        inspection.shiftB.observation4.push(cell.textContent);
+      kn.forEach((cell) => {
+        inspection.shiftA.knDia.push(cell.value);
       });
-
-      tl01.forEach((cell) => {
-        inspection.shiftB.observation1.push(cell.textContent); // Pushing observations
+      ttA.forEach((cell) => {
+        inspection.shiftA.tt.push(cell.value);
       });
-      tl11.forEach((cell) => {
-        inspection.shiftB.observation2.push(cell.textContent);
+      tfA.forEach((cell) => {
+        inspection.shiftA.tf.push(cell.value);
       });
-      tl21.forEach((cell) => {
-        inspection.shiftB.observation3.push(cell.textContent);
-      });
-      tl31.forEach((cell) => {
-        inspection.shiftB.observation4.push(cell.textContent);
-      });
-
-      remarksCol1.forEach((cell) => {
-        inspection.shiftB.remarks.push(cell.textContent); // Pushing Remarks
-      });
-      let inspector2 = document.getElementById("inspector2").value; //Pushing inspector name
-      console.log(inspector2);
-
-      inspection.shiftB.inspectedBy = inspector2;
+      let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
+      inspection.shiftA.inspectedBy = inspector1;
     } else if (
       (currentHours >= 23 || currentHours < 7) &&
       shiftName === "shiftC"
     ) {
-      inspection.shiftC.observation1 = [inputs[9].value]; //Pushing time
-      inspection.shiftC.observation2 = [inputs[10].value]; //Pushing time
-      inspection.shiftC.observation3 = [inputs[11].value]; //Pushing time
-      inspection.shiftC.observation4 = [inputs[12].value]; //Pushing time
-
-      def02.forEach((cell) => {
-        inspection.shiftC.observation1.push(cell.textContent); // Pushing observations
+     clA.forEach((cell) => {
+        inspection.shiftA.closureNo.push(cell.value); // Pushing observations
       });
-      tl02.forEach((cell) => {
-        inspection.shiftC.observation1.push(cell.textContent); // Pushing observations
+      wtA.forEach((cell) => {
+        inspection.shiftA.weight.push(cell.value);
       });
-
-      def12.forEach((cell) => {
-        inspection.shiftC.observation2.push(cell.textContent);
+      ht.forEach((cell) => {
+        inspection.shiftA.height.push(cell.value);
       });
-      tl12.forEach((cell) => {
-        inspection.shiftC.observation2.push(cell.textContent);
+      kn.forEach((cell) => {
+        inspection.shiftA.knDia.push(cell.value);
       });
-
-      def22.forEach((cell) => {
-        inspection.shiftC.observation3.push(cell.textContent);
+      ttA.forEach((cell) => {
+        inspection.shiftA.tt.push(cell.value);
       });
-      tl22.forEach((cell) => {
-        inspection.shiftC.observation3.push(cell.textContent);
+      tfA.forEach((cell) => {
+        inspection.shiftA.tf.push(cell.value);
       });
-
-      def32.forEach((cell) => {
-        inspection.shiftC.observation4.push(cell.textContent);
-      });
-      tl32.forEach((cell) => {
-        inspection.shiftC.observation4.push(cell.textContent);
-      });
-
-      remarksCol2.forEach((cell) => {
-        inspection.shiftC.remarks.push(cell.textContent); // Pushing Remarks
-      });
-      let inspector3 = document.getElementById("inspector3").value; //Pushing inspector name
-      inspection.shiftC.inspectedBy = inspector3;
+      let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
+      inspection.shiftA.inspectedBy = inspector1;
     } else {
       alert("You are not allowed to make changes here");
     }
 
-    const response = await fetch("/visual/save", {
+    const response = await fetch("/dimension/save", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         date: document.getElementById("date").value,
         mc_no: mc_no,
-        batch_number: document.getElementById("batch_number").textContent,
+        batch_number: document.getElementById("batch_number").value,
         [shiftName]: inspection[shiftName], // send only selected shift
         verifiedBy: document.getElementById("verifedBy").value,
       }),

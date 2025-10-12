@@ -56,7 +56,6 @@ router.get("/:id", async (req, res) => {
      batch_number: latestBatches.batch_number,
       mc_no: { $regex: regex },
     })
-console.log(spec);
 
     res.render("inspection/dimension", {spec, user, docDetail, mcId, latestBatches, mb_detail,inspectionReportIncom:existingInspection || null });
   } catch (err) {
@@ -70,6 +69,7 @@ router.post("/save", isLoggedIn, async (req, res) => {
     const { date, batch_number, mc_no, shiftA, shiftB, shiftC, verifiedBy } =
       req.body;
       
+console.log(date, batch_number);
 
     if (!date || !batch_number) {
       return res.status(400).json({
