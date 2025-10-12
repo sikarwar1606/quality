@@ -27,12 +27,7 @@
     <section
       class="my-8 mx-3 md:mx-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
     >
-      <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition">
-        <h3 class="text-gray-500 font-semibold">Active Line</h3>
-        <p class="text-3xl font-bold text-indigo-600 mt-2">
-          <%= machineList.length %>
-        </p>
-      </div>
+     
 
       <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition">
         <h3 class="text-gray-500 font-semibold">Latest Batch</h3>
@@ -48,11 +43,24 @@
         <h3 class="text-gray-500 font-semibold">Visual Inspection</h3>
         <p class="text-3xl font-bold text-green-600 mt-2">
           <a href="/visual/CCM-01">
-            <img
-              src="../images/document.svg"
-              alt="COA"
-              class="w-6 h-6 inline-block"
-            />
+            <video width="50"  preload="none" style="background: transparent  url('https://cdn-icons-png.flaticon.com/512/19013/19013031.png') 50% 50% / fit no-repeat;" autoplay="autoplay" loop="true" muted="muted" playsinline="">
+        <source src="https://cdn-icons-mp4.flaticon.com/512/19013/19013031.mp4" type="video/mp4">
+    </video>
+           
+          </a>
+        </p>
+      </div>
+      <div
+        class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition"
+        id="dimension"
+      >
+        <h3 class="text-gray-500 font-semibold">Dimension</h3>
+        <p class="text-3xl font-bold text-green-600 mt-2">
+          <a href="/dimension/CCM-01">
+           <video width="50"  preload="none" style="background: transparent  url('https://cdn-icons-png.flaticon.com/512/19026/19026322.png') 50% 50% / fit no-repeat;" autoplay="autoplay" loop="true" muted="muted" playsinline="">
+        <source src="https://cdn-icons-mp4.flaticon.com/512/19026/19026322.mp4" type="video/mp4">
+    </video>
+
           </a>
         </p>
       </div>
@@ -64,11 +72,9 @@
         <h3 class="text-gray-500 font-semibold">Prepare COA</h3>
         <p class="text-3xl font-bold text-green-600 mt-2">
           <a href="/coa/coa">
-            <img
-              src="../images/document.svg"
-              alt="COA"
-              class="w-6 h-6 inline-block"
-            />
+             <video width="50"  preload="none" style="background: transparent  url('https://cdn-icons-png.flaticon.com/512/6172/6172540.png') 50% 50% / fit no-repeat;" autoplay="autoplay" loop="true" muted="muted" playsinline="">
+        <source src="https://cdn-icons-mp4.flaticon.com/512/6172/6172540.mp4" type="video/mp4">
+    </video>
           </a>
         </p>
       </div>
@@ -121,6 +127,10 @@
       let visualInspection = document.getElementById("visualInspection");
       visualInspection.addEventListener("click", () => {
         window.location.href = "/visual/CCM-01";
+      });
+      let dimension = document.getElementById("dimension");
+      dimension.addEventListener("click", () => {
+        window.location.href = "/dimension/CCM-01";
       });
     </script>
   </body>
