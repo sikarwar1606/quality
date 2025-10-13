@@ -169,7 +169,7 @@ window.addEventListener("DOMContentLoaded", () => {
       
       
       document.getElementById("inspector1").value =
-        savedInspection.shiftA.inspectedBy;
+        savedInspection.shiftB.inspectedBy;
     }
 
     if (savedInspection.shiftC) {
@@ -189,7 +189,7 @@ window.addEventListener("DOMContentLoaded", () => {
       
       
       document.getElementById("inspector1").value =
-        savedInspection.shiftA.inspectedBy;
+        savedInspection.shiftC.inspectedBy;
     }
   }
 });
@@ -260,50 +260,38 @@ async function sendShiftData(shiftName) {
       currentHours <= 23 &&
       shiftName === "shiftB"
     ) {
-      clA.forEach((cell) => {
-        inspection.shiftA.closureNo.push(cell.value); // Pushing observations
+      clB.forEach((cell) => {
+        inspection.shiftB.clA.push(cell.value); // Pushing observations
       });
-      wtA.forEach((cell) => {
-        inspection.shiftA.weight.push(cell.value);
+      wtB.forEach((cell) => {
+        inspection.shiftB.wtB.push(cell.value);
       });
-      ht.forEach((cell) => {
-        inspection.shiftA.height.push(cell.value);
+      ttB.forEach((cell) => {
+        inspection.shiftB.ttB.push(cell.value);
       });
-      kn.forEach((cell) => {
-        inspection.shiftA.knDia.push(cell.value);
-      });
-      ttA.forEach((cell) => {
-        inspection.shiftA.tt.push(cell.value);
-      });
-      tfA.forEach((cell) => {
-        inspection.shiftA.tf.push(cell.value);
+      tfB.forEach((cell) => {
+        inspection.shiftB.tfB.push(cell.value);
       });
       let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
-      inspection.shiftA.inspectedBy = inspector1;
+      inspection.shiftB.inspectedBy = inspector1;
     } else if (
       (currentHours >= 23 || currentHours < 7) &&
       shiftName === "shiftC"
     ) {
-     clA.forEach((cell) => {
-        inspection.shiftA.closureNo.push(cell.value); // Pushing observations
+     clC.forEach((cell) => {
+        inspection.shiftC.clC.push(cell.value); // Pushing observations
       });
-      wtA.forEach((cell) => {
-        inspection.shiftA.weight.push(cell.value);
+      wtC.forEach((cell) => {
+        inspection.shiftC.wtC.push(cell.value);
       });
-      ht.forEach((cell) => {
-        inspection.shiftA.height.push(cell.value);
+      ttC.forEach((cell) => {
+        inspection.shiftC.ttC.push(cell.value);
       });
-      kn.forEach((cell) => {
-        inspection.shiftA.knDia.push(cell.value);
-      });
-      ttA.forEach((cell) => {
-        inspection.shiftA.tt.push(cell.value);
-      });
-      tfA.forEach((cell) => {
-        inspection.shiftA.tf.push(cell.value);
+      tfC.forEach((cell) => {
+        inspection.shiftC.tfC.push(cell.value);
       });
       let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
-      inspection.shiftA.inspectedBy = inspector1;
+      inspection.shiftC.inspectedBy = inspector1;
     } else {
       alert("You are not allowed to make changes here");
     }
