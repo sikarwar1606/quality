@@ -13,9 +13,16 @@ let clA = document.querySelectorAll(".clA");
 let clB = document.querySelectorAll(".clB");
 let clC = document.querySelectorAll(".clC");
 
-const savedInspection = JSON.parse(
-  document.getElementById("inspection-data").textContent || "{}"
-);
+let savedInspection = {};
+try {
+  const el = document.getElementById("inspection-data");
+  if (el && el.textContent.trim()) {
+    savedInspection = JSON.parse(el.textContent);
+  }
+} catch (err) {
+  console.error("Error parsing inspection JSON:", err);
+  savedInspection = {};
+}
 
 
 
