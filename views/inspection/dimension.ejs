@@ -524,9 +524,14 @@
         }
       });
 
-      let savedInspection = <%- JSON.stringify(inspectionReportIncom || {}) %>;
+      // let savedInspection = <%- JSON.stringify(inspectionReportIncom || {}) %>;
+
+      
     </script>
 
+<script id="inspection-data" type="application/json">
+  <%= JSON.stringify(inspectionReportIncom || {}) %>
+</script>
 
 
 

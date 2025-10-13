@@ -13,6 +13,10 @@ let clA = document.querySelectorAll(".clA");
 let clB = document.querySelectorAll(".clB");
 let clC = document.querySelectorAll(".clC");
 
+const savedInspection = JSON.parse(
+  document.getElementById("inspection-data").textContent || "{}"
+);
+
 
 
 let now = new Date();
@@ -94,6 +98,8 @@ columns.forEach(col => {
 
 
 document.getElementById("date").value=getShiftDate()
+
+
 
 
 
