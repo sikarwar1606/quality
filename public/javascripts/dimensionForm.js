@@ -109,6 +109,8 @@ const mc_no = document.getElementById("mc_no").value;
 
 window.addEventListener("DOMContentLoaded", () => {
   if (savedInspection) {
+    console.log(`This from frontend ${savedInspection}`);
+    
     // Example for Shift A
     if (savedInspection.shiftA) {
       
@@ -121,7 +123,7 @@ window.addEventListener("DOMContentLoaded", () => {
       });
       
       ht.forEach((cell, i) => {
-        cell.value = savedInspection.shiftA.ht[i ]; // observations3
+        cell.value = savedInspection.shiftA.ht[i]; // observations3
       });
      
       kn.forEach((cell, i) => {
@@ -140,17 +142,17 @@ window.addEventListener("DOMContentLoaded", () => {
 
     if (savedInspection.shiftB) {
       clB.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftB.clB[i ]; // observations1
+        cell.value = savedInspection.shiftB.clB[i ]; // observations1
       });
 
       wtB.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftB.wtB[i ]; // observations2
+        cell.value = savedInspection.shiftB.wtB[i ]; // observations2
       });
       ttB.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftB.ttB[i ]; // observations2
+        cell.value = savedInspection.shiftB.ttB[i ]; // observations2
       });
       tfB.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftB.tfB[i ]; // observations2
+        cell.value = savedInspection.shiftB.tfB[i ]; // observations2
       });
       
       
@@ -160,17 +162,17 @@ window.addEventListener("DOMContentLoaded", () => {
 
     if (savedInspection.shiftC) {
       clC.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftC.clC[i ]; // observations1
+        cell.value = savedInspection.shiftC.clC[i ]; // observations1
       });
 
       wtC.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftC.wtC[i ]; // observations2
+        cell.value = savedInspection.shiftC.wtC[i ]; // observations2
       });
       ttC.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftC.ttC[i ]; // observations2
+        cell.value = savedInspection.shiftC.ttC[i ]; // observations2
       });
       tfC.forEach((cell, i) => {
-        cell.textContent = savedInspection.shiftC.tfC[i ]; // observations2
+        cell.value = savedInspection.shiftC.tfC[i ]; // observations2
       });
       
       

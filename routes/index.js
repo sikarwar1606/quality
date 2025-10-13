@@ -13,7 +13,7 @@ passport.use(
 );
 
 const machineList = [
-  "CCM-01", "CCM-02", "CCM-03", "CCM-04", "CCM-06","CCM-07","CCM-07",
+  "CCM-01", "CCM-02", "CCM-03", "CCM-04", "CCM-06","CCM-07 / CCM-08",
   "CCM-09 / CCM-10", "CCM-12",
   "CCM-14", "CCM-15", "CCM-16", "CCM-17"
 ];
