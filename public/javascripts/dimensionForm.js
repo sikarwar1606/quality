@@ -109,7 +109,7 @@ const mc_no = document.getElementById("mc_no").value;
 
 window.addEventListener("DOMContentLoaded", () => {
   if (savedInspection) {
-    console.log(`This from frontend ${savedInspection}`);
+    console.log(`This from frontend ${JSON.stringify(savedInspection)}`);
     
     // Example for Shift A
     if (savedInspection.shiftA) {
