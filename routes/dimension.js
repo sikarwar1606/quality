@@ -56,7 +56,6 @@ router.get("/:id", isLoggedIn, async (req, res) => {
      batch_number: latestBatches.batch_number,
       mc_no: { $regex: regex },
     })
-    console.log(`This is from backedn ${existingInspection}`);
     
 
     res.render("inspection/dimension", {spec, user, docDetail, mcId, latestBatches, mb_detail,inspectionReportIncom:existingInspection || null });
@@ -71,7 +70,6 @@ router.post("/save", isLoggedIn, async (req, res) => {
     const { date, batch_number, mc_no, shiftA, shiftB, shiftC, verifiedBy } =
       req.body;
       
-console.log(date, batch_number);
 
     if (!date || !batch_number) {
       return res.status(400).json({
@@ -82,7 +80,6 @@ console.log(date, batch_number);
 
     // Check if inspection for this batch/date already exists
     inspection = await dimensionReport.findOne({ batch_number, date, mc_no });
-    console.log(date);
     
 
     if (!inspection) {
