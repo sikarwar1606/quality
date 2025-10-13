@@ -233,7 +233,7 @@ async function sendShiftData(shiftName) {
     inspection.batch_number = batch_number.textContent;
     inspection.verifiedBy = verifedBy;
 
-    if (currentHours > 7 && currentHours <= 15 && shiftName === "shiftA") {
+    // if (currentHours > 7 && currentHours <= 15 && shiftName === "shiftA") {
      
       clA.forEach((cell) => {
         inspection.shiftA.clA.push(cell.value); // Pushing observations
@@ -255,11 +255,11 @@ async function sendShiftData(shiftName) {
       });
       let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
       inspection.shiftA.inspectedBy = inspector1;
-    } else if (
-      currentHours > 15 &&
-      currentHours <= 23 &&
-      shiftName === "shiftB"
-    ) {
+    // } else if (
+    //   currentHours > 15 &&
+    //   currentHours <= 23 &&
+    //   shiftName === "shiftB"
+    // ) {
       clB.forEach((cell) => {
         inspection.shiftB.clA.push(cell.value); // Pushing observations
       });
@@ -272,12 +272,12 @@ async function sendShiftData(shiftName) {
       tfB.forEach((cell) => {
         inspection.shiftB.tfB.push(cell.value);
       });
-      let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
+      let inspector2 = document.getElementById("inspector2").value; //Pushing inspector name
       inspection.shiftB.inspectedBy = inspector1;
-    } else if (
-      (currentHours >= 23 || currentHours < 7) &&
-      shiftName === "shiftC"
-    ) {
+    // } else if (
+    //   (currentHours >= 23 || currentHours < 7) &&
+    //   shiftName === "shiftC"
+    // ) {
      clC.forEach((cell) => {
         inspection.shiftC.clC.push(cell.value); // Pushing observations
       });
@@ -290,11 +290,11 @@ async function sendShiftData(shiftName) {
       tfC.forEach((cell) => {
         inspection.shiftC.tfC.push(cell.value);
       });
-      let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
+      let inspector3 = document.getElementById("inspector3").value; //Pushing inspector name
       inspection.shiftC.inspectedBy = inspector1;
-    } else {
-      alert("You are not allowed to make changes here");
-    }
+    // } else {
+    //   alert("You are not allowed to make changes here");
+    // }
 
     const response = await fetch("/dimension/save", {
       method: "POST",
