@@ -10,8 +10,6 @@ var users = require('./models/users');
 const mongostore = require('connect-mongo');
 
 //Models
-
-
 const customerSchema = require('./models/customerSC');
 const mbDetailsSchema = require('./models/mbDetailsSC');
 const rmDetailsSchema = require('./models/rmDetailsSC');
@@ -37,11 +35,15 @@ const cokeCoaDetails = require('./routes/cokeCoaDetails');
 const relianceCoaDetails = require('./routes/relianceCoaDetails');
 const newCustomer = require('./routes/newCustomer');
 const specs = require('./routes/specs');
-const mbCodesRoute = require('./routes/mbcode')
-const DesignRoute = require('./routes/design')
-const rmRoute = require('./routes/rm')
 const addLogoRoute = require('./routes/addLogo')
-const logoRoute = require('./routes/logo')
+
+//Suggession routes
+const logoRoute = require('./routes/suggesion/logo')
+const rmRoute = require('./routes/suggesion/rm')
+const mbCodesRoute = require('./routes/mbcode')
+const DesignRoute = require('./routes/suggesion/design')
+const customerList = require('./routes/suggesion/customer')
+const batchList = require('./routes/suggesion/batch')
 
 
 //Find routes
@@ -132,16 +134,19 @@ app.use('/design', findDesign);
 app.use('/add_logo', addLogoRoute);
 app.use('/find_logo', findLogo)
 app.use('/addnewdocDetails', addnewDocDetail);
+app.use("/dimension", dimensionReport)
+
+
+//Links to show the suggesion while entering the data
 app.use("/api/mbcodes", mbCodesRoute);
 app.use("/api/design", DesignRoute);
 app.use("/api/rm", rmRoute);
 app.use("/api/logo", logoRoute);
-app.use("/dimension", dimensionReport)
-
+app.use("/api/customer", customerList);
+app.use("/api/batch", batchList);
 
 
 //Inspection Routes
-// app.use('/', inspec)
 app.use('/visual', visualReport)
 
 

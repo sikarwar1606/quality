@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const rmDetailsSC = require("../models/rmDetailsSC"); // adjust path if needed
+const rmDetailsSC = require("../../models/rmDetailsSC"); // adjust path if needed
 
 // GET /api/mbcodes
 router.get("/", async (req, res) => {
