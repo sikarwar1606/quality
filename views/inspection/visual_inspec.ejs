@@ -110,12 +110,12 @@
           <tbody>
             <tr>
               <td>Inspected By:</td>
-              <td><input type="text" id="inspector1" value="" readonly /></td>
+              <td><input type="text" id="inspector1"  readonly /></td>
               <td>Inspected By:</td>
-              <td><input type="text" id="inspector2" value="" readonly /></td>
+              <td><input type="text" id="inspector2"  readonly /></td>
               <td>Inspected By:</td>
               <td>
-                <input type="text" id="inspector3" value="" readonly />
+                <input type="text" id="inspector3"  readonly />
               </td>
             </tr>
             <tr>
@@ -130,6 +130,8 @@
     </div>
     <script>
        let savedInspection = <%- JSON.stringify(inspectionReportIncom || {}) %>;
+      
+       
 
     </script>
 
