@@ -26,6 +26,7 @@ const dimensionSchema = require('./routes/dimension');
 //Routes
 var indexRouter = require('./routes/index');
 const customerRouter = require('./routes/prepareCoa');
+const customerRouterInt = require('./routes/prepareCoaInt');
 const addmbDetail = require('./routes/addMB');
 const addrmDetail = require('./routes/addRM');
 const addnewDocDetail = require('./routes/docNoDetails');
@@ -51,6 +52,7 @@ const findBatch = require('./routes/find/findBatch');
 const findCustomer = require('./routes/find/findCustomer');
 const findMB = require('./routes/find/findMB');
 const findRM = require('./routes/find/findRM');
+const findcokecoa = require('./routes/find/findCokeCoaDe');
 const findrelcoa = require('./routes/find/findRelCoaDe');
 const findDesign = require('./routes/find/findDesign');
 const findLogo = require('./routes/find/findLogo')
@@ -118,6 +120,7 @@ app.use('/visualSc', visualReportSc)
 //Routes
 app.use('/', indexRouter);
 app.use('/coa/redirect', customerRouter);
+app.use('/coa/redirectInt', customerRouterInt);
 app.use('/cokecoadetails', cokeCoaDetails);
 app.use('/reliancecoadetails', relianceCoaDetails);
 app.use('/newplant', newPlant);
@@ -130,6 +133,7 @@ app.use('/addmbDetails', addmbDetail);
 app.use('/mb', findMB);
 app.use('/rm', findRM);
 app.use('/relcoade', findrelcoa);
+app.use('/cokecoade', findcokecoa);
 app.use('/design', findDesign);
 app.use('/add_logo', addLogoRoute);
 app.use('/find_logo', findLogo)

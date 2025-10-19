@@ -90,12 +90,14 @@
     <%- include("../partials/qualityNav") %>
       <div class="details">
         <div class="main">
-          <h1>Corporate</h1>
+          <h1>COA PREPARATION</h1>
           <h3>Enter Below Details</h3>
 
-          <form action="/coa/redirect" method="post">
+          <form action="/coa/redirectInt" method="post">
             <label for="plant_code"> Enter Plant Code: </label>
-            <input type="text" id="plant_code" name="plant_code" placeholder="Secure-Hyd(A), Vform-Hyd(B)" required />
+            <input type="text" id="plant_code" name="plant_code" placeholder="Secure-Hyd(A), Vform-Hyd(B) " required />
+            <label for="template_code"> Enter Custoer Template Code: </label>
+            <input type="text" id="template_code" name="template_code" placeholder="Coca Cola(C), Reliance(R), Bisleri(B),Parle(P),Other(L)" required />
 
             <label for="customer_gst"> Customer GST: </label>
             <input type="text" id="customer_gst" name="customer_gst" list="customerList" required />

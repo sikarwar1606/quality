@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <title>Design Details</title>
+    <link rel="stylesheet" href="/stylesheets/add_batch.css">
+  </head>
+  <body>
+    <%- include("../partials/qualityNav") %>
+
+    <div class="details">
+      <div class="main">
+        <h1>Corporate</h1>
+        <h3>Enter Design Details</h3>
+
+        <form action="/cokecoade/update" method="post">
+
+          <label for="design"> Closure Design: </label>
+          <input type="text" id="design" name="design" value="<%=design%>" required />
+
+          <label for="product"> Product : </label>
+          <input type="text" id="product" name="product" value="<%=product%>" required />
+
+          <label for="cl_type"> Closure Type: </label>
+          <input type="text" id="cl_type" name="cl_type" value="<%=cl_type%>" required />
+
+          <label for="cl_wt">Closure Weight Nominal: </label>
+          <input type="text" id="shift" name="cl_wt" value="<%=cl_wt %>" required />
+
+          <label for="cl_wt_tol"> Tolerance Of Weight: </label>
+          <input type="text" id="cl_wt_tol" name="cl_wt_tol" value="<%=cl_wt_tol %>"  required />
+
+          <label for="cl_drw">Drawing Number Of Closure: </label>
+          <input type="text" id="cl_drw" name="cl_drw" class="uppercase" value="<%=cl_drw %>" required />
+
+          <label for="cl_fn_ty"> Closure Finish Type: </label>
+          <input type="text" id="cl_fn_ty" name="cl_fn_ty" class="uppercase" value="<%=cl_fn_ty %>"  required />
+
+          <label for="cl_size_ty"> Closure Type & Size: </label>
+          <input type="text" id="cl_size_ty" name="cl_size_ty" class="uppercase" value="<%=cl_size_ty %>"  required />
+
+          <label for="cl_kn">Closure Knurling Nominal: </label>
+          <input type="text" id="cl_kn" name="cl_kn" value="<%=cl_kn%>"  required />
+
+          <label for="cl_kn_tol">Closure Knurling Tolerance: </label>
+          <input type="text" id="cl_kn_tol" name="cl_kn_tol" value="<%=cl_kn_tol %>"   required />
+
+          <label for="cl_liner_wt">Liner Weight Nominal: </label>
+          <input type="text" id="cl_liner_wt" name="cl_liner_wt" value="<%=cl_liner_wt%>"  required />
+
+          <label for="cl_liner_wt_tol">Liner Weight Tolerance: </label>
+          <input type="text" id="cl_liner_wt_tol" name="cl_liner_wt_tol" value="<%=cl_liner_wt_tol%>"  required />
+
+          <label for="cl_ht">Closure Height Nominal: </label>
+          <input type="text" id="cl_ht" name="cl_ht" value="<%=cl_ht %>"  required />
+
+          <label for="cl_ht_tol">Closure Height Tolerance: </label>
+          <input type="text" id="cl_ht_tol" name="cl_ht_tol"  value="<%=cl_ht_tol %>"  required />
+
+          <label for="cl_sst">SST: </label>
+          <input type="text" id="cl_sst" name="cl_sst"  value="<%=cl_sst %>"  required />
+
+          <label for="issued_by">Issued By: </label>
+          <input type="text" id="issued_by" name="issued_by" class="uppercase" value="<%=issued_by %>"  required />
+
+          <div class="wrap">
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      // Force uppercase for all inputs with class="uppercase"
+      document.querySelectorAll("input.uppercase").forEach(input => {
+        input.addEventListener("input", function () {
+          this.value = this.value.toUpperCase();
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <title>Find Coke Coa </title>
+    <link rel="stylesheet" href="/stylesheets/add_batch.css">
+  </head>
+  <body>
+    <%- include("../partials/qualityNav") %>
+
+    <div class="details">
+      <div class="main">
+        <h1>Corporate</h1>
+        <h3>Design</h3>
+
+        <form action="/cokecoade/find" method="post">
+          <!-- Take input of batch number of find the details and after that show those details in the below fields -->
+          
+          <label for="design"> Design: </label>
+          <input type="text" id="design" name="design" />
+
+          <button type="submit">Search</button>
+        </form>
+
+
+        
+      </div>
+    </div>
+
+    
+  </body>
+</html>

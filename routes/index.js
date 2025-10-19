@@ -140,5 +140,8 @@ router.get("/logout", (req, res, next) => {
 router.get("/coa/coa", isLoggedIn, function (req, res) {
   res.render("coa/coa");
 });
+router.get("/coa/coaInt", isLoggedIn, function (req, res) {
+  res.render("coa/coaInt");
+});
 
 module.exports = router;

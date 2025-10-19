@@ -275,10 +275,15 @@
           <th>Closure Weight</th>
           <td><%=cokeCoaDetailsData.cl_wt%>gm</td>
           <th>Colorant Detail and Dosage</th>
-          <td>
-            <%=batch_data.mb_code + "("+ mbData.mb_colour + ")"
-            +mbData.mb_dosage + "%"%>
-          </td>
+         <td>
+  <%= 
+    (mbData && mbData.mb_code && mbData.mb_code !== 'N/A') 
+      ? `${mbData.mb_code} ${mbData.mb_colour && mbData.mb_colour !== 'N/A' ? '(' + mbData.mb_colour + ')' : ''} ${mbData.mb_dosage && mbData.mb_dosage !== 'N/A' ? mbData.mb_dosage + '%' : ''}` 
+      : 'N/A' 
+  %>
+</td>
+
+
         </tr>
         <tr>
           <th>Closure Drawing No</th>
