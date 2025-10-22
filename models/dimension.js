@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
-const shiftASchema = new mongoose.Schema({
+const data1Schema = new mongoose.Schema({
+  shift:{type:String, default:""},
   clA: { type: [String], default: [] },
   wtA: { type: [String], default: [] },
   ht: { type: [String], default: [] },
@@ -10,7 +11,8 @@ const shiftASchema = new mongoose.Schema({
   remarksA: { type: [String], default: "" },
   inspectedByA: { type: String, default: "" }
 });
-const shiftBSchema = new mongoose.Schema({
+const data2Schema = new mongoose.Schema({
+  shift:{type:String, default:""},
   clB: { type: [String], default: [] },
   wtB: { type: [String], default: [] },
   ttB: { type: [String], default: [] },
@@ -18,7 +20,8 @@ const shiftBSchema = new mongoose.Schema({
   remarksB: { type: [String], default: "" },
   inspectedByB: { type: String, default: "" }
 });
-const shiftCSchema = new mongoose.Schema({
+const data3Schema = new mongoose.Schema({
+  shift:{type:String, default:""},
   clC: { type: [String], default: [] },
   wtC: { type: [String], default: [] },
   ttC: { type: [String], default: [] },
@@ -33,9 +36,9 @@ const inspectionSchema = new mongoose.Schema({
   batch_number: { type: String, required: true },
   mc_no: {type:String, required:true},
 
-  shiftA: { type: shiftASchema, default: () => ({}) },
-  shiftB: { type: shiftBSchema, default: () => ({}) },
-  shiftC: { type: shiftCSchema, default: () => ({}) },
+  data1: { type: data1Schema, default: () => ({}) },
+  data2: { type: data2Schema, default: () => ({}) },
+  data3: { type: data3Schema, default: () => ({}) },
 
   verifiedBy: { type: String, default: "" }
 });

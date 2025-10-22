@@ -168,18 +168,18 @@
             <tr>
               <td colspan="2"></td>
               <td colspan="5">
-                <button id="shiftA" onclick="sendShiftData('shiftA')">
-                  Shift A
+                <button  >
+                  <input id="shiftA" type="text" style="background-color: rgb(189, 226, 189);;" value="Shift A">
                 </button>
               </td>
               <td colspan="4">
-                <button id="shiftB" onclick="sendShiftData('shiftB')">
-                  Shift B
+                <button  >
+                  <input id="shiftB" type="text" style="background-color: rgb(189, 226, 189);;" value="Shift B">
                 </button>
               </td>
               <td colspan="4">
-                <button id="shiftC" onclick="sendShiftData('shiftC')">
-                  Shift C
+                <button  >
+                  <input id="shiftC" type="text" style="background-color: rgb(189, 226, 189);;" value="Shift C">
                 </button>
               </td>
             </tr>
@@ -459,6 +459,11 @@
             </tr>
           </tbody>
         </table>
+        <div class="saveData">
+          <button style="width: 100px; height: 30px; cursor: pointer;" onclick="sendShiftData('data1')">First</button>
+          <button style="width: 100px; height: 30px; cursor: pointer;" onclick="sendShiftData('data2')">Second</button>
+          <button style="width: 100px; height: 30px; cursor: pointer;" onclick="sendShiftData('data3')">Third</button>
+        </div>
       </div>
     </div>
     <script>

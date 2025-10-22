@@ -12,6 +12,9 @@ let ht = document.querySelectorAll(".ht");
 let clA = document.querySelectorAll(".clA");
 let clB = document.querySelectorAll(".clB");
 let clC = document.querySelectorAll(".clC");
+let shiftName1 = document.getElementById("shiftA").value
+let shiftName2 = document.getElementById("shiftB").value
+let shiftName3 = document.getElementById("shiftC").value
 
 let savedInspection = {};
 try {
@@ -23,8 +26,6 @@ try {
   console.error("Error parsing inspection JSON:", err);
   savedInspection = {};
 }
-
-
 
 let now = new Date();
 let currentHours = now.getHours();
@@ -72,8 +73,6 @@ const calculateStats = (selector, minId, maxId, avgId, rangeId) => {
     if (rangeId) document.querySelector(rangeId).textContent = " ";
   }
 };
-
-
 
 // Call this function for each column
 const columns = [
@@ -124,72 +123,72 @@ window.addEventListener("DOMContentLoaded", () => {
   if (savedInspection) {
     
     // Example for Shift A
-    if (savedInspection.shiftA) {
+    if (savedInspection.data1) {
       
       clA.forEach((cell, i) => {
-        cell.value = savedInspection.shiftA.clA[i]; // observations1
+        cell.value = savedInspection.data1.clA[i] || ""; // observations1
       });
 
       wtA.forEach((cell, i) => {
-        cell.value = savedInspection.shiftA.wtA[i]; // observations2
+        cell.value = savedInspection.data1.wtA[i]|| ""; // observations2
       });
       
       ht.forEach((cell, i) => {
-        cell.value = savedInspection.shiftA.ht[i]; // observations3
+        cell.value = savedInspection.data1.ht[i]|| ""; // observations3
       });
      
       kn.forEach((cell, i) => {
-        cell.value = savedInspection.shiftA.kn[i ]; // observations4
+        cell.value = savedInspection.data1.kn[i ]|| ""; // observations4
       });
       ttA.forEach((cell, i) => {
-        cell.value = savedInspection.shiftA.ttA[i ]; // observations4
+        cell.value = savedInspection.data1.ttA[i ]|| ""; // observations4
       });
       tfA.forEach((cell, i) => {
-        cell.value = savedInspection.shiftA.tfA[i ]; // observations4
+        cell.value = savedInspection.data1.tfA[i ]|| ""; // observations4
       });
 
       document.getElementById("inspector1").value =
-        savedInspection.shiftA.inspectedBy;
+        savedInspection.data1.inspectedBy|| "";
     }
 
-    if (savedInspection.shiftB) {
+    if (savedInspection.data2) {
       clB.forEach((cell, i) => {
-        cell.value = savedInspection.shiftB.clB[i ]; // observations1
+        cell.value = savedInspection.data2.clB[i ]|| ""; // observations1
       });
 
       wtB.forEach((cell, i) => {
-        cell.value = savedInspection.shiftB.wtB[i ]; // observations2
+        cell.value = savedInspection.data2.wtB[i ]|| ""; // observations2
       });
       ttB.forEach((cell, i) => {
-        cell.value = savedInspection.shiftB.ttB[i ]; // observations2
+        cell.value = savedInspection.data2.ttB[i ]|| ""; // observations2
       });
       tfB.forEach((cell, i) => {
-        cell.value = savedInspection.shiftB.tfB[i ]; // observations2
+        cell.value = savedInspection.data2.tfB[i ]|| ""; // observations2
       });
       
       
       document.getElementById("inspector1").value =
-        savedInspection.shiftB.inspectedBy;
+        savedInspection.data2.inspectedBy || "";
     }
 
-    if (savedInspection.shiftC) {
+    if (savedInspection.data3) {
       clC.forEach((cell, i) => {
-        cell.value = savedInspection.shiftC.clC[i ]; // observations1
+        cell.value = savedInspection.data3.clC[i ]|| ""; // observations1
       });
 
       wtC.forEach((cell, i) => {
-        cell.value = savedInspection.shiftC.wtC[i ]; // observations2
+        cell.value = savedInspection.data3.wtC[i ]|| ""; // observations2
       });
       ttC.forEach((cell, i) => {
-        cell.value = savedInspection.shiftC.ttC[i ]; // observations2
+        cell.value = savedInspection.data3.ttC[i ]|| ""; // observations2
       });
       tfC.forEach((cell, i) => {
-        cell.value = savedInspection.shiftC.tfC[i ]; // observations2
+        cell.value = savedInspection.data3.tfC[i ]|| ""; // observations2
       });
       
       
       document.getElementById("inspector1").value =
-        savedInspection.shiftC.inspectedBy;
+        savedInspection.data3.inspectedBy|| "";
     }
   }
 });
@@ -197,7 +196,8 @@ window.addEventListener("DOMContentLoaded", () => {
 
 //Taking data in to a array
 let inspection = {
-  shiftA: {
+  data1: {
+    shift:"",
     clA: [],
     wtA: [],
     ht: [],
@@ -205,23 +205,25 @@ let inspection = {
     ttA: [],
     tfA: [],
     remarksA: "",
-    inspectedByA: "",
+    inspectedBy: "",
   },
-  shiftB: {
+  data2: {
+    shift:"",
     clB: [],
     wtB: [],
     ttB: [],
     tfB: [],
     remarksB: "",
-    inspectedByB: "",
+    inspectedBy: "",
   },
-  shiftC: {
+  data3: {
+    shift:"",
     clC: [],
     wtC: [],
     ttC: [],
     tfC: [],
     remarksC: "",
-    inspectedByC: "",
+    inspectedBy: "",
   },
   
   verifiedBy: "",
@@ -233,68 +235,64 @@ async function sendShiftData(shiftName) {
     inspection.batch_number = batch_number.textContent;
     inspection.verifiedBy = verifedBy;
 
-    // if (currentHours > 7 && currentHours <= 15 && shiftName === "shiftA") {
+    if (shiftName === "data1") {
+     console.log(typeof(shiftName));
      
       clA.forEach((cell) => {
-        inspection.shiftA.clA.push(cell.value); // Pushing observations
+        inspection.data1.clA.push(cell.value); // Pushing observations
       });
       wtA.forEach((cell) => {
-        inspection.shiftA.wtA.push(cell.value);
+        inspection.data1.wtA.push(cell.value);
       });
       ht.forEach((cell) => {
-        inspection.shiftA.ht.push(cell.value);
+        inspection.data1.ht.push(cell.value);
       });
       kn.forEach((cell) => {
-        inspection.shiftA.kn.push(cell.value);
+        inspection.data1.kn.push(cell.value);
       });
       ttA.forEach((cell) => {
-        inspection.shiftA.ttA.push(cell.value);
+        inspection.data1.ttA.push(cell.value);
       });
       tfA.forEach((cell) => {
-        inspection.shiftA.tfA.push(cell.value);
+        inspection.data1.tfA.push(cell.value);
       });
+      inspection.data1.shift=shiftName1;
       let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
-      inspection.shiftA.inspectedBy = inspector1;
-    // } else if (
-    //   currentHours > 15 &&
-    //   currentHours <= 23 &&
-    //   shiftName === "shiftB"
-    // ) {
+      inspection.data1.inspectedBy = inspector1;
+
+    } else if (shiftName === "data2") {
       clB.forEach((cell) => {
-        inspection.shiftB.clA.push(cell.value); // Pushing observations
+        inspection.data2.clB.push(cell.value); // Pushing observations
       });
       wtB.forEach((cell) => {
-        inspection.shiftB.wtB.push(cell.value);
+        inspection.data2.wtB.push(cell.value);
       });
       ttB.forEach((cell) => {
-        inspection.shiftB.ttB.push(cell.value);
+        inspection.data2.ttB.push(cell.value);
       });
       tfB.forEach((cell) => {
-        inspection.shiftB.tfB.push(cell.value);
+        inspection.data2.tfB.push(cell.value);
       });
       let inspector2 = document.getElementById("inspector2").value; //Pushing inspector name
-      inspection.shiftB.inspectedBy = inspector1;
-    // } else if (
-    //   (currentHours >= 23 || currentHours < 7) &&
-    //   shiftName === "shiftC"
-    // ) {
+      inspection.data2.inspectedBy = inspector2;
+    } else if (shiftName === "data3") {
      clC.forEach((cell) => {
-        inspection.shiftC.clC.push(cell.value); // Pushing observations
+        inspection.data3.clC.push(cell.value); // Pushing observations
       });
       wtC.forEach((cell) => {
-        inspection.shiftC.wtC.push(cell.value);
+        inspection.data3.wtC.push(cell.value);
       });
       ttC.forEach((cell) => {
-        inspection.shiftC.ttC.push(cell.value);
+        inspection.data3.ttC.push(cell.value);
       });
       tfC.forEach((cell) => {
-        inspection.shiftC.tfC.push(cell.value);
+        inspection.data3.tfC.push(cell.value);
       });
       let inspector3 = document.getElementById("inspector3").value; //Pushing inspector name
-      inspection.shiftC.inspectedBy = inspector1;
-    // } else {
-    //   alert("You are not allowed to make changes here");
-    // }
+      inspection.data3.inspectedBy = inspector3;
+    } else {
+      alert("You are not allowed to make changes here");
+    }
 
     const response = await fetch("/dimension/save", {
       method: "POST",
