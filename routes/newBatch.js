@@ -2,10 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const batch_details = require("../models/batchSC");
 const { isLoggedIn } = require("./auth");
-const userSC = require('../models/users')
+const userSC = require("../models/users");
 
 const router = express.Router();
-
 
 const getNewBatchNo = async () => {
   const lastBatch = await batch_details
@@ -43,37 +42,46 @@ const getNewBatchNo = async () => {
   return batch_number;
 };
 
-
-
 // ✅ GET route: render batch form
 router.get("/new", isLoggedIn, (req, res) => {
-  let user = req.user.username
-  
-  res.render("add/add_batch", {user});
+  let user = req.user.username;
+
+  res.render("add/add_batch", { user });
 });
 
-
 let showBatch;
-
 
 // ✅ POST route: save batch
 router.post("/new", isLoggedIn, async (req, res) => {
   let { date } = req.body;
-  let user = req.body
+  let user = req.body;
   //Convert dd/mm/yyyy to yyyy-mm-dd
   if (date.includes("/")) {
-    const [day, month, year] = date.split("/")
+    const [day, month, year] = date.split("/");
     date = `${year}-${month}-${day}`;
   }
   try {
     const batch_number = await getNewBatchNo();
     // showBatch = batch_number
 
+    if (typeof req.body.mc_no === "string") {
+      req.body.mc_no = req.body.mc_no
+        .split(",") // split by comma
+        .map((e) => e.trim().replace(/^'|'$/g, "")) // remove spaces and single quotes
+        .filter((e) => e); // remove any empty strings
+    }
+
+    // 🧩 Step 2: Create new document
     const newBatchData = new batch_details({
       ...req.body,
       date: new Date(date),
-      batch_number,      
-      issued_by:req.user.username
+      batch_number,
+      issued_by: req.user.username,
+
+      // ...req.body,
+      // date: new Date(date),
+      // batch_number,
+      // issued_by:req.user.username
     });
 
     await newBatchData.save();

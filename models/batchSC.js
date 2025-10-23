@@ -6,7 +6,7 @@ const batchSchema = new mongoose.Schema({
   shift:String,
   design: String,
   debossed: String,
-  mc_no:String,
+  mc_no:{ type: [String], default: [] },
   rm: String,
   mb_code:String,
   mc_speed: Number,
