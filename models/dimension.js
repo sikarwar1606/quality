@@ -1,32 +1,32 @@
 const mongoose = require("mongoose");
 
 const data1Schema = new mongoose.Schema({
-  shift:{type:String, default:""},
+  shift:{type:[String], default:""},
   clA: { type: [String], default: [] },
   wtA: { type: [String], default: [] },
   ht: { type: [String], default: [] },
   kn: { type: [String], default: [] },
   ttA: { type: [String], default: [] },
   tfA: { type: [String], default: [] },
-  remarksA: { type: [String], default: "" },
+  // remarksA: { type: String, default: "" },
   inspectedByA: { type: String, default: "" }
 });
 const data2Schema = new mongoose.Schema({
-  shift:{type:String, default:""},
+  shift:{type:[String], default:""},
   clB: { type: [String], default: [] },
   wtB: { type: [String], default: [] },
   ttB: { type: [String], default: [] },
   tfB: { type: [String], default: [] },
-  remarksB: { type: [String], default: "" },
+  // remarksB: { type: String, default: "" },
   inspectedByB: { type: String, default: "" }
 });
 const data3Schema = new mongoose.Schema({
-  shift:{type:String, default:""},
+  shift:{type:[String], default:""},
   clC: { type: [String], default: [] },
   wtC: { type: [String], default: [] },
   ttC: { type: [String], default: [] },
   tfC: { type: [String], default: [] },
-  remarksC: { type: [String], default: "" },
+  // remarksC: { type: String, default: "" },
   inspectedByC: { type: String, default: "" }
 });
 

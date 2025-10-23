@@ -236,7 +236,6 @@ async function sendShiftData(shiftName) {
     inspection.verifiedBy = verifedBy;
 
     if (shiftName === "data1") {
-     console.log(typeof(shiftName));
      
       clA.forEach((cell) => {
         inspection.data1.clA.push(cell.value); // Pushing observations
@@ -273,6 +272,7 @@ async function sendShiftData(shiftName) {
       tfB.forEach((cell) => {
         inspection.data2.tfB.push(cell.value);
       });
+      inspection.data2.shift=shiftName2;
       let inspector2 = document.getElementById("inspector2").value; //Pushing inspector name
       inspection.data2.inspectedBy = inspector2;
     } else if (shiftName === "data3") {
@@ -288,6 +288,7 @@ async function sendShiftData(shiftName) {
       tfC.forEach((cell) => {
         inspection.data3.tfC.push(cell.value);
       });
+      inspection.data3.shift=shiftName3;
       let inspector3 = document.getElementById("inspector3").value; //Pushing inspector name
       inspection.data3.inspectedBy = inspector3;
     } else {
@@ -307,8 +308,7 @@ async function sendShiftData(shiftName) {
     });
 
     const result = await response.json();
-    console.log("Saved:", result);
-    alert(`${shiftName} saved successfully!`);
+    alert(`Data saved successfully!`);
   } catch (err) {
     console.error("Error saving shift data:", err);
   }

@@ -67,9 +67,10 @@ router.get("/:id", isLoggedIn, async (req, res) => {
 
 router.post("/save", isLoggedIn, async (req, res) => {
   try {
-    const { date, batch_number, mc_no, shiftA, shiftB, shiftC, verifiedBy } =
+    const { date, batch_number, mc_no, data1, data2, data3, verifiedBy } =
       req.body;
-      
+    console.log(req.body);
+    
 
     if (!date || !batch_number) {
       return res.status(400).json({
@@ -88,16 +89,16 @@ router.post("/save", isLoggedIn, async (req, res) => {
         date,
         mc_no,
         batch_number,
-        shiftA,
-        shiftB,
-        shiftC,
+        data1,
+        data2,
+        data3,
         verifiedBy,
       });
     } else {
       // update existing document
-      if (shiftA) inspection.shiftA = shiftA;
-      if (shiftB) inspection.shiftB = shiftB;
-      if (shiftC) inspection.shiftC = shiftC;
+      if (data1) inspection.data1 = data1;
+      if (data2) inspection.data2 = data2;
+      if (data3) inspection.data3 = data3;
       if (verifiedBy) inspection.verifiedBy = verifiedBy;
     }
 
