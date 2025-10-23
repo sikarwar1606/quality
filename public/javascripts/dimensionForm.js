@@ -119,96 +119,158 @@ const mc_no = document.getElementById("mc_no").value;
 
 
 
+// window.addEventListener("DOMContentLoaded", () => {
+//   let savedInspection = {};
+
+//   try {
+//     const el = document.getElementById("inspection-data");
+//     if (el && el.textContent.trim()) {
+//       savedInspection = JSON.parse(el.textContent);
+//       console.log("Loaded inspection data:", savedInspection);
+//     }
+//   } catch (err) {
+//     console.error("Error parsing inspection JSON:", err);
+//     savedInspection = {};
+//   } 
+  
+//   console.log(savedInspection);
+  
+//   if (savedInspection) {
+    
+//     // Example for Shift A
+//     if (savedInspection.data1) {
+      
+//       clA.forEach((cell, i) => {
+//         cell.value = savedInspection.data1.clA[i] || ""; // observations1
+//       });
+
+//       wtA.forEach((cell, i) => {
+//         cell.value = savedInspection.data1.wtA[i]|| ""; // observations2
+//       });
+      
+//       ht.forEach((cell, i) => {
+//         cell.value = savedInspection.data1.ht[i]|| ""; // observations3
+//       });
+     
+//       kn.forEach((cell, i) => {
+//         cell.value = savedInspection.data1.kn[i ]|| ""; // observations4
+//       });
+//       ttA.forEach((cell, i) => {
+//         cell.value = savedInspection.data1.ttA[i ]|| ""; // observations4
+//       });
+//       tfA.forEach((cell, i) => {
+//         cell.value = savedInspection.data1.tfA[i ]|| ""; // observations4
+//       });
+
+//       document.getElementById("inspector1").value =
+//         savedInspection.data1.inspectedBy|| "";
+//     }
+
+//     if (savedInspection.data2) {
+//       clB.forEach((cell, i) => {
+//         cell.value = savedInspection.data2.clB[i ]|| ""; // observations1
+//       });
+
+//       wtB.forEach((cell, i) => {
+//         cell.value = savedInspection.data2.wtB[i ]|| ""; // observations2
+//       });
+//       ttB.forEach((cell, i) => {
+//         cell.value = savedInspection.data2.ttB[i ]|| ""; // observations2
+//       });
+//       tfB.forEach((cell, i) => {
+//         cell.value = savedInspection.data2.tfB[i ]|| ""; // observations2
+//       });
+      
+      
+//       document.getElementById("inspector1").value =
+//         savedInspection.data2.inspectedBy || "";
+//     }
+
+//     if (savedInspection.data3) {
+//       clC.forEach((cell, i) => {
+//         cell.value = savedInspection.data3.clC[i ]|| ""; // observations1
+//       });
+
+//       wtC.forEach((cell, i) => {
+//         cell.value = savedInspection.data3.wtC[i ]|| ""; // observations2
+//       });
+//       ttC.forEach((cell, i) => {
+//         cell.value = savedInspection.data3.ttC[i ]|| ""; // observations2
+//       });
+//       tfC.forEach((cell, i) => {
+//         cell.value = savedInspection.data3.tfC[i ]|| ""; // observations2
+//       });
+      
+      
+//       document.getElementById("inspector1").value =
+//         savedInspection.data3.inspectedBy|| "";
+//     }
+//   } else{
+//     console.log("Data not loaded now");
+    
+//   }
+// });
+
+
 window.addEventListener("DOMContentLoaded", () => {
   let savedInspection = {};
 
+  // ✅ Step 1: Safely parse embedded JSON
   try {
     const el = document.getElementById("inspection-data");
     if (el && el.textContent.trim()) {
       savedInspection = JSON.parse(el.textContent);
-      console.log("Loaded inspection data:", savedInspection);
+      console.log("✅ Loaded inspection data:", savedInspection);
+    } else {
+      console.warn("⚠️ No inspection data found in script tag.");
     }
   } catch (err) {
-    console.error("Error parsing inspection JSON:", err);
+    console.error("❌ Error parsing inspection JSON:", err);
     savedInspection = {};
-  } 
-  
-  console.log(savedInspection);
-  
-  if (savedInspection) {
-    
-    // Example for Shift A
-    if (savedInspection.data1) {
-      
-      clA.forEach((cell, i) => {
-        cell.value = savedInspection.data1.clA[i] || ""; // observations1
-      });
-
-      wtA.forEach((cell, i) => {
-        cell.value = savedInspection.data1.wtA[i]|| ""; // observations2
-      });
-      
-      ht.forEach((cell, i) => {
-        cell.value = savedInspection.data1.ht[i]|| ""; // observations3
-      });
-     
-      kn.forEach((cell, i) => {
-        cell.value = savedInspection.data1.kn[i ]|| ""; // observations4
-      });
-      ttA.forEach((cell, i) => {
-        cell.value = savedInspection.data1.ttA[i ]|| ""; // observations4
-      });
-      tfA.forEach((cell, i) => {
-        cell.value = savedInspection.data1.tfA[i ]|| ""; // observations4
-      });
-
-      document.getElementById("inspector1").value =
-        savedInspection.data1.inspectedBy|| "";
-    }
-
-    if (savedInspection.data2) {
-      clB.forEach((cell, i) => {
-        cell.value = savedInspection.data2.clB[i ]|| ""; // observations1
-      });
-
-      wtB.forEach((cell, i) => {
-        cell.value = savedInspection.data2.wtB[i ]|| ""; // observations2
-      });
-      ttB.forEach((cell, i) => {
-        cell.value = savedInspection.data2.ttB[i ]|| ""; // observations2
-      });
-      tfB.forEach((cell, i) => {
-        cell.value = savedInspection.data2.tfB[i ]|| ""; // observations2
-      });
-      
-      
-      document.getElementById("inspector1").value =
-        savedInspection.data2.inspectedBy || "";
-    }
-
-    if (savedInspection.data3) {
-      clC.forEach((cell, i) => {
-        cell.value = savedInspection.data3.clC[i ]|| ""; // observations1
-      });
-
-      wtC.forEach((cell, i) => {
-        cell.value = savedInspection.data3.wtC[i ]|| ""; // observations2
-      });
-      ttC.forEach((cell, i) => {
-        cell.value = savedInspection.data3.ttC[i ]|| ""; // observations2
-      });
-      tfC.forEach((cell, i) => {
-        cell.value = savedInspection.data3.tfC[i ]|| ""; // observations2
-      });
-      
-      
-      document.getElementById("inspector1").value =
-        savedInspection.data3.inspectedBy|| "";
-    }
-  } else{
-    console.log("Data not loaded now");
-    
   }
+
+  // ✅ Step 2: Make sure data exists
+  if (!savedInspection || Object.keys(savedInspection).length === 0) {
+    console.warn("⚠️ No saved inspection data available.");
+    return;
+  }
+
+  // ✅ Step 3: Fill data for Shift A
+  if (savedInspection.data1) {
+    clA.forEach((cell, i) => (cell.value = savedInspection.data1.clA?.[i] || ""));
+    wtA.forEach((cell, i) => (cell.value = savedInspection.data1.wtA?.[i] || ""));
+    ht.forEach((cell, i) => (cell.value = savedInspection.data1.ht?.[i] || ""));
+    kn.forEach((cell, i) => (cell.value = savedInspection.data1.kn?.[i] || ""));
+    ttA.forEach((cell, i) => (cell.value = savedInspection.data1.ttA?.[i] || ""));
+    tfA.forEach((cell, i) => (cell.value = savedInspection.data1.tfA?.[i] || ""));
+
+    document.getElementById("inspector1").value =
+      savedInspection.data1.inspectedBy || "";
+  }
+
+  // ✅ Step 4: Fill data for Shift B
+  if (savedInspection.data2) {
+    clB.forEach((cell, i) => (cell.value = savedInspection.data2.clB?.[i] || ""));
+    wtB.forEach((cell, i) => (cell.value = savedInspection.data2.wtB?.[i] || ""));
+    ttB.forEach((cell, i) => (cell.value = savedInspection.data2.ttB?.[i] || ""));
+    tfB.forEach((cell, i) => (cell.value = savedInspection.data2.tfB?.[i] || ""));
+
+    document.getElementById("inspector2").value =
+      savedInspection.data2.inspectedBy || "";
+  }
+
+  // ✅ Step 5: Fill data for Shift C
+  if (savedInspection.data3) {
+    clC.forEach((cell, i) => (cell.value = savedInspection.data3.clC?.[i] || ""));
+    wtC.forEach((cell, i) => (cell.value = savedInspection.data3.wtC?.[i] || ""));
+    ttC.forEach((cell, i) => (cell.value = savedInspection.data3.ttC?.[i] || ""));
+    tfC.forEach((cell, i) => (cell.value = savedInspection.data3.tfC?.[i] || ""));
+
+    document.getElementById("inspector3").value =
+      savedInspection.data3.inspectedBy || "";
+  }
+
+  console.log("✅ Data applied successfully!");
 });
 
 
