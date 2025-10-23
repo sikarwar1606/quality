@@ -120,6 +120,8 @@ const mc_no = document.getElementById("mc_no").value;
 
 
 window.addEventListener("DOMContentLoaded", () => {
+  console.log(savedInspection);
+  
   if (savedInspection) {
     
     // Example for Shift A
@@ -190,6 +192,9 @@ window.addEventListener("DOMContentLoaded", () => {
       document.getElementById("inspector1").value =
         savedInspection.data3.inspectedBy|| "";
     }
+  } else{
+    console.log("Data not loaded now");
+    
   }
 });
 

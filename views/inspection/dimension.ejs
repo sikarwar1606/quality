@@ -1,481 +1,441 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1." />
-    <title>Dimension</title>
-    <!-- <link rel="stylesheet" href="/stylesheets/inspection/visual.css"> -->
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        font-size: 10px;
-        margin: 0;
-        padding: 0;
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1." />
+  <title>Dimension</title>
+  <!-- <link rel="stylesheet" href="/stylesheets/inspection/visual.css"> -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 10px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .visual {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      box-sizing: border-box;
+      background: #fff;
+      border: 2px solid black;
+    }
+
+    td input {
+      width: 100%;
+      border: none;
+      font-size: 10px;
+      box-sizing: border-box;
+      color: black;
+    }
+
+    #date,
+    #design,
+    #colour,
+    #mc_no,
+    #batch_number,
+    #logo,
+    #mc_speed,
+    #rm {
+      width: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .heading table td {
+      border: 1px solid black;
+      padding: 2.5px;
+      text-align: center;
+      vertical-align: middle;
+      width: 8vw;
+    }
+
+    .body table td {
+      border: 1px solid black;
+    }
+
+    .time,
+    .obdefect,
+    .teband {
+      width: 35px;
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .defect-found {
+      color: red;
+    }
+
+    button {
+      width: 100%;
+      background-color: rgb(189, 226, 189);
+      border: none;
+      cursor: pointer;
+    }
+
+    @media print {
+      .no-print {
+        display: none !important;
       }
+    }
+  </style>
+</head>
 
-      .visual {
-        width: 210mm;
-        min-height: 297mm;
-        margin: 0 auto;
-        box-sizing: border-box;
-        background: #fff;
-        border: 2px solid black;
-      }
+<body data-user="<%= user %>">
+  <div class="no-print"><%- include("../partials/dimension") %></div>
+  <div class="no-print"></div>
+  <div class="visual">
+    <div class="heading">
+      <table class="tbCCM">
+        <tbody>
+          <tr>
+            <td colspan="3" rowspan="2">
+              Doc No. <br />
+              <%=docDetail? docDetail.docNo: "" %>
+            </td>
+            <td colspan="9">Secure Industries Pvt. Ltd. Hyderabad</td>
+            <td colspan="3">Rev. No. <%=docDetail? docDetail.revNo: "" %>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="9">
+              <%=docDetail? docDetail.docName: "" %>
+            </td>
 
-      td input {
-        width: 100%;
-        border: none;
-        font-size: 10px;
-        box-sizing: border-box;
-        color: black;
-      }
+            <td colspan="3">Rev. Dt. <%=docDetail? docDetail.revDt: "" %>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">
+              Date: <input type="text" id="date" name="date" required />
+            </td>
+            <td colspan="4">
+              Design:
+              <input type="text " id="design" value="<%=latestBatches? latestBatches.design : ''%>" />
+            </td>
+            <td colspan="4">
+              DB/EM/PL:
+              <input type="text" id="logo" value="<%=latestBatches? latestBatches.debossed : ''%>" />
+            </td>
+            <td colspan="3">
+              M/C No.:
+              <input type="text" id="mc_no" value="<%=mcId? mcId:''%>" />
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">
+              Batch No.:
+              <input type="text" id="batch_number" value="<%=latestBatches? latestBatches.batch_number : ''%>" />
+            </td>
+            <td colspan="4">
+              R/M:
+              <input type="text" id="rm" value="<%=latestBatches? latestBatches.rm : ''%>" />
+            </td>
+            <td colspan="4">
+              Colour:
+              <input type="text" id="colour" value="<%=mb_detail? mb_detail.mb_colour : ''%>" />
+            </td>
+            <td colspan="3">
+              M/C Speed:
+              <input type="text" id="mc_speed" value="<%=latestBatches? latestBatches.mc_speed : ''%>" />
+            </td>
+          </tr>
 
-      #date,
-      #design,
-      #colour,
-      #mc_no,
-      #batch_number,
-      #logo,
-      #mc_speed,
-      #rm {
-        width: auto;
-      }
+          <tr>
+            <td colspan="2"></td>
+            <td colspan="5">
+              <button>
+                <input id="shiftA" type="text" style="background-color: rgb(189, 226, 189);;" value="Shift A">
+              </button>
+            </td>
+            <td colspan="4">
+              <button>
+                <input id="shiftB" type="text" style="background-color: rgb(189, 226, 189);;" value="Shift B">
+              </button>
+            </td>
+            <td colspan="4">
+              <button>
+                <input id="shiftC" type="text" style="background-color: rgb(189, 226, 189);;" value="Shift C">
+              </button>
+            </td>
+          </tr>
 
-      table {
-        width: 100%;
-        border-collapse: collapse;
-      }
+          <tr>
+            <td colspan="2">Parameter</td>
+            <td>Weight<br />(In gm)</td>
+            <td>Height<br />(In mm)</td>
+            <td>Kn. Dia.<br />(In mm)</td>
+            <td>T.T<br />(In mm)</td>
+            <td>T.F<br />(In mm)</td>
+            <td></td>
+            <td>Weight<br />(In gm)</td>
+            <td>T.T<br />(In mm)</td>
+            <td>T.F<br />(In mm)</td>
+            <td></td>
+            <td>Weight</td>
+            <td>T.T<br />(In mm)</td>
+            <td>T.F<br />(In mm)</td>
+          </tr>
+          <tr>
+            <td colspan="2">USL</td>
+            <td>
+              <%= spec ? (Number(spec.cl_wt_spec || 0) + Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.cl_ht_spec || 0) + Number(spec.cl_ht_spec_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.cl_kn_spec || 0) + Number(spec.cl_kn_spec_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.thickness || 0) + Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.top_flatness || 0) + Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td></td>
+            <td>
+              <%= spec ? (Number(spec.cl_wt_spec || 0) + Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.thickness || 0) + Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.top_flatness || 0) + Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td></td>
+            <td>
+              <%= spec ? (Number(spec.cl_wt_spec || 0) + Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.thickness || 0) + Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.top_flatness || 0) + Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
+            </td>
+          </tr>
 
-      .heading table td {
-        border: 1px solid black;
-        padding: 2.5px;
-        text-align: center;
-        vertical-align: middle;
-        width: 8vw;
-      }
+          <tr>
+            <td colspan="2">NOMINAL</td>
+            <td>
+              <%= spec ? Number(spec.cl_wt_spec || 0).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? Number(spec.cl_ht_spec || 0).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? Number(spec.cl_kn_spec || 0).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? Number(spec.thickness || 0).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? Number(spec.top_flatness || 0).toFixed(2) : '' %>
+            </td>
+            <td></td>
+            <td>
+              <%= spec ? Number(spec.cl_wt_spec || 0).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? Number(spec.thickness || 0).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? Number(spec.top_flatness || 0).toFixed(2) : '' %>
+            </td>
+            <td></td>
+            <td>
+              <%= spec ? Number(spec.cl_wt_spec || 0).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? Number(spec.thickness || 0).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? Number(spec.top_flatness || 0).toFixed(2) : '' %>
+            </td>
+          </tr>
 
-      .body table td {
-        border: 1px solid black;
-      }
+          <tr>
+            <td colspan="2">LSL</td>
+            <td>
+              <%= spec ? (Number(spec.cl_wt_spec || 0) - Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.cl_ht_spec || 0) - Number(spec.cl_ht_spec_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.cl_kn_spec || 0) - Number(spec.cl_kn_spec_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.thickness || 0) - Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.top_flatness || 0) - Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td></td>
+            <td>
+              <%= spec ? (Number(spec.cl_wt_spec || 0) - Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.thickness || 0) - Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.top_flatness || 0) - Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td></td>
+            <td>
+              <%= spec ? (Number(spec.cl_wt_spec || 0) - Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.thickness || 0) - Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
+            </td>
+            <td>
+              <%= spec ? (Number(spec.top_flatness || 0) - Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
+            </td>
+          </tr>
 
-      .time,
-      .obdefect,
-      .teband {
-        width: 35px;
-        cursor: pointer;
-        text-align: center;
-      }
+          <tr>
+            <td colspan="2">MIN.</td>
+            <td id="wtAmin"></td>
+            <td id="htMin"></td>
+            <td id="knMin"></td>
+            <td id="ttAMin"></td>
+            <td id="tfAMin"></td>
+            <td></td>
+            <td id="wtBmin"></td>
+            <td id="ttBMin"></td>
+            <td id="tfBMin"></td>
+            <td></td>
+            <td id="wtCmin"></td>
+            <td id="ttCMin"></td>
+            <td id="tfCMin"></td>
+          </tr>
+          <tr>
+            <td colspan="2">MAX.</td>
+            <td id="wtAmax"></td>
+            <td id="htMax"></td>
+            <td id="knMax"></td>
+            <td id="ttAMax"></td>
+            <td id="tfAMax"></td>
+            <td></td>
+            <td id="wtBmax"></td>
+            <td id="ttBMax"></td>
+            <td id="tfBMax"></td>
+            <td></td>
+            <td id="wtCmax"></td>
+            <td id="ttCMax"></td>
+            <td id="tfCMax"></td>
+          </tr>
+          <tr>
+            <td colspan="2">AVG.</td>
+            <td id="wtAavg"></td>
+            <td id="htAvg"></td>
+            <td id="knAvg"></td>
+            <td id="ttAAvg"></td>
+            <td id="tfAAvg"></td>
+            <td></td>
+            <td id="wtBavg"></td>
+            <td id="ttBAvg"></td>
+            <td id="tfBAvg"></td>
+            <td></td>
+            <td id="wtCavg"></td>
+            <td id="ttCAvg"></td>
+            <td id="tfCAvg"></td>
+          </tr>
+          <tr>
+            <td colspan="2">RANGE</td>
+            <td id="wtArange"></td>
+            <td id="htRange"></td>
+            <td id="knRange"></td>
+            <td id="ttARange"></td>
+            <td id="tfARange"></td>
+            <td></td>
+            <td id="wtBrange"></td>
+            <td id="ttBRange"></td>
+            <td id="tfBRange"></td>
+            <td></td>
+            <td id="wtCrange"></td>
+            <td id="ttCRange"></td>
+            <td id="tfCRange"></td>
+          </tr>
 
-      .defect-found {
-        color: red;
-      }
+          <tr>
+            <td>SL. No.</td>
+            <td>CL. No.</td>
+            <td>In. gm</td>
+            <td>In. mm</td>
+            <td>In. mm</td>
+            <td>In. mm</td>
+            <td>In. mm</td>
+            <td>CL. NO.</td>
+            <td>In. gm</td>
+            <td>In. mm</td>
+            <td>In. mm</td>
+            <td>CL. No.</td>
+            <td>In. gm</td>
+            <td>In. mm</td>
+            <td>In. mm</td>
+          </tr>
+        </tbody>
 
-      button {
-        width: 100%;
-        background-color: rgb(189, 226, 189);
-        border: none;
-        cursor: pointer;
-      }
+        <tbody id="report"></tbody>
+      </table>
+    </div>
 
-      @media print {
-        .no-print {
-          display: none !important;
-        }
-      }
-    </style>
-  </head>
+    <div class="body">
+      <table id="CCMdefectTable">
+        <tbody></tbody>
+      </table>
+      <table id="SFMdefectTable">
+        <tbody></tbody>
+      </table>
 
-  <body data-user="<%= user %>">
-    <div class="no-print"><%- include("../partials/dimension") %></div>
-    <div class="no-print"></div>
-    <div class="visual">
-      <div class="heading">
-        <table class="tbCCM">
-          <tbody>
-            <tr>
-              <td colspan="3" rowspan="2">
-                Doc No. <br />
-                <%=docDetail? docDetail.docNo: "" %>
-              </td>
-              <td colspan="9">Secure Industries Pvt. Ltd. Hyderabad</td>
-              <td colspan="3">Rev. No. <%=docDetail? docDetail.revNo: "" %></td>
-            </tr>
-            <tr>
-              <td colspan="9"><%=docDetail? docDetail.docName: "" %></td>
-
-              <td colspan="3">Rev. Dt. <%=docDetail? docDetail.revDt: "" %></td>
-            </tr>
-            <tr>
-              <td colspan="4">
-                Date: <input type="text" id="date" name="date" required />
-              </td>
-              <td colspan="4">
-                Design:
-                <input
-                  type="text "
-                  id="design"
-                  value="<%=latestBatches? latestBatches.design : ''%>"
-                />
-              </td>
-              <td colspan="4">
-                DB/EM/PL:
-                <input
-                  type="text"
-                  id="logo"
-                  value="<%=latestBatches? latestBatches.debossed : ''%>"
-                />
-              </td>
-              <td colspan="3">
-                M/C No.:
-                <input type="text" id="mc_no" value="<%=mcId? mcId:''%>" />
-              </td>
-            </tr>
-            <tr>
-              <td colspan="4">
-                Batch No.:
-                <input
-                  type="text"
-                  id="batch_number"
-                  value="<%=latestBatches? latestBatches.batch_number : ''%>"
-                />
-              </td>
-              <td colspan="4">
-                R/M:
-                <input
-                  type="text"
-                  id="rm"
-                  value="<%=latestBatches? latestBatches.rm : ''%>"
-                />
-              </td>
-              <td colspan="4">
-                Colour:
-                <input
-                  type="text"
-                  id="colour"
-                  value="<%=mb_detail? mb_detail.mb_colour : ''%>"
-                />
-              </td>
-              <td colspan="3">
-                M/C Speed:
-                <input
-                  type="text"
-                  id="mc_speed"
-                  value="<%=latestBatches? latestBatches.mc_speed : ''%>"
-                />
-              </td>
-            </tr>
-
-            <tr>
-              <td colspan="2"></td>
-              <td colspan="5">
-                <button  >
-                  <input id="shiftA" type="text" style="background-color: rgb(189, 226, 189);;" value="Shift A">
-                </button>
-              </td>
-              <td colspan="4">
-                <button  >
-                  <input id="shiftB" type="text" style="background-color: rgb(189, 226, 189);;" value="Shift B">
-                </button>
-              </td>
-              <td colspan="4">
-                <button  >
-                  <input id="shiftC" type="text" style="background-color: rgb(189, 226, 189);;" value="Shift C">
-                </button>
-              </td>
-            </tr>
-
-            <tr>
-              <td colspan="2">Parameter</td>
-              <td>Weight<br />(In gm)</td>
-              <td>Height<br />(In mm)</td>
-              <td>Kn. Dia.<br />(In mm)</td>
-              <td>T.T<br />(In mm)</td>
-              <td>T.F<br />(In mm)</td>
-              <td></td>
-              <td>Weight<br />(In gm)</td>
-              <td>T.T<br />(In mm)</td>
-              <td>T.F<br />(In mm)</td>
-              <td></td>
-              <td>Weight</td>
-              <td>T.T<br />(In mm)</td>
-              <td>T.F<br />(In mm)</td>
-            </tr>
-            <tr>
-              <td colspan="2">USL</td>
-              <td>
-                <%= spec ? (Number(spec.cl_wt_spec || 0) +
-                Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.cl_ht_spec || 0) +
-                Number(spec.cl_ht_spec_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.cl_kn_spec || 0) +
-                Number(spec.cl_kn_spec_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.thickness || 0) +
-                Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.top_flatness || 0) +
-                Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td></td>
-              <td>
-                <%= spec ? (Number(spec.cl_wt_spec || 0) +
-                Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.thickness || 0) +
-                Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.top_flatness || 0) +
-                Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td></td>
-              <td>
-                <%= spec ? (Number(spec.cl_wt_spec || 0) +
-                Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.thickness || 0) +
-                Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.top_flatness || 0) +
-                Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
-              </td>
-            </tr>
-
-            <tr>
-              <td colspan="2">NOMINAL</td>
-              <td>
-                <%= spec ? Number(spec.cl_wt_spec || 0).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? Number(spec.cl_ht_spec || 0).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? Number(spec.cl_kn_spec || 0).toFixed(2) : '' %>
-              </td>
-              <td><%= spec ? Number(spec.thickness || 0).toFixed(2) : '' %></td>
-              <td>
-                <%= spec ? Number(spec.top_flatness || 0).toFixed(2) : '' %>
-              </td>
-              <td></td>
-              <td>
-                <%= spec ? Number(spec.cl_wt_spec || 0).toFixed(2) : '' %>
-              </td>
-              <td><%= spec ? Number(spec.thickness || 0).toFixed(2) : '' %></td>
-              <td>
-                <%= spec ? Number(spec.top_flatness || 0).toFixed(2) : '' %>
-              </td>
-              <td></td>
-              <td>
-                <%= spec ? Number(spec.cl_wt_spec || 0).toFixed(2) : '' %>
-              </td>
-              <td><%= spec ? Number(spec.thickness || 0).toFixed(2) : '' %></td>
-              <td>
-                <%= spec ? Number(spec.top_flatness || 0).toFixed(2) : '' %>
-              </td>
-            </tr>
-
-            <tr>
-              <td colspan="2">LSL</td>
-              <td>
-                <%= spec ? (Number(spec.cl_wt_spec || 0) -
-                Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.cl_ht_spec || 0) -
-                Number(spec.cl_ht_spec_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.cl_kn_spec || 0) -
-                Number(spec.cl_kn_spec_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.thickness || 0) -
-                Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.top_flatness || 0) -
-                Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td></td>
-              <td>
-                <%= spec ? (Number(spec.cl_wt_spec || 0) -
-                Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.thickness || 0) -
-                Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.top_flatness || 0) -
-                Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td></td>
-              <td>
-                <%= spec ? (Number(spec.cl_wt_spec || 0) -
-                Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.thickness || 0) -
-                Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.top_flatness || 0) -
-                Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
-              </td>
-            </tr>
-
-            <tr>
-              <td colspan="2">MIN.</td>
-              <td id="wtAmin"></td>
-              <td id="htMin"></td>
-              <td id="knMin"></td>
-              <td id="ttAMin"></td>
-              <td id="tfAMin"></td>
-              <td></td>
-              <td id="wtBmin"></td>
-              <td id="ttBMin"></td>
-              <td id="tfBMin"></td>
-              <td></td>
-              <td id="wtCmin"></td>
-              <td id="ttCMin"></td>
-              <td id="tfCMin"></td>
-            </tr>
-            <tr>
-              <td colspan="2">MAX.</td>
-              <td id="wtAmax"></td>
-              <td id="htMax"></td>
-              <td id="knMax"></td>
-              <td id="ttAMax"></td>
-              <td id="tfAMax"></td>
-              <td></td>
-              <td id="wtBmax"></td>
-              <td id="ttBMax"></td>
-              <td id="tfBMax"></td>
-              <td></td>
-              <td id="wtCmax"></td>
-              <td id="ttCMax"></td>
-              <td id="tfCMax"></td>
-            </tr>
-            <tr>
-              <td colspan="2">AVG.</td>
-              <td id="wtAavg"></td>
-              <td id="htAvg"></td>
-              <td id="knAvg"></td>
-              <td id="ttAAvg"></td>
-              <td id="tfAAvg"></td>
-              <td></td>
-              <td id="wtBavg"></td>
-              <td id="ttBAvg"></td>
-              <td id="tfBAvg"></td>
-              <td></td>
-              <td id="wtCavg"></td>
-              <td id="ttCAvg"></td>
-              <td id="tfCAvg"></td>
-            </tr>
-            <tr>
-              <td colspan="2">RANGE</td>
-              <td id="wtArange"></td>
-              <td id="htRange"></td>
-              <td id="knRange"></td>
-              <td id="ttARange"></td>
-              <td id="tfARange"></td>
-              <td></td>
-              <td id="wtBrange"></td>
-              <td id="ttBRange"></td>
-              <td id="tfBRange"></td>
-              <td></td>
-              <td id="wtCrange"></td>
-              <td id="ttCRange"></td>
-              <td id="tfCRange"></td>
-            </tr>
-
-            <tr>
-              <td>SL. No.</td>
-              <td>CL. No.</td>
-              <td>In. gm</td>
-              <td>In. mm</td>
-              <td>In. mm</td>
-              <td>In. mm</td>
-              <td>In. mm</td>
-              <td>CL. NO.</td>
-              <td>In. gm</td>
-              <td>In. mm</td>
-              <td>In. mm</td>
-              <td>CL. No.</td>
-              <td>In. gm</td>
-              <td>In. mm</td>
-              <td>In. mm</td>
-            </tr>
-          </tbody>
-
-          <tbody id="report"></tbody>
-        </table>
-      </div>
-
-      <div class="body">
-        <table id="CCMdefectTable">
-          <tbody></tbody>
-        </table>
-        <table id="SFMdefectTable">
-          <tbody></tbody>
-        </table>
-
-        <table id="TEbandperformace">
-          <tbody></tbody>
-        </table>
-      </div>
-      <div class="heading">
-        <table class="tbCCM">
-          <tbody>
-            <tr>
-              <td>Inspected By:</td>
-              <td><input type="text" id="inspector1" value="" readonly /></td>
-              <td>Inspected By:</td>
-              <td><input type="text" id="inspector2" value="" readonly /></td>
-              <td>Inspected By:</td>
-              <td>
-                <input
-                  type="text"
-                  id="inspector3"
-                  value="<%= user  %>"
-                  readonly
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>Verified By:</td>
-              <td colspan="6">
-                <input type="text" id="verifedBy" value="" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="saveData">
-          <button style="width: 100px; height: 30px; cursor: pointer;" onclick="sendShiftData('data1')">First</button>
-          <button style="width: 100px; height: 30px; cursor: pointer;" onclick="sendShiftData('data2')">Second</button>
-          <button style="width: 100px; height: 30px; cursor: pointer;" onclick="sendShiftData('data3')">Third</button>
-        </div>
+      <table id="TEbandperformace">
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="heading">
+      <table class="tbCCM">
+        <tbody>
+          <tr>
+            <td>Inspected By:</td>
+            <td><input type="text" id="inspector1" value="" readonly /></td>
+            <td>Inspected By:</td>
+            <td><input type="text" id="inspector2" value="" readonly /></td>
+            <td>Inspected By:</td>
+            <td>
+              <input type="text" id="inspector3" value="<%= user  %>" readonly />
+            </td>
+          </tr>
+          <tr>
+            <td>Verified By:</td>
+            <td colspan="6">
+              <input type="text" id="verifedBy" value="" />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="saveData">
+        <button style="width: 100px; height: 30px; cursor: pointer;" onclick="sendShiftData('data1')">First</button>
+        <button style="width: 100px; height: 30px; cursor: pointer;" onclick="sendShiftData('data2')">Second</button>
+        <button style="width: 100px; height: 30px; cursor: pointer;" onclick="sendShiftData('data3')">Third</button>
       </div>
     </div>
-    <script>
-      // let savedInspection = JSON.parse('<%- JSON.stringify(inspectionReportIncom || {}) %>');
-      function createRows(numRows) {
-        const tableBody = document.getElementById("report");
-        tableBody.innerHTML = ""; // Clear existing rows if needed
+  </div>
+  <script>
+    // let savedInspection = JSON.parse('<%- JSON.stringify(inspectionReportIncom || {}) %>');
+    function createRows(numRows) {
+      const tableBody = document.getElementById("report");
+      tableBody.innerHTML = ""; // Clear existing rows if needed
 
-        for (let i = 1; i <= numRows; i++) {
-          const row = document.createElement("tr");
+      for (let i = 1; i <= numRows; i++) {
+        const row = document.createElement("tr");
 
-          row.innerHTML = `
+        row.innerHTML = `
         <td>${i.toString().padStart(2, "0")}</td>
         <td ><input class="clA" type="text"></td>
         <td><input class="wtA" type="text"></td>
@@ -492,49 +452,49 @@
         <td><input class="ttC" type="text"></td>
         <td><input class="tfC" type="text"></td>
       `;
-          tableBody.appendChild(row);
-        }
+        tableBody.appendChild(row);
       }
+    }
 
-      // Call the function to create 48 rows
-      createRows(48);
+    // Call the function to create 48 rows
+    createRows(48);
 
-      const table = document.querySelector("#report"); // your table element
+    const table = document.querySelector("#report"); // your table element
 
-      table.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-          e.preventDefault(); // stop form submission or new line
+    table.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault(); // stop form submission or new line
 
-          const currentInput = e.target;
-          if (currentInput.tagName !== "INPUT") return;
+        const currentInput = e.target;
+        if (currentInput.tagName !== "INPUT") return;
 
-          // find current cell (td) and row (tr)
-          const currentCell = currentInput.closest("td");
-          const currentRow = currentInput.closest("tr");
-          const colIndex = [...currentRow.children].indexOf(currentCell);
+        // find current cell (td) and row (tr)
+        const currentCell = currentInput.closest("td");
+        const currentRow = currentInput.closest("tr");
+        const colIndex = [...currentRow.children].indexOf(currentCell);
 
-          // find next row
-          const nextRow = currentRow.nextElementSibling;
-          if (nextRow) {
-            const nextCell = nextRow.children[colIndex];
-            if (nextCell) {
-              const nextInput = nextCell.querySelector(
-                "input, select, textarea"
-              );
-              if (nextInput) {
-                nextInput.focus();
-              }
+        // find next row
+        const nextRow = currentRow.nextElementSibling;
+        if (nextRow) {
+          const nextCell = nextRow.children[colIndex];
+          if (nextCell) {
+            const nextInput = nextCell.querySelector(
+              "input, select, textarea"
+            );
+            if (nextInput) {
+              nextInput.focus();
             }
           }
         }
-      });
+      }
+    });
 
-      // let savedInspection = <%- JSON.stringify(inspectionReportIncom || {}) %>;
+    // let savedInspection = <%- JSON.stringify(inspectionReportIncom || {}) %>;
 
-      
-    </script>
 
-<script id="inspection-data" type="application/json">
+  </script>
+
+  <script id="inspection-data" type="application/json">
   <%- JSON.stringify(inspectionReportIncom || {}) %>
 </script>
 
@@ -542,6 +502,7 @@
 
 
 
-    <script src="/javascripts/dimensionForm.js"></script>
-  </body>
+  <script src="/javascripts/dimensionForm.js"></script>
+</body>
+
 </html>
