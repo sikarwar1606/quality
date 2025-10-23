@@ -16,16 +16,16 @@ let shiftName1 = document.getElementById("shiftA").value
 let shiftName2 = document.getElementById("shiftB").value
 let shiftName3 = document.getElementById("shiftC").value
 
-let savedInspection = {};
-try {
-  const el = document.getElementById("inspection-data");
-  if (el && el.textContent.trim()) {
-    savedInspection = JSON.parse(el.textContent);
-  }
-} catch (err) {
-  console.error("Error parsing inspection JSON:", err);
-  savedInspection = {};
-}
+// let savedInspection = {};
+// try {
+//   const el = document.getElementById("inspection-data");
+//   if (el && el.textContent.trim()) {
+//     savedInspection = JSON.parse(el.textContent);
+//   }
+// } catch (err) {
+//   console.error("Error parsing inspection JSON:", err);
+//   savedInspection = {};
+// }
 
 let now = new Date();
 let currentHours = now.getHours();
@@ -120,6 +120,19 @@ const mc_no = document.getElementById("mc_no").value;
 
 
 window.addEventListener("DOMContentLoaded", () => {
+  let savedInspection = {};
+
+  try {
+    const el = document.getElementById("inspection-data");
+    if (el && el.textContent.trim()) {
+      savedInspection = JSON.parse(el.textContent);
+      console.log("Loaded inspection data:", savedInspection);
+    }
+  } catch (err) {
+    console.error("Error parsing inspection JSON:", err);
+    savedInspection = {};
+  } 
+  
   console.log(savedInspection);
   
   if (savedInspection) {
