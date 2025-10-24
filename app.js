@@ -56,6 +56,7 @@ const findcokecoa = require('./routes/find/findCokeCoaDe');
 const findrelcoa = require('./routes/find/findRelCoaDe');
 const findDesign = require('./routes/find/findDesign');
 const findLogo = require('./routes/find/findLogo')
+const findDimension = require('./routes/find/dimension');
 
 //Inspection routes
 const visualReport = require('./routes/visual')
@@ -125,21 +126,24 @@ app.use('/cokecoadetails', cokeCoaDetails);
 app.use('/reliancecoadetails', relianceCoaDetails);
 app.use('/newplant', newPlant);
 app.use('/batch', newBatch);
-app.use('/batch', findBatch);
 app.use('/customer', newCustomer);
-app.use('/customer', findCustomer);
 app.use('/specs', specs);
 app.use('/addmbDetails', addmbDetail);
+app.use('/add_logo', addLogoRoute);
+app.use('/addnewdocDetails', addnewDocDetail);
+app.use("/dimension", dimensionReport)
+
+
+//Find Routes Links
+app.use('/find_logo', findLogo)
 app.use('/mb', findMB);
 app.use('/rm', findRM);
 app.use('/relcoade', findrelcoa);
 app.use('/cokecoade', findcokecoa);
 app.use('/design', findDesign);
-app.use('/add_logo', addLogoRoute);
-app.use('/find_logo', findLogo)
-app.use('/addnewdocDetails', addnewDocDetail);
-app.use("/dimension", dimensionReport)
-
+app.use('/batch', findBatch);
+app.use('/customer', findCustomer);
+app.use('/find_dimension', findDimension);
 
 //Links to show the suggesion while entering the data
 app.use("/api/mbcodes", mbCodesRoute);

@@ -1,5 +1,5 @@
 const express = require("express");
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 const { isLoggedIn } = require("./auth");
 const dimensionReport = require("../models/dimension")
 const router = express.Router();
@@ -22,7 +22,7 @@ function getShiftDate() {
   const month = String(now.getMonth() + 1).padStart(2, '0');
   const year = now.getFullYear();
 
-  return `${day}/${month}/${year}`;
+  return `${day}-${month}-${year}`;
 }
 let inspection;
 
