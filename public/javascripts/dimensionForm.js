@@ -16,19 +16,27 @@ let shiftName1 = document.getElementById("shiftA").value
 let shiftName2 = document.getElementById("shiftB").value
 let shiftName3 = document.getElementById("shiftC").value
 
-// let savedInspection = {};
-// try {
-//   const el = document.getElementById("inspection-data");
-//   if (el && el.textContent.trim()) {
-//     savedInspection = JSON.parse(el.textContent);
+
+// let now = new Date();
+// let currentHours = now.getHours();
+// function getShiftDate() {
+//   const now = new Date();
+//   const hour = now.getHours();
+
+//   // If time is before 07:00 AM, use previous day’s date (shift logic)
+//   if (hour < 7) {
+//     now.setDate(now.getDate() - 1);
 //   }
-// } catch (err) {
-//   console.error("Error parsing inspection JSON:", err);
-//   savedInspection = {};
+
+//   // Return date in same format as front-end (DD/MM/YYYY)
+//   const day = String(now.getDate()).padStart(2, '0');
+//   const month = String(now.getMonth() + 1).padStart(2, '0');
+//   const year = now.getFullYear();
+
+//   return `${day}/${month}/${year}`;
 // }
 
-let now = new Date();
-let currentHours = now.getHours();
+
 function getShiftDate() {
   const now = new Date();
   const hour = now.getHours();
@@ -45,7 +53,6 @@ function getShiftDate() {
 
   return `${day}/${month}/${year}`;
 }
-
 // General function to calculate stats
 const calculateStats = (selector, minId, maxId, avgId, rangeId) => {
   const inputs = document.querySelectorAll(selector);
