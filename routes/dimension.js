@@ -56,9 +56,10 @@ router.get("/:id", isLoggedIn, async (req, res) => {
     const existingInspection = await dimensionReport.findOne({
      date: getShiftDate(),
      batch_number: latestBatches.batch_number,
-      mc_no: { $regex: regex },
+      // mc_no: { $regex: regex },
     })
     
+console.log(`Existing inpsection ${existingInspection}`);
 
     res.render("inspection/dimension", {spec, user, docDetail, mcId, latestBatches, mb_detail,inspectionReportIncom:existingInspection || null });
   } catch (err) {
@@ -71,7 +72,7 @@ router.post("/save", isLoggedIn, async (req, res) => {
   try {
     const { date, batch_number, mc_no, data1, data2, data3, verifiedBy } =
       req.body;
-    console.log(req.body);
+    // console.log(req.body);
     
 
     if (!date || !batch_number) {

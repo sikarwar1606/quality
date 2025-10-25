@@ -187,8 +187,7 @@ const mc_no = document.getElementById("mc_no").value;
 
 window.addEventListener("DOMContentLoaded", () => {
   const activeUser = document.body.dataset.user;
-  const currentHours = new Date().getHours();
-
+  
   // Helper to safely assign inspector value
   function assignInspector(inspectorId, savedValue) {
     const field = document.getElementById(inspectorId);
