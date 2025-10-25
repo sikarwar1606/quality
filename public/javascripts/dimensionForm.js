@@ -209,7 +209,6 @@ window.addEventListener("DOMContentLoaded", () => {
     savedInspection = {};
   }
 
-  console.log(savedInspection);
 
   if (savedInspection) {
     // Example for Shift A
