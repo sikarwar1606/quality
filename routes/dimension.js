@@ -22,7 +22,7 @@ function getShiftDate() {
   const month = String(now.getMonth() + 1).padStart(2, '0');
   const year = now.getFullYear();
 
-  return `${day}-${month}-${year}`;
+  return `${day}/${month}/${year}`;
 }
 let inspection;
 
@@ -56,7 +56,7 @@ router.get("/:id", isLoggedIn, async (req, res) => {
     const existingInspection = await dimensionReport.findOne({
      date: getShiftDate(),
      batch_number: latestBatches.batch_number,
-      // mc_no: { $regex: regex },
+      mc_no: { $regex: regex },
     })
     
 
