@@ -335,7 +335,7 @@ async function sendShiftData(shiftName) {
     if (shiftName === "data1") {
       dataObj = inspection.data1;
       shiftInput = document.getElementById("shiftA").value;
-      inspectorInput = document.getElementById("inspector1").value;
+      inspectedBy = document.getElementById("inspector1").value;
     } else if (shiftName === "data2") {
       dataObj = inspection.data2;
       shiftInput = document.getElementById("shiftB").value;
