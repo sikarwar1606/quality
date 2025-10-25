@@ -23,26 +23,28 @@ router.post("/", isLoggedIn, async (req, res) => {
     let gst_number = req.body.customer_gst;
 
     if (!gst_number) {
-      return res.send(`GST number is required`)
+      return res.send(`GST number is required`);
     }
 
     let gstDetails = await Customer_gst.findOne({ gst_number: gst_number });
 
     if (!gstDetails) {
       // return res.status(404).json({ error:  `GST Number${gst_number} not found in database, Please contact to Admin`});
-      return res.send(`GST Number ${gst_number} not found in database, Please contact to Admin`)
+      return res.send(
+        `GST Number ${gst_number} not found in database, Please contact to Admin`
+      );
     }
 
     let templateCode = gstDetails.customer_template;
 
     if (templateCode === "R") {
       return res.redirect("/coa/redirect/relianceCoa");
-    } else if (templateCode === "C"){
-      return res.redirect("/coa/redirect/cokeCoa")
-    }else if (templateCode === "L"){
-      return res.redirect("/coa/redirect/others")
-    }else if (templateCode === "B"){
-      return res.redirect("/coa/redirect/bisleriWater")
+    } else if (templateCode === "C") {
+      return res.redirect("/coa/redirect/cokeCoa");
+    } else if (templateCode === "L") {
+      return res.redirect("/coa/redirect/others");
+    } else if (templateCode === "B") {
+      return res.redirect("/coa/redirect/bisleriWater");
     }
 
     // If no matching condition
@@ -65,8 +67,9 @@ router.get("/relianceCoa", isLoggedIn, async (req, res) => {
   let plant_code = inputs.plant_code;
 
   const more_info = { inv_no, inv_dt, qty, mfd };
- 
-  
+  if (!more_info) {
+    res.redirect("/coa/coa");
+  }
 
   const result = await dimension_data.aggregate([
     { $match: { batch_number: batch_number } },
@@ -94,13 +97,21 @@ router.get("/relianceCoa", isLoggedIn, async (req, res) => {
     return res.send("This GST number is not registered, Please contact admin");
   }
 
-  
   const relianceCoaDes = await relianceCoaDetailsSC.findOne({
     design: batch.design,
   });
   const plant = await plant_details.findOne({ plant_code });
+  if (!plant) {
+    return res.send(
+      "Issue while getting the Plant Details,(Plant code must be in Capital Latter)"
+    );
+  }
   const specs = await specSC.findOne({ design: batch.design });
-  
+  if (!specs) {
+    return res.send(
+      "Issue while getting the Specs Details, Please check if design name is correct or All data is there in Design Spec"
+    );
+  }
 
   const customer_data = {
     customer_name: customer.customer_name,
@@ -133,14 +144,12 @@ router.get("/relianceCoa", isLoggedIn, async (req, res) => {
   let rawdocDetails = await docNoDetailsSC.findOne({
     docName: relianceCoaDes.product,
   });
- 
-    let docDetails = {
-      docNo: rawdocDetails.docNo.replace("SIPL", "VFT"),
-      revNo: rawdocDetails.revNo,
-      revDt: rawdocDetails.revDt,
-    };
-  
-  
+
+  let docDetails = {
+    docNo: rawdocDetails.docNo.replace("SIPL", "VFT"),
+    revNo: rawdocDetails.revNo,
+    revDt: rawdocDetails.revDt,
+  };
 
   const batch_data = {
     batch_number: batch.batch_number,
@@ -152,23 +161,22 @@ router.get("/relianceCoa", isLoggedIn, async (req, res) => {
     mb_code: batch.mb_code,
   };
 
-   let coa_design = batch_data.design
-  if(batch_data.design === "AB26CSD12 30.41"){
-    coa_design = "AB26CSD12 (GME-30.41)"
+  let coa_design = batch_data.design;
+  if (batch_data.design === "AB26CSD12 30.41") {
+    coa_design = "AB26CSD12 (GME-30.41)";
   }
 
   let mb_code = batch_data.mb_code;
   let rm = relianceCoaDetailsData.rm;
 
- const mbDetails = await mbDetailsSC.findOne({ mb_code });
+  const mbDetails = await mbDetailsSC.findOne({ mb_code });
 
-const mbData = {
-  mb_code: mbDetails?.mb_code || "N/A",
-  mb_sup: mbDetails?.mb_sup || "",
-  mb_colour: mbDetails?.mb_colour || "Translucent",
-  mb_dosage: mbDetails?.mb_dosage || "N/A",
-};
-
+  const mbData = {
+    mb_code: mbDetails?.mb_code || "N/A",
+    mb_sup: mbDetails?.mb_sup || "",
+    mb_colour: mbDetails?.mb_colour || "Translucent",
+    mb_dosage: mbDetails?.mb_dosage || "N/A",
+  };
 
   const rmDetails = await rmDetailsSC.findOne({ rm: rm });
   const rmData = {
@@ -197,7 +205,7 @@ const mbData = {
     mbData,
     rmData,
     coa_design,
-    docDetails
+    docDetails,
   });
 });
 
@@ -212,8 +220,6 @@ router.get("/bisleriWater", isLoggedIn, async (req, res) => {
   let plant_code = inputs.plant_code;
 
   const more_info = { inv_no, inv_dt, qty, mfd };
- 
-  
 
   const result = await dimension_data.aggregate([
     { $match: { batch_number: batch_number } },
@@ -245,13 +251,27 @@ router.get("/bisleriWater", isLoggedIn, async (req, res) => {
     return res.send("This GST number is not registered, Please contact admin");
   }
 
-  
   const relianceCoaDes = await relianceCoaDetailsSC.findOne({
     design: batch.design,
   });
+  if (!relianceCoaDes) {
+    return res.send(
+      "Issue while getting the Reliance coa details, Please check design name"
+    );
+  }
   const plant = await plant_details.findOne({ plant_code });
+  if (!plant) {
+    return res.send(
+      "Issue while getting the Plant Details,(Plant code must be in Capital Latter)"
+    );
+  }
+
   const specs = await specSC.findOne({ design: batch.design });
-  
+  if (!specs) {
+    return res.send(
+      "Issue while getting the Specs Details, Please check if design name is correct or All data is there in Design Spec"
+    );
+  }
 
   const customer_data = {
     customer_name: customer.customer_name,
@@ -260,10 +280,9 @@ router.get("/bisleriWater", isLoggedIn, async (req, res) => {
   const specData = {
     packing_qty: specs.packing_qty,
     product: specs.product,
-    cl_type: specs.cl_type
+    cl_type: specs.cl_type,
   };
 
-  
   //Taking document details like doc no and rev no from docDetailsSC
   const rawdocDetails = await docNoDetailsSC.findOne({
     docName: specData.product,
@@ -278,8 +297,6 @@ router.get("/bisleriWater", isLoggedIn, async (req, res) => {
       revDt: rawdocDetails.revDt,
     };
   }
-  
-  
 
   const batch_data = {
     batch_number: batch.batch_number,
@@ -291,24 +308,21 @@ router.get("/bisleriWater", isLoggedIn, async (req, res) => {
     mb_code: batch.mb_code,
   };
 
- 
-
   let mb_code = batch_data.mb_code;
   let rm = batch_data.rm;
 
- const mbDetails = await mbDetailsSC.findOne({ mb_code });
+  const mbDetails = await mbDetailsSC.findOne({ mb_code });
 
-const mbData = {
-  mb_code: mbDetails?.mb_code || "N/A",
-  mb_sup: mbDetails?.mb_sup || "",
-  mb_colour: mbDetails?.mb_colour || "Translucent",
-  mb_dosage: mbDetails?.mb_dosage || "N/A",
-};
-
+  const mbData = {
+    mb_code: mbDetails?.mb_code || "N/A",
+    mb_sup: mbDetails?.mb_sup || "",
+    mb_colour: mbDetails?.mb_colour || "Translucent",
+    mb_dosage: mbDetails?.mb_dosage || "N/A",
+  };
 
   const rmDetails = await rmDetailsSC.findOne({ rm: rm });
   const rmData = {
-    rm:rm,
+    rm: rm,
     rm_sup: rmDetails.rm_sup,
     rm_type: rmDetails.rm_type,
   };
@@ -319,8 +333,6 @@ const mbData = {
     plant_add: plant.plant_add,
   };
 
-  
-
   res.render("coa/bisleriWater", {
     customer_data,
     batch_data,
@@ -330,7 +342,7 @@ const mbData = {
     specData,
     mbData,
     rmData,
-    docDetails
+    docDetails,
   });
 });
 
@@ -344,9 +356,10 @@ router.get("/cokeCoa", async (req, res) => {
   let customer_gst = inputs.customer_gst;
   let plant_code = inputs.plant_code;
 
-
   const more_info = { inv_no, inv_dt, qty, mfd };
-
+  if (!more_info) {
+    res.redirect("/coa/coa");
+  }
   const result = await dimension_data.aggregate([
     { $match: { batch_number: batch_number } },
     { $unwind: "$data" },
@@ -382,8 +395,23 @@ router.get("/cokeCoa", async (req, res) => {
   }
 
   const cokeCoaDes = await cokeCoaDetailsSC.findOne({ design: batch.design });
+  if (!cokeCoaDes) {
+    return res.send(
+      "Issue while getting the Coke Coa Details, Please check if design name is correct"
+    );
+  }
   const plant = await plant_details.findOne({ plant_code });
+  if (!plant) {
+    return res.send(
+      "Issue while getting the Plant Details,(Plant code must be in Capital Latter)"
+    );
+  }
   const specs = await specSC.findOne({ design: batch.design });
+  if (!specs) {
+    return res.send(
+      "Issue while getting the Specs Details, Please check if design name is correct or All data is there in Design Spec"
+    );
+  }
 
   const customer_data = {
     customer_name: customer.customer_name,
@@ -479,7 +507,6 @@ router.get("/others", async (req, res) => {
   let customer_gst = inputs.customer_gst;
   let plant_code = inputs.plant_code;
 
-
   const more_info = { inv_no, inv_dt, qty, mfd };
 
   const result = await dimension_data.aggregate([
@@ -502,7 +529,6 @@ router.get("/others", async (req, res) => {
         avght: { $avg: "$data.ht" },
         avgkn: { $avg: "$data.knurling" },
         avgtdia: { $avg: "$data.t_dia" },
-
       },
     },
   ]);
@@ -521,8 +547,17 @@ router.get("/others", async (req, res) => {
   }
 
   const plant = await plant_details.findOne({ plant_code });
+  if (!plant) {
+    return res.send(
+      "Issue while getting the Plant Details,(Plant code must be in Capital Latter)"
+    );
+  }
   const specs = await specSC.findOne({ design: batch.design });
-
+  if (!specs) {
+    return res.send(
+      "Issue while getting the Specs Details, Please check if design name is correct or All data is there in Design Spec"
+    );
+  }
   const customer_data = {
     customer_name: customer.customer_name,
     customer_location: customer.customer_location,
@@ -541,10 +576,8 @@ router.get("/others", async (req, res) => {
     cl_e_dia: specs.e_dia,
     cl_e_dia_tol: specs.e_dia_tol,
     product: specs.product,
-    sst: specs.sst
+    sst: specs.sst,
   };
-
- 
 
   //Taking document details like doc no and rev no from docDetailsSC
   const rawdocDetails = await docNoDetailsSC.findOne({
@@ -595,8 +628,6 @@ router.get("/others", async (req, res) => {
     plant_add: plant.plant_add,
   };
 
-  
-
   res.render("coa/others", {
     batch_data,
     plant_data,
@@ -606,9 +637,7 @@ router.get("/others", async (req, res) => {
     mbData,
     rmData,
     docDetails,
-    customer_data
-
-  
+    customer_data,
   });
 });
 
