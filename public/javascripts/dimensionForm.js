@@ -210,8 +210,8 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  // if (savedInspection) {
-  if (savedInspection && savedInspection.date === document.getElementById("date").value) {
+  if (savedInspection) {
+  // if (savedInspection && savedInspection.date === document.getElementById("date").value) {
     // Example for Shift A
     if (savedInspection.data1) {      
         
