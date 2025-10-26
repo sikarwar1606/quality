@@ -54,9 +54,10 @@ router.get("/:id", isLoggedIn, async (req, res) => {
     const mb_detail = await mbDetailsSC.findOne({ mb_code: mb_code });
 
     const existingInspection = await dimensionReport.findOne({
-     date: getShiftDate(),
+     
      batch_number: latestBatches.batch_number,
       mc_no: { $regex: regex },
+      date: getShiftDate(),
     })
     
 
