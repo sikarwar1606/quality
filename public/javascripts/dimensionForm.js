@@ -210,7 +210,8 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
 
-  if (savedInspection) {
+  // if (savedInspection) {
+  if (savedInspection && savedInspection.date === document.getElementById("date").value) {
     // Example for Shift A
     if (savedInspection.data1) {      
         
@@ -363,16 +364,22 @@ async function sendShiftData(shiftName) {
       kn.forEach(cell => dataObj.kn.push(cell.value));
       ttA.forEach(cell => dataObj.ttA.push(cell.value));
       tfA.forEach(cell => dataObj.tfA.push(cell.value));
+      let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
+      inspection.shiftA.inspectedBy = inspector1;
     } else if (shiftName === "data2") {
       clB.forEach(cell => dataObj.clB.push(cell.value));
       wtB.forEach(cell => dataObj.wtB.push(cell.value));
       ttB.forEach(cell => dataObj.ttB.push(cell.value));
       tfB.forEach(cell => dataObj.tfB.push(cell.value));
+      let inspector2 = document.getElementById("inspector2").value; //Pushing inspector name
+      inspection.shiftA.inspectedBy = inspector2;
     } else if (shiftName === "data3") {
       clC.forEach(cell => dataObj.clC.push(cell.value));
       wtC.forEach(cell => dataObj.wtC.push(cell.value));
       ttC.forEach(cell => dataObj.ttC.push(cell.value));
       tfC.forEach(cell => dataObj.tfC.push(cell.value));
+      let inspector3 = document.getElementById("inspector2").value; //Pushing inspector name
+      inspection.shiftA.inspectedBy = inspector3;
     }
 
     // Save shift and inspector
