@@ -65,7 +65,9 @@ router.get("/relianceCoa", isLoggedIn, async (req, res) => {
   let plant_code = inputs.plant_code;
 
   const more_info = { inv_no, inv_dt, qty, mfd };
- 
+  if (!more_info) {
+    res.redirect("/coa/coa");
+  }
   
 
   const result = await dimension_data.aggregate([
@@ -98,9 +100,21 @@ router.get("/relianceCoa", isLoggedIn, async (req, res) => {
   const relianceCoaDes = await relianceCoaDetailsSC.findOne({
     design: batch.design,
   });
+
+
   const plant = await plant_details.findOne({ plant_code });
+ if (!plant) {
+    return res.send(
+      "Issue while getting the Plant Details,(Plant code must be in Capital Latter)"
+    );
+  }
+
   const specs = await specSC.findOne({ design: batch.design });
-  
+   if (!specs) {
+    return res.send(
+      "Issue while getting the Specs Details, Please check if design name is correct or All data is there in Design Spec"
+    );
+  }
 
   const customer_data = {
     customer_name: customer.customer_name,
@@ -212,7 +226,9 @@ router.get("/bisleriWater", isLoggedIn, async (req, res) => {
   let plant_code = inputs.plant_code;
 
   const more_info = { inv_no, inv_dt, qty, mfd };
- 
+  if (!more_info) {
+    res.redirect("/coa/coa");
+  }
   
 
   const result = await dimension_data.aggregate([
@@ -249,10 +265,25 @@ router.get("/bisleriWater", isLoggedIn, async (req, res) => {
   const relianceCoaDes = await relianceCoaDetailsSC.findOne({
     design: batch.design,
   });
+if(!relianceCoaDes){
+  res.send("Error while fetching Coa Detail, Check Design name")
+}
+
   const plant = await plant_details.findOne({ plant_code });
+ if (!plant) {
+    return res.send(
+      "Issue while getting the Plant Details,(Plant code must be in Capital Latter)"
+    );
+  }
+
+
   const specs = await specSC.findOne({ design: batch.design });
   
-
+ if (!specs) {
+    return res.send(
+      "Issue while getting the Specs Details, Please check if design name is correct or All data is there in Design Spec"
+    );
+  }
   const customer_data = {
     customer_name: customer.customer_name,
     customer_location: customer.customer_location,
@@ -346,6 +377,9 @@ router.get("/cokeCoa", async (req, res) => {
 
 
   const more_info = { inv_no, inv_dt, qty, mfd };
+ if (!more_info) {
+    res.redirect("/coa/coa");
+  }
 
   const result = await dimension_data.aggregate([
     { $match: { batch_number: batch_number } },
@@ -382,9 +416,21 @@ router.get("/cokeCoa", async (req, res) => {
   }
 
   const cokeCoaDes = await cokeCoaDetailsSC.findOne({ design: batch.design });
+  if(!cokeCoaDes){
+  res.send("Error while fetching Coa Detail, Check Design name")
+}
   const plant = await plant_details.findOne({ plant_code });
+   if (!plant) {
+    return res.send(
+      "Issue while getting the Plant Details,(Plant code must be in Capital Latter)"
+    );
+  }
   const specs = await specSC.findOne({ design: batch.design });
-
+if (!specs) {
+    return res.send(
+      "Issue while getting the Specs Details, Please check if design name is correct or All data is there in Design Spec"
+    );
+  }
   const customer_data = {
     customer_name: customer.customer_name,
     customer_location: customer.customer_location,
@@ -481,7 +527,9 @@ router.get("/others", async (req, res) => {
 
 
   const more_info = { inv_no, inv_dt, qty, mfd };
-
+ if (!more_info) {
+    res.redirect("/coa/coa");
+  }
   const result = await dimension_data.aggregate([
     { $match: { batch_number: batch_number } },
     { $unwind: "$data" },
@@ -521,8 +569,17 @@ router.get("/others", async (req, res) => {
   }
 
   const plant = await plant_details.findOne({ plant_code });
+  if (!plant) {
+    return res.send(
+      "Issue while getting the Plant Details,(Plant code must be in Capital Latter)"
+    );
+  }
   const specs = await specSC.findOne({ design: batch.design });
-
+if (!specs) {
+    return res.send(
+      "Issue while getting the Specs Details, Please check if design name is correct or All data is there in Design Spec"
+    );
+  }
   const customer_data = {
     customer_name: customer.customer_name,
     customer_location: customer.customer_location,

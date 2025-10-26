@@ -52,12 +52,11 @@ router.get("/:id", isLoggedIn, async (req, res) => {
 
     const mb_code = latestBatches.mb_code;
     const mb_detail = await mbDetailsSC.findOne({ mb_code: mb_code });
-
+    
     const existingInspection = await dimensionReport.findOne({
-     
+     date: getShiftDate(),
      batch_number: latestBatches.batch_number,
       mc_no: { $regex: regex },
-      date: getShiftDate(),
     })
     
 
@@ -73,6 +72,7 @@ router.post("/save", isLoggedIn, async (req, res) => {
     const { date, batch_number, mc_no, data1, data2, data3, verifiedBy } =
       req.body;
     // console.log(req.body);
+    console.log(`Date from backend ${getShiftDate()}`);
     
 
     if (!date || !batch_number) {
