@@ -26,7 +26,7 @@
               <td class="py-2 px-4"><%= r.batch_number %></td>
               <td class="py-2 px-4"><%= r.design %></td>
               <td class="py-2 px-4">
-                <a href="/find_dimension/<%= date %>/<%= r.mc_no %>" class="text-blue-600 hover:text-blue-800 font-semibold">View Report →</a>
+                <a href="/find_dimension/<%= date %>/<%= r.mc_no %>/<%=r.batch_number%>" class="text-blue-600 hover:text-blue-800 font-semibold">View Report →</a>
               </td>
             </tr>
           <% }) %>

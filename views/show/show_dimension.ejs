@@ -173,7 +173,7 @@
           </tr>
           <tr>
             <td colspan="4">
-              Date: <input type="text" id="date" name="date" required />
+              Date: <input type="text" id="date" name="date" value="<%=inspectionReportIncom? inspectionReportIncom.date : ''%>" required />
             </td>
             <td colspan="4">
               Design:
@@ -185,13 +185,13 @@
             </td>
             <td colspan="3">
               M/C No.:
-              <input type="text" id="mc_no" value="<%=mcId? mcId:''%>" />
+              <input type="text" id="mc_no" value="<%=inspectionReportIncom? inspectionReportIncom.mc_no : ''%>" />
             </td>
           </tr>
           <tr>
             <td colspan="4">
               Batch No.:
-              <input type="text" id="batch_number" value="<%=latestBatches? latestBatches.batch_number : ''%>" />
+              <input type="text" id="batch_number" value="<%=inspectionReportIncom? inspectionReportIncom.batch_number : ''%>" />
             </td>
             <td colspan="4">
               R/M:

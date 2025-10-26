@@ -41,7 +41,8 @@ const inspectionSchema = new mongoose.Schema({
   data3: { type: data3Schema, default: () => ({}) },
 
   verifiedBy: { type: String, default: "" }
-});
+  
+},{ timestamps: true});
 
 // Model
 const dimension = mongoose.model("dimensions", inspectionSchema);

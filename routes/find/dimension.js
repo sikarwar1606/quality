@@ -30,6 +30,8 @@ router.get("/:date", isLoggedIn, async (req, res) => {
       return res.send(`No dimension reports found for date: ${date}`);
     }
 
+
+
     const docDetail = await docNo.findOne({ docNo: "SIPL-QA-R-06" });
 
     // Render machine list
@@ -42,8 +44,8 @@ router.get("/:date", isLoggedIn, async (req, res) => {
 
 
 // ✅ STEP 3 — Show report for selected date + machine
-router.get("/:date/:mcId", isLoggedIn, async (req, res) => {
-  const { date, mcId } = req.params;
+router.get("/:date/:mcId/:batch_number", isLoggedIn, async (req, res) => {
+  const { date, mcId, batch_number } = req.params;
   const user = req.user.username;
 
   try {
@@ -52,14 +54,18 @@ router.get("/:date/:mcId", isLoggedIn, async (req, res) => {
     // Find the report for that machine and date
     const report = await dimensionReport.findOne({
       date,
-      mc_no: { $regex: regex },
+      batch_number
+      // mc_no: { $regex: regex },
     });
 
     if (!report) {
       return res.status(404).send(`No report found for ${mcId} on ${date}`);
     }
+    // console.log(report);
 
-    const latestBatch = await Batch.findOne({ mc_no: { $regex: regex } }).sort({ batch_number: -1 });
+    const latestBatch = await Batch.findOne({ batch_number: report.batch_number });
+    // console.log(latestBatch);
+    
     const spec = await designSC.findOne({ design: latestBatch.design });
     const mb_detail = await mbDetailsSC.findOne({ mb_code: latestBatch.mb_code });
     const docDetail = await docNo.findOne({ docNo: "SIPL-QA-R-06" });
