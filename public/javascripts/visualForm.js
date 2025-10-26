@@ -200,7 +200,8 @@ window.addEventListener("DOMContentLoaded", () => {
   }
 
   // Assign inspectors based on savedInspection data
-  if (savedInspection) {
+  // if (savedInspection) {
+  if (savedInspection && savedInspection.date === document.getElementById("date").value) {
     // Shift A
     if (savedInspection.shiftA) {
       // Fill inputs, defect tables, tool data, remarks as before

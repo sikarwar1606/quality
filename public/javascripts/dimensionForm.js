@@ -1,3 +1,6 @@
+let now = new Date();
+let currentHours = now.getHours();
+
 let wtA = document.querySelectorAll(".wtA");
 let wtB = document.querySelectorAll(".wtB");
 let wtC = document.querySelectorAll(".wtC");
@@ -36,23 +39,28 @@ function getShiftDate() {
 
 const activeUser = document.body.dataset.user;
 
+console.log(`The active user is ${activeUser}`);
+
 // Clear all first
-document.getElementById("inspector1").value = activeUser;
-document.getElementById("inspector2").value = activeUser;
-document.getElementById("inspector3").value = activeUser;
+    document.getElementById("inspector1").value = activeUser;
+    document.getElementById("inspector2").value = activeUser;
+    document.getElementById("inspector3").value = activeUser;
 
-// Set according to shift
-// if (currentHours >7 && currentHours <= 15) {
-//   // 06:00 to 15:59 → shift A
-//   document.getElementById("inspector1").value = activeUser;
-// } else if (currentHours > 15 &&currentHours <= 23) {
-//   // 16:00 to 23:59 → shift B
-//   document.getElementById("inspector2").value = activeUser;
+    // Set according to shift
+    if (currentHours >7 && currentHours <= 15) {
+      // 06:00 to 15:59 → shift A
+      document.getElementById("inspector1").value = activeUser;
+    } else if (currentHours > 15 &&currentHours <= 23) {
+      // 16:00 to 23:59 → shift B
+      document.getElementById("inspector2").value = activeUser;
+      
+      
+    } else {
+      // 00:00 to 06:59 → shift C
+      document.getElementById("inspector3").value = activeUser;
+    }
 
-// } else {
-//   // 00:00 to 06:59 → shift C
-//   document.getElementById("inspector3").value = activeUser;
-// }
+
 
 // General function to calculate stats
 const calculateStats = (selector, minId, maxId, avgId, rangeId) => {
@@ -187,6 +195,9 @@ const mc_no = document.getElementById("mc_no").value;
 
 window.addEventListener("DOMContentLoaded", () => {
   const activeUser = document.body.dataset.user;
+
+  console.log(`Active user from window onload ${activeUser}`);
+  
   
   // Helper to safely assign inspector value
   function assignInspector(inspectorId, savedValue) {
@@ -324,173 +335,67 @@ let inspection = {
   verifiedBy: "",
 };
 
-async function sendShiftData(shiftName) {
-  try {
-    inspection.date = date;
-    inspection.batch_number = batch_number.value; // make sure to use .value
-
-    let shiftInput, dataObj, inspectorInput;
-
-    if (shiftName === "data1") {
-      dataObj = inspection.data1;
-      shiftInput = document.getElementById("shiftA").value;
-      inspectedBy = document.getElementById("inspector1").value;
-    } else if (shiftName === "data2") {
-      dataObj = inspection.data2;
-      shiftInput = document.getElementById("shiftB").value;
-      inspectorInput = document.getElementById("inspector2").value;
-    } else if (shiftName === "data3") {
-      dataObj = inspection.data3;
-      shiftInput = document.getElementById("shiftC").value;
-      inspectorInput = document.getElementById("inspector3").value;
-    } else {
-      alert("You are not allowed to make changes here");
-      return;
-    }
-
-    // Reset arrays before pushing
-    dataObj.clA = []; 
-    dataObj.wtA = [];
-    dataObj.ht = [];
-    dataObj.kn = [];
-    dataObj.ttA = [];
-    dataObj.tfA = [];
-
-    // Push values dynamically based on shift
-    if (shiftName === "data1") {
-      clA.forEach(cell => dataObj.clA.push(cell.value));
-      wtA.forEach(cell => dataObj.wtA.push(cell.value));
-      ht.forEach(cell => dataObj.ht.push(cell.value));
-      kn.forEach(cell => dataObj.kn.push(cell.value));
-      ttA.forEach(cell => dataObj.ttA.push(cell.value));
-      tfA.forEach(cell => dataObj.tfA.push(cell.value));
-      let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
-      inspection.shiftA.inspectedBy = inspector1;
-    } else if (shiftName === "data2") {
-      clB.forEach(cell => dataObj.clB.push(cell.value));
-      wtB.forEach(cell => dataObj.wtB.push(cell.value));
-      ttB.forEach(cell => dataObj.ttB.push(cell.value));
-      tfB.forEach(cell => dataObj.tfB.push(cell.value));
-      let inspector2 = document.getElementById("inspector2").value; //Pushing inspector name
-      inspection.shiftA.inspectedBy = inspector2;
-    } else if (shiftName === "data3") {
-      clC.forEach(cell => dataObj.clC.push(cell.value));
-      wtC.forEach(cell => dataObj.wtC.push(cell.value));
-      ttC.forEach(cell => dataObj.ttC.push(cell.value));
-      tfC.forEach(cell => dataObj.tfC.push(cell.value));
-      let inspector3 = document.getElementById("inspector2").value; //Pushing inspector name
-      inspection.shiftA.inspectedBy = inspector3;
-    }
-
-    // Save shift and inspector
-    dataObj.shift = shiftInput;
-    dataObj.inspectedBy = inspectorInput;
-
-    const response = await fetch("/dimension/save", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        date: document.getElementById("date").value,
-        mc_no: mc_no,
-        batch_number: document.getElementById("batch_number").value,
-        [shiftName]: dataObj, // send only selected shift
-      }),
-    });
-
-    const result = await response.json();
-    alert("Data saved successfully!");
-  } catch (err) {
-    console.error("Error saving shift data:", err);
-  }
-}
-
-
 // async function sendShiftData(shiftName) {
 //   try {
 //     inspection.date = date;
-//     inspection.batch_number = batch_number.textContent;
+//     inspection.batch_number = batch_number.value; // make sure to use .value
+
+//     let shiftInput, dataObj, inspectorInput;
 
 //     if (shiftName === "data1") {
-//       if (shiftName === "data1") {
-//         inspection.data1.shift = document.getElementById("shiftA").value;
-//       } else if (shiftName === "data2") {
-//         inspection.data2.shift = document.getElementById("shiftB").value;
-//       } else if (shiftName === "data3") {
-//         inspection.data3.shift = document.getElementById("shiftC").value;
-//       }
-
-//       clA.forEach((cell) => {
-//         inspection.data1.clA.push(cell.value); // Pushing observations
-//       });
-//       wtA.forEach((cell) => {
-//         inspection.data1.wtA.push(cell.value);
-//       });
-//       ht.forEach((cell) => {
-//         inspection.data1.ht.push(cell.value);
-//       });
-//       kn.forEach((cell) => {
-//         inspection.data1.kn.push(cell.value);
-//       });
-//       ttA.forEach((cell) => {
-//         inspection.data1.ttA.push(cell.value);
-//       });
-//       tfA.forEach((cell) => {
-//         inspection.data1.tfA.push(cell.value);
-//       });
-
-//       let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
-//       inspection.data1.inspectedBy = inspector1;
+//       dataObj = inspection.data1;
+//       shiftInput = document.getElementById("shiftA").value;
+//       inspectedBy = document.getElementById("inspector1").value;
 //     } else if (shiftName === "data2") {
-//       if (shiftName === "data1") {
-//         inspection.data1.shift = document.getElementById("shiftA").value;
-//       } else if (shiftName === "data2") {
-//         inspection.data2.shift = document.getElementById("shiftB").value;
-//       } else if (shiftName === "data3") {
-//         inspection.data3.shift = document.getElementById("shiftC").value;
-//       }
-
-//       clB.forEach((cell) => {
-//         inspection.data2.clB.push(cell.value); // Pushing observations
-//       });
-//       wtB.forEach((cell) => {
-//         inspection.data2.wtB.push(cell.value);
-//       });
-//       ttB.forEach((cell) => {
-//         inspection.data2.ttB.push(cell.value);
-//       });
-//       tfB.forEach((cell) => {
-//         inspection.data2.tfB.push(cell.value);
-//       });
-//       inspection.data2.shift = shiftName2;
-//       let inspector2 = document.getElementById("inspector2").value; //Pushing inspector name
-//       inspection.data2.inspectedBy = inspector2;
+//       dataObj = inspection.data2;
+//       shiftInput = document.getElementById("shiftB").value;
+//       inspectorInput = document.getElementById("inspector2").value;
 //     } else if (shiftName === "data3") {
-//       if (shiftName === "data1") {
-//         inspection.data1.shift = document.getElementById("shiftA").value;
-//       } else if (shiftName === "data2") {
-//         inspection.data2.shift = document.getElementById("shiftB").value;
-//       } else if (shiftName === "data3") {
-//         inspection.data3.shift = document.getElementById("shiftC").value;
-//       }
-
-//       clC.forEach((cell) => {
-//         inspection.data3.clC.push(cell.value); // Pushing observations
-//       });
-//       wtC.forEach((cell) => {
-//         inspection.data3.wtC.push(cell.value);
-//       });
-//       ttC.forEach((cell) => {
-//         inspection.data3.ttC.push(cell.value);
-//       });
-//       tfC.forEach((cell) => {
-//         inspection.data3.tfC.push(cell.value);
-//       });
-//       inspection.data3.shift = shiftName3;
-//       let inspector3 = document.getElementById("inspector3").value; //Pushing inspector name
-//       inspection.data3.inspectedBy = inspector3;
+//       dataObj = inspection.data3;
+//       shiftInput = document.getElementById("shiftC").value;
+//       inspectorInput = document.getElementById("inspector3").value;
 //     } else {
 //       alert("You are not allowed to make changes here");
+//       return;
 //     }
+
+//     // Reset arrays before pushing
+//     dataObj.clA = []; 
+//     dataObj.wtA = [];
+//     dataObj.ht = [];
+//     dataObj.kn = [];
+//     dataObj.ttA = [];
+//     dataObj.tfA = [];
+
+//     // Push values dynamically based on shift
+//     if (shiftName === "data1") {
+//       clA.forEach(cell => dataObj.clA.push(cell.value));
+//       wtA.forEach(cell => dataObj.wtA.push(cell.value));
+//       ht.forEach(cell => dataObj.ht.push(cell.value));
+//       kn.forEach(cell => dataObj.kn.push(cell.value));
+//       ttA.forEach(cell => dataObj.ttA.push(cell.value));
+//       tfA.forEach(cell => dataObj.tfA.push(cell.value));
+//       let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
+//       inspection.shiftA.inspectedBy = inspector1;
+//     } else if (shiftName === "data2") {
+//       clB.forEach(cell => dataObj.clB.push(cell.value));
+//       wtB.forEach(cell => dataObj.wtB.push(cell.value));
+//       ttB.forEach(cell => dataObj.ttB.push(cell.value));
+//       tfB.forEach(cell => dataObj.tfB.push(cell.value));
+//       let inspector2 = document.getElementById("inspector2").value; //Pushing inspector name
+//       inspection.shiftA.inspectedBy = inspector2;
+//     } else if (shiftName === "data3") {
+//       clC.forEach(cell => dataObj.clC.push(cell.value));
+//       wtC.forEach(cell => dataObj.wtC.push(cell.value));
+//       ttC.forEach(cell => dataObj.ttC.push(cell.value));
+//       tfC.forEach(cell => dataObj.tfC.push(cell.value));
+//       let inspector3 = document.getElementById("inspector2").value; //Pushing inspector name
+//       inspection.shiftA.inspectedBy = inspector3;
+//     }
+
+//     // Save shift and inspector
+//     dataObj.shift = shiftInput;
+//     dataObj.inspectedBy = inspectorInput;
 
 //     const response = await fetch("/dimension/save", {
 //       method: "POST",
@@ -499,16 +404,122 @@ async function sendShiftData(shiftName) {
 //         date: document.getElementById("date").value,
 //         mc_no: mc_no,
 //         batch_number: document.getElementById("batch_number").value,
-//         [shiftName]: inspection[shiftName], // send only selected shift
+//         [shiftName]: dataObj, // send only selected shift
 //       }),
 //     });
 
 //     const result = await response.json();
-//     alert(`Data saved successfully!`);
+//     alert("Data saved successfully!");
 //   } catch (err) {
 //     console.error("Error saving shift data:", err);
 //   }
 // }
+
+
+async function sendShiftData(shiftName) {
+  try {
+    inspection.date = date;
+    inspection.batch_number = batch_number.textContent;
+
+    if (shiftName === "data1") {
+      if (shiftName === "data1") {
+        inspection.data1.shift = document.getElementById("shiftA").value;
+      } else if (shiftName === "data2") {
+        inspection.data2.shift = document.getElementById("shiftB").value;
+      } else if (shiftName === "data3") {
+        inspection.data3.shift = document.getElementById("shiftC").value;
+      }
+
+      clA.forEach((cell) => {
+        inspection.data1.clA.push(cell.value); // Pushing observations
+      });
+      wtA.forEach((cell) => {
+        inspection.data1.wtA.push(cell.value);
+      });
+      ht.forEach((cell) => {
+        inspection.data1.ht.push(cell.value);
+      });
+      kn.forEach((cell) => {
+        inspection.data1.kn.push(cell.value);
+      });
+      ttA.forEach((cell) => {
+        inspection.data1.ttA.push(cell.value);
+      });
+      tfA.forEach((cell) => {
+        inspection.data1.tfA.push(cell.value);
+      });
+
+      let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
+      inspection.data1.inspectedBy = inspector1;
+    } else if (shiftName === "data2") {
+      if (shiftName === "data1") {
+        inspection.data1.shift = document.getElementById("shiftA").value;
+      } else if (shiftName === "data2") {
+        inspection.data2.shift = document.getElementById("shiftB").value;
+      } else if (shiftName === "data3") {
+        inspection.data3.shift = document.getElementById("shiftC").value;
+      }
+
+      clB.forEach((cell) => {
+        inspection.data2.clB.push(cell.value); // Pushing observations
+      });
+      wtB.forEach((cell) => {
+        inspection.data2.wtB.push(cell.value);
+      });
+      ttB.forEach((cell) => {
+        inspection.data2.ttB.push(cell.value);
+      });
+      tfB.forEach((cell) => {
+        inspection.data2.tfB.push(cell.value);
+      });
+      inspection.data2.shift = shiftName2;
+      let inspector2 = document.getElementById("inspector2").value; //Pushing inspector name
+      inspection.data2.inspectedBy = inspector2;
+    } else if (shiftName === "data3") {
+      if (shiftName === "data1") {
+        inspection.data1.shift = document.getElementById("shiftA").value;
+      } else if (shiftName === "data2") {
+        inspection.data2.shift = document.getElementById("shiftB").value;
+      } else if (shiftName === "data3") {
+        inspection.data3.shift = document.getElementById("shiftC").value;
+      }
+
+      clC.forEach((cell) => {
+        inspection.data3.clC.push(cell.value); // Pushing observations
+      });
+      wtC.forEach((cell) => {
+        inspection.data3.wtC.push(cell.value);
+      });
+      ttC.forEach((cell) => {
+        inspection.data3.ttC.push(cell.value);
+      });
+      tfC.forEach((cell) => {
+        inspection.data3.tfC.push(cell.value);
+      });
+      inspection.data3.shift = shiftName3;
+      let inspector3 = document.getElementById("inspector3").value; //Pushing inspector name
+      inspection.data3.inspectedBy = inspector3;
+    } else {
+      alert("You are not allowed to make changes here");
+    }
+
+    const response = await fetch("/dimension/save", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        date: document.getElementById("date").value,
+        mc_no: mc_no,
+        batch_number: document.getElementById("batch_number").value,
+        [shiftName]: inspection[shiftName], // send only selected shift
+      }),
+    });
+
+    const result = await response.json();
+    alert(`Data saved successfully!`);
+  } catch (err) {
+    console.error("Error saving shift data:", err);
+  }
+}
 // const activeUser = document.body.dataset.user;
 
 //  // Clear all first
