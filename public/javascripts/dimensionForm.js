@@ -208,8 +208,8 @@ window.addEventListener("DOMContentLoaded", () => {
     savedInspection = {};
   }
 
-  if (savedInspection) {
-    // if (savedInspection && savedInspection.date === document.getElementById("date").value) {
+  // if (savedInspection) {
+    if (savedInspection && savedInspection.date === document.getElementById("date").value) {
     // Example for Shift A
     if (savedInspection.data1) {
       document.getElementById("shiftA").value = savedInspection.data1.shift[0];
@@ -354,6 +354,8 @@ async function sendShiftData(shiftName) {
 
     // Push values dynamically based on shift
     if (shiftName === "data1") {
+      console.log(`shift from backend ${getShiftDate()}`);
+      
       clA.forEach((cell) => dataObj.clA.push(cell.value));
       wtA.forEach((cell) => dataObj.wtA.push(cell.value));
       ht.forEach((cell) => dataObj.ht.push(cell.value));

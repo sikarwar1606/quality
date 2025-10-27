@@ -74,6 +74,7 @@ router.post("/save", isLoggedIn, async (req, res) => {
     // console.log(req.body);
     console.log(`Date from backend ${getShiftDate()}`);
     
+    console.log(getShiftDate());
 
     if (!date || !batch_number) {
       return res.status(400).json({
