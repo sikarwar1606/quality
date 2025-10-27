@@ -483,6 +483,13 @@
       Download PDF
     </button>
     <button
+      id="backBtn"
+      onclick="window.history.back()"
+      class="bg-blue-500 text-white px-4 py-2 rounded shadow-lg fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50"
+    >
+      <a >Back</a>
+    </button>
+    <button
       id=""
       class="bg-blue-500 text-white px-4 py-2 rounded shadow-lg fixed bottom-4 left4 z-50"
     >
@@ -517,6 +524,11 @@
         // Generate and save in landscape (fits automatically)
         html2pdf().set(opt).from(element).save();
       });
+
+      //Logic for back button
+      // document.getElementById("backBtn").addEventListener('click',()=>{
+      //   window.history.backward();
+      // })
     </script>
   </body>
 </html>
