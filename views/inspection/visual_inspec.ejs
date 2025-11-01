@@ -8,6 +8,7 @@
   </head>
 
   <body data-user="<%= user %>">
+    <%- include("../loader") %>
     <div class="no-print"><%- include("../partials/visual") %></div>
     <div class="visual">
       <div class="heading">
@@ -136,5 +137,6 @@
     </script>
 
     <script src="/javascripts/visualForm.js"></script>
+     <script src="/javascripts/loader.js"></script>
   </body>
 </html>

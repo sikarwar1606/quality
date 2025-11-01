@@ -87,7 +87,9 @@
   </head>
 
   <body>
+    <%- include("../loader") %>
     <%- include("../partials/qualityNav") %>
+    
       <div class="details">
         <div class="main">
           <h1>COA PREPARATION</h1>
@@ -117,7 +119,7 @@
             <label for="qty">Total Boxes: </label>
             <input type="number" id="qty" name="qty" required />
 
-            <div class="wrap">
+            <div class="wrap loaderReq">
               <button type="submit">Next</button>
             </div>
           </form>
@@ -158,6 +160,7 @@
         });
 
       </script>
+      <script src="/javascripts/loader.js"></script>
   </body>
 
   </html>

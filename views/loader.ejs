@@ -1,0 +1,102 @@
+<style>
+.loader-overlay {
+  position: fixed;
+  inset: 0;
+  /* background: #000000dd; */
+  display: none;
+  color: black;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-family: "Poppins", sans-serif;
+  z-index: 9999;
+  text-align: center;
+  padding: 20px;
+}
+
+.loader {
+  width: 60px;
+  height: 60px;
+  border: 6px solid orange;
+  border-top-color: white;
+  border-radius: 50%;
+  /* animation: spin 0.8s linear infinite; */
+  animation: pulseSpin 0.8s linear infinite;
+
+}
+
+
+
+@keyframes pulseSpin {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.1); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.quote-box {
+  margin-top: 18px;
+  max-width: 350px;
+  font-size: 2rem;
+  font-weight: 200;
+  line-height: 1.4;
+  opacity: 0;
+  animation: fadeInOut 6s infinite; /* Updated from 3s → 6s */
+}
+
+
+@keyframes fadeInOut {
+  0% { opacity: 0; }
+  25% { opacity: 1; }
+  75% { opacity: 1; }
+  100% { opacity: 0; }
+}
+</style>
+
+<div id="loader" class="loader-overlay">
+  <div class="loader"></div>
+  <div class="quote-box" id="quoteText"></div>
+</div>
+
+<script>
+// Motivational Quotes
+const quotes = [
+  "Great things take time. Keep going! 💪",
+  "You're closer than you think! 🚀",
+  "Every second counts. Stay focused ✨",
+  "Believe in the process 🌱",
+  "Slow progress is still progress ✅",
+  "Breathe. Great work takes time.",
+  "Loading… just like life.",
+  "Keep moving forward.",
+  "Tiny progress is still progress.",
+  "You’re doing enough.",
+  "Trust the timing of things.",
+  "Stay present. Stay patient.",
+  "Something good is coming.",
+  "Calm mind. Strong results.",
+  
+];
+
+let index = 0;
+function changeQuote() {
+  const quoteBox = document.getElementById("quoteText");
+  quoteBox.innerText = quotes[index++ % quotes.length];
+}
+setInterval(changeQuote, 3000);
+changeQuote(); // Show at start
+
+function showLoader() {
+  document.getElementById("loader").style.display = "flex";
+}
+
+function hideLoader() {
+  document.getElementById("loader").style.display = "none";
+}
+</script>

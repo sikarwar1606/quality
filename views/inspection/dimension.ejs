@@ -90,8 +90,8 @@
 </head>
 
 <body data-user="<%= user %>">
-
-  <div class="no-print"><%- include("../partials/dimension") %></div>
+<%- include("../loader") %>
+  <div class="no-print"><%- include("../partials/dimension") %> </div>
   <div class="no-print"></div>
   <div class="visual">
     <div class="heading">
@@ -567,7 +567,7 @@
 </script>
 
 
-
+<script src="/javascripts/loader.js"></script>
 
 
   <script src="/javascripts/dimensionForm.js"></script>

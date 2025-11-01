@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="/stylesheets/add_batch.css">
   </head>
   <body>
-    <%- include("../partials/qualityNav") %>
+    <%- include("../partials/qualityNav") %><%- include("../loader") %>
 
     <div class="details">
       <div class="main">
@@ -67,7 +67,7 @@
           <input type="text" id="issued_by" name="issued_by" class="uppercase" required />
 
           <div class="wrap">
-            <button type="submit">Submit</button>
+            <button type="submit" class="loaderReq">Submit</button>
           </div>
         </form>
       </div>
@@ -81,5 +81,6 @@
         });
       });
     </script>
+    <script src="/javascripts/loader.js"></script>
   </body>
 </html>

@@ -10,7 +10,7 @@
   </head>
 
   <body>
-    <%- include("../partials/qualityNav") %>
+    <%- include("../partials/qualityNav") %> <%- include("../loader") %>
 
     <div class="details">
       <div class="main">
@@ -125,7 +125,7 @@
           />
 
           <div class="wrap">
-            <button type="submit">Submit</button>
+            <button type="submit" class="loaderReq">Submit</button>
           </div>
         </form>
       </div>
@@ -174,20 +174,7 @@
 
        const input = document.getElementById("mc_no");
   const options = Array.from(document.querySelectorAll("#machineList option")).map(opt => opt.value);
-
-  // input.addEventListener("input", function () {
-  //   if (!options.includes(this.value)) {
-  //     this.setCustomValidity("Please select a valid option from the list.");
-  //   } else {
-  //     this.setCustomValidity(""); // clears error if valid
-  //   }
-  // });
-
-  // input.addEventListener("blur", function () {
-  //   if (!options.includes(this.value)) {
-  //     this.value = ""; // clear invalid input on blur
-  //   }
-  // });
     </script>
+     <script src="/javascripts/loader.js"></script>
   </body>
 </html>

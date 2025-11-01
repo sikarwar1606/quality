@@ -19,7 +19,7 @@
   </head>
   <body class="bg-gray-100 font-sans">
     <!-- Navbar -->
-    <%- include("partials/qualityNav") %>
+    <%- include("partials/qualityNav") %> <%- include("loader") %>
 
     <!-- Hero / Welcome Section -->
 
@@ -27,8 +27,6 @@
     <section
       class="my-8 mx-3 md:mx-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
     >
-     
-
       <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition">
         <h3 class="text-gray-500 font-semibold">Latest Batch</h3>
         <p class="text-3xl font-bold text-purple-600 mt-2">
@@ -37,72 +35,106 @@
       </div>
 
       <div
-        class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition"
+        class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition loaderReq "
         id="visualInspection"
       >
         <h3 class="text-gray-500 font-semibold">Visual Inspection</h3>
         <p class="text-3xl font-bold text-green-600 mt-2">
           <a href="/visual/CCM-01">
-            <video width="50"  preload="none" style="background: transparent  url('https://cdn-icons-png.flaticon.com/512/19013/19013031.png') 50% 50% / fit no-repeat;" autoplay="autoplay" loop="true" muted="muted" playsinline="">
-        <source src="https://cdn-icons-mp4.flaticon.com/512/19013/19013031.mp4" type="video/mp4">
-    </video>
-           
+            <video
+              width="50"
+              preload="none"
+              style="
+                background: transparent
+                  url('https://cdn-icons-png.flaticon.com/512/19013/19013031.png')
+                  50% 50% / fit no-repeat;
+              "
+              autoplay="autoplay"
+              loop="true"
+              muted="muted"
+              playsinline=""
+            >
+              <source
+                src="https://cdn-icons-mp4.flaticon.com/512/19013/19013031.mp4"
+                type="video/mp4"
+              />
+            </video>
           </a>
         </p>
       </div>
       <div
-        class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition"
+        class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition loaderReq"
         id="dimension"
       >
         <h3 class="text-gray-500 font-semibold">Dimension</h3>
         <p class="text-3xl font-bold text-green-600 mt-2">
           <a href="/dimension/CCM-01">
-           <video width="50"  preload="none" style="background: transparent  url('https://cdn-icons-png.flaticon.com/512/19026/19026322.png') 50% 50% / fit no-repeat;" autoplay="autoplay" loop="true" muted="muted" playsinline="">
-        <source src="https://cdn-icons-mp4.flaticon.com/512/19026/19026322.mp4" type="video/mp4">
-    </video>
-
+            <video
+              width="50"
+              preload="none"
+              style="
+                background: transparent
+                  url('https://cdn-icons-png.flaticon.com/512/19026/19026322.png')
+                  50% 50% / fit no-repeat;
+              "
+              autoplay="autoplay"
+              loop="true"
+              muted="muted"
+              playsinline=""
+            >
+              <source
+                src="https://cdn-icons-mp4.flaticon.com/512/19026/19026322.mp4"
+                type="video/mp4"
+              />
+            </video>
           </a>
         </p>
       </div>
 
-     <div
-  class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition relative group"
-  id="prepareCoa"
->
-  <h3 class="text-gray-500 font-semibold">Prepare COA</h3>
-  <p class="text-3xl font-bold text-green-600 mt-2 flex ">
-    <video
-      width="50"
-      preload="none"
-      style="background: transparent url('https://cdn-icons-png.flaticon.com/512/6172/6172540.png') 50% 50% / fit no-repeat;"
-      autoplay
-      loop
-      muted
-      playsinline
-    >
-      <source src="https://cdn-icons-mp4.flaticon.com/512/6172/6172540.mp4" type="video/mp4">
-    </video>
-  </p>
+      <div
+        class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition relative group"
+        id="prepareCoa"
+      >
+        <h3 class="text-gray-500 font-semibold">Prepare COA</h3>
+        <p class="text-3xl font-bold text-green-600 mt-2 flex">
+          <video
+            width="50"
+            preload="none"
+            style="
+              background: transparent
+                url('https://cdn-icons-png.flaticon.com/512/6172/6172540.png')
+                50% 50% / fit no-repeat;
+            "
+            autoplay
+            loop
+            muted
+            playsinline
+          >
+            <source
+              src="https://cdn-icons-mp4.flaticon.com/512/6172/6172540.mp4"
+              type="video/mp4"
+            />
+          </video>
+        </p>
 
-  <!-- Hidden buttons, shown on hover -->
-  <div
-    class="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-white/90 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"
-  >
-    <a
-      href="/coa/coa"
-      class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
-    >
-      For Customer
-    </a>
-    <a
-      href="/coa/coaInt"
-      class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-    >
-      For Internal Transfer
-    </a>
-  </div>
-</div>
-
+        <!-- Hidden buttons, shown on hover -->
+        <div
+          class="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-white/90 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity"
+        >
+          <a
+            href="/coa/coa"
+            class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition loaderReq"
+          >
+            For Customer
+          </a>
+          <a
+            href="/coa/coaInt"
+            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition loaderReq"
+          >
+            For Internal Transfer
+          </a>
+        </div>
+      </div>
     </section>
 
     <!-- Latest Batches Table -->
@@ -144,7 +176,8 @@
         </table>
       </div>
     </section>
-    <script>
+    <script src="/javascripts/loader.js"></script>
+    <script >
       let prepareCoa = document.getElementById("prepareCoa");
       prepareCoa.addEventListener("click", () => {
         window.location.href = "/coa/coa";
@@ -157,7 +190,9 @@
       dimension.addEventListener("click", () => {
         window.location.href = "/dimension/CCM-01";
       });
+
       
     </script>
+    
   </body>
 </html>

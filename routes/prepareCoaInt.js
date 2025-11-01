@@ -23,14 +23,15 @@ router.post("/", isLoggedIn, async (req, res) => {
     let gst_number = req.body.customer_gst;
 
     if (!gst_number) {
-      return res.send(`GST number is required`)
+      // return res.send(`GST number is required`)
+      return res.render('error', { message: "GST number is required" });
     }
 
     let gstDetails = await Customer_gst.findOne({ gst_number: gst_number });
 
     if (!gstDetails) {
-      // return res.status(404).json({ error:  `GST Number${gst_number} not found in database, Please contact to Admin`});
-      return res.send(`GST Number ${gst_number} not found in database, Please contact to Admin`)
+      // return res.send(`GST Number ${gst_number} not found in database, Please contact to Admin`)
+      return res.render('error', {gst_number, message: "GST Number ${gst_number} not found in database, Please contact to Admin" });
     }
 
     let templateCode = req.body.template_code;
@@ -70,30 +71,101 @@ router.get("/relianceCoa", isLoggedIn, async (req, res) => {
   }
   
 
-  const result = await dimension_data.aggregate([
-    { $match: { batch_number: batch_number } },
-    { $unwind: "$data" },
-    {
-      $group: {
-        _id: "$batch_number",
-        avgwt: { $avg: "$data.wt" },
-        avght: { $avg: "$data.ht" },
-        avgkn: { $avg: "$data.knurling" },
+
+ const result = await dimension_data.aggregate([
+  { $match: { batch_number } },
+  { $sample: { size: 1 } },
+
+  {
+    $project: {
+      wt: {
+        $filter: {
+          input: { $concatArrays: ["$data1.wtA", "$data2.wtB", "$data3.wtC"] },
+          as: "item",
+          cond: {
+            $and: [
+              { $ne: ["$$item", ""] },
+              { $ne: ["$$item", null] },
+              { $regexMatch: { input: "$$item", regex: /^[0-9.]+$/ } }
+            ]
+          }
+        }
       },
-    },
-  ]);
+      ht: {
+        $filter: {
+          input: "$data1.ht",
+          as: "item",
+          cond: {
+            $and: [
+              { $ne: ["$$item", ""] },
+              { $ne: ["$$item", null] },
+              { $regexMatch: { input: "$$item", regex: /^[0-9.]+$/ } }
+            ]
+          }
+        }
+      },
+      kn: {
+        $filter: {
+          input: "$data1.kn",
+          as: "item",
+          cond: {
+            $and: [
+              { $ne: ["$$item", ""] },
+              { $ne: ["$$item", null] },
+              { $regexMatch: { input: "$$item", regex: /^[0-9.]+$/ } }
+            ]
+          }
+        }
+      }
+    }
+  },
+
+  // ✅ Convert cleaned strings → numbers
+  {
+    $project: {
+      wt: { $map: { input: "$wt", in: { $toDouble: "$$this" } } },
+      ht: { $map: { input: "$ht", in: { $toDouble: "$$this" } } },
+      kn: { $map: { input: "$kn", in: { $toDouble: "$$this" } } }
+    }
+  },
+
+  {
+    $project: {
+      minwt: { $min: "$wt" },
+      maxwt: { $max: "$wt" },
+      avgwt: { $avg: "$wt" },
+
+      minht: { $min: "$ht" },
+      maxht: { $max: "$ht" },
+      avght: { $avg: "$ht" },
+
+      minkn: { $min: "$kn" },
+      maxkn: { $max: "$kn" },
+      avgkn: { $avg: "$kn" }
+    }
+  }
+]);
+
+
+
 
   let avgData = result.length > 0 ? result[0] : {};
+console.log(avgData);
 
   // 3️⃣ Load other related data
   const batch = await batch_details.findOne({ batch_number });
+  // if (!batch) {
+  //   return res.send("This batch number does not exist, Please check once");
+  // }
   if (!batch) {
-    return res.send("This batch number does not exist, Please check once");
+    // return res.send("This batch number does not exist, Please check once");
+    return res.render('error', { message: "This batch number does not exist, Please check once" });
   }
 
   const customer = await Customer_gst.findOne({ gst_number: customer_gst });
   if (!customer) {
-    return res.send("This GST number is not registered, Please contact admin");
+    // return res.send("This GST number is not registered, Please contact admin");
+    return res.render('error', { message: "This GST number is not registered, Please contact admin" });
   }
 
   
@@ -104,16 +176,18 @@ router.get("/relianceCoa", isLoggedIn, async (req, res) => {
 
   const plant = await plant_details.findOne({ plant_code });
  if (!plant) {
-    return res.send(
-      "Issue while getting the Plant Details,(Plant code must be in Capital Latter)"
-    );
+    // return res.send(
+    //   "Issue while getting the Plant Details,(Plant code must be in Capital Latter)"
+    // );
+    return res.render('error', { message: "Issue while getting the Plant Details,(Plant code must be in Capital Latter)" });
   }
 
   const specs = await specSC.findOne({ design: batch.design });
    if (!specs) {
-    return res.send(
-      "Issue while getting the Specs Details, Please check if design name is correct or All data is there in Design Spec"
-    );
+    // return res.send(
+    //   "Issue while getting the Specs Details, Please check if design name is correct or All data is there in Design Spec"
+    // );
+    return res.render('error', { message: "Issue while getting the Specs Details, Please check if design name is correct or All data is there in Design Spec" });
   }
 
   const customer_data = {
@@ -230,23 +304,80 @@ router.get("/bisleriWater", isLoggedIn, async (req, res) => {
     res.redirect("/coa/coa");
   }
   
+const result = await dimension_data.aggregate([
+  { $match: { batch_number } },
+  { $sample: { size: 1 } },
 
-  const result = await dimension_data.aggregate([
-    { $match: { batch_number: batch_number } },
-    { $unwind: "$data" },
-    {
-      $group: {
-        _id: "$batch_number",
-        avgwt: { $avg: "$data.wt" },
-        avght: { $avg: "$data.ht" },
-        avgkn: { $avg: "$data.knurling" },
-        avgmax: { $avg: "$data.maxDia" },
-        avgeDia: { $avg: "$data.eDia" },
-        avgplugDia: { $avg: "$data.plugDia" },
-        avgplugHt: { $avg: "$data.plugHt" },
+  {
+    $project: {
+      wt: {
+        $filter: {
+          input: { $concatArrays: ["$data1.wtA", "$data2.wtB", "$data3.wtC"] },
+          as: "item",
+          cond: {
+            $and: [
+              { $ne: ["$$item", ""] },
+              { $ne: ["$$item", null] },
+              { $regexMatch: { input: "$$item", regex: /^[0-9.]+$/ } }
+            ]
+          }
+        }
       },
-    },
-  ]);
+      ht: {
+        $filter: {
+          input: "$data1.ht",
+          as: "item",
+          cond: {
+            $and: [
+              { $ne: ["$$item", ""] },
+              { $ne: ["$$item", null] },
+              { $regexMatch: { input: "$$item", regex: /^[0-9.]+$/ } }
+            ]
+          }
+        }
+      },
+      kn: {
+        $filter: {
+          input: "$data1.kn",
+          as: "item",
+          cond: {
+            $and: [
+              { $ne: ["$$item", ""] },
+              { $ne: ["$$item", null] },
+              { $regexMatch: { input: "$$item", regex: /^[0-9.]+$/ } }
+            ]
+          }
+        }
+      }
+    }
+  },
+
+  // ✅ Convert cleaned strings → numbers
+  {
+    $project: {
+      wt: { $map: { input: "$wt", in: { $toDouble: "$$this" } } },
+      ht: { $map: { input: "$ht", in: { $toDouble: "$$this" } } },
+      kn: { $map: { input: "$kn", in: { $toDouble: "$$this" } } }
+    }
+  },
+
+  {
+    $project: {
+      minwt: { $min: "$wt" },
+      maxwt: { $max: "$wt" },
+      avgwt: { $avg: "$wt" },
+
+      minht: { $min: "$ht" },
+      maxht: { $max: "$ht" },
+      avght: { $avg: "$ht" },
+
+      minkn: { $min: "$kn" },
+      maxkn: { $max: "$kn" },
+      avgkn: { $avg: "$kn" }
+    }
+  }
+]);
+
 
   let avgData = result.length > 0 ? result[0] : {};
 
@@ -380,34 +511,90 @@ router.get("/cokeCoa", async (req, res) => {
  if (!more_info) {
     res.redirect("/coa/coa");
   }
+const result = await dimension_data.aggregate([
+  { $match: { batch_number } },
+  { $sample: { size: 1 } },
 
-  const result = await dimension_data.aggregate([
-    { $match: { batch_number: batch_number } },
-    { $unwind: "$data" },
-    {
-      $group: {
-        _id: "$batch_number",
-        minwt: { $min: "$data.wt" },
-        minht: { $min: "$data.ht" },
-        minkn: { $min: "$data.knurling" },
-
-        maxwt: { $max: "$data.wt" },
-        maxht: { $max: "$data.ht" },
-        maxkn: { $max: "$data.knurling" },
-
-        avgwt: { $avg: "$data.wt" },
-        avght: { $avg: "$data.ht" },
-        avgkn: { $avg: "$data.knurling" },
+  {
+    $project: {
+      wt: {
+        $filter: {
+          input: { $concatArrays: ["$data1.wtA", "$data2.wtB", "$data3.wtC"] },
+          as: "item",
+          cond: {
+            $and: [
+              { $ne: ["$$item", ""] },
+              { $ne: ["$$item", null] },
+              { $regexMatch: { input: "$$item", regex: /^[0-9.]+$/ } }
+            ]
+          }
+        }
       },
-    },
-  ]);
+      ht: {
+        $filter: {
+          input: "$data1.ht",
+          as: "item",
+          cond: {
+            $and: [
+              { $ne: ["$$item", ""] },
+              { $ne: ["$$item", null] },
+              { $regexMatch: { input: "$$item", regex: /^[0-9.]+$/ } }
+            ]
+          }
+        }
+      },
+      kn: {
+        $filter: {
+          input: "$data1.kn",
+          as: "item",
+          cond: {
+            $and: [
+              { $ne: ["$$item", ""] },
+              { $ne: ["$$item", null] },
+              { $regexMatch: { input: "$$item", regex: /^[0-9.]+$/ } }
+            ]
+          }
+        }
+      }
+    }
+  },
 
-  let avgData = result.length > 0 ? result[0] : {};
+  // ✅ Convert cleaned strings → numbers
+  {
+    $project: {
+      wt: { $map: { input: "$wt", in: { $toDouble: "$$this" } } },
+      ht: { $map: { input: "$ht", in: { $toDouble: "$$this" } } },
+      kn: { $map: { input: "$kn", in: { $toDouble: "$$this" } } }
+    }
+  },
+
+  {
+    $project: {
+      minwt: { $min: "$wt" },
+      maxwt: { $max: "$wt" },
+      avgwt: { $avg: "$wt" },
+
+      minht: { $min: "$ht" },
+      maxht: { $max: "$ht" },
+      avght: { $avg: "$ht" },
+
+      minkn: { $min: "$kn" },
+      maxkn: { $max: "$kn" },
+      avgkn: { $avg: "$kn" }
+    }
+  }
+]);
+
+const avgData = result[0] || {};
+
 
   // 3️⃣ Load other related data
   const batch = await batch_details.findOne({ batch_number });
+  
+
   if (!batch) {
-    return res.send("This batch number does not exist, Please check once");
+    // return res.send("This batch number does not exist, Please check once");
+    return res.render('error', { message: "This batch number does not exist, Please check once" });
   }
 
   const customer = await Customer_gst.findOne({ gst_number: customer_gst });
@@ -531,29 +718,78 @@ router.get("/others", async (req, res) => {
     res.redirect("/coa/coa");
   }
   const result = await dimension_data.aggregate([
-    { $match: { batch_number: batch_number } },
-    { $unwind: "$data" },
-    {
-      $group: {
-        _id: "$batch_number",
-        minwt: { $min: "$data.wt" },
-        minht: { $min: "$data.ht" },
-        minkn: { $min: "$data.knurling" },
-        mintdia: { $min: "$data.t_dia" },
+  { $match: { batch_number } },
+  { $sample: { size: 1 } },
 
-        maxwt: { $max: "$data.wt" },
-        maxht: { $max: "$data.ht" },
-        maxkn: { $max: "$data.knurling" },
-        maxtdia: { $max: "$data.t_dia" },
-
-        avgwt: { $avg: "$data.wt" },
-        avght: { $avg: "$data.ht" },
-        avgkn: { $avg: "$data.knurling" },
-        avgtdia: { $avg: "$data.t_dia" },
-
+  {
+    $project: {
+      wt: {
+        $filter: {
+          input: { $concatArrays: ["$data1.wtA", "$data2.wtB", "$data3.wtC"] },
+          as: "item",
+          cond: {
+            $and: [
+              { $ne: ["$$item", ""] },
+              { $ne: ["$$item", null] },
+              { $regexMatch: { input: "$$item", regex: /^[0-9.]+$/ } }
+            ]
+          }
+        }
       },
-    },
-  ]);
+      ht: {
+        $filter: {
+          input: "$data1.ht",
+          as: "item",
+          cond: {
+            $and: [
+              { $ne: ["$$item", ""] },
+              { $ne: ["$$item", null] },
+              { $regexMatch: { input: "$$item", regex: /^[0-9.]+$/ } }
+            ]
+          }
+        }
+      },
+      kn: {
+        $filter: {
+          input: "$data1.kn",
+          as: "item",
+          cond: {
+            $and: [
+              { $ne: ["$$item", ""] },
+              { $ne: ["$$item", null] },
+              { $regexMatch: { input: "$$item", regex: /^[0-9.]+$/ } }
+            ]
+          }
+        }
+      }
+    }
+  },
+
+  // ✅ Convert cleaned strings → numbers
+  {
+    $project: {
+      wt: { $map: { input: "$wt", in: { $toDouble: "$$this" } } },
+      ht: { $map: { input: "$ht", in: { $toDouble: "$$this" } } },
+      kn: { $map: { input: "$kn", in: { $toDouble: "$$this" } } }
+    }
+  },
+
+  {
+    $project: {
+      minwt: { $min: "$wt" },
+      maxwt: { $max: "$wt" },
+      avgwt: { $avg: "$wt" },
+
+      minht: { $min: "$ht" },
+      maxht: { $max: "$ht" },
+      avght: { $avg: "$ht" },
+
+      minkn: { $min: "$kn" },
+      maxkn: { $max: "$kn" },
+      avgkn: { $avg: "$kn" }
+    }
+  }
+]);
 
   let avgData = result.length > 0 ? result[0] : {};
 
