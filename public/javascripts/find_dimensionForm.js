@@ -353,7 +353,7 @@ async function sendShiftData(shiftName) {
 
     // Save shift and inspector
     dataObj.shift = shiftInput;
-    dataObj.inspectedBy = inspectorInput;
+    // dataObj.inspectedBy = inspectorInput;
 
     const response = await fetch("/dimension/save", {
       method: "POST",
@@ -361,6 +361,7 @@ async function sendShiftData(shiftName) {
       body: JSON.stringify({
         date: document.getElementById("date").value,
         mc_no: mc_no,
+        verifiedBy:activeUser,
         batch_number: document.getElementById("batch_number").value,
         [shiftName]: dataObj, // send only selected shift
       }),
