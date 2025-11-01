@@ -54,8 +54,8 @@ router.get("/:date/:mcId/:batch_number", isLoggedIn, async (req, res) => {
     // Find the report for that machine and date
     const report = await dimensionReport.findOne({
       date,
-      batch_number
-      // mc_no: { $regex: regex },
+      batch_number,
+      mc_no: { $regex: regex },
     });
 
     if (!report) {
