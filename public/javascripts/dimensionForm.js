@@ -1,3 +1,6 @@
+let now = new Date();
+let currentHours = now.getHours();
+
 let wtA = document.querySelectorAll(".wtA");
 let wtB = document.querySelectorAll(".wtB");
 let wtC = document.querySelectorAll(".wtC");
@@ -41,17 +44,17 @@ document.getElementById("inspector2").value = activeUser;
 document.getElementById("inspector3").value = activeUser;
 
 // Set according to shift
-// if (currentHours >7 && currentHours <= 15) {
-//   // 06:00 to 15:59 → shift A
-//   document.getElementById("inspector1").value = activeUser;
-// } else if (currentHours > 15 &&currentHours <= 23) {
-//   // 16:00 to 23:59 → shift B
-//   document.getElementById("inspector2").value = activeUser;
+if (currentHours >7 && currentHours <= 15) {
+  // 06:00 to 15:59 → shift A
+  document.getElementById("inspector1").value = activeUser;
+} else if (currentHours > 15 &&currentHours <= 23) {
+  // 16:00 to 23:59 → shift B
+  document.getElementById("inspector2").value = activeUser;
 
-// } else {
-//   // 00:00 to 06:59 → shift C
-//   document.getElementById("inspector3").value = activeUser;
-// }
+} else {
+  // 00:00 to 06:59 → shift C
+  document.getElementById("inspector3").value = activeUser;
+}
 
 // General function to calculate stats
 const calculateStats = (selector, minId, maxId, avgId, rangeId) => {
@@ -362,21 +365,28 @@ async function sendShiftData(shiftName) {
       kn.forEach((cell) => dataObj.kn.push(cell.value));
       ttA.forEach((cell) => dataObj.ttA.push(cell.value));
       tfA.forEach((cell) => dataObj.tfA.push(cell.value));
+      let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
+      inspection.data1.inspectedByA = inspector1;
     } else if (shiftName === "data2") {
       clB.forEach((cell) => dataObj.clB.push(cell.value));
       wtB.forEach((cell) => dataObj.wtB.push(cell.value));
       ttB.forEach((cell) => dataObj.ttB.push(cell.value));
       tfB.forEach((cell) => dataObj.tfB.push(cell.value));
+      let inspector2 = document.getElementById("inspector2").value; //Pushing inspector name
+      inspection.data2.inspectedByB = inspector2;
     } else if (shiftName === "data3") {
       clC.forEach((cell) => dataObj.clC.push(cell.value));
       wtC.forEach((cell) => dataObj.wtC.push(cell.value));
       ttC.forEach((cell) => dataObj.ttC.push(cell.value));
       tfC.forEach((cell) => dataObj.tfC.push(cell.value));
+      let inspector3 = document.getElementById("inspector3").value; //Pushing inspector name
+      inspection.data1.inspectedByC = inspector3;
     }
 
     // Save shift and inspector
     dataObj.shift = shiftInput;
-    dataObj.inspectedBy = inspectorInput;
+    
+    // dataObj.inspectedBy = inspectorInput;
 
     const response = await fetch("/dimension/save", {
       method: "POST",
