@@ -185,7 +185,70 @@
             <td>T.T<br />(In mm)</td>
             <td>T.F<br />(In mm)</td>
           </tr>
-          <tr>
+          <%
+  function showNum(value) {
+    return (!isNaN(value) && isFinite(value)) ? Number(value).toFixed(2) : 'N/A';
+  }
+
+  function sum(v1, v2) {
+    const result = Number(v1) + Number(v2);
+    return showNum(result);
+  }
+
+  function diff(v1, v2) {
+    const result = Number(v1) - Number(v2);
+    return showNum(result);
+  }
+%>
+<tr>
+  <td colspan="2">USL</td>
+  <td><%= spec ? sum(spec.cl_wt_spec, spec.cl_wt_spec_tol) : '' %></td>
+  <td><%= spec ? sum(spec.cl_ht_spec, spec.cl_ht_spec_tol) : '' %></td>
+  <td><%= spec ? sum(spec.cl_kn_spec, spec.cl_kn_spec_tol) : '' %></td>
+  <td><%= spec ? sum(spec.thickness, spec.thickness_tol) : '' %></td>
+  <td><%= spec ? sum(spec.top_flatness, spec.top_flatness_tol) : '' %></td>
+  <td></td>
+  <td><%= spec ? sum(spec.cl_wt_spec, spec.cl_wt_spec_tol) : '' %></td>
+  <td><%= spec ? sum(spec.thickness, spec.thickness_tol) : '' %></td>
+  <td><%= spec ? sum(spec.top_flatness, spec.top_flatness_tol) : '' %></td>
+  <td></td>
+  <td><%= spec ? sum(spec.cl_wt_spec, spec.cl_wt_spec_tol) : '' %></td>
+  <td><%= spec ? sum(spec.thickness, spec.thickness_tol) : '' %></td>
+  <td><%= spec ? sum(spec.top_flatness, spec.top_flatness_tol) : '' %></td>
+</tr>
+<tr>
+  <td colspan="2">NOMINAL</td>
+  <td><%= spec ? showNum(spec.cl_wt_spec) : '' %></td>
+  <td><%= spec ? showNum(spec.cl_ht_spec) : '' %></td>
+  <td><%= spec ? showNum(spec.cl_kn_spec) : '' %></td>
+  <td><%= spec ? showNum(spec.thickness) : '' %></td>
+  <td><%= spec ? showNum(spec.top_flatness) : '' %></td>
+  <td></td>
+  <td><%= spec ? showNum(spec.cl_wt_spec) : '' %></td>
+  <td><%= spec ? showNum(spec.thickness) : '' %></td>
+  <td><%= spec ? showNum(spec.top_flatness) : '' %></td>
+  <td></td>
+  <td><%= spec ? showNum(spec.cl_wt_spec) : '' %></td>
+  <td><%= spec ? showNum(spec.thickness) : '' %></td>
+  <td><%= spec ? showNum(spec.top_flatness) : '' %></td>
+</tr>
+<tr>
+  <td colspan="2">LSL</td>
+  <td><%= spec ? diff(spec.cl_wt_spec, spec.cl_wt_spec_tol) : '' %></td>
+  <td><%= spec ? diff(spec.cl_ht_spec, spec.cl_ht_spec_tol) : '' %></td>
+  <td><%= spec ? diff(spec.cl_kn_spec, spec.cl_kn_spec_tol) : '' %></td>
+  <td><%= spec ? diff(spec.thickness, spec.thickness_tol) : '' %></td>
+  <td><%= spec ? diff(spec.top_flatness, spec.top_flatness_tol) : '' %></td>
+  <td></td>
+  <td><%= spec ? diff(spec.cl_wt_spec, spec.cl_wt_spec_tol) : '' %></td>
+  <td><%= spec ? diff(spec.thickness, spec.thickness_tol) : '' %></td>
+  <td><%= spec ? diff(spec.top_flatness, spec.top_flatness_tol) : '' %></td>
+  <td></td>
+  <td><%= spec ? diff(spec.cl_wt_spec, spec.cl_wt_spec_tol) : '' %></td>
+  <td><%= spec ? diff(spec.thickness, spec.thickness_tol) : '' %></td>
+  <td><%= spec ? diff(spec.top_flatness, spec.top_flatness_tol) : '' %></td>
+</tr>
+          <!-- <tr>
             <td colspan="2">USL</td>
             <td>
               <%= spec ? (Number(spec.cl_wt_spec || 0) + Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
@@ -300,7 +363,7 @@
             <td>
               <%= spec ? (Number(spec.top_flatness || 0) - Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
             </td>
-          </tr>
+          </tr> -->
 
           <tr>
             <td colspan="2">MIN.</td>
