@@ -92,36 +92,6 @@ const ccmDefectTable = document
 
 // Build CCM Defects
 for (let row = 0; row < ccmDefects.length; row++) {
-  if (ccmDefects[row] === "Inner Core Damage") {
-    let extraRow1 = document.createElement("tr");
-    let extraRow2 = document.createElement("tr");
-    let extraTd1 = document.createElement("td");
-    let extraTd2 = document.createElement("td");
-    let extraTd3 = document.createElement("td");
-    let extraTd4 = document.createElement("td");
-    extraTd1.colSpan = 4;
-    extraTd2.colSpan = 15; 
-    extraTd3.colSpan = 5; 
-    extraTd4.colSpan = 5; 
-
-    extraTd1.rowSpan = 2; 
-    extraTd2.rowSpan = 2; 
-    // extraTd.style.fontWeight = "bold";
-    extraTd2.style.textAlign = "center";
-    extraTd1.textContent = "Doc. No.: SIPL-QA-R-60";
-    extraTd2.textContent = "VISUAL INSPECTION REPORT (SFM/FLM/SLM)";
-    extraTd3.textContent = "Rev. No.: 00";
-    extraTd4.textContent = "Rev. Date: 01.07.2024";
-
-    extraRow1.appendChild(extraTd1);
-    extraRow1.appendChild(extraTd2);
-    extraRow1.appendChild(extraTd3);
-    extraRow2.appendChild(extraTd4);
-    
-
-    ccmDefectTable.appendChild(extraRow1);
-    ccmDefectTable.appendChild(extraRow2);
-  }
   let tr = document.createElement("tr");
 
   // Defect name column (colspan=3 to align with header)
