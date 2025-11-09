@@ -8,7 +8,7 @@ const data1Schema = new mongoose.Schema({
   kn: { type: [String], default: [] },
   ttA: { type: [String], default: [] },
   tfA: { type: [String], default: [] },
-  // remarksA: { type: String, default: "" },
+  remarks1: { type: String, default: "" },
   inspectedByA: { type: String, default: "" }
 });
 const data2Schema = new mongoose.Schema({
@@ -17,7 +17,7 @@ const data2Schema = new mongoose.Schema({
   wtB: { type: [String], default: [] },
   ttB: { type: [String], default: [] },
   tfB: { type: [String], default: [] },
-  // remarksB: { type: String, default: "" },
+  remarks2: { type: String, default: "" },
   inspectedByB: { type: String, default: "" }
 });
 const data3Schema = new mongoose.Schema({
@@ -26,7 +26,7 @@ const data3Schema = new mongoose.Schema({
   wtC: { type: [String], default: [] },
   ttC: { type: [String], default: [] },
   tfC: { type: [String], default: [] },
-  // remarksC: { type: String, default: "" },
+  remarks3: { type: String, default: "" },
   inspectedByC: { type: String, default: "" }
 });
 

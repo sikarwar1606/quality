@@ -26,7 +26,7 @@
     td input {
       width: 100%;
       border: none;
-      font-size: 10px;
+      font-size: 8px;
       box-sizing: border-box;
       color: black;
     }
@@ -248,123 +248,7 @@
   <td><%= spec ? diff(spec.thickness, spec.thickness_tol) : '' %></td>
   <td><%= spec ? diff(spec.top_flatness, spec.top_flatness_tol) : '' %></td>
 </tr>
-          <!-- <tr>
-            <td colspan="2">USL</td>
-            <td>
-              <%= spec ? (Number(spec.cl_wt_spec || 0) + Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? (Number(spec.cl_ht_spec || 0) + Number(spec.cl_ht_spec_tol || 0)).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? (Number(spec.cl_kn_spec || 0) + Number(spec.cl_kn_spec_tol || 0)).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? (Number(spec.thickness || 0) + Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? (Number(spec.top_flatness || 0) + Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
-            </td>
-            <td></td>
-            <td>
-              <%= spec ? (Number(spec.cl_wt_spec || 0) + Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? (Number(spec.thickness || 0) + Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? (Number(spec.top_flatness || 0) + Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
-            </td>
-            <td></td>
-            <td>
-              <%= spec ? (Number(spec.cl_wt_spec || 0) + Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? (Number(spec.thickness || 0) + Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? (Number(spec.top_flatness || 0) + Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
-            </td>
-          </tr>
-
-          <tr>
-            <td colspan="2">NOMINAL</td>
-            <td>
-              <%= spec ? Number(spec.cl_wt_spec || 0).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? Number(spec.cl_ht_spec || 0).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? Number(spec.cl_kn_spec || 0).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? Number(spec.thickness || 0).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? Number(spec.top_flatness || 0).toFixed(2) : '' %>
-            </td>
-            <td></td>
-            <td>
-              <%= spec ? Number(spec.cl_wt_spec || 0).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? Number(spec.thickness || 0).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? Number(spec.top_flatness || 0).toFixed(2) : '' %>
-            </td>
-            <td></td>
-            <td>
-              <%= spec ? Number(spec.cl_wt_spec || 0).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? Number(spec.thickness || 0).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? Number(spec.top_flatness || 0).toFixed(2) : '' %>
-            </td>
-          </tr>
-
-          <tr>
-            <td colspan="2">LSL</td>
-            <td>
-              <%= spec ? (Number(spec.cl_wt_spec || 0) - Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? (Number(spec.cl_ht_spec || 0) - Number(spec.cl_ht_spec_tol || 0)).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? (Number(spec.cl_kn_spec || 0) - Number(spec.cl_kn_spec_tol || 0)).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? (Number(spec.thickness || 0) - Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? (Number(spec.top_flatness || 0) - Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
-            </td>
-            <td></td>
-            <td>
-              <%= spec ? (Number(spec.cl_wt_spec || 0) - Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? (Number(spec.thickness || 0) - Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? (Number(spec.top_flatness || 0) - Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
-            </td>
-            <td></td>
-            <td>
-              <%= spec ? (Number(spec.cl_wt_spec || 0) - Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? (Number(spec.thickness || 0) - Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
-            </td>
-            <td>
-              <%= spec ? (Number(spec.top_flatness || 0) - Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
-            </td>
-          </tr> -->
-
+    
           <tr>
             <td colspan="2">MIN.</td>
             <td id="wtAmin"></td>
@@ -468,30 +352,82 @@
     <div class="heading">
       <table class="tbCCM">
           <tbody>
-            <tr>
-              <td>Inspected By:</td>
-              <td><input type="text" id="inspector1"  readonly /></td>
-              <td>Inspected By:</td>
-              <td><input type="text" id="inspector2"  readonly /></td>
-              <td>Inspected By:</td>
-              <td>
-                <input type="text" id="inspector3"  readonly />
-              </td>
+             <tr>
+              <td>Remarks:</td>
+              <td colspan="3"><input type="text" id="remarks1"   /></td>
+              <td>Remarks:</td>
+              <td colspan="3"><input type="text" id="remarks2"   /></td>
+              <td>Remarks:</td>
+              <td colspan="3"><input type="text" id="remarks3"   /></td>             
+              
             </tr>
             <tr>
+              <td>Inspected By:</td>
+              <td colspan="3"><input type="text" id="inspector1"  readonly /></td>
+              <td>Inspected By:</td>
+              <td colspan="3"><input type="text" id="inspector2"  readonly /></td>
+              <td>Inspected By:</td>
+              <td colspan="3"><input type="text" id="inspector3"  readonly /></td>
+              
+              
+            </tr>
+          
+            <tr>
               <td>Verified By:</td>
-              <td colspan="6">
+              <td colspan="11">
                 
               </td>
             </tr>
           </tbody>
         </table>
-      <div class="saveData">
+        <div class="saveData">
+  <button onclick="sendShiftData('data1')" class="float-btn first">First</button>
+  <button onclick="sendShiftData('data2')" class="float-btn second">Second</button>
+  <button onclick="sendShiftData('data3')" class="float-btn third">Third</button>
+</div>
+
+<style>
+  .saveData {
+    position: fixed;
+    bottom: 40px;
+    right: 30px;
+    display: flex;
+    flex-direction: column; /* stack vertically */
+    gap: 10px;
+    z-index: 9999;
+  }
+
+  .float-btn {
+    width: 110px;
+    height: 36px;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+
+  .float-btn:hover {
+    transform: scale(1.05);
+  }
+
+  .first { background-color: #95DBE5FF; color: #000; }
+  .second { background-color: #078282FF; }
+  .third { background-color: #339E66FF; }
+
+  .first:hover { background-color: #6fd0dc; }
+  .second:hover { background-color: #056f70; }
+  .third:hover { background-color: #2d8759; }
+</style>
+
+      <!-- <div class="saveData">
         <button style="width: 100px; height: 30px; background-color: #95DBE5FF; cursor: pointer;" onclick="sendShiftData('data1')">First</button>
         <button style="width: 100px; height: 30px; background-color: #078282FF; cursor: pointer;" onclick="sendShiftData('data2')">Second</button>
         <button style="width: 100px; height: 30px; background-color: #339E66FF; cursor: pointer;" onclick="sendShiftData('data3')">Third</button>
         
-      </div>
+      </div> -->
     </div>
   </div>
   <script>

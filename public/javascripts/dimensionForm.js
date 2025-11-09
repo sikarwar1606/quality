@@ -239,6 +239,7 @@ window.addEventListener("DOMContentLoaded", () => {
         cell.value = savedInspection.data1.tfA[i] || ""; // observations4
       });
 
+      document.getElementById('remarks1').value= savedInspection.data1.remarks1
       assignInspector("inspector1", savedInspection.data1.inspectedByA);
     }
 
@@ -259,8 +260,7 @@ window.addEventListener("DOMContentLoaded", () => {
       });
       assignInspector("inspector2", savedInspection.data2.inspectedByB);
 
-      // document.getElementById("inspector1").value =
-      //   savedInspection.data2.inspectedBy || "";
+      document.getElementById('remarks2').value= savedInspection.data2.remarks2
     }
 
     if (savedInspection.data3) {
@@ -280,8 +280,7 @@ window.addEventListener("DOMContentLoaded", () => {
       });
 
       assignInspector("inspector3", savedInspection.data3.inspectedByC);
-      // document.getElementById("inspector1").value =
-      //   savedInspection.data3.inspectedBy|| "";
+     document.getElementById('remarks3').value= savedInspection.data3.remarks3
     }
   } else {
     console.log("Data not loaded now");
@@ -298,7 +297,7 @@ let inspection = {
     kn: [],
     ttA: [],
     tfA: [],
-    remarksA: "",
+    remarks1: "",
     inspectedByA: "",
   },
   data2: {
@@ -307,7 +306,7 @@ let inspection = {
     wtB: [],
     ttB: [],
     tfB: [],
-    remarksB: "",
+    remarks2: "",
     inspectedByB: "",
   },
   data3: {
@@ -316,7 +315,7 @@ let inspection = {
     wtC: [],
     ttC: [],
     tfC: [],
-    remarksC: "",
+    remarks3: "",
     inspectedByC: "",
   },
 
@@ -334,14 +333,17 @@ async function sendShiftData(shiftName) {
       dataObj = inspection.data1;
       shiftInput = document.getElementById("shiftA").value;
       inspectedBy = document.getElementById("inspector1").value;
+      remarks1 = document.getElementById('remarks1').value;
     } else if (shiftName === "data2") {
       dataObj = inspection.data2;
       shiftInput = document.getElementById("shiftB").value;
       inspectorInput = document.getElementById("inspector2").value;
+      remarks2 = document.getElementById('remarks2').value;
     } else if (shiftName === "data3") {
       dataObj = inspection.data3;
       shiftInput = document.getElementById("shiftC").value;
       inspectorInput = document.getElementById("inspector3").value;
+      remarks3 = document.getElementById('remarks3').value;
     } else {
       alert("You are not allowed to make changes here");
       return;
@@ -367,6 +369,7 @@ async function sendShiftData(shiftName) {
       tfA.forEach((cell) => dataObj.tfA.push(cell.value));
       let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
       inspection.data1.inspectedByA = inspector1;
+      inspection.data1.remarks1 = document.getElementById('remarks1').value
     } else if (shiftName === "data2") {
       clB.forEach((cell) => dataObj.clB.push(cell.value));
       wtB.forEach((cell) => dataObj.wtB.push(cell.value));
@@ -374,6 +377,7 @@ async function sendShiftData(shiftName) {
       tfB.forEach((cell) => dataObj.tfB.push(cell.value));
       let inspector2 = document.getElementById("inspector2").value; //Pushing inspector name
       inspection.data2.inspectedByB = inspector2;
+      inspection.data2.remarks2 = document.getElementById('remarks2').value
     } else if (shiftName === "data3") {
       clC.forEach((cell) => dataObj.clC.push(cell.value));
       wtC.forEach((cell) => dataObj.wtC.push(cell.value));
@@ -381,6 +385,7 @@ async function sendShiftData(shiftName) {
       tfC.forEach((cell) => dataObj.tfC.push(cell.value));
       let inspector3 = document.getElementById("inspector3").value; //Pushing inspector name
       inspection.data3.inspectedByC = inspector3;
+      inspection.data3.remarks3 = document.getElementById('remarks3').value
     }
 
     // Save shift and inspector
