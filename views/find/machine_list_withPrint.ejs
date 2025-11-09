@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Machine Reports - <%= date %></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body class="bg-gray-50 p-8">
+    <div class="max-w-5xl mx-auto">
+      <h1 class="text-2xl font-bold mb-2">Inspection Reports on <%= date %></h1>
+      <p class="text-gray-500 mb-4">Document: <%= docDetail?.docNo || "N/A" %></p>
+
+      <form id="printForm">
+        <table class="w-full bg-white rounded-lg shadow">
+          <thead class="bg-blue-600 text-white">
+            <tr>
+              <th class="py-2 px-4 text-left w-10">Select</th>
+              <th class="py-2 px-4 text-left">Machine No</th>
+              <th class="py-2 px-4 text-left">Batch No</th>
+              <th class="py-2 px-4 text-left">Design</th>
+              <th class="py-2 px-4 text-left">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% reports.forEach(r => { %>
+              <tr class="border-b hover:bg-gray-100">
+                <td class="py-2 px-4 text-center">
+                  <input type="checkbox" name="selectedReports" value="<%= r._id %>" class="cursor-pointer">
+                </td>
+                <td class="py-2 px-4"><%= r.mc_no %></td>
+                <td class="py-2 px-4"><%= r.batch_number %></td>
+                <td class="py-2 px-4"><%= r.design || 'N/A' %></td>
+                <td class="py-2 px-4">
+                  <a href="/find_dimension/<%= date %>/<%= r.mc_no %>/<%= r.batch_number %>" class="text-blue-600 hover:text-blue-800 font-semibold">View Report →</a>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+
+        <!-- Floating Print Button -->
+        <button type="button" onclick="printSelected()" class="no-print fixed bottom-50 right-44 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-full shadow-lg font-semibold flex items-center gap-2">
+          🖨️ Print Selected
+        </button>
+      </form>
+
+      <!-- Floating Back Button -->
+      <button class="no-print" onclick="window.history.back()" style="
+        position: fixed;
+        bottom: 50px;
+        right: 20px;
+        background-color: #2563eb;
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 9999px;
+        cursor: pointer;
+        font-size: 14px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        width: 100px;"
+        onmouseover="this.style.backgroundColor='#FF2400'" 
+        onmouseout="this.style.backgroundColor='#2563eb'">
+        ← Back
+      </button>
+
+      <!-- Floating Home Button -->
+      <button class="no-print" onclick="window.location.href='/'" style="
+        position: fixed;
+        bottom: 50px;
+        left: 20px;
+        background-color: #2563eb;
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 9999px;
+        cursor: pointer;
+        font-size: 14px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        z-index: 9999;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        width: 100px;"
+        onmouseover="this.style.backgroundColor='#FF2400'" 
+        onmouseout="this.style.backgroundColor='#2563eb'">
+        Home
+      </button>
+    </div>
+
+    <script>
+      async function printSelected() {
+        const selected = Array.from(
+          document.querySelectorAll('input[name="selectedReports"]:checked')
+        ).map(cb => cb.value);
+
+        if (selected.length === 0) {
+          alert("⚠️ Please select at least one report to print.");
+          return;
+        }
+
+        try {
+          const response = await fetch("/find_dimension/print", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ids: selected })
+          });
+
+          const html = await response.text();
+          const printWindow = window.open("", "_blank");
+          printWindow.document.write(html);
+          printWindow.document.close();
+          printWindow.focus();
+          printWindow.print();
+        } catch (err) {
+          console.error("Error printing:", err);
+          alert("Error generating print view. Please try again.");
+        }
+      }
+    </script>
+  </body>
+</html>

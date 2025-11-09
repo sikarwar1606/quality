@@ -85,4 +85,49 @@ router.get("/:date/:mcId/:batch_number", isLoggedIn, async (req, res) => {
   }
 });
 
+// // ✅ STEP 4 — Print selected reports
+// router.post("/print", isLoggedIn, async (req, res) => {
+//   try {
+//     const { ids } = req.body; // array of _id values from checkboxes
+
+//     if (!ids || !Array.isArray(ids) || ids.length === 0) {
+//       return res.status(400).send("No reports selected for printing.");
+//     }
+
+//     console.log(ids);
+    
+
+//  // Fetch reports from MongoDB
+//     const report = await dimensionReport.find({date:ids.date,
+//       batch_number:ids.batch_number,
+//       mc_no: ids.mc_no});
+   
+  
+    
+
+// const latestBatch = await Batch.findOne({ batch_number: ids.batch_number });
+
+//   console.log(`Batch no ${latestBatch.batch_number}`);
+
+   
+    
+//     // const spec = await designSC.findOne({ design: latestBatch.design });
+//     const mb_detail = await mbDetailsSC.findOne({ mb_code: latestBatch.mb_code });
+
+   
+    
+
+//     // Fetch document details (if needed for header)
+//     const docDetail = await docNo.findOne({ docNo: "SIPL-QA-R-06" });
+
+//     res.render("show/show_dimension", { report, docDetail,spec,user,mcId,latestBatches: latestBatch,mb_detail });
+//   } catch (err) {
+//     console.error("Error printing reports:", err);
+//     res.status(500).send("Server error while printing.");
+//   }
+// });
+
+
 module.exports = router;
+
+

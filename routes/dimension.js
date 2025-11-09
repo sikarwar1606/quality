@@ -71,43 +71,84 @@ router.post("/save", isLoggedIn, async (req, res) => {
   try {
     const { date, batch_number, mc_no, data1, data2, data3, verifiedBy } = req.body;
 
-    if (!date || !batch_number) {
+    if (!date || !batch_number || !mc_no) {
       return res.status(400).json({
         success: false,
-        message: "Date and Batch Number are required",
+        message: "Date, Batch Number, and Machine No are required",
       });
     }
 
-    // find existing document
-    let inspection = await dimensionReport.findOne({ batch_number, date, mc_no });
+    // Atomic upsert operation
+    const updatedInspection = await dimensionReport.findOneAndUpdate(
+      { date, batch_number, mc_no },
+      {
+        $set: {
+          ...(data1 && { data1 }),
+          ...(data2 && { data2 }),
+          ...(data3 && { data3 }),
+          ...(verifiedBy && { verifiedBy }),
+        },
+      },
+      {
+        new: true,    // return the updated document
+        upsert: true, // create new if not found
+        setDefaultsOnInsert: true,
+      }
+    );
 
-    if (!inspection) {
-      // Create new
-      inspection = new dimensionReport({
-        date,
-        mc_no,
-        batch_number,
-        data1,
-        data2,
-        data3,
-        verifiedBy,
-      });
-    } else {
-      // Merge fields instead of replacing them
-      if (data1) inspection.data1 = { ...inspection.data1._doc, ...data1 };
-      if (data2) inspection.data2 = { ...inspection.data2._doc, ...data2 };
-      if (data3) inspection.data3 = { ...inspection.data3._doc, ...data3 };
-
-      if (verifiedBy) inspection.verifiedBy = verifiedBy;
-    }
-
-    await inspection.save();
-    res.json({ success: true, inspection });
+    res.json({ success: true, inspection: updatedInspection });
   } catch (err) {
-    console.error(err);
+    console.error("Error saving inspection:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
+
+
+
+
+
+
+// router.post("/save", isLoggedIn, async (req, res) => {
+//   try {
+//     const { date, batch_number, mc_no, data1, data2, data3, verifiedBy } = req.body;
+
+//     if (!date || !batch_number) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Date and Batch Number are required",
+//       });
+//     }
+
+//     // find existing document
+//     let inspection = await dimensionReport.findOne({ batch_number, date, mc_no });
+
+//     if (!inspection) {
+//       // Create new
+//       inspection = new dimensionReport({
+//         date,
+//         mc_no,
+//         batch_number,
+//         data1,
+//         data2,
+//         data3,
+//         verifiedBy,
+//       });
+//     } else {
+//       // Merge fields instead of replacing them
+//       if (data1) inspection.data1 = { ...inspection.data1._doc, ...data1 };
+//       if (data2) inspection.data2 = { ...inspection.data2._doc, ...data2 };
+//       if (data3) inspection.data3 = { ...inspection.data3._doc, ...data3 };
+
+//       if (verifiedBy) inspection.verifiedBy = verifiedBy;
+//     }
+
+//     await inspection.save();
+//     res.json({ success: true, inspection });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ success: false, error: err.message });
+//   }
+// });
 
 
 // router.post("/save", isLoggedIn, async (req, res) => {
