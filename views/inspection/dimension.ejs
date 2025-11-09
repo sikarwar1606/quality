@@ -26,7 +26,7 @@
     td input {
       width: 100%;
       border: none;
-      font-size: 8px;
+      font-size: 10px;
       box-sizing: border-box;
       color: black;
     }
@@ -82,6 +82,7 @@
       .no-print {
         display: none !important;
       }
+
       .saveData {
         display: none !important;
       }
@@ -90,356 +91,423 @@
 </head>
 
 <body data-user="<%= user %>">
-<%- include("../loader") %>
-  <div class="no-print"><%- include("../partials/dimension") %> </div>
-  <div class="no-print"></div>
-  <div class="visual">
-    <div class="heading">
-      <table class="tbCCM">
-        <tbody>
-          <tr>
-            <td colspan="3" rowspan="2">
-              Doc No. <br />
-              <%=docDetail? docDetail.docNo: "" %>
-            </td>
-            <td colspan="9">Secure Industries Pvt. Ltd. Hyderabad</td>
-            <td colspan="3">Rev. No. <%=docDetail? docDetail.revNo: "" %>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="9">
-              <%=docDetail? docDetail.docName: "" %>
-            </td>
-
-            <td colspan="3">Rev. Dt. <%=docDetail? docDetail.revDt: "" %>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="4">
-              Date: <input type="text" id="date" name="date" required />
-            </td>
-            <td colspan="4">
-              Design:
-              <input type="text " id="design" value="<%=latestBatches? latestBatches.design : ''%>" />
-            </td>
-            <td colspan="4">
-              DB/EM/PL:
-              <input type="text" id="logo" value="<%=latestBatches? latestBatches.debossed : ''%>" />
-            </td>
-            <td colspan="3">
-              M/C No.:
-              <input type="text" id="mc_no" value="<%=mcId? mcId:''%>" />
-            </td>
-          </tr>
-          <tr>
-            <td colspan="4">
-              Batch No.:
-              <input type="text" id="batch_number" value="<%=latestBatches? latestBatches.batch_number : ''%>" />
-            </td>
-            <td colspan="4">
-              R/M:
-              <input type="text" id="rm" value="<%=latestBatches? latestBatches.rm : ''%>" />
-            </td>
-            <td colspan="4">
-              Colour:
-              <input type="text" id="colour" value="<%=mb_detail? mb_detail.mb_colour : ''%>" />
-            </td>
-            <td colspan="3">
-              M/C Speed:
-              <input type="text" id="mc_speed" value="<%=latestBatches? latestBatches.mc_speed : ''%>" />
-            </td>
-          </tr>
-
-          <tr>
-            <td colspan="2"></td>
-            <td colspan="5">
-              <button>
-                <input id="shiftA" type="text" style="background-color: #95DBE5FF;" value="" required>
-              </button>
-            </td>
-            <td colspan="4">
-              <button>
-                <input id="shiftB" type="text" style="background-color: #078282FF;" value="" required>
-              </button>
-            </td>
-            <td colspan="4">
-              <button>
-                <input id="shiftC" type="text" style="background-color: #339E66FF;" value="" required>
-              </button>
-            </td>
-          </tr>
-
-          <tr>
-            <td colspan="2">Parameter</td>
-            <td>Weight<br />(In gm)</td>
-            <td>Height<br />(In mm)</td>
-            <td>Kn. Dia.<br />(In mm)</td>
-            <td>T.T<br />(In mm)</td>
-            <td>T.F<br />(In mm)</td>
-            <td></td>
-            <td>Weight<br />(In gm)</td>
-            <td>T.T<br />(In mm)</td>
-            <td>T.F<br />(In mm)</td>
-            <td></td>
-            <td>Weight</td>
-            <td>T.T<br />(In mm)</td>
-            <td>T.F<br />(In mm)</td>
-          </tr>
-          <%
-  function showNum(value) {
-    return (!isNaN(value) && isFinite(value)) ? Number(value).toFixed(2) : ' ';
-  }
-
-  function sum(v1, v2) {
-    const result = Number(v1) + Number(v2);
-    return showNum(result);
-  }
-
-  function diff(v1, v2) {
-    const result = Number(v1) - Number(v2);
-    return showNum(result);
-  }
-%>
-<tr>
-  <td colspan="2">USL</td>
-  <td><%= spec ? sum(spec.cl_wt_spec, spec.cl_wt_spec_tol) : '' %></td>
-  <td><%= spec ? sum(spec.cl_ht_spec, spec.cl_ht_spec_tol) : '' %></td>
-  <td><%= spec ? sum(spec.cl_kn_spec, spec.cl_kn_spec_tol) : '' %></td>
-  <td><%= spec ? sum(spec.thickness, spec.thickness_tol) : '' %></td>
-  <td><%= spec ? sum(spec.top_flatness, spec.top_flatness_tol) : '' %></td>
-  <td></td>
-  <td><%= spec ? sum(spec.cl_wt_spec, spec.cl_wt_spec_tol) : '' %></td>
-  <td><%= spec ? sum(spec.thickness, spec.thickness_tol) : '' %></td>
-  <td><%= spec ? sum(spec.top_flatness, spec.top_flatness_tol) : '' %></td>
-  <td></td>
-  <td><%= spec ? sum(spec.cl_wt_spec, spec.cl_wt_spec_tol) : '' %></td>
-  <td><%= spec ? sum(spec.thickness, spec.thickness_tol) : '' %></td>
-  <td><%= spec ? sum(spec.top_flatness, spec.top_flatness_tol) : '' %></td>
-</tr>
-<tr>
-  <td colspan="2">NOMINAL</td>
-  <td><%= spec ? showNum(spec.cl_wt_spec) : '' %></td>
-  <td><%= spec ? showNum(spec.cl_ht_spec) : '' %></td>
-  <td><%= spec ? showNum(spec.cl_kn_spec) : '' %></td>
-  <td><%= spec ? showNum(spec.thickness) : '' %></td>
-  <td><%= spec ? showNum(spec.top_flatness) : '' %></td>
-  <td></td>
-  <td><%= spec ? showNum(spec.cl_wt_spec) : '' %></td>
-  <td><%= spec ? showNum(spec.thickness) : '' %></td>
-  <td><%= spec ? showNum(spec.top_flatness) : '' %></td>
-  <td></td>
-  <td><%= spec ? showNum(spec.cl_wt_spec) : '' %></td>
-  <td><%= spec ? showNum(spec.thickness) : '' %></td>
-  <td><%= spec ? showNum(spec.top_flatness) : '' %></td>
-</tr>
-<tr>
-  <td colspan="2">LSL</td>
-  <td><%= spec ? diff(spec.cl_wt_spec, spec.cl_wt_spec_tol) : '' %></td>
-  <td><%= spec ? diff(spec.cl_ht_spec, spec.cl_ht_spec_tol) : '' %></td>
-  <td><%= spec ? diff(spec.cl_kn_spec, spec.cl_kn_spec_tol) : '' %></td>
-  <td><%= spec ? diff(spec.thickness, spec.thickness_tol) : '' %></td>
-  <td><%= spec ? diff(spec.top_flatness, spec.top_flatness_tol) : '' %></td>
-  <td></td>
-  <td><%= spec ? diff(spec.cl_wt_spec, spec.cl_wt_spec_tol) : '' %></td>
-  <td><%= spec ? diff(spec.thickness, spec.thickness_tol) : '' %></td>
-  <td><%= spec ? diff(spec.top_flatness, spec.top_flatness_tol) : '' %></td>
-  <td></td>
-  <td><%= spec ? diff(spec.cl_wt_spec, spec.cl_wt_spec_tol) : '' %></td>
-  <td><%= spec ? diff(spec.thickness, spec.thickness_tol) : '' %></td>
-  <td><%= spec ? diff(spec.top_flatness, spec.top_flatness_tol) : '' %></td>
-</tr>
-    
-          <tr>
-            <td colspan="2">MIN.</td>
-            <td id="wtAmin"></td>
-            <td id="htMin"></td>
-            <td id="knMin"></td>
-            <td id="ttAMin"></td>
-            <td id="tfAMin"></td>
-            <td></td>
-            <td id="wtBmin"></td>
-            <td id="ttBMin"></td>
-            <td id="tfBMin"></td>
-            <td></td>
-            <td id="wtCmin"></td>
-            <td id="ttCMin"></td>
-            <td id="tfCMin"></td>
-          </tr>
-          <tr>
-            <td colspan="2">MAX.</td>
-            <td id="wtAmax"></td>
-            <td id="htMax"></td>
-            <td id="knMax"></td>
-            <td id="ttAMax"></td>
-            <td id="tfAMax"></td>
-            <td></td>
-            <td id="wtBmax"></td>
-            <td id="ttBMax"></td>
-            <td id="tfBMax"></td>
-            <td></td>
-            <td id="wtCmax"></td>
-            <td id="ttCMax"></td>
-            <td id="tfCMax"></td>
-          </tr>
-          <tr>
-            <td colspan="2">AVG.</td>
-            <td id="wtAavg"></td>
-            <td id="htAvg"></td>
-            <td id="knAvg"></td>
-            <td id="ttAAvg"></td>
-            <td id="tfAAvg"></td>
-            <td></td>
-            <td id="wtBavg"></td>
-            <td id="ttBAvg"></td>
-            <td id="tfBAvg"></td>
-            <td></td>
-            <td id="wtCavg"></td>
-            <td id="ttCAvg"></td>
-            <td id="tfCAvg"></td>
-          </tr>
-          <tr>
-            <td colspan="2">RANGE</td>
-            <td id="wtArange"></td>
-            <td id="htRange"></td>
-            <td id="knRange"></td>
-            <td id="ttARange"></td>
-            <td id="tfARange"></td>
-            <td></td>
-            <td id="wtBrange"></td>
-            <td id="ttBRange"></td>
-            <td id="tfBRange"></td>
-            <td></td>
-            <td id="wtCrange"></td>
-            <td id="ttCRange"></td>
-            <td id="tfCRange"></td>
-          </tr>
-
-          <tr>
-            <td>SL. No.</td>
-            <td>CL. No.</td>
-            <td>In. gm</td>
-            <td>In. mm</td>
-            <td>In. mm</td>
-            <td>In. mm</td>
-            <td>In. mm</td>
-            <td>CL. NO.</td>
-            <td>In. gm</td>
-            <td>In. mm</td>
-            <td>In. mm</td>
-            <td>CL. No.</td>
-            <td>In. gm</td>
-            <td>In. mm</td>
-            <td>In. mm</td>
-          </tr>
-        </tbody>
-
-        <tbody id="report"></tbody>
-      </table>
-    </div>
-
-    <div class="body">
-      <table id="CCMdefectTable">
-        <tbody></tbody>
-      </table>
-      <table id="SFMdefectTable">
-        <tbody></tbody>
-      </table>
-
-      <table id="TEbandperformace">
-        <tbody></tbody>
-      </table>
-    </div>
-    <div class="heading">
-      <table class="tbCCM">
+  <%- include("../loader") %>
+    <div class="no-print"><%- include("../partials/dimension") %> </div>
+    <div class="no-print"></div>
+    <div class="visual">
+      <div class="heading">
+        <table class="tbCCM">
           <tbody>
-             <tr>
+            <tr>
+              <td colspan="3" rowspan="2">
+                Doc No. <br />
+                <%=docDetail? docDetail.docNo: "" %>
+              </td>
+              <td colspan="9">Secure Industries Pvt. Ltd. Hyderabad</td>
+              <td colspan="3">Rev. No. <%=docDetail? docDetail.revNo: "" %>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="9">
+                <%=docDetail? docDetail.docName: "" %>
+              </td>
+
+              <td colspan="3">Rev. Dt. <%=docDetail? docDetail.revDt: "" %>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4">
+                Date: <input type="text" id="date" name="date" required />
+              </td>
+              <td colspan="4">
+                Design:
+                <input type="text " id="design" value="<%=latestBatches? latestBatches.design : ''%>" />
+              </td>
+              <td colspan="4">
+                DB/EM/PL:
+                <input type="text" id="logo" value="<%=latestBatches? latestBatches.debossed : ''%>" />
+              </td>
+              <td colspan="3">
+                M/C No.:
+                <input type="text" id="mc_no" value="<%=mcId? mcId:''%>" />
+              </td>
+            </tr>
+            <tr>
+              <td colspan="4">
+                Batch No.:
+                <input type="text" id="batch_number" value="<%=latestBatches? latestBatches.batch_number : ''%>" />
+              </td>
+              <td colspan="4">
+                R/M:
+                <input type="text" id="rm" value="<%=latestBatches? latestBatches.rm : ''%>" />
+              </td>
+              <td colspan="4">
+                Colour:
+                <input type="text" id="colour" value="<%=mb_detail? mb_detail.mb_colour : ''%>" />
+              </td>
+              <td colspan="3">
+                M/C Speed:
+                <input type="text" id="mc_speed" value="<%=latestBatches? latestBatches.mc_speed : ''%>" />
+              </td>
+            </tr>
+
+            <tr>
+              <td colspan="2"></td>
+              <td colspan="5">
+                <button>
+                  <input id="shiftA" type="text" style="background-color: #95DBE5FF;" value="" required>
+                </button>
+              </td>
+              <td colspan="4">
+                <button>
+                  <input id="shiftB" type="text" style="background-color: #078282FF;" value="" required>
+                </button>
+              </td>
+              <td colspan="4">
+                <button>
+                  <input id="shiftC" type="text" style="background-color: #339E66FF;" value="" required>
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td colspan="2">Parameter</td>
+              <td>Weight<br />(In gm)</td>
+              <td>Height<br />(In mm)</td>
+              <td>Kn. Dia.<br />(In mm)</td>
+              <td>T.T<br />(In mm)</td>
+              <td>T.F<br />(In mm)</td>
+              <td></td>
+              <td>Weight<br />(In gm)</td>
+              <td>T.T<br />(In mm)</td>
+              <td>T.F<br />(In mm)</td>
+              <td></td>
+              <td>Weight</td>
+              <td>T.T<br />(In mm)</td>
+              <td>T.F<br />(In mm)</td>
+            </tr>
+            <% function showNum(value) { return (!isNaN(value) && isFinite(value)) ? Number(value).toFixed(2) : ' ' ; }
+              function sum(v1, v2) { const result=Number(v1) + Number(v2); return showNum(result); } function diff(v1,
+              v2) { const result=Number(v1) - Number(v2); return showNum(result); } %>
+              <tr>
+                <td colspan="2">USL</td>
+                <td>
+                  <%= spec ? sum(spec.cl_wt_spec, spec.cl_wt_spec_tol) : '' %>
+                </td>
+                <td>
+                  <%= spec ? sum(spec.cl_ht_spec, spec.cl_ht_spec_tol) : '' %>
+                </td>
+                <td>
+                  <%= spec ? sum(spec.cl_kn_spec, spec.cl_kn_spec_tol) : '' %>
+                </td>
+                <td>
+                  <%= spec ? sum(spec.thickness, spec.thickness_tol) : '' %>
+                </td>
+                <td>
+                  <%= spec ? sum(spec.top_flatness, spec.top_flatness_tol) : '' %>
+                </td>
+                <td></td>
+                <td>
+                  <%= spec ? sum(spec.cl_wt_spec, spec.cl_wt_spec_tol) : '' %>
+                </td>
+                <td>
+                  <%= spec ? sum(spec.thickness, spec.thickness_tol) : '' %>
+                </td>
+                <td>
+                  <%= spec ? sum(spec.top_flatness, spec.top_flatness_tol) : '' %>
+                </td>
+                <td></td>
+                <td>
+                  <%= spec ? sum(spec.cl_wt_spec, spec.cl_wt_spec_tol) : '' %>
+                </td>
+                <td>
+                  <%= spec ? sum(spec.thickness, spec.thickness_tol) : '' %>
+                </td>
+                <td>
+                  <%= spec ? sum(spec.top_flatness, spec.top_flatness_tol) : '' %>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">NOMINAL</td>
+                <td>
+                  <%= spec ? showNum(spec.cl_wt_spec) : '' %>
+                </td>
+                <td>
+                  <%= spec ? showNum(spec.cl_ht_spec) : '' %>
+                </td>
+                <td>
+                  <%= spec ? showNum(spec.cl_kn_spec) : '' %>
+                </td>
+                <td>
+                  <%= spec ? showNum(spec.thickness) : '' %>
+                </td>
+                <td>
+                  <%= spec ? showNum(spec.top_flatness) : '' %>
+                </td>
+                <td></td>
+                <td>
+                  <%= spec ? showNum(spec.cl_wt_spec) : '' %>
+                </td>
+                <td>
+                  <%= spec ? showNum(spec.thickness) : '' %>
+                </td>
+                <td>
+                  <%= spec ? showNum(spec.top_flatness) : '' %>
+                </td>
+                <td></td>
+                <td>
+                  <%= spec ? showNum(spec.cl_wt_spec) : '' %>
+                </td>
+                <td>
+                  <%= spec ? showNum(spec.thickness) : '' %>
+                </td>
+                <td>
+                  <%= spec ? showNum(spec.top_flatness) : '' %>
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2">LSL</td>
+                <td>
+                  <%= spec ? diff(spec.cl_wt_spec, spec.cl_wt_spec_tol) : '' %>
+                </td>
+                <td>
+                  <%= spec ? diff(spec.cl_ht_spec, spec.cl_ht_spec_tol) : '' %>
+                </td>
+                <td>
+                  <%= spec ? diff(spec.cl_kn_spec, spec.cl_kn_spec_tol) : '' %>
+                </td>
+                <td>
+                  <%= spec ? diff(spec.thickness, spec.thickness_tol) : '' %>
+                </td>
+                <td>
+                  <%= spec ? diff(spec.top_flatness, spec.top_flatness_tol) : '' %>
+                </td>
+                <td></td>
+                <td>
+                  <%= spec ? diff(spec.cl_wt_spec, spec.cl_wt_spec_tol) : '' %>
+                </td>
+                <td>
+                  <%= spec ? diff(spec.thickness, spec.thickness_tol) : '' %>
+                </td>
+                <td>
+                  <%= spec ? diff(spec.top_flatness, spec.top_flatness_tol) : '' %>
+                </td>
+                <td></td>
+                <td>
+                  <%= spec ? diff(spec.cl_wt_spec, spec.cl_wt_spec_tol) : '' %>
+                </td>
+                <td>
+                  <%= spec ? diff(spec.thickness, spec.thickness_tol) : '' %>
+                </td>
+                <td>
+                  <%= spec ? diff(spec.top_flatness, spec.top_flatness_tol) : '' %>
+                </td>
+              </tr>
+
+              <tr>
+                <td colspan="2">MIN.</td>
+                <td id="wtAmin"></td>
+                <td id="htMin"></td>
+                <td id="knMin"></td>
+                <td id="ttAMin"></td>
+                <td id="tfAMin"></td>
+                <td></td>
+                <td id="wtBmin"></td>
+                <td id="ttBMin"></td>
+                <td id="tfBMin"></td>
+                <td></td>
+                <td id="wtCmin"></td>
+                <td id="ttCMin"></td>
+                <td id="tfCMin"></td>
+              </tr>
+              <tr>
+                <td colspan="2">MAX.</td>
+                <td id="wtAmax"></td>
+                <td id="htMax"></td>
+                <td id="knMax"></td>
+                <td id="ttAMax"></td>
+                <td id="tfAMax"></td>
+                <td></td>
+                <td id="wtBmax"></td>
+                <td id="ttBMax"></td>
+                <td id="tfBMax"></td>
+                <td></td>
+                <td id="wtCmax"></td>
+                <td id="ttCMax"></td>
+                <td id="tfCMax"></td>
+              </tr>
+              <tr>
+                <td colspan="2">AVG.</td>
+                <td id="wtAavg"></td>
+                <td id="htAvg"></td>
+                <td id="knAvg"></td>
+                <td id="ttAAvg"></td>
+                <td id="tfAAvg"></td>
+                <td></td>
+                <td id="wtBavg"></td>
+                <td id="ttBAvg"></td>
+                <td id="tfBAvg"></td>
+                <td></td>
+                <td id="wtCavg"></td>
+                <td id="ttCAvg"></td>
+                <td id="tfCAvg"></td>
+              </tr>
+              <tr>
+                <td colspan="2">RANGE</td>
+                <td id="wtArange"></td>
+                <td id="htRange"></td>
+                <td id="knRange"></td>
+                <td id="ttARange"></td>
+                <td id="tfARange"></td>
+                <td></td>
+                <td id="wtBrange"></td>
+                <td id="ttBRange"></td>
+                <td id="tfBRange"></td>
+                <td></td>
+                <td id="wtCrange"></td>
+                <td id="ttCRange"></td>
+                <td id="tfCRange"></td>
+              </tr>
+
+              <tr>
+                <td>SL. No.</td>
+                <td>CL. No.</td>
+                <td>In. gm</td>
+                <td>In. mm</td>
+                <td>In. mm</td>
+                <td>In. mm</td>
+                <td>In. mm</td>
+                <td>CL. NO.</td>
+                <td>In. gm</td>
+                <td>In. mm</td>
+                <td>In. mm</td>
+                <td>CL. No.</td>
+                <td>In. gm</td>
+                <td>In. mm</td>
+                <td>In. mm</td>
+              </tr>
+          </tbody>
+
+          <tbody id="report"></tbody>
+        </table>
+      </div>
+
+      <div class="body">
+        <table id="CCMdefectTable">
+          <tbody></tbody>
+        </table>
+        <table id="SFMdefectTable">
+          <tbody></tbody>
+        </table>
+
+        <table id="TEbandperformace">
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="heading">
+        <table class="tbCCM">
+          <tbody>
+            <tr>
               <td>Remarks:</td>
-              <td colspan="3"><input type="text" id="remarks1"   /></td>
+              <td colspan="3"><input type="text" id="remarks1" /></td>
               <td>Remarks:</td>
-              <td colspan="3"><input type="text" id="remarks2"   /></td>
+              <td colspan="3"><input type="text" id="remarks2" /></td>
               <td>Remarks:</td>
-              <td colspan="3"><input type="text" id="remarks3"   /></td>             
-              
+              <td colspan="3"><input type="text" id="remarks3" /></td>
+
             </tr>
             <tr>
               <td>Inspected By:</td>
-              <td colspan="3"><input type="text" id="inspector1"  readonly /></td>
+              <td colspan="3"><input type="text" id="inspector1" readonly /></td>
               <td>Inspected By:</td>
-              <td colspan="3"><input type="text" id="inspector2"  readonly /></td>
+              <td colspan="3"><input type="text" id="inspector2" readonly /></td>
               <td>Inspected By:</td>
-              <td colspan="3"><input type="text" id="inspector3"  readonly /></td>
-              
-              
+              <td colspan="3"><input type="text" id="inspector3" readonly /></td>
+
+
             </tr>
-          
+
             <tr>
               <td>Verified By:</td>
               <td colspan="11">
-                
+
               </td>
             </tr>
           </tbody>
         </table>
         <div class="saveData">
-  <button onclick="sendShiftData('data1')" class="float-btn first">First</button>
-  <button onclick="sendShiftData('data2')" class="float-btn second">Second</button>
-  <button onclick="sendShiftData('data3')" class="float-btn third">Third</button>
-</div>
+          <button onclick="sendShiftData('data1')" class="float-btn first">First</button>
+          <button onclick="sendShiftData('data2')" class="float-btn second">Second</button>
+          <button onclick="sendShiftData('data3')" class="float-btn third">Third</button>
+        </div>
 
-<style>
-  .saveData {
-    position: fixed;
-    bottom: 40px;
-    right: 30px;
-    display: flex;
-    flex-direction: column; /* stack vertically */
-    gap: 10px;
-    z-index: 9999;
-  }
+        <style>
+          .saveData {
+            position: fixed;
+            bottom: 40px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            /* stack vertically */
+            gap: 10px;
+            z-index: 9999;
+          }
 
-  .float-btn {
-    width: 110px;
-    height: 36px;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 600;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-    transition: transform 0.2s ease, background-color 0.2s ease;
-  }
+          .float-btn {
+            width: 110px;
+            height: 36px;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+            transition: transform 0.2s ease, background-color 0.2s ease;
+          }
 
-  .float-btn:hover {
-    transform: scale(1.05);
-  }
+          .float-btn:hover {
+            transform: scale(1.05);
+          }
 
-  .first { background-color: #95DBE5FF; color: #000; }
-  .second { background-color: #078282FF; }
-  .third { background-color: #339E66FF; }
+          .first {
+            background-color: #95DBE5FF;
+            color: #000;
+          }
 
-  .first:hover { background-color: #6fd0dc; }
-  .second:hover { background-color: #056f70; }
-  .third:hover { background-color: #2d8759; }
-</style>
+          .second {
+            background-color: #078282FF;
+          }
 
-      <!-- <div class="saveData">
-        <button style="width: 100px; height: 30px; background-color: #95DBE5FF; cursor: pointer;" onclick="sendShiftData('data1')">First</button>
-        <button style="width: 100px; height: 30px; background-color: #078282FF; cursor: pointer;" onclick="sendShiftData('data2')">Second</button>
-        <button style="width: 100px; height: 30px; background-color: #339E66FF; cursor: pointer;" onclick="sendShiftData('data3')">Third</button>
-        
-      </div> -->
+          .third {
+            background-color: #339E66FF;
+          }
+
+          .first:hover {
+            background-color: #6fd0dc;
+          }
+
+          .second:hover {
+            background-color: #056f70;
+          }
+
+          .third:hover {
+            background-color: #2d8759;
+          }
+        </style>
+
+
+      </div>
     </div>
-  </div>
-  <script>
-    // let savedInspection = JSON.parse('<%- JSON.stringify(inspectionReportIncom || {}) %>');
-    function createRows(numRows) {
-      const tableBody = document.getElementById("report");
-      tableBody.innerHTML = ""; // Clear existing rows if needed
+    <script>
+      // let savedInspection = JSON.parse('<%- JSON.stringify(inspectionReportIncom || {}) %>');
+      function createRows(numRows) {
+        const tableBody = document.getElementById("report");
+        tableBody.innerHTML = ""; // Clear existing rows if needed
 
-      for (let i = 1; i <= numRows; i++) {
-        const row = document.createElement("tr");
+        for (let i = 1; i <= numRows; i++) {
+          const row = document.createElement("tr");
 
-        row.innerHTML = `
+          row.innerHTML = `
         <td>${i.toString().padStart(2, "0")}</td>
         <td ><input class="clA" type="text"></td>
         <td><input class="wtA" type="text"></td>
@@ -456,57 +524,57 @@
         <td><input class="ttC" type="text"></td>
         <td><input class="tfC" type="text"></td>
       `;
-        tableBody.appendChild(row);
+          tableBody.appendChild(row);
+        }
       }
-    }
 
-    // Call the function to create 48 rows
-    createRows(48);
+      // Call the function to create 48 rows
+      createRows(48);
 
-    const table = document.querySelector("#report"); // your table element
+      const table = document.querySelector("#report"); // your table element
 
-    table.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault(); // stop form submission or new line
+      table.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault(); // stop form submission or new line
 
-        const currentInput = e.target;
-        if (currentInput.tagName !== "INPUT") return;
+          const currentInput = e.target;
+          if (currentInput.tagName !== "INPUT") return;
 
-        // find current cell (td) and row (tr)
-        const currentCell = currentInput.closest("td");
-        const currentRow = currentInput.closest("tr");
-        const colIndex = [...currentRow.children].indexOf(currentCell);
+          // find current cell (td) and row (tr)
+          const currentCell = currentInput.closest("td");
+          const currentRow = currentInput.closest("tr");
+          const colIndex = [...currentRow.children].indexOf(currentCell);
 
-        // find next row
-        const nextRow = currentRow.nextElementSibling;
-        if (nextRow) {
-          const nextCell = nextRow.children[colIndex];
-          if (nextCell) {
-            const nextInput = nextCell.querySelector(
-              "input, select, textarea"
-            );
-            if (nextInput) {
-              nextInput.focus();
+          // find next row
+          const nextRow = currentRow.nextElementSibling;
+          if (nextRow) {
+            const nextCell = nextRow.children[colIndex];
+            if (nextCell) {
+              const nextInput = nextCell.querySelector(
+                "input, select, textarea"
+              );
+              if (nextInput) {
+                nextInput.focus();
+              }
             }
           }
         }
-      }
-    });
+      });
 
-    // let savedInspection = <%- JSON.stringify(inspectionReportIncom || {}) %>;
+      // let savedInspection = <%- JSON.stringify(inspectionReportIncom || {}) %>;
 
 
-  </script>
+    </script>
 
-  <script id="inspection-data" type="application/json">
+    <script id="inspection-data" type="application/json">
   <%- JSON.stringify(inspectionReportIncom || {}) %>
 </script>
 
 
-<script src="/javascripts/loader.js"></script>
+    <script src="/javascripts/loader.js"></script>
 
 
-  <script src="/javascripts/dimensionForm.js"></script>
+    <script src="/javascripts/dimensionForm.js"></script>
 </body>
 
 </html>

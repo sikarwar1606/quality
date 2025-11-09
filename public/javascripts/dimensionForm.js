@@ -166,7 +166,9 @@ const columns = [
 ];
 window.onload = function () {
   columns.forEach((col) => {
-    calculateStats(col.selector, col.minId, col.maxId, col.avgId, col.rangeId);
+    const daata = calculateStats(col.selector, col.minId, col.maxId, col.avgId, col.rangeId);
+    console.log(daata);
+    
   });
 };
 // Add event listeners to all inputs dynamically
