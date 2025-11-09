@@ -69,12 +69,7 @@ router.get("/:id", isLoggedIn, async (req, res) => {
 
 router.post("/save", isLoggedIn, async (req, res) => {
   try {
-    const { date, batch_number, mc_no, data1, data2, data3, verifiedBy } =
-      req.body;
-    // console.log(req.body);
-    console.log(`Date from backend ${getShiftDate()}`);
-    
-    console.log(getShiftDate());
+    const { date, batch_number, mc_no, data1, data2, data3, verifiedBy } = req.body;
 
     if (!date || !batch_number) {
       return res.status(400).json({
@@ -83,12 +78,11 @@ router.post("/save", isLoggedIn, async (req, res) => {
       });
     }
 
-    // Check if inspection for this batch/date already exists
-    inspection = await dimensionReport.findOne({ batch_number, date, mc_no });
-    
+    // find existing document
+    let inspection = await dimensionReport.findOne({ batch_number, date, mc_no });
 
     if (!inspection) {
-      // create new document
+      // Create new
       inspection = new dimensionReport({
         date,
         mc_no,
@@ -99,10 +93,11 @@ router.post("/save", isLoggedIn, async (req, res) => {
         verifiedBy,
       });
     } else {
-      // update existing document
-      if (data1) inspection.data1 = data1;
-      if (data2) inspection.data2 = data2;
-      if (data3) inspection.data3 = data3;
+      // Merge fields instead of replacing them
+      if (data1) inspection.data1 = { ...inspection.data1._doc, ...data1 };
+      if (data2) inspection.data2 = { ...inspection.data2._doc, ...data2 };
+      if (data3) inspection.data3 = { ...inspection.data3._doc, ...data3 };
+
       if (verifiedBy) inspection.verifiedBy = verifiedBy;
     }
 
@@ -113,5 +108,59 @@ router.post("/save", isLoggedIn, async (req, res) => {
     res.status(500).json({ success: false, error: err.message });
   }
 });
+
+
+// router.post("/save", isLoggedIn, async (req, res) => {
+//   try {
+//     const { date, batch_number, mc_no, data1, data2, data3, verifiedBy } =
+//       req.body;
+//     // console.log(req.body);
+//     console.log(`Date from backend ${getShiftDate()}`);
+    
+//     console.log(getShiftDate());
+
+//     if (!date || !batch_number) {
+//       return res.status(400).json({
+//         success: false,
+//         message: "Date and Batch Number are required",
+//       });
+//     }
+
+//     // Check if inspection for this batch/date already exists
+//     inspection = await dimensionReport.findOne({ batch_number, date, mc_no });
+    
+
+//     if (!inspection) {
+//       // create new document
+//       inspection = new dimensionReport({
+//         date,
+//         mc_no,
+//         batch_number,
+//         data1,
+//         data2,
+//         data3,
+//         verifiedBy,
+//       });
+//     } else {
+//       // update existing document
+//       inspection.data1 = { ...(inspection.data1?._doc || {}), ...data1 };
+
+//       // if (data1) inspection.data1 = { ...(inspection.data1?._doc || {}), ...data1 };
+//       // if (data2) inspection.data2 = { ...(inspection.data2?._doc || {}), ...data2 };
+//       // if (data3) inspection.data3 = { ...(inspection.data3?._doc || {}), ...data3 };
+//       // if (verifiedBy) inspection.verifiedBy = { ...(inspection.verifiedBy?._doc || {}), ...verifiedBy };
+//       if (data1) inspection.data1 = data1;
+//       if (data2) inspection.data2 = data2;
+//       if (data3) inspection.data3 = data3;
+//       if (verifiedBy) inspection.verifiedBy = verifiedBy;
+//     }
+
+//     await inspection.save();
+//     res.json({ success: true, inspection });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ success: false, error: err.message });
+//   }
+// });
 
 module.exports = router;

@@ -14,22 +14,22 @@ let clB = document.querySelectorAll(".clB");
 let clC = document.querySelectorAll(".clC");
 
 
-function getShiftDate() {
-  const now = new Date();
-  const hour = now.getHours();
+// function getShiftDate() {
+//   const now = new Date();
+//   const hour = now.getHours();
 
-  // If time is before 07:00 AM, use previous day’s date (shift logic)
-  if (hour < 7) {
-    now.setDate(now.getDate() - 1);
-  }
+//   // If time is before 07:00 AM, use previous day’s date (shift logic)
+//   if (hour < 7) {
+//     now.setDate(now.getDate() - 1);
+//   }
 
-  // Return date in same format as front-end (DD/MM/YYYY)
-  const day = String(now.getDate()).padStart(2, "0");
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const year = now.getFullYear();
+//   // Return date in same format as front-end (DD/MM/YYYY)
+//   const day = String(now.getDate()).padStart(2, "0");
+//   const month = String(now.getMonth() + 1).padStart(2, "0");
+//   const year = now.getFullYear();
 
-  return `${day}-${month}-${year}`;
-}
+//   return `${day}-${month}-${year}`;
+// }
 
 const activeUser = document.body.dataset.user;
 
@@ -306,15 +306,15 @@ async function sendShiftData(shiftName) {
     if (shiftName === "data1") {
       dataObj = inspection.data1;
       shiftInput = document.getElementById("shiftA").value;
-      inspectedBy = document.getElementById("inspector1").value;
+      // inspectedBy = document.getElementById("inspector1").value;
     } else if (shiftName === "data2") {
       dataObj = inspection.data2;
       shiftInput = document.getElementById("shiftB").value;
-      inspectorInput = document.getElementById("inspector2").value;
+      // inspectorInput = document.getElementById("inspector2").value;
     } else if (shiftName === "data3") {
       dataObj = inspection.data3;
       shiftInput = document.getElementById("shiftC").value;
-      inspectorInput = document.getElementById("inspector3").value;
+      // inspectorInput = document.getElementById("inspector3").value;
     } else {
       alert("You are not allowed to make changes here");
       return;
@@ -350,7 +350,7 @@ async function sendShiftData(shiftName) {
 
     // Save shift and inspector
     dataObj.shift = shiftInput;
-    // dataObj.inspectedBy = inspectorInput;
+    dataObj.inspectedBy = inspectorInput;
 
     const response = await fetch("/dimension/save", {
       method: "POST",
