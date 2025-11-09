@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Select Date</title>
+    <title>Machine Reports - <%= date %></title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-gray-100 flex items-center justify-center h-screen">
+  <body class="bg-gray-50 p-8">
     <div class="no-print" style="padding: 10px;">
     <button class="no-print" onclick="window.history.back()" style="
     position: fixed;
@@ -55,22 +55,36 @@
       </button>
 
     </div>
-    <div class="bg-white p-6 rounded-xl shadow-md w-96 text-center">
-      <h2 class="text-2xl font-bold mb-4">Find Dimension Reports</h2>
-      <form action="" method="get" id="dateForm">
-        <label class="block mb-2 text-gray-600">Select Date</label>
-        <input type="text" id="date" name="date" placeholder="DD-MM-YYYY"
-          class="border px-3 py-2 rounded-md w-full mb-4 text-center" required>
-        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">Search</button>
-      </form>
-    </div>
+    <div class="max-w-5xl mx-auto">
+      <h1 class="text-2xl font-bold mb-2">Inspection Reports on <%= date %></h1>
+      <p class="text-gray-500 mb-4">Document: <%= docDetail?.docNo || "N/A" %></p>
 
-    <script>
-      document.getElementById('dateForm').addEventListener('submit', (e) => {
-        e.preventDefault();
-        const date = document.getElementById('date').value;
-        if (date) window.location.href = `/find_dimension/${date}`;
-      });
-    </script>
+      <table class="w-full bg-white rounded-lg shadow">
+        <thead class="bg-blue-600 text-white">
+          <tr>
+            <th class="py-2 px-4 text-left">Machine No</th>
+            <th class="py-2 px-4 text-left">Batch No</th>
+            <th class="py-2 px-4 text-left">Design</th>
+            <th class="py-2 px-4 text-left">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% reports.forEach(r => { %>
+            <tr class="border-b hover:bg-gray-100">
+              <td class="py-2 px-4"><%= r.mc_no %></td>
+              <td class="py-2 px-4"><%= r.batch_number %></td>
+              <td class="py-2 px-4"><%= r.design %></td>
+              <td class="py-2 px-4">
+                <a href="/find_visual/<%= date %>/<%= r.mc_no %>/<%=r.batch_number%>" class="text-blue-600 hover:text-blue-800 font-semibold">View Report →</a>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+
+      <!-- <div class="mt-6">
+        <a href="/find_dimension" class="text-gray-600 hover:text-gray-900">← Back to Date Selection</a>
+      </div> -->
+    </div>
   </body>
 </html>

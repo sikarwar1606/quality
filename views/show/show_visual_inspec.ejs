@@ -9,7 +9,52 @@
 
   <body data-user="<%= user %>">
     <%- include("../loader") %>
-    <div class="no-print"><%- include("../partials/visual") %></div>
+    <div class="no-print" style="padding: 10px;">
+    <button class="no-print" onclick="window.history.back()" style="
+    position: fixed;
+    bottom: 50px;
+    right: 20px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 9999px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100px;
+  " onmouseover="this.style.backgroundColor='#FF2400'" onmouseout="this.style.backgroundColor='#2563eb'">
+      ← Back
+    </button>
+
+  </div>
+  <div class="no-print" style="padding: 10px;">
+      <button class="no-print" onclick="window.location.href='/'" style="
+    position: fixed;
+    bottom: 50px;
+    left: 20px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 9999px;
+    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100px;
+  " onmouseover="this.style.backgroundColor='#FF2400'" onmouseout="this.style.backgroundColor='#2563eb'">
+        Home
+      </button>
+
+    </div>
     <div class="visual">
       <div class="heading">
         <table class="tbCCM">
@@ -17,30 +62,35 @@
             <tr>
               <td colspan="5" rowspan="2">
                 Doc No. <br />
-                <%=docDetail? docDetail.docNo: ""%>
+                <!-- <%=docDetail? docDetail.docNo: ""%> -->
+                 SIPL-QA-R-05
               </td>
               <td colspan="14">Secure Industries Pvt. Ltd. Hyderabad</td>
-              <td colspan="5">Rev. No. <%=docDetail? docDetail.revNo: ""%></td>
+              <!-- <td colspan="5">Rev. No. <%=docDetail? docDetail.revNo: ""%></td> -->
+              <td colspan="5">Rev. No. 00</td>
             </tr>
             <tr>
-              <td colspan="14"><%=docDetail? docDetail.docName: ""%></td>
+              <!-- <td colspan="14"><%=docDetail? docDetail.docName: ""%></td> -->
+              <td colspan="14">VISUAL INSPECTION REPORT (CCM)</td>
 
-              <td colspan="5">Rev. Dt. <%=docDetail? docDetail.revDt: ""%></td>
+              <!-- <td colspan="5">Rev. Dt. <%=docDetail? docDetail.revDt: ""%></td> -->
+              <td colspan="5">Rev. Dt. 01/07/2024</td>
             </tr>
             <tr>
               <td colspan="3">Date</td>
-              <td colspan="5">
-                <input type="text" id="date" name="date" required />
+              <td colspan="5" >
+                <input type="text" id="date" name="date" value="<%=inspectionReportIncom? inspectionReportIncom.date : " "%>" required />
+                 <!-- <%=inspectionReportIncom? inspectionReportIncom.date : " "%> -->
               </td>
 
               <td colspan="3">Design</td>
-              <td colspan="5"><%=latestBatches? latestBatches.design : ''%></td>
+              <td colspan="5"><%=latestBatches? latestBatches.design : " "%></td>
               <td colspan="3">Batch No.</td>
-              <td colspan="5" id="batch_number"><%=latestBatches? latestBatches.batch_number : ''%></td>
+              <td colspan="5" id="batch_number"><%=latestBatches? latestBatches.batch_number : " "%></td>
             </tr>
             <tr>
               <td colspan="3">M/C No.</td>
-              <td colspan="5" id="mc_no"><%=mcId? mcId:''%></td>
+              <td colspan="5" id="mc_no"><%=inspectionReportIncom? inspectionReportIncom.mc_no : " "%></td>
               <td colspan="3">Colour</td>
               <td colspan="5">
                 <input
@@ -54,6 +104,7 @@
               </td>
             </tr>
           </tbody>
+         
         </table>
       </div>
       <div class="body">
@@ -62,17 +113,17 @@
             <tr>
               <td colspan="3"></td>
               <td colspan="7">
-                <button id="shiftA" onclick="sendShiftData('shiftA')">
+                <button id="shiftA" onclick="sendShiftData('shiftA')" >
                   Shift A
                 </button>
               </td>
               <td colspan="7">
-                <button id="shiftB" onclick="sendShiftData('shiftB')">
+                <button id="shiftB" >
                   Shift B
                 </button>
               </td>
               <td colspan="7">
-                <button id="shiftC" onclick="sendShiftData('shiftC')">
+                <button id="shiftC" >
                   Shift C
                 </button>
               </td>
@@ -99,7 +150,10 @@
           </tbody>
         </table>
         <table id="SFMdefectTable">
-          <tbody></tbody>
+
+          <tbody>
+           
+          </tbody>
         </table>
 
         <table id="TEbandperformace">
@@ -122,7 +176,7 @@
             <tr>
               <td>Verified By:</td>
               <td colspan="6">
-                <input type="text" id="verifedBy" value="" />
+                <input type="text" id="verifiedBy" value="" readonly/>
               </td>
             </tr>
           </tbody>
@@ -136,7 +190,7 @@
 
     </script>
 
-    <script src="/javascripts/visualForm.js"></script>
+    <script src="/javascripts/find_visualForm.js"></script>
      <script src="/javascripts/loader.js"></script>
   </body>
 </html>

@@ -56,7 +56,8 @@ const findcokecoa = require('./routes/find/findCokeCoaDe');
 const findrelcoa = require('./routes/find/findRelCoaDe');
 const findDesign = require('./routes/find/findDesign');
 const findLogo = require('./routes/find/findLogo')
-const findDimension = require('./routes/find/dimension');
+const findDimension = require('./routes/find/find_dimension');
+const findVisual = require('./routes/find/find_visual');
 
 //Inspection routes
 const visualReport = require('./routes/visual')
@@ -144,6 +145,7 @@ app.use('/design', findDesign);
 app.use('/batch', findBatch);
 app.use('/customer', findCustomer);
 app.use('/find_dimension', findDimension);
+app.use('/find_visual', findVisual);
 
 //Links to show the suggesion while entering the data
 app.use("/api/mbcodes", mbCodesRoute);

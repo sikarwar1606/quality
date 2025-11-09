@@ -1,45 +1,31 @@
-let now = new Date();
-let currentHours = now.getHours();
-function getShiftDate() {
-  const now = new Date();
-  const hour = now.getHours();
+// let now = new Date();
+// let currentHours = now.getHours();
+// function getShiftDate() {
+//   const now = new Date();
+//   const hour = now.getHours();
 
-  // If time is before 07:00 AM, use previous day’s date (shift logic)
-  if (hour < 7) {
-    now.setDate(now.getDate() - 1);
-  }
+//   // If time is before 07:00 AM, use previous day’s date (shift logic)
+//   if (hour < 7) {
+//     now.setDate(now.getDate() - 1);
+//   }
 
-  // Return date in same format as front-end (DD/MM/YYYY)
-  const day = String(now.getDate()).padStart(2, '0');
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const year = now.getFullYear();
+//   // Return date in same format as front-end (DD/MM/YYYY)
+//   const day = String(now.getDate()).padStart(2, '0');
+//   const month = String(now.getMonth() + 1).padStart(2, '0');
+//   const year = now.getFullYear();
 
-  return `${day}/${month}/${year}`;
-}
+//   return `${day}-${month}-${year}`;
+// }
 
 const activeUser = document.body.dataset.user;
 
  // Clear all first
-    document.getElementById("inspector1").value = activeUser;
-    document.getElementById("inspector2").value = activeUser;
-    document.getElementById("inspector3").value = activeUser;
+    document.getElementById("verifiedBy").value = activeUser;
 
-    // Set according to shift
-    if (currentHours >7 && currentHours <= 15) {
-      // 06:00 to 15:59 → shift A
-      document.getElementById("inspector1").value = activeUser;
-    } else if (currentHours > 15 &&currentHours <= 23) {
-      // 16:00 to 23:59 → shift B
-      document.getElementById("inspector2").value = activeUser;
-      
-      
-    } else {
-      // 00:00 to 06:59 → shift C
-      document.getElementById("inspector3").value = activeUser;
-    }
+    
 
 
-document.getElementById("date").value=getShiftDate()
+// document.getElementById("date").value=getShiftDate()
 
 const ccmDefects = [
   "Physical Appearance",
@@ -78,13 +64,12 @@ const ccmDefects = [
 
 let toolNo = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
-
-
-
-const batch_number = document.getElementById("batch_number").textContent.trim();
-const date = document.getElementById("date").value;
+// const batch_number = document.getElementById("batch_number").textContent.trim();
+// const date = document.getElementById("date").value;
 
 const mc_no = document.getElementById("mc_no").textContent.trim();
+
+
 
 const ccmDefectTable = document
   .getElementById("CCMdefectTable")
@@ -92,6 +77,36 @@ const ccmDefectTable = document
 
 // Build CCM Defects
 for (let row = 0; row < ccmDefects.length; row++) {
+  if (ccmDefects[row] === "Bore Plug Damage") {
+    let extraRow1 = document.createElement("tr");
+    let extraRow2 = document.createElement("tr");
+    let extraTd1 = document.createElement("td");
+    let extraTd2 = document.createElement("td");
+    let extraTd3 = document.createElement("td");
+    let extraTd4 = document.createElement("td");
+    extraTd1.colSpan = 4;
+    extraTd2.colSpan = 15; 
+    extraTd3.colSpan = 5; 
+    extraTd4.colSpan = 5; 
+
+    extraTd1.rowSpan = 2; 
+    extraTd2.rowSpan = 2; 
+    // extraTd.style.fontWeight = "bold";
+    extraTd2.style.textAlign = "center";
+    extraTd1.textContent = "Doc. No.: SIPL-QA-R-60";
+    extraTd2.textContent = "VISUAL INSPECTION REPORT (SFM/FLM/SLM)";
+    extraTd3.textContent = "Rev. No.: 00";
+    extraTd4.textContent = "Rev. Date: 01.07.2024";
+
+    extraRow1.appendChild(extraTd1);
+    extraRow1.appendChild(extraTd2);
+    extraRow1.appendChild(extraTd3);
+    extraRow2.appendChild(extraTd4);
+    
+
+    ccmDefectTable.appendChild(extraRow1);
+    ccmDefectTable.appendChild(extraRow2);
+  }
   let tr = document.createElement("tr");
 
   // Defect name column (colspan=3 to align with header)
@@ -166,32 +181,11 @@ for (let row = 0; row < toolNo.length; row++) {
   ccmDefectTable.appendChild(tr);
 }
 
-// === Toggle defect signs ===
-function toggleSign(cell) {
-  if (cell.textContent === "✖") {
-    cell.textContent = "✔";
-    cell.classList.add("defect-found");
-  } else {
-    cell.textContent = "✖";
-    cell.classList.remove("defect-found");
-  }
-}
-// === Toggle defect signs ===
-function toggleSigntl(cell) {
-  if (cell.textContent === "✔") {
-    cell.textContent = "✖";
-    cell.classList.add("defect-found");
-  } else {
-    cell.textContent = "✔";
-    cell.classList.remove("defect-found");
-  }
-}
+
 
 window.addEventListener("DOMContentLoaded", () => {
-  const activeUser = document.body.dataset.user;
-  const currentHours = new Date().getHours();
 
-  // Helper to safely assign inspector value
+
   function assignInspector(inspectorId, savedValue) {
     const field = document.getElementById(inspectorId);
     if (field) {
@@ -199,9 +193,8 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Assign inspectors based on savedInspection data
-  // if (savedInspection) {
-  if (savedInspection && savedInspection.date === document.getElementById("date").value) {
+  
+  if (savedInspection ) {
     // Shift A
     if (savedInspection.shiftA) {
       // Fill inputs, defect tables, tool data, remarks as before
@@ -315,15 +308,9 @@ window.addEventListener("DOMContentLoaded", () => {
       assignInspector("inspector3", savedInspection.shiftC.inspectedBy);
     }
   }
+  
 
-  // If some inspectors are still empty, assign active user based on current time
-  if (!document.getElementById("inspector1").value && currentHours >= 7 && currentHours < 16) {
-    document.getElementById("inspector1").value = activeUser;
-  } else if (!document.getElementById("inspector2").value && currentHours >= 16 && currentHours < 24) {
-    document.getElementById("inspector2").value = activeUser;
-  } else if (!document.getElementById("inspector3").value) {
-    document.getElementById("inspector3").value = activeUser;
-  }
+  
 });
 
 let inputs = [];
@@ -417,176 +404,47 @@ tls.forEach((tl, i) => {
 
 //Taking data in to a array
 let inspection = {
-  shiftA: {
-    observation1: [],
-    observation2: [],
-    observation3: [],
-    observation4: [],
-    remarks: [],
-    inspectedBy: "",
-  },
-  shiftB: {
-    observation1: [],
-    observation2: [],
-    observation3: [],
-    observation4: [],
-    remarks: [],
-    inspectedBy: "",
-  },
-  shiftC: {
-    observation1: [],
-    observation2: [],
-    observation3: [],
-    observation4: [],
-    remarks: [],
-    inspectedBy: "",
-  },
+  // shiftA: {
+  //   observation1: [],
+  //   observation2: [],
+  //   observation3: [],
+  //   observation4: [],
+  //   remarks: [],
+  //   inspectedBy: "",
+  // },
+  // shiftB: {
+  //   observation1: [],
+  //   observation2: [],
+  //   observation3: [],
+  //   observation4: [],
+  //   remarks: [],
+  //   inspectedBy: "",
+  // },
+  // shiftC: {
+  //   observation1: [],
+  //   observation2: [],
+  //   observation3: [],
+  //   observation4: [],
+  //   remarks: [],
+  //   inspectedBy: "",
+  // },
   verifiedBy: "",
 };
 
 async function sendShiftData(shiftName) {
   try {
-    inspection.date = date;
-    
-    inspection.batch_number = (batch_number?.textContent || '').trim();
-
-    inspection.verifiedBy = verifedBy;
-
-    if (currentHours > 7 && currentHours <= 15 && shiftName === "shiftA") {
-      inspection.shiftA.observation1 = [inputs[1].value]; 
-      inspection.shiftA.observation2 = [inputs[2].value];
-      inspection.shiftA.observation3 = [inputs[3].value];
-      inspection.shiftA.observation4 = [inputs[4].value];
-
-      def00.forEach((cell) => {
-        inspection.shiftA.observation1.push(cell.textContent); // Pushing observations
-      });
-      def10.forEach((cell) => {
-        inspection.shiftA.observation2.push(cell.textContent);
-      });
-      def20.forEach((cell) => {
-        inspection.shiftA.observation3.push(cell.textContent);
-      });
-      def30.forEach((cell) => {
-        inspection.shiftA.observation4.push(cell.textContent);
-      });
-
-      tl00.forEach((cell) => {
-        inspection.shiftA.observation1.push(cell.textContent); // Pushing observations
-      });
-      tl10.forEach((cell) => {
-        inspection.shiftA.observation2.push(cell.textContent);
-      });
-      tl20.forEach((cell) => {
-        inspection.shiftA.observation3.push(cell.textContent);
-      });
-      tl30.forEach((cell) => {
-        inspection.shiftA.observation4.push(cell.textContent);
-      });
-
-      remarksCol0.forEach((cell, index) => {
-        inspection.shiftA.remarks[index] = cell.textContent; // Pushing Remarks
-      });
-      let inspector1 = document.getElementById("inspector1").value; //Pushing inspector name
-      inspection.shiftA.inspectedBy = inspector1;
-    } else if (
-      currentHours > 15 &&
-      currentHours <= 23 &&
-      shiftName === "shiftB"
-    ) {
-      inspection.shiftB.observation1 = [inputs[5].value];
-      inspection.shiftB.observation2 = [inputs[6].value];
-      inspection.shiftB.observation3 = [inputs[7].value];
-      inspection.shiftB.observation4 = [inputs[8].value];
-      def01.forEach((cell) => {
-        inspection.shiftB.observation1.push(cell.textContent); // Pushing observations
-      });
-      def11.forEach((cell) => {
-        inspection.shiftB.observation2.push(cell.textContent);
-      });
-      def21.forEach((cell) => {
-        inspection.shiftB.observation3.push(cell.textContent);
-      });
-      def31.forEach((cell) => {
-        inspection.shiftB.observation4.push(cell.textContent);
-      });
-
-      tl01.forEach((cell) => {
-        inspection.shiftB.observation1.push(cell.textContent); // Pushing observations
-      });
-      tl11.forEach((cell) => {
-        inspection.shiftB.observation2.push(cell.textContent);
-      });
-      tl21.forEach((cell) => {
-        inspection.shiftB.observation3.push(cell.textContent);
-      });
-      tl31.forEach((cell) => {
-        inspection.shiftB.observation4.push(cell.textContent);
-      });
-
-      remarksCol1.forEach((cell) => {
-        inspection.shiftB.remarks.push(cell.textContent); // Pushing Remarks
-      });
-      let inspector2 = document.getElementById("inspector2").value; //Pushing inspector name
-      
-
-      inspection.shiftB.inspectedBy = inspector2;
-    } else if (
-      (currentHours >= 23 || currentHours < 7) &&
-      shiftName === "shiftC"
-    ) {
-      inspection.shiftC.observation1 = [inputs[9].value]; //Pushing time
-      inspection.shiftC.observation2 = [inputs[10].value]; //Pushing time
-      inspection.shiftC.observation3 = [inputs[11].value]; //Pushing time
-      inspection.shiftC.observation4 = [inputs[12].value]; //Pushing time
-
-      def02.forEach((cell) => {
-        inspection.shiftC.observation1.push(cell.textContent); // Pushing observations
-      });
-      tl02.forEach((cell) => {
-        inspection.shiftC.observation1.push(cell.textContent); // Pushing observations
-      });
-
-      def12.forEach((cell) => {
-        inspection.shiftC.observation2.push(cell.textContent);
-      });
-      tl12.forEach((cell) => {
-        inspection.shiftC.observation2.push(cell.textContent);
-      });
-
-      def22.forEach((cell) => {
-        inspection.shiftC.observation3.push(cell.textContent);
-      });
-      tl22.forEach((cell) => {
-        inspection.shiftC.observation3.push(cell.textContent);
-      });
-
-      def32.forEach((cell) => {
-        inspection.shiftC.observation4.push(cell.textContent);
-      });
-      tl32.forEach((cell) => {
-        inspection.shiftC.observation4.push(cell.textContent);
-      });
-
-      remarksCol2.forEach((cell) => {
-        inspection.shiftC.remarks.push(cell.textContent); // Pushing Remarks
-      });
-      let inspector3 = document.getElementById("inspector3").value; //Pushing inspector name
-      inspection.shiftC.inspectedBy = inspector3;
-    } else {
-      alert("You are not allowed to make changes here");
-    }
-
-    const response = await fetch("/visual/save", {
+    const response = await fetch("/find_visual/save", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         date: document.getElementById("date").value,
         mc_no: mc_no,
         batch_number: document.getElementById("batch_number").textContent,
-        [shiftName]: inspection[shiftName], // send only selected shift
-        verifiedBy: document.getElementById("verifedBy").value,
+        verifiedBy: document.getElementById("verifiedBy").value,
       }),
+
+      
+      
     });
 
     const result = await response.json();
@@ -596,3 +454,9 @@ async function sendShiftData(shiftName) {
     console.error("Error saving shift data:", err);
   }
 }
+
+
+
+
+
+

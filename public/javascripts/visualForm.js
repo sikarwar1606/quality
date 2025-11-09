@@ -92,7 +92,7 @@ const ccmDefectTable = document
 
 // Build CCM Defects
 for (let row = 0; row < ccmDefects.length; row++) {
-  if (ccmDefects[row] === "Inner Core Damage") {
+  if (ccmDefects[row] === "Bore Plug Damage") {
     let extraRow1 = document.createElement("tr");
     let extraRow2 = document.createElement("tr");
     let extraTd1 = document.createElement("td");
@@ -470,8 +470,7 @@ let inspection = {
     observation4: [],
     remarks: [],
     inspectedBy: "",
-  },
-  verifiedBy: "",
+  }
 };
 
 async function sendShiftData(shiftName) {
@@ -615,7 +614,7 @@ async function sendShiftData(shiftName) {
         mc_no: mc_no,
         batch_number: document.getElementById("batch_number").textContent,
         [shiftName]: inspection[shiftName], // send only selected shift
-        verifiedBy: document.getElementById("verifedBy").value,
+        
       }),
     });
 

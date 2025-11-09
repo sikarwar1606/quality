@@ -116,7 +116,7 @@
 
   </div>
 
-  <body data-user="<%= user %>">
+  <!-- <body data-user="<%= user %>"> -->
 
     <div class="no-print" style="padding: 10px;">
       <button class="no-print" onclick="window.location.href='/'" style="
@@ -302,125 +302,6 @@
 </tr>
 
 
-            <!-- <tr>
-              
-              <td colspan="2">USL</td>
-              <td>
-                <%= spec ? (Number(spec.cl_wt_spec || 0) + Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.cl_ht_spec || 0) + Number(spec.cl_ht_spec_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.cl_kn_spec || 0) + Number(spec.cl_kn_spec_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.thickness || 0) + Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-              <%= spec ? (Number(spec.top_flatness || 0) + Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
-            </td>
-              
-
-              <td></td>
-              <td>
-                <%= spec ? (Number(spec.cl_wt_spec || 0) + Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.thickness || 0) + Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.top_flatness || 0) + Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td></td>
-              <td>
-                <%= spec ? (Number(spec.cl_wt_spec || 0) + Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.thickness || 0) + Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.top_flatness || 0) + Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
-              </td>
-            </tr> -->
-
-            <!-- <tr>
-              <td colspan="2">NOMINAL</td>
-              <td>
-                <%= spec ? Number(spec.cl_wt_spec || 0).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? Number(spec.cl_ht_spec || 0).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? Number(spec.cl_kn_spec || 0).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? Number(spec.thickness || 0).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? Number(spec.top_flatness || 0).toFixed(2) : '' %>
-              </td>
-              <td></td>
-              <td>
-                <%= spec ? Number(spec.cl_wt_spec || 0).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? Number(spec.thickness || 0).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? Number(spec.top_flatness || 0).toFixed(2) : '' %>
-              </td>
-              <td></td>
-              <td>
-                <%= spec ? Number(spec.cl_wt_spec || 0).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? Number(spec.thickness || 0).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? Number(spec.top_flatness || 0).toFixed(2) : '' %>
-              </td>
-            </tr> -->
-
-            <!-- <tr>
-              <td colspan="2">LSL</td>
-              <td>
-                <%= spec ? (Number(spec.cl_wt_spec || 0) - Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.cl_ht_spec || 0) - Number(spec.cl_ht_spec_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.cl_kn_spec || 0) - Number(spec.cl_kn_spec_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.thickness || 0) - Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.top_flatness || 0) - Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td></td>
-              <td>
-                <%= spec ? (Number(spec.cl_wt_spec || 0) - Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.thickness || 0) - Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.top_flatness || 0) - Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td></td>
-              <td>
-                <%= spec ? (Number(spec.cl_wt_spec || 0) - Number(spec.cl_wt_spec_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.thickness || 0) - Number(spec.thickness_tol || 0)).toFixed(2) : '' %>
-              </td>
-              <td>
-                <%= spec ? (Number(spec.top_flatness || 0) - Number(spec.top_flatness_tol || 0)).toFixed(2) : '' %>
-              </td>
-            </tr> -->
 
             <tr>
               <td colspan="2">MIN.</td>
