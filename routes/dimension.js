@@ -26,10 +26,10 @@ const docNo = require("../models/docNoDetailsSC")
 // }
 let inspection;
 
-router.get("/:id", isLoggedIn, async (req, res) => {
+router.get("/:date/:id", isLoggedIn, async (req, res) => {
   let user = req.user.username
   const mcId = req.params.id;
-  
+  const date = req.params.date;
   
 
   try {
@@ -54,7 +54,7 @@ router.get("/:id", isLoggedIn, async (req, res) => {
     const mb_detail = await mbDetailsSC.findOne({ mb_code: mb_code });
     
     const existingInspection = await dimensionReport.findOne({
-     date: '16-11-2025',
+     date: date,
      batch_number: latestBatches.batch_number,
       mc_no: { $regex: regex },
     })

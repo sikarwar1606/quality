@@ -68,7 +68,8 @@
       >
         <h3 class="text-gray-500 font-semibold">Dimension</h3>
         <p class="text-3xl font-bold text-green-600 mt-2">
-          <a href="/dimension/CCM-01">
+         
+          <a >
             <video
               width="50"
               preload="none"
@@ -178,6 +179,25 @@
     </section>
     <script src="/javascripts/loader.js"></script>
     <script >
+
+      function getShiftDate() {
+  const now = new Date();
+  const hour = now.getHours();
+
+  // If time is before 07:00 AM, use previous day’s date (shift logic)
+  if (hour < 7) {
+    now.setDate(now.getDate() - 1);
+  }
+
+  // Return date in same format as front-end (DD/MM/YYYY)
+  const day = String(now.getDate()).padStart(2, "0");
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const year = now.getFullYear();
+
+  return `${day}-${month}-${year}`;
+}
+
+  let date = getShiftDate()
       let prepareCoa = document.getElementById("prepareCoa");
       prepareCoa.addEventListener("click", () => {
         window.location.href = "/coa/coa";
@@ -188,7 +208,7 @@
       });
       let dimension = document.getElementById("dimension");
       dimension.addEventListener("click", () => {
-        window.location.href = "/dimension/CCM-01";
+        window.location.href = `/dimension/${date}/CCM-01`;
       });
 
       
