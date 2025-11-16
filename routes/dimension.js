@@ -8,22 +8,22 @@ const mbDetailsSC = require("../models/mbDetailsSC");
 const designSC = require("../models/specsSC")
 const docNo = require("../models/docNoDetailsSC")
 
-function getShiftDate() {
-  const now = new Date();
-  const hour = now.getHours();
+// function getShiftDate() {
+//   const now = new Date();
+//   const hour = now.getHours();
 
-  // If time is before 07:00 AM, use previous day’s date (shift logic)
-  if (hour < 7) {
-    now.setDate(now.getDate() - 1);
-  }
+//   // If time is before 07:00 AM, use previous day’s date (shift logic)
+//   if (hour < 7) {
+//     now.setDate(now.getDate() - 1);
+//   }
 
-  // Return date in same format as front-end (DD/MM/YYYY)
-  const day = String(now.getDate()).padStart(2, '0');
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const year = now.getFullYear();
+//   // Return date in same format as front-end (DD/MM/YYYY)
+//   const day = String(now.getDate()).padStart(2, '0');
+//   const month = String(now.getMonth() + 1).padStart(2, '0');
+//   const year = now.getFullYear();
 
-  return `${day}-${month}-${year}`;
-}
+//   return `${day}-${month}-${year}`;
+// }
 let inspection;
 
 router.get("/:id", isLoggedIn, async (req, res) => {
@@ -54,10 +54,11 @@ router.get("/:id", isLoggedIn, async (req, res) => {
     const mb_detail = await mbDetailsSC.findOne({ mb_code: mb_code });
     
     const existingInspection = await dimensionReport.findOne({
-     date: getShiftDate(),
+     date: '16-11-2025',
      batch_number: latestBatches.batch_number,
       mc_no: { $regex: regex },
     })
+    console.log(existingInspection);
     
 
     res.render("inspection/dimension", {spec, user, docDetail, mcId, latestBatches, mb_detail,inspectionReportIncom:existingInspection || null });

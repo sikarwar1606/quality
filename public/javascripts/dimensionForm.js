@@ -167,7 +167,7 @@ const columns = [
 window.onload = function () {
   columns.forEach((col) => {
     const daata = calculateStats(col.selector, col.minId, col.maxId, col.avgId, col.rangeId);
-    console.log(daata);
+    
     
   });
 };
