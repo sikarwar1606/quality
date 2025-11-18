@@ -12,7 +12,7 @@ const cokeCoaDetailsSchema = new mongoose.Schema({
   cl_kn_tol: String,
   cl_wt_tol: String,
   cl_liner_wt: String,
-  cl_liner_tol: String,
+  cl_liner_wt_tol: String,
   cl_ht: String,
   cl_ht_tol: String,
   cl_sst: String,

@@ -629,7 +629,7 @@ router.get("/cokeCoa", async (req, res) => {
     mb_code: batch.mb_code,
   };
 
-  const mb_code = batch_data.mb;
+  const mb_code = batch_data.mb_code;
   const rm = cokeCoaDetailsData.rm;
 
   const mbDetails = await mbDetailsSC.findOne({ mb_code: mb_code });

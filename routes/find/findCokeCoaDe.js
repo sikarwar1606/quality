@@ -36,8 +36,8 @@ router.get("/show", isLoggedIn, async (req, res) => {
     console.log(cokeCoaData);
     
     // const {product,rm,cl_wt,cl_wt_tol,cl_ht, cl_ht_tol,cl_kn,cl_kn_tol,cl_tDia,cl_tDia_tol,cl_eDia,cl_eDia_tol,cl_plugDia,cl_plugDia_tol,cl_maxDia,cl_maxDia_tol,lubricationMig,shelfLife,cl_sst,issued_by,} = CokeCoaData;
-    const {product, cl_type, cl_wt, cl_drw, cl_fn_ty, cl_size_ty, cl_kn, cl_kn_tol, cl_wt_tol, cl_liner_wt, cl_liner_wt_tol, cl_ht, cl_ht_tol, cl_sst, issued_by, date} = cokeCoaData;
-    res.render('show/show_cokecoade', {design,product, cl_type, cl_wt, cl_drw, cl_fn_ty, cl_size_ty, cl_kn, cl_kn_tol, cl_wt_tol, cl_liner_wt, cl_liner_wt_tol,cl_ht, cl_ht_tol, cl_sst, issued_by,});
+    const {product, cl_type, cl_wt, cl_drw, cl_fn_ty, cl_size_ty, cl_kn, cl_kn_tol, cl_wt_tol, cl_liner_wt, cl_liner_wt_tol, cl_ht, cl_ht_tol, cl_sst, issued_by, date, rm} = cokeCoaData;
+    res.render('show/show_cokecoade', {design,product, cl_type, cl_wt, cl_drw, cl_fn_ty, cl_size_ty, cl_kn, cl_kn_tol, cl_wt_tol, cl_liner_wt, cl_liner_wt_tol,cl_ht, cl_ht_tol, cl_sst, rm, issued_by,});
   } catch (err) {
     res.status(500).send("Server Error");
   }
