@@ -17,6 +17,7 @@ const cokeCoaDetailsSchema = new mongoose.Schema({
   cl_ht_tol: String,
   cl_sst: String,
   issued_by: String,
+  rm:String,
   date: { type: Date, default: Date.now },
 });
 

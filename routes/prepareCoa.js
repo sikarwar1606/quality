@@ -603,6 +603,7 @@ router.get("/cokeCoa", async (req, res) => {
     cl_liner_wt_tol: cokeCoaDes.cl_liner_wt_tol,
     cl_sst: cokeCoaDes.cl_sst,
     product: cokeCoaDes.product,
+    rm: cokeCoaDes.rm,
   };
   //Taking document details like doc no and rev no from docDetailsSC
   const rawdocDetails = await docNoDetailsSC.findOne({
@@ -628,8 +629,8 @@ router.get("/cokeCoa", async (req, res) => {
     mb_code: batch.mb_code,
   };
 
-  const mb_code = batch_data.mb_code;
-  const rm = batch_data.rm;
+  const mb_code = batch_data.mb;
+  const rm = cokeCoaDetailsData.rm;
 
   const mbDetails = await mbDetailsSC.findOne({ mb_code: mb_code });
   const mbData = {
