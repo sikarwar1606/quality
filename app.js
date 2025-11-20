@@ -21,6 +21,8 @@ const RelianceCoaSchema = require('./models/relianceCoaDetailsSC');
 const visualReportSc = require('./models/visual_inspecSC')
 const logoSc = require('./models/logoSC')
 const dimensionSchema = require('./routes/dimension');
+const approvedMbDetails = require('./routes/addCokeApproveMb')
+
 
 
 //Routes
@@ -37,6 +39,7 @@ const relianceCoaDetails = require('./routes/relianceCoaDetails');
 const newCustomer = require('./routes/newCustomer');
 const specs = require('./routes/specs');
 const addLogoRoute = require('./routes/addLogo')
+const addCokeApproveMb = require('./routes/addCokeApproveMb')
 
 //Suggession routes
 const logoRoute = require('./routes/suggesion/logo')
@@ -130,9 +133,11 @@ app.use('/batch', newBatch);
 app.use('/customer', newCustomer);
 app.use('/specs', specs);
 app.use('/addmbDetails', addmbDetail);
+app.use('/addrmDetails', addrmDetail);
 app.use('/add_logo', addLogoRoute);
 app.use('/addnewdocDetails', addnewDocDetail);
 app.use("/dimension", dimensionReport)
+app.use("/cokeApprovedMB",addCokeApproveMb)
 
 
 //Find Routes Links

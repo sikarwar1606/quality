@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+    <title>New Coke Approved MB</title>
+    <link rel="stylesheet" href="/stylesheets/add_batch.css" />
+  </head>
+
+  <body>
+    <%- include("../partials/qualityNav") %> <%- include("../loader") %>
+
+    <div class="details">
+      <div class="main">
+        <h1>Quality</h1>
+        <h3>Enter Coke Approved MB Details</h3>
+
+        <form action="/cokeApprovedMB/new" method="post">
+          <label for="date"> Date: </label>
+          <input
+            type="text"
+            id="date"
+            name="date"
+            value="<%= new Date().toLocaleDateString('en-GB') %>"
+            required
+          />
+
+          <label for="mb_colour">MB Colour: </label>
+          <input
+            type="text"
+            id="mb_colour"
+            name="mb_colour"
+            class="uppercase"
+            required
+          />
+          
+
+          <label for="mb_code"> MB Code: </label>
+          <input
+            type="text"
+            list="designList"
+            id="mb_code"
+            name="mb_code"
+            class="uppercase"
+            required
+          />
+          <datalist id="designList"></datalist>
+
+          <label for="mb_percent">MB Percent: </label>
+          <input
+            type="text"
+            id="mb_percent"
+            list="logoList"
+            name="mb_percent"
+            class="uppercase"
+            required
+          />
+          <!-- <datalist id="logoList"></datalist> -->
+
+         
+
+          <label for="issued_by">Issued By: </label>
+          <input
+            type="text"
+            id="issued_by"
+            name="issued_by"
+            class="uppercase"
+            value="<%= user ? user: '' %>"
+            readonly
+            required
+          />
+
+          <div class="wrap">
+            <button type="submit" class="loaderReq">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      async function loadDatalist(apiUrl, datalistId) {
+        try {
+          const res = await fetch(apiUrl);
+          const codes = await res.json();
+
+          const datalist = document.getElementById(datalistId);
+          datalist.innerHTML = "";
+
+          codes.forEach((code) => {
+            const option = document.createElement("option");
+            option.value = code;
+            datalist.appendChild(option);
+          });
+        } catch (err) {
+          console.error(`Error loading ${datalistId}:`, err);
+        }
+      }
+
+      // Load all datalists
+      window.addEventListener("DOMContentLoaded", () => {
+        loadDatalist("/api/design", "designList");
+        loadDatalist("/api/logo", "logoList");
+        loadDatalist("/api/rm", "rmList");
+        loadDatalist("/api/mbcodes", "mb_codes");
+      });
+
+      // Force uppercase globally
+      document.addEventListener("input", (e) => {
+        if (e.target.classList.contains("uppercase")) {
+          e.target.value = e.target.value.toUpperCase();
+        }
+      });
+
+      // Force uppercase for all inputs with class="uppercase"
+      document.querySelectorAll("input.uppercase").forEach((input) => {
+        input.addEventListener("input", function () {
+          this.value = this.value.toUpperCase();
+        });
+      });
+
+       const input = document.getElementById("mc_no");
+  const options = Array.from(document.querySelectorAll("#machineList option")).map(opt => opt.value);
+    </script>
+     <script src="/javascripts/loader.js"></script>
+  </body>
+</html>

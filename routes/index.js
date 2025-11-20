@@ -13,8 +13,8 @@ passport.use(
 );
 
 const machineList = [
-  "CCM-01", "CCM-02", "CCM-03", "CCM-04", "CCM-06","CCM-07 / CCM-08",
-  "CCM-09 / CCM-10", "CCM-12",
+  "CCM-01", "CCM-02", "CCM-03", "CCM-04", "CCM-06","CCM-07","CCM-08",
+  "CCM-09","CCM-10", "CCM-11","CCM-12",
   "CCM-14", "CCM-15", "CCM-16", "CCM-17"
 ];
 
@@ -29,10 +29,10 @@ router.get("/", isLoggedIn, async function (req, res, next) {
     await Promise.all(
       machineList.map(async (mc) => {
         // const regex = new RegExp(mc); // match CCM-09 even if stored as CCM-09/10/11
-        const regex = new RegExp(`(^|\\s*/\\s*)${mc}(\\s*/\\s*|$)`, "i");
+        // const regex = new RegExp(`(^|\\s*/\\s*)${mc}(\\s*/\\s*|$)`, "i");
 
         const result = await Batch.aggregate([
-          { $match: { mc_no: regex } },
+          { $match: { mc_no: mc } },
           { $sort: { batch_number: -1 } },
           {
             $group: {
