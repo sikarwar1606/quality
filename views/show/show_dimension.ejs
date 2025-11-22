@@ -406,7 +406,7 @@
       <div class="heading">
         <table class="tbCCM">
           <tbody>
-            <tr>
+            <!-- <tr>
               <td>Inspected By:</td>
               <td><input type="text" id="inspector1" value="" readonly /></td>
               <td>Inspected By:</td>
@@ -415,6 +415,26 @@
               <td>
                 <input type="text" id="inspector3" value="<%= user  %>" readonly />
               </td>
+            </tr> -->
+
+            <tr>
+              <td>Remarks:</td>
+              <td colspan="3"><%=inspectionReportIncom.data1.remarks1%></td>
+              <td>Remarks:</td>
+              <td colspan="3"><%=inspectionReportIncom.data1.remarks2%></td>
+              <td>Remarks:</td>
+              <td colspan="3"><%=inspectionReportIncom.data1.remarks3%></td>
+
+            </tr>
+            <tr>
+              <td>Inspected By:</td>
+              <td colspan="3"><input type="text" id="inspector1" value="" readonly /></td>
+              <td>Inspected By:</td>
+              <td colspan="3"><input type="text" id="inspector2" value="" readonly /></td>
+              <td>Inspected By:</td>
+              <td colspan="3"><input type="text" id="inspector3" value="" readonly /></td>
+
+
             </tr>
             <tr>
               <td>Verified By:</td>
@@ -424,15 +444,7 @@
             </tr>
           </tbody>
         </table>
-        <!-- <div class="saveData">
-          <button style="width: 100px; height: 30px; cursor: pointer;" onclick="sendShiftData('data1')">First</button>
-          <button style="width: 100px; height: 30px; cursor: pointer;" onclick="sendShiftData('data2')">Second</button>
-          <button style="width: 100px; height: 30px; cursor: pointer;" onclick="sendShiftData('data3')">Third</button>
-          <button style="width: 100px; height: 30px; cursor: pointer; background-color: red;"
-            onclick="sendShiftData('data3')">Verify</button>
-        </div>
-      </div>
-    </div> -->
+     
 
     <div class="saveData">
   <button onclick="sendShiftData('data1')" class="float-btn first">First</button>

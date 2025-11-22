@@ -65,6 +65,8 @@ router.get("/:date/:mcId/:batch_number", isLoggedIn, async (req, res) => {
 
     const latestBatch = await Batch.findOne({ batch_number: report.batch_number });
     // console.log(latestBatch);
+    console.log(report.data1.remarks1);
+    
     
     const spec = await designSC.findOne({ design: latestBatch.design });
     const mb_detail = await mbDetailsSC.findOne({ mb_code: latestBatch.mb_code });
