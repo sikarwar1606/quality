@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const batch_details = require("../../models/batchSC");
+const mb_details =  require("../../models/mbDetailsSC")
 const { isLoggedIn } = require("../auth");
 
 const router = express.Router();
@@ -60,5 +61,68 @@ router.post('/update', isLoggedIn, async (req, res)=>{
   }catch(err){res.status(500).send("Server Error")}
 
 });
+
+
+router.get('/allBatch', async (req, res) => {
+  try {
+    let allBatch = await batch_details.find().sort({ _id: -1 });
+
+    if (!allBatch.length) {
+      return res.send("No batch details found");
+    }
+
+    // Attach mb details to each batch record
+    const updatedBatch = await Promise.all(
+      allBatch.map(async (batch) => {
+        const mbInfo = await mb_details.findOne({ mb_code: batch.mb_code });
+        return {
+          ...batch.toObject(),
+          mb_color: mbInfo?.mb_colour || "Not Available"
+        };
+      })
+    );
+
+    res.render("show/showAllBatches", { allBatch: updatedBatch });
+
+  } catch (error) {
+    console.error(error);
+    res.send("Some error occured while getting batches");
+  }
+});
+
+router.get("/initialBatch", async (req, res) => {
+  try {
+    // Load only latest 10 for first render
+    const initialBatch = await batch_details
+      .find()
+      .sort({ _id: -1 })
+      .limit(20);
+
+    res.render("show/showInitialBatches", { initialBatch });
+
+  } catch (err) {
+    console.log(err);
+    res.send("Error fetching initial batches");
+  }
+});
+
+// router.get("/loadMoreBatches/:skip", async (req, res) => {
+//   try {
+//     const skip = parseInt(req.params.skip) || 0;
+
+//     const moreBatch = await batch_details
+//       .find()
+//       .sort({ _id: -1 })
+//       .skip(skip)
+//       .limit(10);
+
+//     res.json(moreBatch);
+
+//   } catch (err) {
+//     console.log(err);
+//     res.status(500).send("Error loading more batches");
+//   }
+// });
+
 
 module.exports = router;

@@ -27,7 +27,7 @@
     <section
       class="my-8 mx-3 md:mx-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6"
     >
-      <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition">
+      <div class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition  hover:cursor-pointer" id="batchNumber">
         <h3 class="text-gray-500 font-semibold">Latest Batch</h3>
         <p class="text-3xl font-bold text-purple-600 mt-2">
           <%= latestBatchNo ? latestBatchNo.batch_number : '-' %>
@@ -35,12 +35,12 @@
       </div>
 
       <div
-        class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition loaderReq "
+        class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition hover:cursor-pointer loaderReq"
         id="visualInspection"
       >
         <h3 class="text-gray-500 font-semibold">Visual Inspection</h3>
         <p class="text-3xl font-bold text-green-600 mt-2">
-          <a href="/visual/CCM-01">
+          <a>
             <video
               width="50"
               preload="none"
@@ -63,13 +63,12 @@
         </p>
       </div>
       <div
-        class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition loaderReq"
+        class="bg-white rounded-xl shadow p-6 hover:shadow-lg transition hover:cursor-pointer loaderReq"
         id="dimension"
       >
         <h3 class="text-gray-500 font-semibold">Dimension</h3>
         <p class="text-3xl font-bold text-green-600 mt-2">
-         
-          <a >
+          <a>
             <video
               width="50"
               preload="none"
@@ -178,41 +177,41 @@
       </div>
     </section>
     <script src="/javascripts/loader.js"></script>
-    <script >
-
+    <script>
       function getShiftDate() {
-  const now = new Date();
-  const hour = now.getHours();
+        const now = new Date();
+        const hour = now.getHours();
 
-  // If time is before 07:00 AM, use previous day’s date (shift logic)
-  if (hour < 7) {
-    now.setDate(now.getDate() - 1);
-  }
+        // If time is before 07:00 AM, use previous day’s date (shift logic)
+        if (hour < 7) {
+          now.setDate(now.getDate() - 1);
+        }
 
-  // Return date in same format as front-end (DD/MM/YYYY)
-  const day = String(now.getDate()).padStart(2, "0");
-  const month = String(now.getMonth() + 1).padStart(2, "0");
-  const year = now.getFullYear();
+        // Return date in same format as front-end (DD/MM/YYYY)
+        const day = String(now.getDate()).padStart(2, "0");
+        const month = String(now.getMonth() + 1).padStart(2, "0");
+        const year = now.getFullYear();
 
-  return `${day}-${month}-${year}`;
-}
+        return `${day}-${month}-${year}`;
+      }
 
-  let date = getShiftDate()
+      let date = getShiftDate();
       let prepareCoa = document.getElementById("prepareCoa");
       prepareCoa.addEventListener("click", () => {
         window.location.href = "/coa/coa";
       });
       let visualInspection = document.getElementById("visualInspection");
       visualInspection.addEventListener("click", () => {
-        window.location.href = "/visual/CCM-01";
+        window.location.href = `/visual/${date}/CCM-01`;
       });
       let dimension = document.getElementById("dimension");
       dimension.addEventListener("click", () => {
         window.location.href = `/dimension/${date}/CCM-01`;
       });
-
-      
+      let allBatch = document.getElementById('batchNumber')
+      allBatch.addEventListener('click', ()=>{
+        window.location.href='/batch/initialBatch'
+      })
     </script>
-    
   </body>
 </html>

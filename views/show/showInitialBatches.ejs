@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Batch Number Details</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+ <!-- Back button (bottom-right) -->
+<button
+  onclick="window.history.back()"
+  aria-label="Go back"
+  class="print:hidden fixed bottom-12 right-5 bg-blue-600 text-white border-0 px-4 py-2 rounded-full shadow-lg z-50 flex items-center gap-2 w-24 justify-center text-sm transition-colors duration-150 hover:bg-[#FF2400] focus:outline-none focus:ring-2 focus:ring-blue-300"
+>
+ ← Back
+</button>
+<button
+  id="loadMoreBtn"
+  class="print:hidden fixed bottom-12 left-1/2 -translate-x-1/2 bg-blue-600 text-white border-0 px-8 py-2 rounded-full shadow-lg z-50 flex items-center gap-2 w-50 justify-center text-sm transition-colors duration-150 hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-blue-300"
+>
+  Load More
+</button>
+
+
+<!-- Home button (bottom-left) -->
+<button
+  onclick="window.location.href='/'"
+  aria-label="Go home"
+  class="print:hidden fixed bottom-12 left-5 bg-blue-600 text-white border-0 px-4 py-2 rounded-full shadow-lg z-50 flex items-center gap-2 w-24 justify-center text-sm transition-colors duration-150 hover:bg-[#FF2400] focus:outline-none focus:ring-2 focus:ring-blue-300"
+>
+  Home
+</button>
+
+
+  <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">
+    Batch Number Details
+  </h1>
+
+  <div class="w-full mx-auto bg-white shadow-lg rounded-lg  overflow-x-auto">
+
+    <table class="min-w-full border-collapse">
+      <thead class="bg-gray-800 text-white">
+        <tr>
+          <th class="py-3 px-4 text-left text-sm font-semibold">Sl. No.</th>
+          <th class="py-3 px-4 text-left text-sm font-semibold">Batch Number</th>
+          <th class="py-3 px-4 text-left text-sm font-semibold">Date</th>
+          <th class="py-3 px-4 text-left text-sm font-semibold">Shift</th>
+          <th class="py-3 px-4 text-left text-sm font-semibold">Machine No.</th>
+          <th class="py-3 px-4 text-left text-sm font-semibold">Design</th>
+          <th class="py-3 px-4 text-left text-sm font-semibold">Colour</th>
+          <th class="py-3 px-4 text-left text-sm font-semibold">Logo</th>
+          <th class="py-3 px-4 text-left text-sm font-semibold">RM</th>
+          <th class="py-3 px-4 text-left text-sm font-semibold">MB</th>
+          <th class="py-3 px-4 text-left text-sm font-semibold">MC Speed</th>
+          <th class="py-3 px-4 text-left text-sm font-semibold">Issued By</th>
+        </tr>
+      </thead>
+
+      <tbody id="batchBody">
+        <% initialBatch.forEach((r, index) => { %>
+        <tr class="border-b hover:bg-gray-100 transition duration-150">
+          <td class="py-2 px-4 text-gray-700"><%= index+1 %></td>
+          <td class="py-2 px-4 font-medium text-gray-900"><%= r.batch_number %></td>
+          <td class="py-2 px-4 text-gray-700"><%= new Date(r.date).toLocaleDateString('en-IN') %></td>
+          <td class="py-2 px-4 text-gray-700"><%= r.shift %></td>
+          <td class="py-2 px-4 text-gray-700"><%= r.mc_no %></td>
+          <td class="py-2 px-4 text-gray-700"><%= r.design %></td>
+          <td class="py-2 px-4 text-gray-700"><%= r.mb_color %></td>
+          <td class="py-2 px-4 text-gray-700"><%= r.debossed %></td>
+          <td class="py-2 px-4 text-gray-700"><%= r.rm %></td>
+          <td class="py-2 px-4 text-gray-700"><%= r.mb_code %></td>
+          <td class="py-2 px-4 text-gray-700"><%= r.mc_speed %></td>
+          <td class="py-2 px-4 text-gray-700"><%= r.issued_by %></td>
+         
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+
+<script>
+
+
+document.getElementById("loadMoreBtn").addEventListener("click",  () => {
+  window.location.href="/batch/allBatch"
+});
+</script>
+
+</body>
+</html>

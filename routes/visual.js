@@ -7,30 +7,16 @@ const Batch = require("../models/batchSC");
 const mbDetailsSC = require("../models/mbDetailsSC");
 const docNo = require("../models/docNoDetailsSC")
 
-function getShiftDate() {
-  const now = new Date();
-  const hour = now.getHours();
 
-  // If time is before 07:00 AM, use previous day’s date (shift logic)
-  if (hour < 7) {
-    now.setDate(now.getDate() - 1);
-  }
-
-  // Return date in same format as front-end (DD/MM/YYYY)
-  const day = String(now.getDate()).padStart(2, '0');
-  const month = String(now.getMonth() + 1).padStart(2, '0');
-  const year = now.getFullYear();
-
-  return `${day}-${month}-${year}`;
-}
 
 
 
 let inspection;
 
-router.get("/:id", isLoggedIn, async (req, res) => {
+router.get("/:date/:id", isLoggedIn, async (req, res) => {
   let user = req.user.username
   const mcId = req.params.id;
+  let date = req.params.date
 
   try {
     // Aggregate latest batches per machine
@@ -52,7 +38,7 @@ router.get("/:id", isLoggedIn, async (req, res) => {
     const mb_detail = await mbDetailsSC.findOne({ mb_code: mb_code });
 
     const existingInspection = await VisualReport.findOne({
-     date: getShiftDate(),
+     date: date,
      batch_number: latestBatches.batch_number,
       mc_no: { $regex: regex },
     })

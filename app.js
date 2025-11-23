@@ -22,6 +22,7 @@ const visualReportSc = require('./models/visual_inspecSC')
 const logoSc = require('./models/logoSC')
 const dimensionSchema = require('./routes/dimension');
 const approvedMbDetails = require('./routes/addCokeApproveMb')
+const bridgeSt = require('./routes/bridgeStr')
 
 
 
@@ -138,6 +139,7 @@ app.use('/add_logo', addLogoRoute);
 app.use('/addnewdocDetails', addnewDocDetail);
 app.use("/dimension", dimensionReport)
 app.use("/cokeApprovedMB",addCokeApproveMb)
+app.use("/", bridgeSt)
 
 
 //Find Routes Links
